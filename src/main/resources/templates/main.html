@@ -9,9 +9,18 @@
     <script src="bower_components/markdown/lib/markdown.js"></script>
     <script src="scripts/main.js"></script>
 
-
 </head>
 <body>
+
+# Serveur simplifié
+
+Spring boot propose un serveur Tomcat simplifié pour développement:
+
+```
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+```
 
 # Mise à jour
 
@@ -21,8 +30,14 @@ Spring Boot surveille le classpath.
 *   Pour mettre à jour les templates thymeleaf, ajouter cette option dans application.properties
 
 ```
-        spring.devtools.restart.additional-paths=src/main/resources/templates
+    spring.devtools.restart.additional-paths=src/main/resources/templates
+
+    Ou alors en Java:
+
+    System.setProperty("spring.template.cache", "false");
+
 ```
+
 
 </body>
 

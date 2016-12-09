@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.remipassmoilesel</groupId>
-    <artifactId>spring-thymeleaf-examples</artifactId>
+    <artifactId>spring-thymeleaf-experiments</artifactId>
     <version>1.0</version>
 
     <parent>
@@ -43,11 +43,41 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-        </plugins>
-    </build>
 
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.5.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>org.remipassmoilesel.app.Application</mainClass>
+                    <arguments>
+                        <!--<argument>argument1</argument>-->
+                    </arguments>
+                    <systemProperties>
+                        <!--
+                            <systemProperty>
+                                <key>myproperty</key>
+                                <value>myvalue</value>
+                            </systemProperty>
+                        -->
+                    </systemProperties>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+
+    </build>
 </project>
