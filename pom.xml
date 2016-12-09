@@ -13,22 +13,6 @@
         <version>1.4.2.RELEASE</version>
     </parent>
 
-    <repositories>
-
-        <repository>
-            <id>com.springsource.repository.bundles.milestone</id>
-            <name>SpringSource Enterprise Bundle Repository - SpringSource Milestone Releases</name>
-            <url>http://repository.springsource.com/maven/bundles/milestone</url>
-        </repository>
-
-        <repository>
-            <id>com.springsource.repository.bundles.external</id>
-            <name>SpringSource Enterprise Bundle Repository - External Releases</name>
-            <url>http://repository.springsource.com/maven/bundles/external</url>
-        </repository>
-
-    </repositories>
-
     <dependencies>
 
         <!-- Dev tools -->
@@ -43,10 +27,11 @@
         </dependency>
 
         <!-- Java Spring configuration -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.javaconfig/spring-javaconfig -->
         <dependency>
             <groupId>org.springframework.javaconfig</groupId>
-            <artifactId>org.springframework.config.java</artifactId>
-            <version>1.0.0.M4</version>
+            <artifactId>spring-javaconfig</artifactId>
+            <version>1.0.0.m3</version>
         </dependency>
 
     </dependencies>
