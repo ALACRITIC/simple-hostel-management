@@ -1,4 +1,4 @@
-package beans.simplebean;
+package org.remipassmoilesel.beans.simplebean;
 
 /**
  * Created by remipassmoilesel on 09/12/16.

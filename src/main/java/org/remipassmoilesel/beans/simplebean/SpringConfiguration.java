@@ -1,4 +1,4 @@
-package beans.simplebean;
+package org.remipassmoilesel.beans.simplebean;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

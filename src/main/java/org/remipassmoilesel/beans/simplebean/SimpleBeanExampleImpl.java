@@ -1,4 +1,4 @@
-package beans.simplebean;
+package org.remipassmoilesel.beans.simplebean;
 
 
 import org.apache.log4j.Logger;

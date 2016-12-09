@@ -1,7 +1,7 @@
-package hello;
+package org.remipassmoilesel.app;
 
-import beans.simplebean.SimpleBeanExample;
-import beans.simplebean.SpringConfiguration;
+import org.remipassmoilesel.beans.simplebean.SimpleBeanExample;
+import org.remipassmoilesel.beans.simplebean.SpringConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
