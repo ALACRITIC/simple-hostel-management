@@ -1,6 +1,4 @@
-package org.remipassmoilesel.beans.simplebean;
-
-import org.springframework.stereotype.Component;
+package org.remipassmoilesel.plainexamples.simplebean;
 
 /**
  * Created by remipassmoilesel on 09/12/16.
@@ -8,5 +6,5 @@ import org.springframework.stereotype.Component;
 public interface SimpleBeanExample {
     public void init();
     public void cleanup();
-    public void doService();
+    public String doService();
 }

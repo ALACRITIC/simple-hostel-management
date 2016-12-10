@@ -1,4 +1,4 @@
-package org.remipassmoilesel.beans.autowiring;
+package org.remipassmoilesel.plainexamples.autowiring;
 
 import java.util.ArrayList;
 

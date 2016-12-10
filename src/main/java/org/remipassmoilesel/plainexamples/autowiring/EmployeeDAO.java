@@ -1,7 +1,6 @@
-package org.remipassmoilesel.beans.autowiring;
+package org.remipassmoilesel.plainexamples.autowiring;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 

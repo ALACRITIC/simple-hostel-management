@@ -1,4 +1,4 @@
-package org.remipassmoilesel.beans.simplebean;
+package org.remipassmoilesel.plainexamples.simplebean;
 
 
 import org.apache.log4j.Logger;
@@ -28,9 +28,8 @@ public class SimpleBeanExampleImpl implements SimpleBeanExample {
     }
 
     @Override
-    public void doService() {
-        System.out.println("Time: " + System.currentTimeMillis());
-        System.out.println(this.toString());
+    public String doService() {
+        return "Time: " + System.currentTimeMillis();
     }
 
 }

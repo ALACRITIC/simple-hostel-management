@@ -1,18 +1,7 @@
-<!DOCTYPE HTML>
 
-<html>
-<head>
-    <title>/main</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+# Développement
 
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/markdown/lib/markdown.js"></script>
-    <script src="scripts/main.js"></script>
-
-</head>
-<body>
-
-# Serveur simplifié
+## Serveur simplifié
 
 Spring boot propose un serveur Tomcat simplifié pour développement:
 
@@ -22,7 +11,7 @@ Spring boot propose un serveur Tomcat simplifié pour développement:
     }
 ```
 
-# Mise à jour
+## Mise à jour
 
 Spring Boot surveille le classpath.
 
@@ -38,13 +27,10 @@ Spring Boot surveille le classpath.
 
 ```
 
-Erreurs possibles:
+## Erreurs possibles:
 
     java.lang.annotation.AnnotationFormatError: Invalid default:
         public abstract org.springframework.beans.factory.annotation.Autowire
         org.springframework.config.java.annotation.Configuration.defaultAutowire()
 
-
-</body>
-
-</html>
+    >> La version de Spring java config n'est pas compatible 

@@ -1,4 +1,4 @@
-package org.remipassmoilesel.beans.autowiring;
+package org.remipassmoilesel.plainexamples.autowiring;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
