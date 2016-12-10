@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>/employee</title>
+    <title>/note ${name} </title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-
+<!-- Use utext to insert unescaped text-->
+<p th:utext="${content}"/>
 </body>
 </html>

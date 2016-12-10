@@ -1,12 +1,11 @@
 package org.remipassmoilesel;
 
-import org.remipassmoilesel.plainexamples.simplebean.SimpleBeanExample;
-import org.remipassmoilesel.plainexamples.simplebean.SimpleBeanExampleImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+
+import java.nio.file.Paths;
 
 @Configuration
 @EnableAutoConfiguration
@@ -14,17 +13,22 @@ import org.springframework.context.annotation.Configuration;
 public class Application {
 
     public static void main(String[] args) {
-        // standalone server for development
-        SpringApplication.run(Application.class, args);
-    }
 
-    /**
-     * Explicit factory of bean
-     * @return
-     */
-    @Bean(initMethod = "init", destroyMethod = "cleanup")
-    SimpleBeanExample simpleBean() {
-        return new SimpleBeanExampleImpl();
+        // standalone server for development
+
+        SpringApplication app = new SpringApplication(Application.class);
+
+        // listen application to update files
+        UpdateFilesListener updater = new UpdateFilesListener();
+        updater.addPeer(Paths.get("src/main/resources"), Paths.get("target/classes"));
+
+        app.addListeners(updater);
+
+        updater.update();
+
+        app.run(args);
+
+
     }
 
 }
