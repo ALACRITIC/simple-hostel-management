@@ -13,8 +13,18 @@ public class SimpleBeanExampleImpl implements SimpleBeanExample {
     private static final Logger logger = Logger.getLogger(SimpleBeanExampleImpl.class.toString());
 
     @PostConstruct
+    public void postConstruct() {
+        System.out.println("postConstruct() method called !");
+    }
+
+    @Override
     public void init() {
-        System.out.println("Called after bean construction");
+        System.out.println("init() method called");
+    }
+
+    @Override
+    public void cleanup() {
+        System.out.println("cleanup() method called");
     }
 
     @Override
