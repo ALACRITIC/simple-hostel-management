@@ -1,11 +1,21 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>/note ${name} </title>
+    <title>/note </title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+
+<h1>Liste des notes disponibles</h1>
+<table>
+    <tr th:each="name : ${notesList}">
+        <td><a href="notes?name=note_name" th:attr="href='note?name=' + ${name}" th:text="${name}">Name</a></td>
+    </tr>
+</table>
+
 <!-- Use utext to insert unescaped text-->
 <p th:utext="${content}"/>
+
+
 </body>
 </html>

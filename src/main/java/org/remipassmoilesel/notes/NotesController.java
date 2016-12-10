@@ -19,6 +19,7 @@ public class NotesController {
     @RequestMapping("note")
     public String displayNote(@RequestParam(value = "name", required = false, defaultValue = "configuration") String name, Model model) {
         model.addAttribute("content", service.getNoteAsHTML(name));
+        model.addAttribute("notesList", service.getNotesList());
         return "note_display";
     }
 
