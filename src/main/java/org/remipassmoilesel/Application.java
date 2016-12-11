@@ -15,19 +15,18 @@ public class Application {
     public static void main(String[] args) {
 
         // standalone server for development
-
         SpringApplication app = new SpringApplication(Application.class);
 
         // listen application to update files
         UpdateFilesListener updater = new UpdateFilesListener();
         updater.addPeer(Paths.get("src/main/resources"), Paths.get("target/classes"));
 
+        // first file update
         app.addListeners(updater);
-
         updater.update();
 
+        // run server
         app.run(args);
-
 
     }
 

@@ -9,13 +9,14 @@
 <h1>Liste des notes disponibles</h1>
 <table>
     <tr th:each="name : ${notesList}">
-        <td><a href="notes?name=note_name" th:attr="href='note?name=' + ${name}" th:text="${name}">Name</a></td>
+        <td th:text="${name}"></td>
+        <td><a th:attr="href='/notes/display/' + ${name}">html</a></td>
+        <td><a th:attr="href='/notes/get/json/' + ${name}" target="_blank">json</a></td>
     </tr>
 </table>
 
 <!-- Use utext to insert unescaped text-->
-<p th:utext="${content}"/>
-
+<p th:utext="${currentNote.getHtml()}"/>
 
 </body>
 </html>

@@ -21,18 +21,20 @@ public class NotesService {
     @Autowired
     private NotesRepository repository;
 
-    public String getNoteAsHTML(String name) {
-        String md = null;
+    public Note getNote(String name) {
+
+        Note note = null;
         try {
-            md = repository.getNote(name);
+            note = repository.getNote(name);
         } catch (IOException e) {
-            md = "# Note indisponible";
+            note = new Note("unavailable", "# Note indisponible", null);
             logger.error("Error while retrieving note", e);
         }
 
         PegDownProcessor processor = new PegDownProcessor();
+        note.setHtml(processor.markdownToHtml(note.getMarkdown()));
 
-        return processor.markdownToHtml(md);
+        return note;
     }
 
     public ArrayList<String> getNotesList() {
@@ -40,7 +42,7 @@ public class NotesService {
             return repository.getList();
         } catch (IOException e) {
             logger.error("Error while retrieving notes list", e);
-            ArrayList<String> list = new ArrayList<String>();
+            ArrayList<String> list = new ArrayList<>();
             list.add("Aucune note disponible");
             return list;
         }
