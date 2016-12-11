@@ -29,13 +29,13 @@ Spring Boot surveille le classpath.
 *   Pour mettre à jour des classes Java, éxecuter un "make" pour rafraichir le projet
 *   Pour mettre à jour les templates thymeleaf, ajouter cette option dans application.properties
 
+
 ```
     spring.devtools.restart.additional-paths=src/main/resources/templates
-
+    
     Ou alors en Java:
-
+    
     System.setProperty("spring.template.cache", "false");
-
 ```
 
 ## Logging
@@ -44,13 +44,3 @@ Le niveau de log général peut être modifié dans le fichier application.prope
 
     # Main log level
     logging.level.root=INFO
-
-## Erreurs possibles:
-
-    java.lang.annotation.AnnotationFormatError: Invalid default:
-        public abstract org.springframework.beans.factory.annotation.Autowire
-        org.springframework.config.java.annotation.Configuration.defaultAutowire()
-
-    >> La version de Spring java config n'est pas compatible
-     
-     
