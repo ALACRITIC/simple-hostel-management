@@ -12,6 +12,7 @@
         <td th:text="${name}"></td>
         <td><a th:attr="href='/notes/display/' + ${name}">html</a></td>
         <td><a th:attr="href='/notes/get/json/' + ${name}" target="_blank">json</a></td>
+        <td><a th:attr="href='/notes/get/xml/' + ${name}" target="_blank">xml</a></td>
     </tr>
 </table>
 

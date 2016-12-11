@@ -35,7 +35,7 @@ public class NotesController {
 
     @RequestMapping(value = "get/json/{noteId}")
     @ResponseBody
-    public Note getJson(@PathVariable String noteId, HttpServletResponse response) {
+    public Note getJson(@PathVariable String noteId) {
 
         Note note = service.getNote(noteId);
 
@@ -62,6 +62,13 @@ public class NotesController {
 
         return jsonContent;
 
+    }
+
+    @RequestMapping(value = "get/xml/{noteId}", produces = MediaType.APPLICATION_XML_VALUE)
+    @ResponseBody
+    public Note getXml(@PathVariable String noteId) {
+        Note note = service.getNote(noteId);
+        return note;
     }
 
 

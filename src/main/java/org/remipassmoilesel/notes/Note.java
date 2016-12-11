@@ -3,14 +3,24 @@ package org.remipassmoilesel.notes;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Created by remipassmoilesel on 11/12/16.
  */
+@XmlRootElement(name = "note")
 public class Note {
 
     private String markdown;
+
     private String html;
+
     private String name;
+
+    public Note(){
+
+    }
 
     public Note(String name, String markdown, String html) {
         this.name = name;
