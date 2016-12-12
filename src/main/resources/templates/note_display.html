@@ -3,21 +3,41 @@
 <head>
     <title>/note </title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+
 </head>
 <body>
 
-<h1>Liste des notes disponibles</h1>
-<table>
-    <tr th:each="name : ${notesList}">
-        <td th:text="${name}"></td>
-        <td><a th:attr="href='/notes/display/' + ${name}">html</a></td>
-        <td><a th:attr="href='/notes/get/json/' + ${name}" target="_blank">json</a></td>
-        <td><a th:attr="href='/notes/get/xml/' + ${name}" target="_blank">xml</a></td>
-    </tr>
-</table>
+<div class="row">
+    <div class="col-sm-3">&nbsp;</div>
+    <div class="col-sm-6">
+        <h1>Liste des notes disponibles</h1>
+    </div>
+</div>
 
-<!-- Use utext to insert unescaped text-->
-<p th:utext="${currentNote.getHtml()}"/>
+<div class="row">
+    <div class="col-sm-3">&nbsp;</div>
+    <table class="col-sm-6">
+        <tr th:each="name : ${notesList}">
+            <td th:text="${name}"></td>
+            <td><a th:attr="href='/notes/display/' + ${name}">html</a></td>
+            <td><a th:attr="href='/notes/get/json/' + ${name}" target="_blank">json</a></td>
+            <td><a th:attr="href='/notes/get/xml/' + ${name}" target="_blank">xml</a></td>
+        </tr>
+    </table>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">&nbsp;</div>
+    <div class="col-sm-6">
+        <!-- Use utext to insert unescaped text-->
+        <p th:utext="${currentNote.getHtml()}"/>
+    </div>
+</div>
+
 
 </body>
 </html>

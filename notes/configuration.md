@@ -4,7 +4,7 @@
 
     @SpringBootApplicatcation
     
-    Equivaut à
+    >> Equivaut à
     
     @Configuration                  ->  classe de configuration
     @EnableAutoConfiguration        ->  configuration automatique par défaut
