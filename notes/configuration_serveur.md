@@ -1,25 +1,33 @@
-# Configurer une application
+# Configurer le serveur embarqué Tomcat
 
-## Configuration automatique basique:
+## Serveur simplifié
 
-    @SpringBootApplicatcation
-    
-    >> Equivaut à
-    
-    @Configuration                  ->  classe de configuration
-    @EnableAutoConfiguration        ->  configuration automatique par défaut
-    @ComponentScan                  -> recherche de composants (beans) à partir de ce package
-    
-Le plus simple est de créer une classe application à la racine de l'application pour autoriser l'utilisation 
-d'@Autowired (injection) à partir de la racine.
+Spring boot propose un serveur Tomcat simplifié pour développement:
+
+```
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+```
+
+Il est possible d'écouter des événements:
+
+```
+    SpringApplication app = new SpringApplication(Application.class);
+    ...
+    app.addListeners(updater);
+    app.run(args);
+```
+
 
 ## Bannière
 
 Il est possible de personnaliser la bannière de lancemement de l'application en ajoutant un fichier banner.txt dans le dossier de ressources.
 
-## Changer le port
 
-application.properties:
+## Changer le port d'écoute
+
+Dans le fichier application.properties:
 
     server.port=8081
     
@@ -49,3 +57,11 @@ Remarques:
     1. Il peut être plus simple d'utiliser un proxy
     
 Plus à l'adresse: https://docs.oracle.com/cd/E19509-01/820-3503/ggfen/index.html
+
+## Journaux d'accès 
+
+Dans le fichier application.properties:
+
+    server.tomcat.basedir=tomcat-logs
+    server.tomcat.accesslog.enabled=true
+    server.tomcat.accesslog.pattern=%t %a "%r" %s (%D ms)
