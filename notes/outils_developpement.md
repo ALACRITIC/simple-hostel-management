@@ -61,6 +61,7 @@ Adresses disponibles ensuite:
     /management/heapdump
     /management/autoconfig
 
+Voir comme interface: http://codecentric.github.io/spring-boot-admin/1.4.4/#getting-started
 Plus sur: http://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html
 
 ## Utilitaires

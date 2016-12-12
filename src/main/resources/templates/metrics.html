@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>/notes </title>
+    <title>/metrics </title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
@@ -13,21 +13,22 @@
 
 <div class="row">
     <div class="col-sm-3">&nbsp;</div>
+    <div class="col-sm-6"><h1>Statistiques</h1></div>
 </div>
 
 <div class="row">
     <div class="col-sm-3">&nbsp;</div>
-    <div class="col-sm-6">
-        <p><a href="/notes/">Retour à l'index</a></p>
-    </div>
-</div>
+    <table class="col-sm-6">
+        <tr>
+            <th>Nom</th>
+            <th>Adresse</th>
+        </tr>
 
-<div class="row">
-    <div class="col-sm-3">&nbsp;</div>
-    <div class="col-sm-6">
-        <!-- Use utext to insert unescaped text-->
-        <p th:utext="${currentNote.getHtml()}"/>
-    </div>
+        <tr th:each="mapping : ${metricsMapping}">
+            <td th:text="${mapping}">Mapping</td>
+            <td><a th:attr="href='http://127.0.0.1:8081' + ${mapping}" target="_blank">json</a></td>
+        </tr>
+    </table>
 </div>
 
 

@@ -5,8 +5,7 @@ package org.remipassmoilesel;
  */
 public class Mappings {
 
-    public static final String ROOT = "";
-
+    public static final String METRICS = "/metrics";
     public static final String EMPLOYEE = "/employee";
     public static final String THYMELEAF = "/thymeleaf";
     public static final String PLAIN_SERVLET = "/plainservlet";
@@ -16,4 +15,5 @@ public class Mappings {
     public static final String NOTE_GET = "/get";
     public static final String NOTE_GET_XML = NOTE_GET + "/xml/";
     public static final String NOTE_GET_JSON = NOTE_GET + "/json/";
+
 }
