@@ -15,7 +15,6 @@ import java.util.Iterator;
 @Repository
 public class NotesRepository {
 
-    //private static final PathROOT = Paths.get("classes").resolve("notes");
     private static final Path ROOT = Paths.get("notes");
     private static final String FILE_EXT = ".md";
 

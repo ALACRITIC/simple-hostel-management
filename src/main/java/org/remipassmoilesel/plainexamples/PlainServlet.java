@@ -1,5 +1,7 @@
 package org.remipassmoilesel.plainexamples;
 
+import org.remipassmoilesel.Mappings;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "PlainServlet", urlPatterns = {"/plainservlet"})
+@WebServlet(name = "PlainServlet", urlPatterns = {Mappings.PLAIN_SERVLET})
 public class PlainServlet extends HttpServlet {
 
     @Override

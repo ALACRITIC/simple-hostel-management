@@ -2,6 +2,7 @@ package org.remipassmoilesel.notes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.remipassmoilesel.Mappings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * Created by remipassmoilesel on 10/12/16.
  */
 @Controller
-@RequestMapping("notes/")
+@RequestMapping(Mappings.NOTE)
 public class NotesController {
 
     private static final Logger logger = LoggerFactory.getLogger(NotesController.class);
@@ -26,14 +25,14 @@ public class NotesController {
     @Autowired
     private NotesService service;
 
-    @RequestMapping("display/{noteId}")
+    @RequestMapping(Mappings.NOTE_DISPLAY + "{noteId}")
     public String displayNoteHtml(@PathVariable String noteId, Model model) {
         model.addAttribute("currentNote", service.getNote(noteId));
         model.addAttribute("notesList", service.getNotesList());
         return "note_display";
     }
 
-    @RequestMapping(value = "get/json/{noteId}")
+    @RequestMapping(value = Mappings.NOTE_GET_JSON + "{noteId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Note getJson(@PathVariable String noteId) {
 
@@ -64,7 +63,7 @@ public class NotesController {
 
     }
 
-    @RequestMapping(value = "get/xml/{noteId}", produces = MediaType.APPLICATION_XML_VALUE)
+    @RequestMapping(value = Mappings.NOTE_GET_XML + "{noteId}", produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody
     public Note getXml(@PathVariable String noteId) {
         Note note = service.getNote(noteId);
