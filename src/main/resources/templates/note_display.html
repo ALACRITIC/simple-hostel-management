@@ -13,21 +13,13 @@
 
 <div class="row">
     <div class="col-sm-3">&nbsp;</div>
-    <div class="col-sm-6">
-        <h1>Liste des notes disponibles</h1>
-    </div>
 </div>
 
 <div class="row">
     <div class="col-sm-3">&nbsp;</div>
-    <table class="col-sm-6">
-        <tr th:each="name : ${notesList}">
-            <td th:text="${name}"></td>
-            <td><a th:attr="href='/notes/display/' + ${name}">html</a></td>
-            <td><a th:attr="href='/notes/get/json/' + ${name}" target="_blank">json</a></td>
-            <td><a th:attr="href='/notes/get/xml/' + ${name}" target="_blank">xml</a></td>
-        </tr>
-    </table>
+    <div class="col-sm-6">
+        <p><a href="/notes/">Retour à l'index</a></p>
+    </div>
 </div>
 
 <div class="row">

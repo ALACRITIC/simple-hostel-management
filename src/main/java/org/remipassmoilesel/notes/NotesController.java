@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -25,7 +26,13 @@ public class NotesController {
     @Autowired
     private NotesService service;
 
-    @RequestMapping(Mappings.NOTE_DISPLAY + "{noteId}")
+    @RequestMapping(method = RequestMethod.GET)
+    public String displayNoteList(Model model) {
+        model.addAttribute("notesList", service.getNotesList());
+        return "show_list";
+    }
+
+    @RequestMapping(value = Mappings.NOTE_DISPLAY + "{noteId}", method = RequestMethod.GET)
     public String displayNoteHtml(@PathVariable String noteId, Model model) {
         model.addAttribute("currentNote", service.getNote(noteId));
         model.addAttribute("notesList", service.getNotesList());

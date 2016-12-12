@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>/static</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+
+</head>
+<body>
+
+<div class="row">
+    <div class="col-sm-3">&nbsp;</div>
+    <div class="col-sm-6"><h1>Notes sur Spring et Thymeleaf</h1></div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">&nbsp;</div>
+    <div class="col-sm-6"><p style="font-style: italic">Lues sur disque, converties à partir du format Markdown.</p></div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">&nbsp;</div>
+    <table class="col-sm-6">
+        <tr>
+            <th>Nom de la note</th>
+            <th colspan="3">Format</th>
+        </tr>
+
+        <tr th:each="name : ${notesList}">
+            <td th:text="${name}"></td>
+            <td><a th:attr="href='/notes/display/' + ${name}">html</a></td>
+            <td><a th:attr="href='/notes/get/json/' + ${name}" target="_blank">json</a></td>
+            <td><a th:attr="href='/notes/get/xml/' + ${name}" target="_blank">xml</a></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
