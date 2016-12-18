@@ -25,11 +25,12 @@ Il est possible d'écouter des événements:
 Il est possible de personnaliser la bannière de lancemement de l'application en ajoutant un fichier banner.txt dans le dossier de ressources.
 
 
-## Changer le port d'écoute
+## Changer le port et l'adresse d'écoute
 
 Dans le fichier application.properties:
 
     server.port=8081
+    server.address=0.0.0.0
     
     # Utiliser un port libre aléatoire
     server.port=0
