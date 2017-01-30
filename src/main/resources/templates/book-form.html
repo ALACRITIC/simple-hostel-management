@@ -42,12 +42,17 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="date" class="form-control" name="arrival" id="arrival" readonly="readonly" placeholder="Arrival date"/>
+                    <input type="text" class="form-control" name="arrival" id="arrival" readonly="readonly"
+                           placeholder="Arrival date"/>
                 </div>
 
                 <div class="form-group">
-                    <input type="date" class="form-control" name="departure" id="departure" readonly="readonly" placeholder="Departure date"/>
+                    <input type="text" class="form-control" name="departure" id="departure" readonly="readonly"
+                           placeholder="Departure date"/>
                 </div>
+
+                <!-- Add control token -->
+                <input type="hidden" name="token" th:value="${token}"/>
 
                 <button type="valid" class="btn btn-primary">Réserver</button>
 
