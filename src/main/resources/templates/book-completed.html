@@ -26,9 +26,11 @@
 
             <h1>Réservation effectuée !</h1>
 
-            <div th:text="customer"></div>
+            <div th:text="${customer}"></div>
+            <div th:text="${reservation}"></div>
+            <div th:text="${errorMessage}"></div>
 
-            <div>&lt;&lt; Précédent</div>
+            <div><a href="reservation">&lt;&lt; Précédent</a></div>
         </div>
 
     </div>

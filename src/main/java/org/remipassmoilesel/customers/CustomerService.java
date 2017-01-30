@@ -25,16 +25,6 @@ public class CustomerService {
 
     public CustomerService() {
 
-        System.out.println("CustomerService");
-        System.out.println("CustomerService");
-        System.out.println("CustomerService");
-        System.out.println("CustomerService");
-        System.out.println("CustomerService");
-        System.out.println("CustomerService");
-        System.out.println("CustomerService");
-        System.out.println("CustomerService");
-        System.out.println("CustomerService");
-
         try {
             connection = DatabaseUtils.getH2OrmliteConnectionPool(MainConfiguration.DATABASE_PATH);
 

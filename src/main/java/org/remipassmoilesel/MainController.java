@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -80,29 +79,25 @@ public class MainController {
             @RequestParam(value = "arrival", required = true) String arrival,
             Model model) {
 
+        String errorMessage = "";
         Customer customer = null;
+        Reservation reservation = null;
         try {
             customer = customerService.createClient(firstname, lastname, phonenumber);
-        } catch (IOException e) {
-            logger.error("Error while creating customer", e);
-        }
 
-        Reservation reservation = null;
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        try {
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date departureDate = formatter.parse(departure);
             Date arrivalDate = formatter.parse(departure);
             reservation = reservationService.createReservation(customer, departureDate, arrivalDate);
 
-            System.out.println(customer);
-            System.out.println(reservation);
-
         } catch (Exception e) {
             logger.error("Error while parsing dates: " + departure, e);
+            errorMessage = e.getMessage();
         }
-        
+
         model.addAttribute("customer", customer);
         model.addAttribute("reservation", reservation);
+        model.addAttribute("errorMessage", errorMessage);
 
         // name of template
         return "book-completed";
