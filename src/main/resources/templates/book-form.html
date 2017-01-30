@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <div th:replace="fragments/headers"></div>
+
+    <script>
+        $(function () {
+            $("#departure").datepicker();
+            $("#arrival").datepicker();
+        });
+
+    </script>
+
+</head>
+<body>
+
+<!-- include nav bar -->
+<div th:replace="fragments/navbar"></div>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <h1>Effectuer une réservation</h1>
+
+            <form action="reservation/confirm/" method="get">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" placeholder="Name"/>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" name="firstname" placeholder="First name"/>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" name="phonenumber" placeholder="Phone number"/>
+                </div>
+
+                <div class="form-group">
+                    <input type="date" class="form-control" name="arrival" id="arrival" readonly="readonly"
+                           placeholder="Phone number"/>
+                </div>
+
+                <div class="form-group">
+                    <input type="date" class="form-control" name="departure" id="departure" readonly="readonly"
+                           placeholder="Phone number"/>
+                </div>
+
+                <button type="valid" class="btn btn-primary">Réserver</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

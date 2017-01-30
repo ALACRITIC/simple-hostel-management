@@ -1,7 +1,8 @@
-package org.remipassmoilesel.customers;
+package org.remipassmoilesel.reservations;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import org.remipassmoilesel.customers.Customer;
 
 import java.util.Date;
 import java.util.Objects;
@@ -21,7 +22,7 @@ public class Reservation {
     private int id;
 
 
-    @DatabaseField(generatedId = true, columnName = CUSTOMER_ID_FIELD_NAME)
+    @DatabaseField(columnName = CUSTOMER_ID_FIELD_NAME)
     private long customerId;
 
     @DatabaseField(columnName = DATEARRIVEL_FIELD_NAME)

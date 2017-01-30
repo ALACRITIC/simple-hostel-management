@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Customer {
 
     private static final String ID_FIELD_NAME = "id";
-    private static final String NAME_FIELD_NAME = "name";
+    private static final String NAME_FIELD_NAME = "lastname";
     private static final String FIRSTNAME_FIELD_NAME = "firstname";
     private static final String PHONENUMBER_FIELD_NAME = "phonenumber";
 
@@ -20,7 +20,7 @@ public class Customer {
     private long id;
 
     @DatabaseField(columnName = NAME_FIELD_NAME)
-    private String name;
+    private String lastname;
 
     @DatabaseField(columnName = FIRSTNAME_FIELD_NAME)
     private String firstname;
@@ -32,18 +32,18 @@ public class Customer {
         // ORMLite needs a no-arg constructor
     }
 
-    public Customer(String firstname, String name, String phonenumber) {
-        this.name = name;
+    public Customer(String firstname, String lastname, String phonenumber) {
+        this.lastname = lastname;
         this.firstname = firstname;
         this.phonenumber = phonenumber;
     }
 
-    public String getName() {
-        return name;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public long getId() {
@@ -76,21 +76,21 @@ public class Customer {
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
         return id == customer.id &&
-                Objects.equals(name, customer.name) &&
+                Objects.equals(lastname, customer.lastname) &&
                 Objects.equals(firstname, customer.firstname) &&
                 Objects.equals(phonenumber, customer.phonenumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, firstname, phonenumber);
+        return Objects.hash(id, lastname, firstname, phonenumber);
     }
 
     @Override
     public String toString() {
         return "Customer{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + lastname + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", phonenumber='" + phonenumber + '\'' +
                 '}';

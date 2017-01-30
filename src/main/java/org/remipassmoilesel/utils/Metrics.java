@@ -1,4 +1,4 @@
-package org.remipassmoilesel.metrics;
+package org.remipassmoilesel.utils;
 
 import org.remipassmoilesel.Mappings;
 import org.springframework.stereotype.Controller;

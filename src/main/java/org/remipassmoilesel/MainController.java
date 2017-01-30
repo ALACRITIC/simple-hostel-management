@@ -1,6 +1,6 @@
-package org.remipassmoilesel.customers;
+package org.remipassmoilesel;
 
-import org.remipassmoilesel.Mappings;
+import org.remipassmoilesel.reservations.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,24 +9,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class CustomersController {
+public class MainController {
 
     @Autowired
     private ReservationService reservationService;
 
-    @RequestMapping(value = Mappings.RESERVATION_INDEX, method = RequestMethod.GET)
-    public String reservationIndex(
-            @RequestParam(value = "mode", required = false, defaultValue = "display") String display,
-            Model model) {
+    @RequestMapping(value = Mappings.INDEX, method = RequestMethod.GET)
+    public String index(Model model) {
 
-        model.addAttribute("mode", display);
+        //model.addAttribute("mode", display);
 
         // name of template
-        return "reservation-index";
+        return "main";
     }
 
-    @RequestMapping(value = Mappings.RESERVATION, method = RequestMethod.GET)
-    public String reservation(
+    @RequestMapping(value = Mappings.DO_RESERVATION, method = RequestMethod.GET)
+    public String doReservation(
             @RequestParam(value = "name", required = true) String name,
             @RequestParam(value = "firstname", required = true) String firstname,
             @RequestParam(value = "departure", required = true) String departure,
@@ -36,7 +34,7 @@ public class CustomersController {
         model.addAttribute("name", name);
 
         // name of template
-        return "greeting";
+        return "fill-me";
     }
 
 

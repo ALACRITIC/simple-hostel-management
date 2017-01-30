@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <div th:replace="fragments/headers"></div>
+
+    <script>
+        $(function () {
+
+
+
+        });
+
+    </script>
+
+</head>
+<body>
+
+
+<!-- include nav bar -->
+<div th:replace="fragments/navbar"></div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <h1>Dernières réservations</h1>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone number</th>
+                    <th>Departure</th>
+                    <th>Arrival</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="name : ${notesList}">
+                    <td th:text="${firstname}"></td>
+                    <td th:text="${lastname}"></td>
+                    <td><a th:attr="href='/notes/display/' + ${name}">html</a></td>
+                    <td><a th:attr="href='/notes/get/json/' + ${name}" target="_blank">json</a></td>
+                    <td><a th:attr="href='/notes/get/xml/' + ${name}" target="_blank">xml</a></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

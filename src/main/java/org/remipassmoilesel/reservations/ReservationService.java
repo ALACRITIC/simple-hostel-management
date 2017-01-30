@@ -1,13 +1,15 @@
-package org.remipassmoilesel.customers;
+package org.remipassmoilesel.reservations;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.table.TableUtils;
+import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
+import org.remipassmoilesel.customers.Configuration;
+import org.remipassmoilesel.utils.DatabaseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.sql.SQLException;
 
 /**
  * Created by remipassmoilesel on 30/01/17.
@@ -16,9 +18,39 @@ import java.util.List;
 @Service
 public class ReservationService {
 
-    private static final Logger log = LoggerFactory.getLogger(ReservationService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
+    private Dao<Reservation, String> reservationDao;
+    private JdbcPooledConnectionSource connection;
 
-    public ReservationService() {
+    public ReservationService() throws SQLException {
+
+        connection = DatabaseUtils.getH2OrmliteConnectionPool(Configuration.DATABASE_PATH);
+
+        // instantiate the dao
+        reservationDao = DaoManager.createDao(connection, Reservation.class);
+
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (Exception e) {
+                logger.error("Error while closing connection source", e);
+            }
+        }
+    }
+
+    public Reservation getById(Long id) {
+        try {
+            return reservationDao.queryForId(String.valueOf(id));
+        } catch (SQLException e) {
+            logger.error("Error while retrieving: " + id, e);
+            return null;
+        }
     }
 
     public void getAll() {

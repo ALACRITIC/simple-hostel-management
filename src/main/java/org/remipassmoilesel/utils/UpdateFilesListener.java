@@ -1,4 +1,4 @@
-package org.remipassmoilesel;
+package org.remipassmoilesel.utils;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -28,7 +28,7 @@ public class UpdateFilesListener implements ApplicationListener<ApplicationEvent
     private final HashMap<Path, Path> peers;
 
     public UpdateFilesListener() {
-        peers = new HashMap<Path, Path>();
+        peers = new HashMap<>();
     }
 
     @Override
