@@ -5,7 +5,8 @@ package org.remipassmoilesel;
  */
 public class Mappings {
 
-    public static final String RESERVATION = "/reservation";
+    public static final String RESERVATION_INDEX = "/reservation";
+    public static final String RESERVATION = "/reservation/confirm";
 
 
 
@@ -19,5 +20,6 @@ public class Mappings {
     public static final String NOTE_GET = "/get";
     public static final String NOTE_GET_XML = NOTE_GET + "/xml/";
     public static final String NOTE_GET_JSON = NOTE_GET + "/json/";
+
 
 }
