@@ -6,12 +6,15 @@ import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.table.TableUtils;
 import org.remipassmoilesel.MainConfiguration;
+import org.remipassmoilesel.customers.Customer;
 import org.remipassmoilesel.utils.DatabaseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,16 +28,34 @@ public class ReservationService {
     private Dao<Reservation, String> reservationDao;
     private JdbcPooledConnectionSource connection;
 
-    public ReservationService() throws SQLException {
+    public ReservationService() {
 
-        connection = DatabaseUtils.getH2OrmliteConnectionPool(MainConfiguration.DATABASE_PATH);
+        System.out.println("ReservationService");
+        System.out.println("ReservationService");
+        System.out.println("ReservationService");
+        System.out.println("ReservationService");
+        System.out.println("ReservationService");
+        System.out.println("ReservationService");
+        System.out.println("ReservationService");
+        System.out.println("ReservationService");
+        System.out.println("ReservationService");
+        System.out.println("ReservationService");
 
-        // instantiate the dao
-        reservationDao = DaoManager.createDao(connection, Reservation.class);
+        try {
 
-        TableUtils.createTableIfNotExists(connection, Reservation.class);
+            connection = DatabaseUtils.getH2OrmliteConnectionPool(MainConfiguration.DATABASE_PATH);
+
+            TableUtils.createTableIfNotExists(connection, Reservation.class);
+
+            // instantiate the dao
+            reservationDao = DaoManager.createDao(connection, Reservation.class);
+
+        } catch (SQLException e) {
+            throw new IllegalStateException(e);
+        }
 
     }
+
 
     @Override
     protected void finalize() throws Throwable {
@@ -59,10 +80,21 @@ public class ReservationService {
     }
 
     public List<Reservation> getLasts(int i) throws SQLException {
+
         QueryBuilder<Reservation, String> statement = reservationDao.queryBuilder().orderBy(Reservation.RESERVATION_DATE, false);
         List<Reservation> results = statement.query();
 
         return results;
+    }
+
+    public Reservation createReservation(Customer customer, Date departure, Date arrival) throws IOException {
+        try {
+            Reservation res = new Reservation(customer, departure, arrival, null);
+            reservationDao.create(res);
+            return res;
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
     }
 
     public void getAll() {

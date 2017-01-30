@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -22,15 +23,29 @@ public class CustomerService {
     private Dao<Customer, String> customerDao;
     private JdbcPooledConnectionSource connection;
 
-    public CustomerService() throws SQLException {
+    public CustomerService() {
 
-        connection = DatabaseUtils.getH2OrmliteConnectionPool(MainConfiguration.DATABASE_PATH);
+        System.out.println("CustomerService");
+        System.out.println("CustomerService");
+        System.out.println("CustomerService");
+        System.out.println("CustomerService");
+        System.out.println("CustomerService");
+        System.out.println("CustomerService");
+        System.out.println("CustomerService");
+        System.out.println("CustomerService");
+        System.out.println("CustomerService");
 
-        // instantiate the dao
-        customerDao = DaoManager.createDao(connection, Customer.class);
+        try {
+            connection = DatabaseUtils.getH2OrmliteConnectionPool(MainConfiguration.DATABASE_PATH);
 
-        TableUtils.createTableIfNotExists(connection, Customer.class);
+            TableUtils.createTableIfNotExists(connection, Customer.class);
 
+            // instantiate the dao
+            customerDao = DaoManager.createDao(connection, Customer.class);
+
+        } catch (SQLException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     @Override
@@ -38,21 +53,27 @@ public class CustomerService {
         super.finalize();
 
         if (connection != null) {
-            try {
-                connection.close();
-            } catch (Exception e) {
-                logger.error("Error while closing connection source", e);
-            }
+            connection.close();
         }
     }
 
-    public Customer getById(Long id) {
+    public Customer getById(Long id) throws IOException {
         try {
             return customerDao.queryForId(String.valueOf(id));
         } catch (SQLException e) {
-            logger.error("Error while retrieving: " + id, e);
-            return null;
+            throw new IOException(e);
         }
     }
 
+    public Customer createClient(String firstname, String lastname, String phonenumber) throws IOException {
+
+        try {
+            Customer customer = new Customer(firstname, lastname, phonenumber);
+            customerDao.create(customer);
+            return customer;
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+
+    }
 }

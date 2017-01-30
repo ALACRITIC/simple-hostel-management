@@ -11,15 +11,15 @@ import java.util.Objects;
 @DatabaseTable(tableName = "CUSTOMERS")
 public class Customer {
 
-    private static final String ID_FIELD_NAME = "id";
-    private static final String NAME_FIELD_NAME = "lastname";
-    private static final String FIRSTNAME_FIELD_NAME = "firstname";
-    private static final String PHONENUMBER_FIELD_NAME = "phonenumber";
+    private static final String ID_FIELD_NAME = "ID";
+    private static final String LASTNAME_FIELD_NAME = "LASTNAME";
+    private static final String FIRSTNAME_FIELD_NAME = "FIRSTNAME";
+    private static final String PHONENUMBER_FIELD_NAME = "PHONENUMBER";
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private long id;
 
-    @DatabaseField(columnName = NAME_FIELD_NAME)
+    @DatabaseField(columnName = LASTNAME_FIELD_NAME)
     private String lastname;
 
     @DatabaseField(columnName = FIRSTNAME_FIELD_NAME)

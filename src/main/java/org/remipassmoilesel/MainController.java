@@ -1,5 +1,8 @@
 package org.remipassmoilesel;
 
+import org.remipassmoilesel.customers.Customer;
+import org.remipassmoilesel.customers.CustomerService;
+import org.remipassmoilesel.reservations.Reservation;
 import org.remipassmoilesel.reservations.ReservationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 public class MainController {
@@ -19,6 +26,9 @@ public class MainController {
 
     @Autowired
     private ReservationService reservationService;
+
+    @Autowired
+    private CustomerService customerService;
 
     @RequestMapping(value = Mappings.INDEX, method = RequestMethod.GET)
     public String index(Model model) {
@@ -52,15 +62,47 @@ public class MainController {
         return "book-form";
     }
 
+    @RequestMapping(value = Mappings.RESERVATION_CALENDAR, method = RequestMethod.GET)
+    public String showCalendar(Model model) {
+
+        //model.addAttribute("name", name);
+
+        // name of template
+        return "calendar";
+    }
+
     @RequestMapping(value = Mappings.DO_RESERVATION, method = RequestMethod.GET)
     public String doReservation(
-            @RequestParam(value = "name", required = true) String name,
             @RequestParam(value = "firstname", required = true) String firstname,
+            @RequestParam(value = "lastname", required = true) String lastname,
+            @RequestParam(value = "phonenumber", required = true) String phonenumber,
             @RequestParam(value = "departure", required = true) String departure,
             @RequestParam(value = "arrival", required = true) String arrival,
             Model model) {
 
-        model.addAttribute("name", name);
+        Customer customer = null;
+        try {
+            customer = customerService.createClient(firstname, lastname, phonenumber);
+        } catch (IOException e) {
+            logger.error("Error while creating customer", e);
+        }
+
+        Reservation reservation = null;
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date departureDate = formatter.parse(departure);
+            Date arrivalDate = formatter.parse(departure);
+            reservation = reservationService.createReservation(customer, departureDate, arrivalDate);
+
+            System.out.println(customer);
+            System.out.println(reservation);
+
+        } catch (Exception e) {
+            logger.error("Error while parsing dates: " + departure, e);
+        }
+        
+        model.addAttribute("customer", customer);
+        model.addAttribute("reservation", reservation);
 
         // name of template
         return "book-completed";

@@ -23,9 +23,11 @@ public class Application {
 
     public static void main(String[] args) {
 
+        // drop database if asked in configuration, for debug purposes
         if (MainConfiguration.DROP_DATABASE_ON_LAUNCH == true) {
             try {
                 FileUtils.deleteDirectory(MainConfiguration.DATABASE_PATH.toFile());
+                logger.error("Database have been dropped");
             } catch (IOException e) {
                 logger.error("Error while reseting database");
             }
@@ -41,6 +43,9 @@ public class Application {
         // first file update
         app.addListeners(updater);
         updater.update();
+
+        //TODO
+        // wait 2 minutes and launch user browser
 
         // run server
         app.run(args);

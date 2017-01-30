@@ -10,19 +10,19 @@ import java.util.Objects;
 /**
  * Created by remipassmoilesel on 30/01/17.
  */
-@DatabaseTable(tableName = "CUSTOMERS")
+@DatabaseTable(tableName = "RESERVATIONS")
 public class Reservation {
 
-    public static final String ID_FIELD_NAME = "id";
-    public static final String CUSTOMER_ID_FIELD_NAME = "customerid";
-    public static final String RESERVATION_DATE = "reservationdate";
-    public static final String DATEARRIVEL_FIELD_NAME = "arrival";
-    public static final String DATEDEPARTURE_FIELD_NAME = "departure";
+    public static final String ID_FIELD_NAME = "ID";
+    public static final String CUSTOMER_FIELD_NAME = "CUSTOMER";
+    public static final String RESERVATION_DATE = "RESERVATIONDATE";
+    public static final String DATEARRIVEL_FIELD_NAME = "ARRIVAL";
+    public static final String DATEDEPARTURE_FIELD_NAME = "DEPARTURE";
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private int id;
 
-    @DatabaseField(foreign = true)
+    @DatabaseField(foreign = true, columnName = CUSTOMER_FIELD_NAME)
     private Customer customer;
 
     @DatabaseField(columnName = RESERVATION_DATE)
@@ -38,10 +38,15 @@ public class Reservation {
         // ORMLite needs a no-arg constructor
     }
 
-    public Reservation(Customer customer, Date arrival, Date departure) {
+    public Reservation(Customer customer, Date arrival, Date departure, Date reservationDate) {
         this.customer = customer;
         this.arrival = arrival;
         this.departure = departure;
+
+        if (reservationDate == null) {
+            reservationDate = new Date();
+        }
+        this.reservationDate = reservationDate;
     }
 
     public int getId() {
