@@ -3,6 +3,8 @@ package org.remipassmoilesel.customers;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
+import com.j256.ormlite.table.TableUtils;
+import org.remipassmoilesel.MainConfiguration;
 import org.remipassmoilesel.utils.DatabaseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +24,12 @@ public class CustomerService {
 
     public CustomerService() throws SQLException {
 
-        connection = DatabaseUtils.getH2OrmliteConnectionPool(Configuration.DATABASE_PATH);
+        connection = DatabaseUtils.getH2OrmliteConnectionPool(MainConfiguration.DATABASE_PATH);
 
         // instantiate the dao
         customerDao = DaoManager.createDao(connection, Customer.class);
+
+        TableUtils.createTableIfNotExists(connection, Customer.class);
 
     }
 

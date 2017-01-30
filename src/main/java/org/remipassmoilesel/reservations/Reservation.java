@@ -13,17 +13,20 @@ import java.util.Objects;
 @DatabaseTable(tableName = "CUSTOMERS")
 public class Reservation {
 
-    private static final String ID_FIELD_NAME = "id";
-    private static final String CUSTOMER_ID_FIELD_NAME = "customerid";
-    private static final String DATEARRIVEL_FIELD_NAME = "arrival";
-    private static final String DATEDEPARTURE_FIELD_NAME = "departure";
+    public static final String ID_FIELD_NAME = "id";
+    public static final String CUSTOMER_ID_FIELD_NAME = "customerid";
+    public static final String RESERVATION_DATE = "reservationdate";
+    public static final String DATEARRIVEL_FIELD_NAME = "arrival";
+    public static final String DATEDEPARTURE_FIELD_NAME = "departure";
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private int id;
 
+    @DatabaseField(foreign = true)
+    private Customer customer;
 
-    @DatabaseField(columnName = CUSTOMER_ID_FIELD_NAME)
-    private long customerId;
+    @DatabaseField(columnName = RESERVATION_DATE)
+    private Date reservationDate;
 
     @DatabaseField(columnName = DATEARRIVEL_FIELD_NAME)
     private Date arrival;
@@ -36,7 +39,7 @@ public class Reservation {
     }
 
     public Reservation(Customer customer, Date arrival, Date departure) {
-        this.customerId = customer.getId();
+        this.customer = customer;
         this.arrival = arrival;
         this.departure = departure;
     }
@@ -47,14 +50,6 @@ public class Reservation {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(long customerId) {
-        this.customerId = customerId;
     }
 
     public Date getArrival() {
@@ -73,27 +68,45 @@ public class Reservation {
         this.departure = departure;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Date getReservationDate() {
+        return reservationDate;
+    }
+
+    public void setReservationDate(Date reservationDate) {
+        this.reservationDate = reservationDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Reservation that = (Reservation) o;
         return id == that.id &&
-                customerId == that.customerId &&
+                Objects.equals(customer, that.customer) &&
+                Objects.equals(reservationDate, that.reservationDate) &&
                 Objects.equals(arrival, that.arrival) &&
                 Objects.equals(departure, that.departure);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customerId, arrival, departure);
+        return Objects.hash(id, customer, reservationDate, arrival, departure);
     }
 
     @Override
     public String toString() {
         return "Reservation{" +
                 "id=" + id +
-                ", customerId=" + customerId +
+                ", customer=" + customer +
+                ", reservationDate=" + reservationDate +
                 ", arrival=" + arrival +
                 ", departure=" + departure +
                 '}';

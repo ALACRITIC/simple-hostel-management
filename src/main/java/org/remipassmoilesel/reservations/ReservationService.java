@@ -3,13 +3,16 @@ package org.remipassmoilesel.reservations;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
-import org.remipassmoilesel.customers.Configuration;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.table.TableUtils;
+import org.remipassmoilesel.MainConfiguration;
 import org.remipassmoilesel.utils.DatabaseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by remipassmoilesel on 30/01/17.
@@ -24,10 +27,12 @@ public class ReservationService {
 
     public ReservationService() throws SQLException {
 
-        connection = DatabaseUtils.getH2OrmliteConnectionPool(Configuration.DATABASE_PATH);
+        connection = DatabaseUtils.getH2OrmliteConnectionPool(MainConfiguration.DATABASE_PATH);
 
         // instantiate the dao
         reservationDao = DaoManager.createDao(connection, Reservation.class);
+
+        TableUtils.createTableIfNotExists(connection, Reservation.class);
 
     }
 
@@ -51,6 +56,13 @@ public class ReservationService {
             logger.error("Error while retrieving: " + id, e);
             return null;
         }
+    }
+
+    public List<Reservation> getLasts(int i) throws SQLException {
+        QueryBuilder<Reservation, String> statement = reservationDao.queryBuilder().orderBy(Reservation.RESERVATION_DATE, false);
+        List<Reservation> results = statement.query();
+
+        return results;
     }
 
     public void getAll() {
