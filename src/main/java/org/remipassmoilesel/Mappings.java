@@ -5,6 +5,10 @@ package org.remipassmoilesel;
  */
 public class Mappings {
 
+    public static final String RESERVATION = "/reservation";
+
+
+
     public static final String METRICS = "/metrics";
     public static final String EMPLOYEE = "/employee";
     public static final String THYMELEAF = "/thymeleaf";
