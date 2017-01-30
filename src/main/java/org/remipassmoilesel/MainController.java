@@ -44,17 +44,12 @@ public class MainController {
     }
 
     @RequestMapping(value = Mappings.RESERVATION_FORM, method = RequestMethod.GET)
-    public String showReservationForm(
-            @RequestParam(value = "name", required = true) String name,
-            @RequestParam(value = "firstname", required = true) String firstname,
-            @RequestParam(value = "departure", required = true) String departure,
-            @RequestParam(value = "arrival", required = true) String arrival,
+    public String showReservationForm(Model model) {
 
-            Model model) {
-        model.addAttribute("name", name);
+        //model.addAttribute("name", name);
 
         // name of template
-        return "fill-me";
+        return "book-form";
     }
 
     @RequestMapping(value = Mappings.DO_RESERVATION, method = RequestMethod.GET)
@@ -63,12 +58,12 @@ public class MainController {
             @RequestParam(value = "firstname", required = true) String firstname,
             @RequestParam(value = "departure", required = true) String departure,
             @RequestParam(value = "arrival", required = true) String arrival,
-
             Model model) {
+
         model.addAttribute("name", name);
 
         // name of template
-        return "fill-me";
+        return "book-completed";
     }
 
 
