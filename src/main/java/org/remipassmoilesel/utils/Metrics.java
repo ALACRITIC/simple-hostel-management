@@ -28,7 +28,7 @@ public class Metrics {
     @RequestMapping(method = RequestMethod.GET)
     public String metrics(Model model) {
         model.addAttribute("metricsMapping", metricsMapping);
-        return "metrics";
+        return "pages/metrics";
     }
 
 }

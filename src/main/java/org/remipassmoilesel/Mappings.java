@@ -5,7 +5,8 @@ package org.remipassmoilesel;
  */
 public class Mappings {
 
-    public static final String INDEX = "/reservation";
+    public static final String ROOT = "/";
+    public static final String APPLICATION_INDEX = "/reservation";
 
     public static final String RESERVATION_LASTS = "/reservation/lasts";
     public static final String RESERVATION_CALENDAR = "/reservation/calendar";

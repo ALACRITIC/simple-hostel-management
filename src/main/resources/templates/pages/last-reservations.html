@@ -10,7 +10,6 @@
         $(function () {
 
 
-
         });
 
     </script>
@@ -22,6 +21,11 @@
 <!-- include nav bar -->
 <div th:replace="fragments/navbar"></div>
 
+<!--
+<div th:text="${reservationList}"></div>
+<div th:text="${reservationList.size()}"></div>
+-->
+
 <div class="container">
 
     <div class="row">
@@ -32,7 +36,6 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>#</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Phone number</th>
@@ -42,24 +45,14 @@
                 </thead>
                 <tbody>
 
-                <tr th:each="name : ${notesList}">
-                    <td th:text="${firstname}"></td>
-                    <td th:text="${lastname}"></td>
-                    <td><a th:attr="href='/notes/display/' + ${name}">html</a></td>
-                    <td><a th:attr="href='/notes/get/json/' + ${name}" target="_blank">json</a></td>
-                    <td><a th:attr="href='/notes/get/xml/' + ${name}" target="_blank">xml</a></td>
+                <tr th:each="reservation : ${reservationList}">
+                    <td th:text="${reservation.getCustomer().getFirstname()}"></td>
+                    <td th:text="${reservation.getCustomer().getLastname()}"></td>
+                    <td th:text="${reservation.getCustomer().getPhonenumber()}"></td>
+                    <td th:text="${reservation.getDeparture()}"></td>
+                    <td th:text="${reservation.getArrival()}"></td>
                 </tr>
 
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                </tr>
                 </tbody>
             </table>
         </div>

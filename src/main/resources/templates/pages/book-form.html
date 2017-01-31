@@ -28,6 +28,25 @@
 
             <h1>Effectuer une réservation</h1>
 
+            <form action="#" th:action="@{/reservation/confirm}" th:object="${reservationForm}" method="get">
+                <table>
+                    <tr>
+                        <td>Name:</td>
+                        <td><input type="text" th:field="*{customerFirstname}" /></td>
+                        <td th:if="${#fields.hasErrors('customerFirstname')}" th:errors="*{customerFirstname}">Name Error</td>
+                    </tr>
+                    <tr>
+                        <td>Age:</td>
+                        <td><input type="text" th:field="*{customerLastname}" /></td>
+                        <td th:if="${#fields.hasErrors('customerFirstname')}" th:errors="*{customerFirstname}">Age Error</td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit">Submit</button></td>
+                    </tr>
+                </table>
+            </form>
+
+            <!--
             <form action="/reservation/confirm" method="get">
                 <div class="form-group">
                     <input type="text" class="form-control" name="lastname" placeholder="Name"/>
@@ -51,12 +70,13 @@
                            placeholder="Departure date"/>
                 </div>
 
-                <!-- Add control token -->
+                Add control token
                 <input type="hidden" name="token" th:value="${token}"/>
 
                 <button type="valid" class="btn btn-primary">Réserver</button>
+                 </form>
+                -->
 
-            </form>
         </div>
     </div>
 </div>

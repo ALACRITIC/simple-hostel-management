@@ -68,9 +68,9 @@ public class ReservationService {
         }
     }
 
-    public List<Reservation> getLasts(int i) throws SQLException {
+    public List<Reservation> getLasts(long limit, long offset) throws SQLException {
 
-        QueryBuilder<Reservation, String> statement = reservationDao.queryBuilder().orderBy(Reservation.RESERVATION_DATE, false);
+        QueryBuilder<Reservation, String> statement = reservationDao.queryBuilder().orderBy(Reservation.RESERVATION_DATE, false).limit(limit).offset(offset);
         List<Reservation> results = statement.query();
 
         return results;
