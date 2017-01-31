@@ -13,6 +13,7 @@ public class Mappings {
     public static final String RESERVATION_FORM = "/reservation/form";
 
     public static final String RESERVATION_JSON = "/reservation/json";
+    public static final String RESERVATION_JSON_GET = "/reservation/json/get";
 
     public static final String METRICS = "/metrics";
 

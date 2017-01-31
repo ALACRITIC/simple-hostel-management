@@ -85,23 +85,4 @@ public class MainController {
         return "pages/reservation-calendar";
     }
 
-    @RequestMapping(value = Mappings.RESERVATION_JSON, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public List<Reservation> getReservations(
-            @RequestParam(value = "begin", required = true) String beginDateStr,
-            @RequestParam(value = "end", required = true) String endDateStr,
-            Model model) throws Exception {
-
-        Date beginDate = Utils.stringToDate(beginDateStr);
-        Date endDate = Utils.stringToDate(endDateStr);
-
-        if (beginDate.getTime() > endDate.getTime()) {
-            throw new IllegalArgumentException("Begin date is greater than end date: " + beginDateStr + " / " + endDateStr);
-        }
-
-        List<Reservation> result = reservationService.getByInterval(beginDate, endDate, true);
-        return result;
-
-    }
-
 }

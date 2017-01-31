@@ -10,21 +10,22 @@ import org.remipassmoilesel.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 
 @Controller
-public class ReservationFormController {
+public class ReservationController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ReservationFormController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ReservationController.class);
 
     private static final String FORM_TOKEN = "reservation-form-token";
 
@@ -122,6 +123,25 @@ public class ReservationFormController {
         model.addAttribute("errorMessage", errorMessage);
 
         return "pages/reservation-completed";
+    }
+
+    @RequestMapping(value = Mappings.RESERVATION_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Reservation> getReservations(
+            @RequestParam(value = "start", required = true) String startDateStr,
+            @RequestParam(value = "end", required = true) String endDateStr,
+            Model model) throws Exception {
+
+        Date startDate = Utils.stringToDate(startDateStr);
+        Date endDate = Utils.stringToDate(endDateStr);
+
+        if (startDate.getTime() > endDate.getTime()) {
+            throw new IllegalArgumentException("Begin date is greater than end date: " + startDateStr + " / " + endDateStr);
+        }
+
+        List<Reservation> result = reservationService.getByInterval(startDate, endDate, true);
+        return result;
+
     }
 
 }

@@ -1,7 +1,6 @@
 package org.remipassmoilesel.utils;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -10,14 +9,23 @@ import java.util.Date;
  */
 public class Utils {
 
-    private static DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    private static DateFormat formatterDDMMYYYY = new SimpleDateFormat("dd/MM/yyyy");
+    private static DateFormat formatterYYYYMMDD = new SimpleDateFormat("yyyy-MM-dd");
 
     public static String dateToString(Date d) {
-        return formatter.format(d);
+        return formatterDDMMYYYY.format(d);
     }
 
-    public static Date stringToDate(String str) throws ParseException {
-        return formatter.parse(str);
+    public static Date stringToDate(String str) throws Exception {
+        try {
+            return formatterDDMMYYYY.parse(str);
+        } catch (Exception e) {
+            try {
+                return formatterYYYYMMDD.parse(str);
+            } catch (Exception e2) {
+                throw new Exception(e2);
+            }
+        }
     }
 
 }
