@@ -1,0 +1,76 @@
+<form action="#" th:object="${reservationForm}" method="post">
+
+    <table class="formtable">
+
+        <!-- First name -->
+        <tr>
+            <td colspan="2">
+                <input type="text" class="form-control" placeholder="First name" th:field="*{customerFirstname}"/>
+                <div th:if="${#fields.hasErrors('customerFirstname')}" th:errors="*{customerFirstname}">
+                    First name error
+                </div>
+            </td>
+        </tr>
+
+        <!-- Last name -->
+        <tr>
+            <td colspan="2">
+                <input type="text" class="form-control" placeholder="Last name" th:field="*{customerLastname}"/>
+                <div th:if="${#fields.hasErrors('customerLastname')}" th:errors="*{customerLastname}">Last name error
+                </div>
+            </td>
+        </tr>
+
+        <!-- Phone number -->
+        <tr>
+            <td colspan="2">
+                <input type="text" class="form-control" placeholder="Phone number" th:field="*{customerPhonenumber}"/>
+                <div th:if="${#fields.hasErrors('customerPhonenumber')}" th:errors="*{customerPhonenumber}">Phone number
+                    error
+                </div>
+            </td>
+        </tr>
+
+        <!-- Dates arrival / departure-->
+
+        <tr>
+            <td>
+                <input type="text" th:field="*{dateArrival}" class="form-control" id="dateArrival" placeholder="Arrival"
+                       readonly="readonly"/>
+            </td>
+            <td>
+                <input type="text" th:field="*{dateDeparture}" class="form-control" id="dateDeparture"
+                       placeholder="Arrival"
+                       readonly="readonly"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div th:if="${#fields.hasErrors('dateArrival')}" th:errors="*{dateArrival}">Arrival</div>
+                <div th:if="${#fields.hasErrors('dateDeparture')}" th:errors="*{dateDeparture}">Departure</div>
+            </td>
+        </tr>
+
+        <!-- Token and submit button -->
+
+        <tr>
+            <td colspan="2">
+
+                <!-- Add control token -->
+                <input type="hidden" name="token" th:value="${token}"/>
+
+                <button type="submit" class="btn btn-primary">Réserver</button>
+            </td>
+        </tr>
+
+    </table>
+
+    <script>
+        $(function () {
+            $("#dateArrival").datepicker();
+            $("#dateDeparture").datepicker();
+        });
+    </script>
+
+</form>
