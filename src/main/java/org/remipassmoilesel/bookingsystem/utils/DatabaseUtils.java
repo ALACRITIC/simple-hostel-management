@@ -1,4 +1,4 @@
-package org.remipassmoilesel.utils;
+package org.remipassmoilesel.bookingsystem.utils;
 
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import org.h2.jdbcx.JdbcConnectionPool;

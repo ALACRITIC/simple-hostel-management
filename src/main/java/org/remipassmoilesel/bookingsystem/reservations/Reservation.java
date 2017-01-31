@@ -1,8 +1,8 @@
-package org.remipassmoilesel.reservations;
+package org.remipassmoilesel.bookingsystem.reservations;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import org.remipassmoilesel.customers.Customer;
+import org.remipassmoilesel.bookingsystem.customers.Customer;
 
 import java.util.Date;
 import java.util.Objects;

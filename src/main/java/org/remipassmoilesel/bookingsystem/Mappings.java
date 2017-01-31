@@ -1,4 +1,4 @@
-package org.remipassmoilesel;
+package org.remipassmoilesel.bookingsystem;
 
 /**
  * Created by remipassmoilesel on 12/12/16.

@@ -1,4 +1,4 @@
-package org.remipassmoilesel.utils;
+package org.remipassmoilesel.bookingsystem.utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

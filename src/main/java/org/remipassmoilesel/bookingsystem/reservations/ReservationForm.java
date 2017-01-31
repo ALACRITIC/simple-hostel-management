@@ -1,4 +1,4 @@
-package org.remipassmoilesel.reservations;
+package org.remipassmoilesel.bookingsystem.reservations;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;

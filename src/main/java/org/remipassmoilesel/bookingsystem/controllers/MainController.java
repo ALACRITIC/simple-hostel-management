@@ -1,25 +1,20 @@
-package org.remipassmoilesel.controllers;
+package org.remipassmoilesel.bookingsystem.controllers;
 
-import org.remipassmoilesel.Mappings;
-import org.remipassmoilesel.customers.CustomerService;
-import org.remipassmoilesel.reservations.Reservation;
-import org.remipassmoilesel.reservations.ReservationService;
-import org.remipassmoilesel.utils.Utils;
+import org.remipassmoilesel.bookingsystem.Mappings;
+import org.remipassmoilesel.bookingsystem.customers.CustomerService;
+import org.remipassmoilesel.bookingsystem.reservations.Reservation;
+import org.remipassmoilesel.bookingsystem.reservations.ReservationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller

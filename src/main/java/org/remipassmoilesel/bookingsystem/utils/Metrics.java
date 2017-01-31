@@ -1,11 +1,10 @@
-package org.remipassmoilesel.utils;
+package org.remipassmoilesel.bookingsystem.utils;
 
-import org.remipassmoilesel.Mappings;
+import org.remipassmoilesel.bookingsystem.Mappings;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by remipassmoilesel on 12/12/16.

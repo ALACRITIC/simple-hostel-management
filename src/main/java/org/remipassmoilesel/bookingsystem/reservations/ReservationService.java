@@ -1,4 +1,4 @@
-package org.remipassmoilesel.reservations;
+package org.remipassmoilesel.bookingsystem.reservations;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
@@ -6,10 +6,10 @@ import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.table.TableUtils;
-import org.remipassmoilesel.MainConfiguration;
-import org.remipassmoilesel.customers.Customer;
-import org.remipassmoilesel.customers.CustomerService;
-import org.remipassmoilesel.utils.DatabaseUtils;
+import org.remipassmoilesel.bookingsystem.MainConfiguration;
+import org.remipassmoilesel.bookingsystem.customers.Customer;
+import org.remipassmoilesel.bookingsystem.customers.CustomerService;
+import org.remipassmoilesel.bookingsystem.utils.DatabaseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

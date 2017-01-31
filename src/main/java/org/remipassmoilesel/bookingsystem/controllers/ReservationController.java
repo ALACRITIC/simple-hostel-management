@@ -1,12 +1,12 @@
-package org.remipassmoilesel.controllers;
+package org.remipassmoilesel.bookingsystem.controllers;
 
-import org.remipassmoilesel.Mappings;
-import org.remipassmoilesel.customers.Customer;
-import org.remipassmoilesel.customers.CustomerService;
-import org.remipassmoilesel.reservations.Reservation;
-import org.remipassmoilesel.reservations.ReservationForm;
-import org.remipassmoilesel.reservations.ReservationService;
-import org.remipassmoilesel.utils.Utils;
+import org.remipassmoilesel.bookingsystem.Mappings;
+import org.remipassmoilesel.bookingsystem.customers.Customer;
+import org.remipassmoilesel.bookingsystem.customers.CustomerService;
+import org.remipassmoilesel.bookingsystem.reservations.ReservationService;
+import org.remipassmoilesel.bookingsystem.reservations.Reservation;
+import org.remipassmoilesel.bookingsystem.reservations.ReservationForm;
+import org.remipassmoilesel.bookingsystem.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

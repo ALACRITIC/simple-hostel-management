@@ -1,4 +1,4 @@
-package org.remipassmoilesel;
+package org.remipassmoilesel.bookingsystem;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
