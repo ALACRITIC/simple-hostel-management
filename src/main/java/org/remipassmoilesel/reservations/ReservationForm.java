@@ -1,8 +1,8 @@
 package org.remipassmoilesel.reservations;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -20,13 +20,16 @@ public class ReservationForm {
 
     @NotNull
     @Size(min = 2, max = 50)
+    @Pattern(regexp = "\\+?[0-9]+")
     private String customerPhonenumber;
 
     @NotNull
-    private String dateArrival;
+    @Size(min = 10, max = 10)
+    private String arrivalDate;
 
     @NotNull
-    private Date dateDeparture;
+    @Size(min = 10, max = 10)
+    private String departureDate;
 
     @NotNull
     private Long token;
@@ -51,12 +54,12 @@ public class ReservationForm {
         this.customerLastname = customerLastname;
     }
 
-    public void setDateArrival(String dateArrival) {
-        this.dateArrival = dateArrival;
+    public void setArrivalDate(String arrivalDate) {
+        this.arrivalDate = arrivalDate;
     }
 
-    public void setDateDeparture(Date dateDeparture) {
-        this.dateDeparture = dateDeparture;
+    public void setDepartureDate(String departureDate) {
+        this.departureDate = departureDate;
     }
 
     public String getCustomerFirstname() {
@@ -67,12 +70,12 @@ public class ReservationForm {
         return customerLastname;
     }
 
-    public String getDateArrival() {
-        return dateArrival;
+    public String getArrivalDate() {
+        return arrivalDate;
     }
 
-    public Date getDateDeparture() {
-        return dateDeparture;
+    public String getDepartureDate() {
+        return departureDate;
     }
 
     public Long getToken() {
@@ -89,8 +92,8 @@ public class ReservationForm {
                 "customerFirstname='" + customerFirstname + '\'' +
                 ", customerLastname='" + customerLastname + '\'' +
                 ", customerPhonenumber='" + customerPhonenumber + '\'' +
-                ", dateArrival='" + dateArrival + '\'' +
-                ", dateDeparture=" + dateDeparture +
+                ", dateArrival='" + arrivalDate + '\'' +
+                ", dateDeparture=" + departureDate +
                 ", token=" + token +
                 '}';
     }
@@ -103,13 +106,13 @@ public class ReservationForm {
         return Objects.equals(customerFirstname, that.customerFirstname) &&
                 Objects.equals(customerLastname, that.customerLastname) &&
                 Objects.equals(customerPhonenumber, that.customerPhonenumber) &&
-                Objects.equals(dateArrival, that.dateArrival) &&
-                Objects.equals(dateDeparture, that.dateDeparture) &&
+                Objects.equals(arrivalDate, that.arrivalDate) &&
+                Objects.equals(departureDate, that.departureDate) &&
                 Objects.equals(token, that.token);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerFirstname, customerLastname, customerPhonenumber, dateArrival, dateDeparture, token);
+        return Objects.hash(customerFirstname, customerLastname, customerPhonenumber, arrivalDate, departureDate, token);
     }
 }

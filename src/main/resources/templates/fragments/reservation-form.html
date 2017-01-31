@@ -1,4 +1,4 @@
-<form action="#" th:object="${reservationForm}" method="post">
+<form th:object="${reservationForm}" method="post">
 
     <table class="formtable">
 
@@ -35,20 +35,21 @@
 
         <tr>
             <td>
-                <input type="text" th:field="*{dateArrival}" class="form-control" id="dateArrival" placeholder="Arrival"
+                <input type="text" th:field="*{arrivalDate}" class="form-control" id="arrivalDate" placeholder="Arrival"
                        readonly="readonly"/>
             </td>
             <td>
-                <input type="text" th:field="*{dateDeparture}" class="form-control" id="dateDeparture"
-                       placeholder="Arrival"
-                       readonly="readonly"/>
+                <input type="text" th:field="*{departureDate}" class="form-control" id="departureDate"
+                       placeholder="Arrival" readonly="readonly"/>
             </td>
         </tr>
 
         <tr>
-            <td>
-                <div th:if="${#fields.hasErrors('dateArrival')}" th:errors="*{dateArrival}">Arrival</div>
-                <div th:if="${#fields.hasErrors('dateDeparture')}" th:errors="*{dateDeparture}">Departure</div>
+            <td colspan="2">
+                <div th:if="${#fields.hasErrors('arrivalDate')}" th:errors="*{arrivalDate}">Arrival error</div>
+                <div th:if="${#fields.hasErrors('departureDate')}" th:errors="*{departureDate}">Departure error</div>
+                <div th:if="${#fields.hasErrors('token')}" th:text="'Please update form and try again'">Token error</div>
+                <div th:if="${errorMessage == null || errorMessage.isEmpty() == false}" th:text="${errorMessage}">Error message</div>
             </td>
         </tr>
 
@@ -60,7 +61,7 @@
                 <!-- Add control token -->
                 <input type="hidden" name="token" th:value="${token}"/>
 
-                <button type="submit" class="btn btn-primary">Réserver</button>
+                <button type="submit" class="btn btn-primary">Make a reservation</button>
             </td>
         </tr>
 
@@ -68,8 +69,8 @@
 
     <script>
         $(function () {
-            $("#dateArrival").datepicker();
-            $("#dateDeparture").datepicker();
+            $("#arrivalDate").datepicker();
+            $("#departureDate").datepicker();
         });
     </script>
 
