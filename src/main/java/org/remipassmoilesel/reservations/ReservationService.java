@@ -7,9 +7,11 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.table.TableUtils;
 import org.remipassmoilesel.MainConfiguration;
 import org.remipassmoilesel.customers.Customer;
+import org.remipassmoilesel.customers.CustomerService;
 import org.remipassmoilesel.utils.DatabaseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -25,6 +27,10 @@ import java.util.List;
 public class ReservationService {
 
     private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
+
+    @Autowired
+    private CustomerService customerService;
+
     private Dao<Reservation, String> reservationDao;
     private JdbcPooledConnectionSource connection;
 
@@ -45,7 +51,11 @@ public class ReservationService {
 
     }
 
-
+    /**
+     * Close connection on finalization
+     *
+     * @throws Throwable
+     */
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
@@ -59,6 +69,12 @@ public class ReservationService {
         }
     }
 
+    /**
+     * Get a reservation by its id
+     *
+     * @param id
+     * @return
+     */
     public Reservation getById(Long id) {
         try {
             return reservationDao.queryForId(String.valueOf(id));
@@ -68,14 +84,41 @@ public class ReservationService {
         }
     }
 
-    public List<Reservation> getLasts(long limit, long offset) throws SQLException {
+    /**
+     * Get last reservations stored
+     *
+     * @param limit
+     * @param offset
+     * @return
+     * @throws IOException
+     */
+    public List<Reservation> getLasts(long limit, long offset) throws IOException {
 
-        QueryBuilder<Reservation, String> statement = reservationDao.queryBuilder().orderBy(Reservation.RESERVATION_DATE, false).limit(limit).offset(offset);
-        List<Reservation> results = statement.query();
+        try {
+            QueryBuilder<Reservation, String> statement = reservationDao.queryBuilder()
+                    .orderBy(Reservation.RESERVATION_DATE, false).limit(limit).offset(offset);
+            List<Reservation> results = statement.query();
 
-        return results;
+            for (Reservation r : results) {
+                customerService.refresh(r.getCustomer());
+            }
+
+            return results;
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
+
     }
 
+    /**
+     * Create a new reservation
+     *
+     * @param customer
+     * @param departure
+     * @param arrival
+     * @return
+     * @throws IOException
+     */
     public Reservation createReservation(Customer customer, Date departure, Date arrival) throws IOException {
         try {
             Reservation res = new Reservation(customer, departure, arrival, null);

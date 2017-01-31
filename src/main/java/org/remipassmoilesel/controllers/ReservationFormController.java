@@ -102,7 +102,7 @@ public class ReservationFormController {
             session.setAttribute(FORM_TOKEN, null);
 
             try {
-                customer = customerService.createClient(
+                customer = customerService.createCustomer(
                         reservationForm.getCustomerFirstname(),
                         reservationForm.getCustomerLastname(),
                         reservationForm.getCustomerPhonenumber());

@@ -38,6 +38,11 @@ public class CustomerService {
         }
     }
 
+    /**
+     * Close connection on finalize
+     *
+     * @throws Throwable
+     */
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
@@ -47,6 +52,13 @@ public class CustomerService {
         }
     }
 
+    /**
+     * Get a customer by ID
+     *
+     * @param id
+     * @return
+     * @throws IOException
+     */
     public Customer getById(Long id) throws IOException {
         try {
             return customerDao.queryForId(String.valueOf(id));
@@ -55,7 +67,16 @@ public class CustomerService {
         }
     }
 
-    public Customer createClient(String firstname, String lastname, String phonenumber) throws IOException {
+    /**
+     * Create a customer
+     *
+     * @param firstname
+     * @param lastname
+     * @param phonenumber
+     * @return
+     * @throws IOException
+     */
+    public Customer createCustomer(String firstname, String lastname, String phonenumber) throws IOException {
 
         try {
             Customer customer = new Customer(firstname, lastname, phonenumber);
@@ -65,5 +86,19 @@ public class CustomerService {
             throw new IOException(e);
         }
 
+    }
+
+    /**
+     * Refresh information of a customer object from database
+     *
+     * @param customer
+     * @throws IOException
+     */
+    public void refresh(Customer customer) throws IOException {
+        try {
+            customerDao.refresh(customer);
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
     }
 }

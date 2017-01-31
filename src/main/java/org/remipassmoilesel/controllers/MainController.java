@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,13 +67,13 @@ public class MainController {
         try {
             List<Reservation> lasts = reservationService.getLasts(20, 0);
             model.addAttribute("reservationList", lasts);
-        } catch (SQLException e) {
+        } catch (IOException e) {
             model.addAttribute("reservationNumber", new ArrayList<Reservation>());
             logger.error("Error while retrieving reservations", e);
         }
 
         // name of template
-        return "last-reservations";
+        return "pages/last-reservations";
     }
 
     @RequestMapping(value = Mappings.RESERVATION_CALENDAR, method = RequestMethod.GET)
