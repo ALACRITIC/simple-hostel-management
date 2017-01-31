@@ -3,23 +3,23 @@ package org.remipassmoilesel.controllers;
 import org.remipassmoilesel.Mappings;
 import org.remipassmoilesel.customers.CustomerService;
 import org.remipassmoilesel.reservations.Reservation;
-import org.remipassmoilesel.reservations.ReservationForm;
 import org.remipassmoilesel.reservations.ReservationService;
+import org.remipassmoilesel.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -82,7 +82,26 @@ public class MainController {
         //model.addAttribute("name", name);
 
         // name of template
-        return "pages/calendar";
+        return "pages/reservation-calendar";
+    }
+
+    @RequestMapping(value = Mappings.RESERVATION_JSON, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Reservation> getReservations(
+            @RequestParam(value = "begin", required = true) String beginDateStr,
+            @RequestParam(value = "end", required = true) String endDateStr,
+            Model model) throws Exception {
+
+        Date beginDate = Utils.stringToDate(beginDateStr);
+        Date endDate = Utils.stringToDate(endDateStr);
+
+        if (beginDate.getTime() > endDate.getTime()) {
+            throw new IllegalArgumentException("Begin date is greater than end date: " + beginDateStr + " / " + endDateStr);
+        }
+
+        List<Reservation> result = reservationService.getByInterval(beginDate, endDate, true);
+        return result;
+
     }
 
 }

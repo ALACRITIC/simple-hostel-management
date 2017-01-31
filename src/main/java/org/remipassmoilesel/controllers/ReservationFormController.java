@@ -6,6 +6,7 @@ import org.remipassmoilesel.customers.CustomerService;
 import org.remipassmoilesel.reservations.Reservation;
 import org.remipassmoilesel.reservations.ReservationForm;
 import org.remipassmoilesel.reservations.ReservationService;
+import org.remipassmoilesel.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
@@ -107,9 +106,8 @@ public class ReservationFormController {
                         reservationForm.getCustomerLastname(),
                         reservationForm.getCustomerPhonenumber());
 
-                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                Date departureDate = formatter.parse(reservationForm.getDepartureDate());
-                Date arrivalDate = formatter.parse(reservationForm.getArrivalDate());
+                Date departureDate = Utils.stringToDate(reservationForm.getDepartureDate());
+                Date arrivalDate = Utils.stringToDate(reservationForm.getArrivalDate());
                 reservation = reservationService.createReservation(customer, departureDate, arrivalDate);
 
             } catch (Exception e) {

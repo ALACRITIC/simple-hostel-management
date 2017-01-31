@@ -4,6 +4,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.table.TableUtils;
 import org.remipassmoilesel.MainConfiguration;
 import org.remipassmoilesel.customers.Customer;
@@ -129,4 +130,34 @@ public class ReservationService {
         }
     }
 
+    /**
+     * Return a list of reservation wbetween specified
+     *
+     * @param beginDate
+     * @param endDate
+     * @param orderAscending
+     * @return
+     * @throws IOException
+     */
+    public List<Reservation> getByInterval(Date beginDate, Date endDate, boolean orderAscending) throws IOException {
+
+        try {
+            QueryBuilder<Reservation, String> queryBuilder = reservationDao.queryBuilder();
+            queryBuilder.orderBy(Reservation.DATEARRIVAL_FIELD_NAME, orderAscending);
+            Where<Reservation, String> where = queryBuilder.where();
+
+            where.between(Reservation.DATEARRIVAL_FIELD_NAME, beginDate, endDate)
+                    .or().between(Reservation.DATEDEPARTURE_FIELD_NAME, beginDate, endDate);
+
+            List<Reservation> results = queryBuilder.query();
+
+            for (Reservation r : results) {
+                customerService.refresh(r.getCustomer());
+            }
+
+            return results;
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
+    }
 }

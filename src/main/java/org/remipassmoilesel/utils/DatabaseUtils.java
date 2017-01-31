@@ -21,9 +21,6 @@ public class DatabaseUtils {
 
         JdbcPooledConnectionSource connectionSource = new JdbcPooledConnectionSource(databaseUrl);
         connectionSource.setMaxConnectionAgeMillis(Long.MAX_VALUE);
-        // TODO: this is a test value to observe eventual changes on rendering issue
-        // Attribute a value > 1 cause multiple connection check, which do not affect finally
-        // rendering process time.
         connectionSource.setCheckConnectionsEveryMillis(-1);
         connectionSource.setTestBeforeGet(false);
 

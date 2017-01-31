@@ -16,7 +16,7 @@ public class Reservation {
     public static final String ID_FIELD_NAME = "ID";
     public static final String CUSTOMER_FIELD_NAME = "CUSTOMER";
     public static final String RESERVATION_DATE = "RESERVATIONDATE";
-    public static final String DATEARRIVEL_FIELD_NAME = "ARRIVAL";
+    public static final String DATEARRIVAL_FIELD_NAME = "ARRIVAL";
     public static final String DATEDEPARTURE_FIELD_NAME = "DEPARTURE";
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
@@ -28,7 +28,7 @@ public class Reservation {
     @DatabaseField(columnName = RESERVATION_DATE)
     private Date reservationDate;
 
-    @DatabaseField(columnName = DATEARRIVEL_FIELD_NAME)
+    @DatabaseField(columnName = DATEARRIVAL_FIELD_NAME)
     private Date arrival;
 
     @DatabaseField(columnName = DATEDEPARTURE_FIELD_NAME)
