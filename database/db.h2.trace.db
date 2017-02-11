@@ -36,3 +36,6 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:/home/remipa
 	at org.h2.mvstore.FileStore.open(FileStore.java:173)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:348)
 	... 23 more
+2017-02-11 11:43:16 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "ROOMS" not found; SQL statement:
+SELECT * FROM `ROOMS`  [42102-193]

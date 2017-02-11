@@ -1,8 +1,13 @@
 package org.remipassmoilesel.bookingsystem.utils;
 
+import org.remipassmoilesel.bookingsystem.Mappings;
+import org.springframework.ui.Model;
+
+import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 
 /**
  * Created by remipassmoilesel on 31/01/17.
@@ -25,6 +30,24 @@ public class Utils {
             } catch (Exception e2) {
                 throw new Exception(e2);
             }
+        }
+    }
+
+    /**
+     * Print attributes of a HTTP request for debug purposes
+     *
+     * @param httpRequest
+     */
+    public static void printAttributes(HttpServletRequest httpRequest) {
+
+        System.out.println();
+        System.out.println("Attributes of: " + httpRequest);
+        Enumeration<String> names = httpRequest.getAttributeNames();
+        while (names.hasMoreElements()) {
+            String name = names.nextElement();
+            Object value = httpRequest.getAttribute(name);
+            System.out.println("\t # Name: " + name);
+            System.out.println("\t   Value: " + value);
         }
     }
 

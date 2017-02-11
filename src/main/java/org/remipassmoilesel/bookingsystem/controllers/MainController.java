@@ -44,40 +44,13 @@ public class MainController {
      * @return
      */
     @RequestMapping(value = Mappings.APPLICATION_INDEX, method = RequestMethod.GET)
-    public String index() {
+    public String index(Model model) {
+
+        Mappings.includeMappings(model);
+
         // name of template
         return "pages/main";
     }
 
-    /**
-     * Display lasts reservation
-     *
-     * @param request
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = Mappings.RESERVATION_LASTS, method = RequestMethod.GET)
-    public String showLastsReservation(HttpServletRequest request, Model model) {
-
-        try {
-            List<Reservation> lasts = reservationService.getLasts(20, 0);
-            model.addAttribute("reservationList", lasts);
-        } catch (IOException e) {
-            model.addAttribute("reservationNumber", new ArrayList<Reservation>());
-            logger.error("Error while retrieving reservations", e);
-        }
-
-        // name of template
-        return "pages/last-reservations";
-    }
-
-    @RequestMapping(value = Mappings.RESERVATION_CALENDAR, method = RequestMethod.GET)
-    public String showCalendar(Model model) {
-
-        //model.addAttribute("name", name);
-
-        // name of template
-        return "pages/reservation-calendar";
-    }
 
 }

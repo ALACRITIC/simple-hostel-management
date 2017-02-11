@@ -1,10 +1,19 @@
 var CalendarUtils = {
 
-    FEED_URL: "/reservation/json/get",
+    // fill me first !
+    FEED_URL: null,
+
+    setFeedUrl: function (url) {
+        CalendarUtils.FEED_URL = url;
+    },
 
     createCalendar: function (selector) {
 
         var self = CalendarUtils;
+
+        if (!self.FEED_URL) {
+            throw "Calendar feed url is null";
+        }
 
         $(selector).fullCalendar({
             header: {
@@ -44,9 +53,6 @@ var CalendarUtils = {
 
         var events = [];
         $.each(arrayOfEvents, function (index, element) {
-
-            console.log(element);
-            console.log(index);
 
             var firstname = element.customer.firstname;
             var lastname = element.customer.lastname;

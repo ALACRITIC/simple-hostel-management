@@ -18,15 +18,15 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="/reservation">Welcome</a></li>
+                <li><a th:href="${mappings.get('APPLICATION_INDEX')}">Welcome</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Reservations <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/reservation/calendar">Calendar</a></li>
-                        <li><a href="/reservation/lasts">Lasts reservations</a></li>
+                        <li><a th:href="${mappings.get('RESERVATION_CALENDAR')}">Calendar</a></li>
+                        <li><a th:href="${mappings.get('RESERVATION_LASTS')}">Lasts reservations</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="/reservation/form">Make a reservation</a></li>
+                        <li><a th:href="${mappings.get('RESERVATION_FORM')}">Make a reservation</a></li>
                     </ul>
                 </li>
 
@@ -34,10 +34,16 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Rooms <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/rooms/show">Show all</a></li>
-                        <li><a href="/rooms/add">Add a room</a></li>
+                        <li><a th:href="${mappings.get('ROOMS_SHOW')}">Show all</a></li>
+                        <li><a th:href="${mappings.get('ROOMS_ADD')}">Add a room</a></li>
                     </ul>
                 </li>
+
+                <!--
+                <li th:if="${mappings} == null">
+                    <a href="#">/!\ Warning: mappings are null</a>
+                </li>
+                -->
             </ul>
 
             <!--

@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Created by remipassmoilesel on 30/01/17.
  */
-public class ReservationForm {
+public class CreateReservationForm {
 
     @NotNull
     @Size(min = 2, max = 50)
@@ -34,7 +34,7 @@ public class ReservationForm {
     @NotNull
     private Long token;
 
-    public ReservationForm() {
+    public CreateReservationForm() {
 
     }
 
@@ -102,7 +102,7 @@ public class ReservationForm {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ReservationForm that = (ReservationForm) o;
+        CreateReservationForm that = (CreateReservationForm) o;
         return Objects.equals(customerFirstname, that.customerFirstname) &&
                 Objects.equals(customerLastname, that.customerLastname) &&
                 Objects.equals(customerPhonenumber, that.customerPhonenumber) &&

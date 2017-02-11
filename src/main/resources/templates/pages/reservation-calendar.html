@@ -7,9 +7,11 @@
     <script src="/assets/scripts/calendar-utils.js"></script>
     <div th:replace="fragments/headers"></div>
 
-    <script>
+    <script th:inline="javascript">
 
         $(function(){
+
+            CalendarUtils.setFeedUrl(/*[[${mappings.get('RESERVATION_JSON_GET')}]]*/ "/reservation/json/get");
 
             CalendarUtils.createCalendar("#calendar");
 
