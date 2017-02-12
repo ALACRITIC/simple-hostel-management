@@ -1,0 +1,52 @@
+<form th:object="${createRoomForm}" method="post">
+
+    <table class="formtable">
+
+        <!-- Room name -->
+        <tr>
+            <td>
+                <input type="text" class="form-control" placeholder="Room name" th:field="*{roomName}"/>
+                <div th:if="${#fields.hasErrors('roomName')}" th:errors="*{roomName}">
+                    Room name error
+                </div>
+            </td>
+        </tr>
+
+        <!-- Room comment -->
+        <tr>
+            <td>
+                <textarea class="form-control" placeholder="Comment" th:field="*{roomComment}"></textarea>
+                <div th:if="${#fields.hasErrors('roomComment')}" th:errors="*{roomComment}">Comment error
+                </div>
+            </td>
+        </tr>
+
+        <!-- Show token or misc errors -->
+        <tr>
+            <td>
+                <div th:if="${#fields.hasErrors('token')}" th:text="'Please update form and try again'">Token error</div>
+                <div th:if="${errorMessage == null || errorMessage.isEmpty() == false}" th:text="${errorMessage}">Error message</div>
+            </td>
+        </tr>
+
+        <!-- Token and submit button -->
+
+        <tr>
+            <td>
+
+                <!-- Add control token -->
+                <input type="hidden" name="token" th:value="${token}"/>
+
+                <button type="submit" class="btn btn-primary">Create a room</button>
+            </td>
+        </tr>
+
+    </table>
+
+    <script>
+        /*$(function () {
+
+        });*/
+    </script>
+
+</form>

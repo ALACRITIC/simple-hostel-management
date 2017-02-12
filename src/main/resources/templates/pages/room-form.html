@@ -1,16 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title></title>
+    <title>Create a room</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <div th:replace="fragments/headers"></div>
-
-    <script>
-        /*$(function () {
-
-        });*/
-    </script>
 
 </head>
 <body>
@@ -24,13 +18,9 @@
 
         <div class="col-md-12">
 
-            <h1>Reservation completed</h1>
+            <h1>Rooms</h1>
 
-            <div th:text="${createReservationForm}"></div>
-            <div th:text="${reservationResult}"></div>
-            <div th:text="${customer}"></div>
-            <div th:text="${reservation}"></div>
-            <div th:text="${errorMessage}"></div>
+            <div th:replace="fragments/room-form"></div>
 
         </div>
 
