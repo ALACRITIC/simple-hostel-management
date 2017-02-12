@@ -33,7 +33,7 @@ public class Application extends WebMvcConfigurerAdapter {
         // drop database if asked in configuration, for debug purposes
         if (MainConfiguration.DROP_DATABASE_ON_LAUNCH == true) {
             try {
-                FileUtils.deleteDirectory(MainConfiguration.DATABASE_PATH.toFile());
+                FileUtils.deleteDirectory(MainConfiguration.DATABASE_DIRECTORY.toFile());
                 logger.error("Database have been dropped");
             } catch (IOException e) {
                 logger.error("Error while reseting database");

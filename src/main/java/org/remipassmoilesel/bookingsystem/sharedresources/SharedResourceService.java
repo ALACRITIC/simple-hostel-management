@@ -5,6 +5,7 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import org.remipassmoilesel.bookingsystem.MainConfiguration;
+import org.remipassmoilesel.bookingsystem.customers.Customer;
 import org.remipassmoilesel.bookingsystem.customers.CustomerService;
 import org.remipassmoilesel.bookingsystem.utils.DatabaseUtils;
 import org.slf4j.Logger;
@@ -100,7 +101,11 @@ public class SharedResourceService {
 
     public List<SharedResource> getAll(Type type) throws IOException {
         try {
-            return resourceDao.queryForEq(SharedResource.TYPE_FIELD_NAME, type);
+            if (type != null) {
+                return resourceDao.queryForEq(SharedResource.TYPE_FIELD_NAME, type);
+            } else {
+                return resourceDao.queryForAll();
+            }
         } catch (SQLException e) {
             throw new IOException(e);
         }
@@ -108,6 +113,20 @@ public class SharedResourceService {
 
     public SharedResource createRoom(String roomName, String roomComment, Type type) throws IOException {
         return createResource(new SharedResource(roomName, roomComment, type));
+    }
+
+    /**
+     * Refresh information of a customer object from database
+     *
+     * @param resource
+     * @throws IOException
+     */
+    public void refresh(SharedResource resource) throws IOException {
+        try {
+            resourceDao.refresh(resource);
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
     }
 
 }

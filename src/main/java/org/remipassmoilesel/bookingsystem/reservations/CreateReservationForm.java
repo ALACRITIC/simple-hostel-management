@@ -32,6 +32,9 @@ public class CreateReservationForm {
     private String departureDate;
 
     @NotNull
+    private long sharedResourceId;
+
+    @NotNull
     private Long token;
 
     public CreateReservationForm() {
@@ -86,16 +89,12 @@ public class CreateReservationForm {
         this.token = token;
     }
 
-    @Override
-    public String toString() {
-        return "ReservationForm{" +
-                "customerFirstname='" + customerFirstname + '\'' +
-                ", customerLastname='" + customerLastname + '\'' +
-                ", customerPhonenumber='" + customerPhonenumber + '\'' +
-                ", dateArrival='" + arrivalDate + '\'' +
-                ", dateDeparture=" + departureDate +
-                ", token=" + token +
-                '}';
+    public long getSharedResourceId() {
+        return sharedResourceId;
+    }
+
+    public void setSharedResourceId(long sharedResourceId) {
+        this.sharedResourceId = sharedResourceId;
     }
 
     @Override
@@ -103,7 +102,8 @@ public class CreateReservationForm {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CreateReservationForm that = (CreateReservationForm) o;
-        return Objects.equals(customerFirstname, that.customerFirstname) &&
+        return sharedResourceId == that.sharedResourceId &&
+                Objects.equals(customerFirstname, that.customerFirstname) &&
                 Objects.equals(customerLastname, that.customerLastname) &&
                 Objects.equals(customerPhonenumber, that.customerPhonenumber) &&
                 Objects.equals(arrivalDate, that.arrivalDate) &&
@@ -113,6 +113,20 @@ public class CreateReservationForm {
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerFirstname, customerLastname, customerPhonenumber, arrivalDate, departureDate, token);
+        return Objects.hash(customerFirstname, customerLastname, customerPhonenumber, arrivalDate, departureDate, sharedResourceId, token);
     }
+
+    @Override
+    public String toString() {
+        return "CreateReservationForm{" +
+                "customerFirstname='" + customerFirstname + '\'' +
+                ", customerLastname='" + customerLastname + '\'' +
+                ", customerPhonenumber='" + customerPhonenumber + '\'' +
+                ", arrivalDate='" + arrivalDate + '\'' +
+                ", departureDate='" + departureDate + '\'' +
+                ", sharedResourceId=" + sharedResourceId +
+                ", token=" + token +
+                '}';
+    }
+
 }

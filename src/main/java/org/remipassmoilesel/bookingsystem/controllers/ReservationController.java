@@ -6,7 +6,8 @@ import org.remipassmoilesel.bookingsystem.customers.CustomerService;
 import org.remipassmoilesel.bookingsystem.reservations.CreateReservationForm;
 import org.remipassmoilesel.bookingsystem.reservations.Reservation;
 import org.remipassmoilesel.bookingsystem.reservations.ReservationService;
-import org.remipassmoilesel.bookingsystem.utils.FormErrorMap;
+import org.remipassmoilesel.bookingsystem.sharedresources.SharedResource;
+import org.remipassmoilesel.bookingsystem.sharedresources.SharedResourceService;
 import org.remipassmoilesel.bookingsystem.utils.TokenManager;
 import org.remipassmoilesel.bookingsystem.utils.Utils;
 import org.slf4j.Logger;
@@ -38,6 +39,9 @@ public class ReservationController {
 
     @Autowired
     private ReservationService reservationService;
+
+    @Autowired
+    private SharedResourceService sharedResourceService;
 
 
     /**
@@ -87,13 +91,14 @@ public class ReservationController {
     public String showForm(
             HttpServletRequest request,
             CreateReservationForm reservationForm,
-            Model model) {
+            Model model) throws Exception {
 
         // create a token and add it to model
         TokenManager tokenman = new TokenManager(TOKEN_NAME);
         tokenman.addToken(model);
 
         model.addAttribute("errorMessage", "");
+        model.addAttribute("sharedResources", sharedResourceService.getAll(null));
 
         // add it to session for check
         HttpSession session = request.getSession();
@@ -108,13 +113,15 @@ public class ReservationController {
             @Valid CreateReservationForm reservationForm,
             BindingResult reservationResults,
             Model model,
-            HttpServletRequest request) {
+            HttpServletRequest request) throws Exception {
 
         if (reservationResults.hasErrors()) {
 
             //System.out.println(reservationResults.getAllErrors());
             model.addAttribute("token", reservationForm.getToken());
             model.addAttribute("errorMessage", "");
+
+            model.addAttribute("sharedResources", sharedResourceService.getAll(null));
 
             Mappings.includeMappings(model);
             return "pages/reservation-form";
@@ -148,7 +155,8 @@ public class ReservationController {
 
                 Date departureDate = Utils.stringToDate(reservationForm.getDepartureDate());
                 Date arrivalDate = Utils.stringToDate(reservationForm.getArrivalDate());
-                reservation = reservationService.createReservation(customer, departureDate, arrivalDate);
+                SharedResource res = sharedResourceService.getById(reservationForm.getSharedResourceId());
+                reservation = reservationService.createReservation(customer, res, departureDate, arrivalDate);
 
             } catch (Exception e) {
                 logger.error("Error while creating reservation", e);

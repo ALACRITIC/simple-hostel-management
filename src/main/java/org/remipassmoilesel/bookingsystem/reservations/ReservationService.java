@@ -9,6 +9,8 @@ import com.j256.ormlite.table.TableUtils;
 import org.remipassmoilesel.bookingsystem.MainConfiguration;
 import org.remipassmoilesel.bookingsystem.customers.Customer;
 import org.remipassmoilesel.bookingsystem.customers.CustomerService;
+import org.remipassmoilesel.bookingsystem.sharedresources.SharedResource;
+import org.remipassmoilesel.bookingsystem.sharedresources.SharedResourceService;
 import org.remipassmoilesel.bookingsystem.utils.DatabaseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +33,9 @@ public class ReservationService {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private SharedResourceService sharedResourceService;
 
     private Dao<Reservation, String> reservationDao;
     private JdbcPooledConnectionSource connection;
@@ -102,6 +107,7 @@ public class ReservationService {
 
             for (Reservation r : results) {
                 customerService.refresh(r.getCustomer());
+                sharedResourceService.refresh(r.getResource());
             }
 
             return results;
@@ -120,9 +126,9 @@ public class ReservationService {
      * @return
      * @throws IOException
      */
-    public Reservation createReservation(Customer customer, Date departure, Date arrival) throws IOException {
+    public Reservation createReservation(Customer customer, SharedResource resource, Date departure, Date arrival) throws IOException {
         try {
-            Reservation res = new Reservation(customer, departure, arrival, null);
+            Reservation res = new Reservation(customer, resource, departure, arrival, null);
             reservationDao.create(res);
             return res;
         } catch (SQLException e) {
@@ -153,6 +159,7 @@ public class ReservationService {
 
             for (Reservation r : results) {
                 customerService.refresh(r.getCustomer());
+                sharedResourceService.refresh(r.getResource());
             }
 
             return results;

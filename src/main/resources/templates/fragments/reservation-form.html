@@ -44,6 +44,21 @@
             </td>
         </tr>
 
+        <!-- Resources-->
+
+        <tr>
+            <td colspan="2">
+                <select class="form-control" th:field="*{sharedResourceId}">
+                    <option th:each="resource : ${sharedResources}"
+                            th:value="${resource.getId()}"
+                            th:text="${resource.getName()}">Resource name</option>
+                </select>
+                <div th:if="${#fields.hasErrors('sharedResourceId')}" th:errors="*{sharedResourceId}">
+                    Shared resource error
+                </div>
+            </td>
+        </tr>
+
         <tr>
             <td colspan="2">
                 <div th:if="${#fields.hasErrors('arrivalDate')}" th:errors="*{arrivalDate}">Arrival error</div>
