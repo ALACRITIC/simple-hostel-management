@@ -6,6 +6,8 @@ import org.remipassmoilesel.bookingsystem.customers.CustomerService;
 import org.remipassmoilesel.bookingsystem.reservations.CreateReservationForm;
 import org.remipassmoilesel.bookingsystem.reservations.Reservation;
 import org.remipassmoilesel.bookingsystem.reservations.ReservationService;
+import org.remipassmoilesel.bookingsystem.utils.FormErrorMap;
+import org.remipassmoilesel.bookingsystem.utils.TokenManager;
 import org.remipassmoilesel.bookingsystem.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,20 +25,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class ReservationController {
 
     private static final Logger logger = LoggerFactory.getLogger(ReservationController.class);
 
-    private static final String FORM_TOKEN = "reservation-form-token";
+    private static final String TOKEN_NAME = "reservation";
 
     @Autowired
     private CustomerService customerService;
 
     @Autowired
     private ReservationService reservationService;
+
 
     /**
      * Display lasts reservation
@@ -87,17 +89,15 @@ public class ReservationController {
             CreateReservationForm reservationForm,
             Model model) {
 
-        // set request token
-        long token = System.currentTimeMillis();
+        // create a token and add it to model
+        TokenManager tokenman = new TokenManager(TOKEN_NAME);
+        tokenman.addToken(model);
 
-        // add it to model, to transmit it by forms
-        model.addAttribute("token", token);
         model.addAttribute("errorMessage", "");
-        model.addAttribute("reservationForm", reservationForm);
 
         // add it to session for check
         HttpSession session = request.getSession();
-        session.setAttribute(FORM_TOKEN, token);
+        tokenman.addToken(session);
 
         Mappings.includeMappings(model);
         return "pages/reservation-form";
@@ -111,10 +111,10 @@ public class ReservationController {
             HttpServletRequest request) {
 
         if (reservationResults.hasErrors()) {
+
             //System.out.println(reservationResults.getAllErrors());
             model.addAttribute("token", reservationForm.getToken());
             model.addAttribute("errorMessage", "");
-            model.addAttribute("reservationForm", reservationForm);
 
             Mappings.includeMappings(model);
             return "pages/reservation-form";
@@ -125,16 +125,12 @@ public class ReservationController {
 
         // checks tokens
         HttpSession session = request.getSession();
-
-        //check tokens
-        Long token = reservationForm.getToken();
-        Long sessionToken = (Long) session.getAttribute(FORM_TOKEN);
+        TokenManager tokenman = new TokenManager(TOKEN_NAME);
 
         String errorMessage = "";
 
         // token is invalid
-        if (sessionToken == null || sessionToken.equals(Long.valueOf(token)) == false) {
-            logger.error("Invalid token: " + token + " / " + sessionToken);
+        if (tokenman.isTokenValid(session, reservationForm.getToken()) == false) {
             errorMessage = "Invalid session";
         }
 
@@ -142,7 +138,7 @@ public class ReservationController {
         else {
 
             // always delete token before leave
-            session.setAttribute(FORM_TOKEN, null);
+            tokenman.deleteTokenFrom(session);
 
             try {
                 customer = customerService.createCustomer(
@@ -161,7 +157,6 @@ public class ReservationController {
 
         }
 
-        model.addAttribute("reservationForm", reservationForm);
         model.addAttribute("reservation", reservation);
         model.addAttribute("errorMessage", errorMessage);
 
