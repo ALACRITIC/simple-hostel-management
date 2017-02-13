@@ -10,6 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.Random;
 
 /**
  * Created by remipassmoilesel on 31/01/17.
@@ -22,6 +23,8 @@ public class Utils {
     public static String dateToString(Date d) {
         return formatterDDMMYYYY.format(d);
     }
+
+    private static Random rand = new Random();
 
     public static Date stringToDate(String str) throws Exception {
         try {
@@ -73,6 +76,18 @@ public class Utils {
         String contextPath = appContext.getServletContext().getContextPath();
 
         return scheme + "://" + hostName + ":" + port + contextPath;
+    }
+
+    /**
+     * Return a random int
+     *
+     * @param min
+     * @param max
+     * @return
+     */
+    public static int randInt(int min, int max) {
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+        return randomNum;
     }
 
 }
