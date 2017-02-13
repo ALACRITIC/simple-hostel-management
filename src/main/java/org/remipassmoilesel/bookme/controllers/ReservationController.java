@@ -67,7 +67,7 @@ public class ReservationController {
         Mappings.includeMappings(model);
 
         // name of template
-        return Templates.LAST_RESERVATIONS;
+        return Templates.RESERVATIONS_LAST;
     }
 
     @RequestMapping(value = Mappings.RESERVATION_CALENDAR, method = RequestMethod.GET)

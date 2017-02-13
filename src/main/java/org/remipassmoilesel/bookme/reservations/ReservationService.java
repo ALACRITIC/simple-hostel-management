@@ -83,12 +83,11 @@ public class ReservationService {
      * @param id
      * @return
      */
-    public Reservation getById(Long id) {
+    public Reservation getById(Long id) throws IOException {
         try {
             return reservationDao.queryForId(String.valueOf(id));
         } catch (SQLException e) {
-            logger.error("Error while retrieving: " + id, e);
-            return null;
+            throw new IOException(e);
         }
     }
 
