@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <div th:replace="fragments/headers"></div>
+
+    <script>
+        /*$(function () {
+
+        });*/
+    </script>
+
+</head>
+<body>
+
+<!-- include nav bar -->
+<div th:replace="fragments/navbar"></div>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <h1>Message saved</h1>
+
+            <div th:text="${createMessageForm}"></div>
+            <div th:text="${message}"></div>
+            <div th:text="${errorMessage}"></div>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

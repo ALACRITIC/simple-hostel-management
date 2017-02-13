@@ -1,0 +1,45 @@
+<form th:object="${createMessageForm}" method="post">
+
+    <table class="formtable">
+
+        <!-- Message -->
+        <tr>
+            <td>
+                <textarea class="form-control" placeholder="Message" th:field="*{message}"></textarea>
+                <div th:if="${#fields.hasErrors('message')}" th:errors="*{message}">
+                    Room name error
+                </div>
+            </td>
+        </tr>
+
+        <!-- Show token errors and misc errors -->
+        <tr>
+            <td>
+                <div th:if="${#fields.hasErrors('token')}" th:text="'Please update form and try again'">Token error
+                </div>
+                <div th:if="${errorMessage == null || errorMessage.isEmpty() == false}" th:text="${errorMessage}">
+                    Error message
+                </div>
+            </td>
+        </tr>
+
+        <!-- Token and submit button -->
+        <tr>
+            <td>
+
+                <!-- Add control token -->
+                <input type="hidden" name="token" th:value="${token}"/>
+
+                <button type="submit" class="btn btn-primary">New message</button>
+            </td>
+        </tr>
+
+    </table>
+
+    <script>
+        /*$(function () {
+
+         });*/
+    </script>
+
+</form>

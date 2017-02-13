@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create a message</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <div th:replace="fragments/headers"></div>
+
+</head>
+<body>
+
+<!-- include nav bar -->
+<div th:replace="fragments/navbar"></div>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <h1>Messages</h1>
+
+            <div th:replace="fragments/message-form"></div>
+
+            <!--<div th:replace="fragments/show-debug"></div>-->
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -34,7 +34,12 @@ public class Mappings {
     public static final String ROOMS_JSON_GET = ROOMS_JSON + "/all";
 
 
+    public static final String MESSAGES_ROOT = APPLICATION_ROOT + "/messages";
+    public static final String MESSAGES_FORM = MESSAGES_ROOT + "/form";
+    public static final String MESSAGES_SHOW_ALL = MESSAGES_ROOT + "/show";
+
     public static final String POPULATE_TABLES = APPLICATION_ROOT + "/populate-tables";
+
 
     public static MappingMap getMap() {
 
