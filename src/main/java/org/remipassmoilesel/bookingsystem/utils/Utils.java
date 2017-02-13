@@ -1,7 +1,9 @@
 package org.remipassmoilesel.bookingsystem.utils;
 
-import org.remipassmoilesel.bookingsystem.Mappings;
-import org.springframework.ui.Model;
+import org.apache.catalina.connector.Connector;
+import org.apache.catalina.startup.Tomcat;
+import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
@@ -49,6 +51,28 @@ public class Utils {
             System.out.println("\t # Name: " + name);
             System.out.println("\t   Value: " + value);
         }
+    }
+
+    /**
+     * /!\ Work only if application run on embedded Tomcat server
+     *
+     * @return
+     * @throws Exception
+     */
+    public static String getBaseUrlForEmbeddedTomcat() throws Exception {
+
+        // get embedded tomcat
+        EmbeddedWebApplicationContext appContext = (EmbeddedWebApplicationContext) new ApplicationContextProvider().getApplicationContext();
+        Tomcat tomcat = ((TomcatEmbeddedServletContainer) appContext.getEmbeddedServletContainer()).getTomcat();
+        Connector connector = tomcat.getConnector();
+
+        // compose address
+        String scheme = connector.getScheme();
+        String hostName = tomcat.getHost().getName();
+        int port = connector.getPort();
+        String contextPath = appContext.getServletContext().getContextPath();
+
+        return scheme + "://" + hostName + ":" + port + contextPath;
     }
 
 }
