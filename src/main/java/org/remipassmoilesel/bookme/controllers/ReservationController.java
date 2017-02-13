@@ -1,6 +1,7 @@
 package org.remipassmoilesel.bookme.controllers;
 
 import org.remipassmoilesel.bookme.Mappings;
+import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.reservations.CreateReservationForm;
@@ -66,7 +67,7 @@ public class ReservationController {
         Mappings.includeMappings(model);
 
         // name of template
-        return "pages/last-reservations";
+        return Templates.LAST_RESERVATIONS;
     }
 
     @RequestMapping(value = Mappings.RESERVATION_CALENDAR, method = RequestMethod.GET)
@@ -77,7 +78,7 @@ public class ReservationController {
         Mappings.includeMappings(model);
 
         // name of template
-        return "pages/reservation-calendar";
+        return Templates.RESERVATION_CALENDAR;
     }
 
     /**
@@ -106,7 +107,7 @@ public class ReservationController {
         tokenman.addToken(session);
 
         Mappings.includeMappings(model);
-        return "pages/reservation-form";
+        return Templates.RESERVATION_FORM;
     }
 
     @PostMapping(Mappings.RESERVATION_FORM)
@@ -125,7 +126,7 @@ public class ReservationController {
             model.addAttribute("sharedResources", sharedResourceService.getAll(null));
 
             Mappings.includeMappings(model);
-            return "pages/reservation-form";
+            return Templates.RESERVATION_FORM;
         }
 
         Customer customer = null;
@@ -171,7 +172,7 @@ public class ReservationController {
         model.addAttribute("errorMessage", errorMessage);
 
         Mappings.includeMappings(model);
-        return "pages/reservation-completed";
+        return Templates.RESERVATION_COMPLETED;
     }
 
     @RequestMapping(value = Mappings.RESERVATION_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -199,7 +200,7 @@ public class ReservationController {
             @RequestParam(value = "end", required = true) String endDateStr,
             @RequestParam(value = "places", required = false) int places) throws Exception {
 
-        if(places < 1){
+        if (places < 1) {
             places = 0;
         }
 

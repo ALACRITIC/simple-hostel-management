@@ -25,7 +25,7 @@ public class Mappings {
     public static final String RESERVATION_FORM = RESERVATION_ROOT + "/form";
     public static final String RESERVATION_JSON = RESERVATION_ROOT + "/json";
     public static final String RESERVATION_JSON_GET = RESERVATION_JSON + "/json";
-    public static final String RESERVATION_ROOMS_AVAILABLE_JSON_GET = RESERVATION_ROOT + "/available/json";
+    public static final String RESERVATION_ROOMS_AVAILABLE_JSON_GET = RESERVATION_JSON + "/availablerooms";
 
     public static final String ROOMS_ROOT = APPLICATION_ROOT + "/room";
     public static final String ROOMS_SHOW = ROOMS_ROOT + "/show";

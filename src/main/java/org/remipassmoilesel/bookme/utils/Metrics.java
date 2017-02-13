@@ -1,6 +1,7 @@
 package org.remipassmoilesel.bookme.utils;
 
 import org.remipassmoilesel.bookme.Mappings;
+import org.remipassmoilesel.bookme.Templates;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ public class Metrics {
     @RequestMapping(method = RequestMethod.GET)
     public String metrics(Model model) {
         model.addAttribute("metricsMapping", metricsMapping);
-        return "pages/metrics";
+        return Templates.METRICS;
     }
 
 }

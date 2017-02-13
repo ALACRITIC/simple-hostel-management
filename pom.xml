@@ -66,6 +66,20 @@
             <version>1.4.193</version>
         </dependency>
 
+        <!-- Web admin -->
+        <!--
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-server</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-server-ui</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+        -->
+
     </dependencies>
 
     <properties>

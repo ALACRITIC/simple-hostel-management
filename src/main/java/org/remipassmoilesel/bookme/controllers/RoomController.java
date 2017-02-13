@@ -1,6 +1,7 @@
 package org.remipassmoilesel.bookme.controllers;
 
 import org.remipassmoilesel.bookme.Mappings;
+import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
 import org.remipassmoilesel.bookme.sharedresources.CreateRoomForm;
 import org.remipassmoilesel.bookme.sharedresources.SharedResource;
@@ -52,7 +53,7 @@ public class RoomController {
         model.addAttribute("rooms", rooms);
 
         Mappings.includeMappings(model);
-        return "pages/room-show";
+        return Templates.ROOM_SHOW;
     }
 
     /**
@@ -80,7 +81,7 @@ public class RoomController {
         tokenman.addToken(session);
 
         Mappings.includeMappings(model);
-        return "pages/room-form";
+        return Templates.ROOM_FORM;
     }
 
     @PostMapping(Mappings.ROOMS_FORM)
@@ -96,7 +97,7 @@ public class RoomController {
             model.addAttribute("errorMessage", "");
 
             Mappings.includeMappings(model);
-            return "pages/room-form";
+            return Templates.ROOM_FORM;
         }
 
         SharedResource room = null;
@@ -137,7 +138,7 @@ public class RoomController {
         model.addAttribute("errorMessage", errorMessage);
 
         Mappings.includeMappings(model);
-        return "pages/room-completed";
+        return Templates.ROOM_COMPLETED;
     }
 
 }

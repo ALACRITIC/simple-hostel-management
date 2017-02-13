@@ -1,6 +1,7 @@
 package org.remipassmoilesel.bookme.controllers;
 
 import org.remipassmoilesel.bookme.Mappings;
+import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
 import org.slf4j.Logger;
@@ -43,7 +44,7 @@ public class MainController {
         Mappings.includeMappings(model);
 
         // name of template
-        return "pages/main";
+        return Templates.MAIN;
     }
 
 
