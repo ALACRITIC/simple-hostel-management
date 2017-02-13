@@ -1,5 +1,7 @@
 package org.remipassmoilesel.bookingsystem;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 
 import java.lang.reflect.Field;
@@ -9,6 +11,8 @@ import java.util.HashMap;
  * Created by remipassmoilesel on 12/12/16.
  */
 public class Mappings {
+
+    private static final Logger logger = LoggerFactory.getLogger(Mappings.class);
 
     public static final String ROOT = "/";
     public static final String METRICS = "/metrics";
@@ -31,19 +35,36 @@ public class Mappings {
 
     public static final String POPULATE_TABLES = APPLICATION_ROOT + "/populate-tables";
 
-    public static HashMap<String, Object> getMap() {
+    public static MappingMap getMap() {
 
-        HashMap<String, Object> result = new HashMap<>();
+        MappingMap result = new MappingMap();
 
         for (Field f : Mappings.class.getDeclaredFields()) {
             try {
-                result.put(f.getName(), f.get(null));
+                Object val = f.get(null);
+                if (val instanceof String) {
+                    result.put(f.getName(), (String) val);
+                }
             } catch (IllegalAccessException e) {
                 throw new RuntimeException("Unable to access field: " + f);
             }
         }
 
         return result;
+    }
+
+    /**
+     * Special class used to show errors
+     */
+    public static class MappingMap extends HashMap<String, String> {
+        @Override
+        public String get(Object key) {
+            String res = super.get(key);
+            if (res == null) {
+                logger.error("Key do not exist: " + key, new Exception("Key do not exist: " + key));
+            }
+            return res;
+        }
     }
 
     public static void includeMappings(Model model) {
