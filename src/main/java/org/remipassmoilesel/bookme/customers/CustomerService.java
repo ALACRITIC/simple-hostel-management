@@ -77,9 +77,19 @@ public class CustomerService {
      * @throws IOException
      */
     public Customer createCustomer(String firstname, String lastname, String phonenumber) throws IOException {
+        return createCustomer(new Customer(firstname, lastname, phonenumber));
+    }
+
+    /**
+     * Create a customer
+     *
+     * @param customer
+     * @return
+     * @throws IOException
+     */
+    public Customer createCustomer(Customer customer) throws IOException {
 
         try {
-            Customer customer = new Customer(firstname, lastname, phonenumber);
             customerDao.create(customer);
             return customer;
         } catch (SQLException e) {

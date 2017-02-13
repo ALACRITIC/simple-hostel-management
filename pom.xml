@@ -28,12 +28,10 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Markdown convert -->
-
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
         <dependency>
-            <groupId>org.pegdown</groupId>
-            <artifactId>pegdown</artifactId>
-            <version>1.6.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
 
         <!-- File utils -->
@@ -66,6 +64,8 @@
             <version>1.4.193</version>
         </dependency>
 
+
+
         <!-- Web admin -->
         <!--
         <dependency>
@@ -85,7 +85,6 @@
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
 
     <build>
         <plugins>
