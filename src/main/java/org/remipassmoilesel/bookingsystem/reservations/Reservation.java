@@ -17,9 +17,10 @@ public class Reservation {
     public static final String ID_FIELD_NAME = "ID";
     public static final String CUSTOMER_FIELD_NAME = "CUSTOMER";
     public static final String RESERVATION_DATE = "RESERVATIONDATE";
+    public static final String SHARED_RESOURCE_FIELD_NAME = "SHARED_RESOURCE";
+    public static final String PLACES_FIELD_NAME = "PLACES";
     public static final String DATEBEGIN_FIELD_NAME = "BEGIN";
     public static final String DATEEND_FIELD_NAME = "END";
-    public static final String SHARED_RESOURCE = "SHARED_RESOURCE";
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private int id;
@@ -27,8 +28,11 @@ public class Reservation {
     @DatabaseField(foreign = true, columnName = CUSTOMER_FIELD_NAME)
     private Customer customer;
 
-    @DatabaseField(foreign = true, columnName = SHARED_RESOURCE)
+    @DatabaseField(foreign = true, columnName = SHARED_RESOURCE_FIELD_NAME)
     private SharedResource resource;
+
+    @DatabaseField(columnName = PLACES_FIELD_NAME)
+    private int places;
 
     @DatabaseField(columnName = RESERVATION_DATE)
     private Date reservationDate;
@@ -43,14 +47,15 @@ public class Reservation {
         // ORMLite needs a no-arg constructor
     }
 
-    public Reservation(Customer customer, SharedResource resource, Date begin, Date end, Date reservationDate) {
+    public Reservation(Customer customer, SharedResource resource, int places, Date begin, Date end, Date reservationDate) {
         this.customer = customer;
         this.begin = begin;
         this.end = end;
         this.resource = resource;
+        this.places = places;
 
         if (end.getTime() < begin.getTime()) {
-            throw new IllegalStateException("Departure is after arrival: a/ " + begin + " d/ " + end);
+            throw new IllegalStateException("Begin date is after end date: begin/ " + begin + " end/ " + end);
         }
 
         if (reservationDate == null) {
@@ -58,6 +63,7 @@ public class Reservation {
         }
         this.reservationDate = reservationDate;
     }
+
 
     public int getId() {
         return id;
@@ -105,21 +111,15 @@ public class Reservation {
 
     public void setResource(SharedResource resource) {
         this.resource = resource;
-
     }
 
-    @Override
-    public String toString() {
-        return "Reservation{" +
-                "id=" + id +
-                ", customer=" + customer +
-                ", resource=" + resource +
-                ", reservationDate=" + reservationDate +
-                ", arrival=" + begin +
-                ", departure=" + end +
-                '}';
+    public int getPlaces() {
+        return places;
     }
 
+    public void setPlaces(int places) {
+        this.places = places;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -127,6 +127,7 @@ public class Reservation {
         if (o == null || getClass() != o.getClass()) return false;
         Reservation that = (Reservation) o;
         return id == that.id &&
+                places == that.places &&
                 Objects.equals(customer, that.customer) &&
                 Objects.equals(resource, that.resource) &&
                 Objects.equals(reservationDate, that.reservationDate) &&
@@ -136,7 +137,19 @@ public class Reservation {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customer, resource, reservationDate, begin, end);
+        return Objects.hash(id, customer, resource, places, reservationDate, begin, end);
     }
 
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", resource=" + resource +
+                ", places=" + places +
+                ", reservationDate=" + reservationDate +
+                ", begin=" + begin +
+                ", end=" + end +
+                '}';
+    }
 }

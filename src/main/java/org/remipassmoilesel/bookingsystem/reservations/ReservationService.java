@@ -123,14 +123,14 @@ public class ReservationService {
      * Create a new reservation
      *
      * @param customer
-     * @param departure
-     * @param arrival
+     * @param begin
+     * @param end
      * @return
      * @throws IOException
      */
-    public Reservation createReservation(Customer customer, SharedResource resource, Date departure, Date arrival) throws IOException {
+    public Reservation createReservation(Customer customer, SharedResource resource, int places, Date begin, Date end) throws IOException {
         try {
-            Reservation res = new Reservation(customer, resource, departure, arrival, null);
+            Reservation res = new Reservation(customer, resource, places, begin, end, null);
             reservationDao.create(res);
             return res;
         } catch (SQLException e) {
@@ -179,16 +179,16 @@ public class ReservationService {
      * @return
      * @throws Exception
      */
-    public List<SharedResource> getAvailableResources(Type type, Date begin, Date end) throws Exception {
+    public List<SharedResource> getAvailableResources(Type type, Date begin, Date end, int places) throws Exception {
 
         ArrayList<SharedResource> result = new ArrayList<>();
-        for (SharedResource res : sharedResourceService.getAll(type)) {
+        for (SharedResource resource : sharedResourceService.getAll(type)) {
 
             QueryBuilder<Reservation, String> builder = reservationDao.queryBuilder();
 
             Where<Reservation, String> where = builder.where();
             where.and(
-                    where.eq(Reservation.SHARED_RESOURCE, res.getId()),
+                    where.eq(Reservation.SHARED_RESOURCE_FIELD_NAME, resource.getId()),
                     where.or(
                             // case 1: reservation begin or end in interval
                             where.between(Reservation.DATEBEGIN_FIELD_NAME, begin, end)
@@ -200,10 +200,15 @@ public class ReservationService {
                     )
             );
 
-            int reservationNumber = builder.query().size();
+            List<Reservation> results = builder.query();
 
-            if (reservationNumber < res.getPlaces()) {
-                result.add(res);
+            int existingPlacesReserved = 0;
+            for (Reservation reservation : results) {
+                existingPlacesReserved += reservation.getPlaces();
+            }
+
+            if (resource.getPlaces() - existingPlacesReserved >= places) {
+                result.add(resource);
             }
 
         }

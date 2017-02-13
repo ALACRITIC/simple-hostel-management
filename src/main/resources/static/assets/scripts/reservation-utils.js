@@ -8,8 +8,12 @@ var ReservationUtils = {
         self.roomAvailablesFeedUrl = url;
     },
 
-    getRoomsAvailable: function (start, end) {
+    getRoomsAvailable: function (start, end, places) {
 
+        if(!places){
+            places = 1;
+        }
+        
         var self = ReservationUtils;
         if (!self.roomAvailablesFeedUrl) {
             throw "Calendar feed url is null !"
@@ -21,7 +25,8 @@ var ReservationUtils = {
             url: self.roomAvailablesFeedUrl,
             data: {
                 start: start,
-                end: end
+                end: end,
+                places: places 
             }
         }).done(function (response) {
             result.resolve(response);

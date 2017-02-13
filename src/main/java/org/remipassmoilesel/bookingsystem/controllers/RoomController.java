@@ -46,20 +46,6 @@ public class RoomController {
         return result;
     }
 
-    @RequestMapping(value = Mappings.ROOMS_AVAILABLE_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public List<SharedResource> getAvailableRooms(
-            @RequestParam(value = "start", required = true) String startDateStr,
-            @RequestParam(value = "end", required = true) String endDateStr) throws Exception {
-
-        Date startDate = Utils.stringToDate(startDateStr);
-        Date endDate = Utils.stringToDate(endDateStr);
-
-        List<SharedResource> result = reservationService.getAvailableResources(Type.ROOM, startDate, endDate);
-
-        return result;
-    }
-
     @RequestMapping(value = Mappings.ROOMS_SHOW, method = RequestMethod.GET)
     public String showAll(Model model) throws Exception {
 

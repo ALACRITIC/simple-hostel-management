@@ -61,8 +61,8 @@ var CalendarUtils = {
 
             var firstname = element.customer.firstname;
             var lastname = element.customer.lastname;
-            var startDate = element.arrival;
-            var endDate = element.departure;
+            var startDate = element.begin;
+            var endDate = element.end;
 
             events.push({
                 title: lastname + " " + firstname,

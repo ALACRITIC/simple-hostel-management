@@ -60,7 +60,8 @@ public class PopulateTables {
             Customer customer = customerService.createCustomer("Jean_" + i, "Paul_" + i, "000000" + i);
             SharedResource resource = rooms.get(Utils.randInt(0, rooms.size() - 1));
 
-            Reservation reservation = reservationService.createReservation(customer, resource, sdf.parse(i + "/01/2017"), sdf.parse((i + 1) + "/01/2017"));
+            Reservation reservation = reservationService.createReservation(customer, resource, 1,
+                    sdf.parse(i + "/02/2017"), sdf.parse((i + 1) + "/02/2017"));
             reservations.add(reservation);
 
         }

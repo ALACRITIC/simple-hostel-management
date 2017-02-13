@@ -8,6 +8,7 @@ import org.remipassmoilesel.bookingsystem.reservations.Reservation;
 import org.remipassmoilesel.bookingsystem.reservations.ReservationService;
 import org.remipassmoilesel.bookingsystem.sharedresources.SharedResource;
 import org.remipassmoilesel.bookingsystem.sharedresources.SharedResourceService;
+import org.remipassmoilesel.bookingsystem.sharedresources.Type;
 import org.remipassmoilesel.bookingsystem.utils.TokenManager;
 import org.remipassmoilesel.bookingsystem.utils.Utils;
 import org.slf4j.Logger;
@@ -153,10 +154,11 @@ public class ReservationController {
                         reservationForm.getCustomerLastname(),
                         reservationForm.getCustomerPhonenumber());
 
-                Date departureDate = Utils.stringToDate(reservationForm.getDepartureDate());
-                Date arrivalDate = Utils.stringToDate(reservationForm.getArrivalDate());
+                Date beginDate = Utils.stringToDate(reservationForm.getBegin());
+                Date endDate = Utils.stringToDate(reservationForm.getEnd());
                 SharedResource res = sharedResourceService.getById(reservationForm.getSharedResourceId());
-                reservation = reservationService.createReservation(customer, res, departureDate, arrivalDate);
+                int pl = reservationForm.getPlaces();
+                reservation = reservationService.createReservation(customer, res, pl, beginDate, endDate);
 
             } catch (Exception e) {
                 logger.error("Error while creating reservation", e);
@@ -189,5 +191,25 @@ public class ReservationController {
         return result;
 
     }
+
+    @RequestMapping(value = Mappings.RESERVATION_ROOMS_AVAILABLE_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<SharedResource> getAvailableRooms(
+            @RequestParam(value = "start", required = true) String startDateStr,
+            @RequestParam(value = "end", required = true) String endDateStr,
+            @RequestParam(value = "places", required = false) int places) throws Exception {
+
+        if(places < 1){
+            places = 0;
+        }
+
+        Date startDate = Utils.stringToDate(startDateStr);
+        Date endDate = Utils.stringToDate(endDateStr);
+
+        List<SharedResource> result = reservationService.getAvailableResources(Type.ROOM, startDate, endDate, places);
+
+        return result;
+    }
+
 
 }

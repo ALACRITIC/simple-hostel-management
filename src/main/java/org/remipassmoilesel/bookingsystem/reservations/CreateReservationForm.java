@@ -24,12 +24,16 @@ public class CreateReservationForm {
     private String customerPhonenumber;
 
     @NotNull
-    @Size(min = 10, max = 10)
-    private String arrivalDate;
+    @Size(min = 1)
+    private int places;
 
     @NotNull
     @Size(min = 10, max = 10)
-    private String departureDate;
+    private String begin;
+
+    @NotNull
+    @Size(min = 10, max = 10)
+    private String end;
 
     @NotNull
     private long sharedResourceId;
@@ -57,12 +61,12 @@ public class CreateReservationForm {
         this.customerLastname = customerLastname;
     }
 
-    public void setArrivalDate(String arrivalDate) {
-        this.arrivalDate = arrivalDate;
+    public void setBegin(String begin) {
+        this.begin = begin;
     }
 
-    public void setDepartureDate(String departureDate) {
-        this.departureDate = departureDate;
+    public void setEnd(String end) {
+        this.end = end;
     }
 
     public String getCustomerFirstname() {
@@ -73,12 +77,12 @@ public class CreateReservationForm {
         return customerLastname;
     }
 
-    public String getArrivalDate() {
-        return arrivalDate;
+    public String getBegin() {
+        return begin;
     }
 
-    public String getDepartureDate() {
-        return departureDate;
+    public String getEnd() {
+        return end;
     }
 
     public Long getToken() {
@@ -97,23 +101,32 @@ public class CreateReservationForm {
         this.sharedResourceId = sharedResourceId;
     }
 
+    public int getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(int places) {
+        this.places = places;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CreateReservationForm that = (CreateReservationForm) o;
-        return sharedResourceId == that.sharedResourceId &&
+        return places == that.places &&
+                sharedResourceId == that.sharedResourceId &&
                 Objects.equals(customerFirstname, that.customerFirstname) &&
                 Objects.equals(customerLastname, that.customerLastname) &&
                 Objects.equals(customerPhonenumber, that.customerPhonenumber) &&
-                Objects.equals(arrivalDate, that.arrivalDate) &&
-                Objects.equals(departureDate, that.departureDate) &&
+                Objects.equals(begin, that.begin) &&
+                Objects.equals(end, that.end) &&
                 Objects.equals(token, that.token);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerFirstname, customerLastname, customerPhonenumber, arrivalDate, departureDate, sharedResourceId, token);
+        return Objects.hash(customerFirstname, customerLastname, customerPhonenumber, places, begin, end, sharedResourceId, token);
     }
 
     @Override
@@ -122,11 +135,11 @@ public class CreateReservationForm {
                 "customerFirstname='" + customerFirstname + '\'' +
                 ", customerLastname='" + customerLastname + '\'' +
                 ", customerPhonenumber='" + customerPhonenumber + '\'' +
-                ", arrivalDate='" + arrivalDate + '\'' +
-                ", departureDate='" + departureDate + '\'' +
+                ", places=" + places +
+                ", begin='" + begin + '\'' +
+                ", end='" + end + '\'' +
                 ", sharedResourceId=" + sharedResourceId +
                 ", token=" + token +
                 '}';
     }
-
 }
