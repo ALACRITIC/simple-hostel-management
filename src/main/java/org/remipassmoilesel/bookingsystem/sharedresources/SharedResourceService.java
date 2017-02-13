@@ -111,8 +111,8 @@ public class SharedResourceService {
         }
     }
 
-    public SharedResource createRoom(String roomName, String roomComment, Type type) throws IOException {
-        return createResource(new SharedResource(roomName, roomComment, type));
+    public SharedResource createRoom(String roomName, int places, String roomComment, Type type) throws IOException {
+        return createResource(new SharedResource(roomName, places, roomComment, type));
     }
 
     /**

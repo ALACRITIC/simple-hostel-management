@@ -14,6 +14,9 @@ public class CreateRoomForm {
     private String roomName;
 
     @NotNull
+    private int places;
+
+    @NotNull
     @Size(max = 1000)
     private String roomComment;
 
@@ -48,10 +51,20 @@ public class CreateRoomForm {
         this.token = token;
     }
 
+    public int getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(int places) {
+        this.places = places;
+    }
+
+
     @Override
     public String toString() {
         return "CreateRoomForm{" +
                 "roomName='" + roomName + '\'' +
+                ", places=" + places +
                 ", roomComment='" + roomComment + '\'' +
                 ", token=" + token +
                 '}';
@@ -62,13 +75,16 @@ public class CreateRoomForm {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CreateRoomForm that = (CreateRoomForm) o;
-        return Objects.equals(roomName, that.roomName) &&
+        return places == that.places &&
+                Objects.equals(roomName, that.roomName) &&
                 Objects.equals(roomComment, that.roomComment) &&
                 Objects.equals(token, that.token);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roomName, roomComment, token);
+        return Objects.hash(roomName, places, roomComment, token);
     }
+
+
 }

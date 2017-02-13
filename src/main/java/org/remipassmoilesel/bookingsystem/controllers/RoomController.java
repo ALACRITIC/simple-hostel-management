@@ -117,6 +117,7 @@ public class RoomController {
             try {
                 room = resourceService.createRoom(
                         roomForm.getRoomName(),
+                        roomForm.getPlaces(),
                         roomForm.getRoomComment(),
                         Type.ROOM
                 );

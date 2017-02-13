@@ -39,8 +39,8 @@ public class SystemTrayComponent {
 
             // links to create, from bottom to top
             links = new HashMap<>();
-            links.put("Make a reservation", Mappings.RESERVATION_FORM);
             links.put("Welcome", Mappings.APPLICATION_ROOT);
+            links.put("Make a reservation", Mappings.RESERVATION_FORM);
 
             try {
                 createTrayMenu();
@@ -116,8 +116,11 @@ public class SystemTrayComponent {
         popup.addSeparator();
         popup.add(exitItem);
 
+        trayIcon.setToolTip("Bookme - Right click to open menu");
+
         // add menu to system tray
         trayIcon.setPopupMenu(popup);
+
         tray.add(trayIcon);
     }
 
