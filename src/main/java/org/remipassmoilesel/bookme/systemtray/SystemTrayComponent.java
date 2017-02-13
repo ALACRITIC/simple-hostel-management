@@ -20,8 +20,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.ArrayList;
 
 /**
  * Created by remipassmoilesel on 13/02/17.
@@ -31,16 +30,20 @@ import java.util.Iterator;
 public class SystemTrayComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(SystemTrayComponent.class);
-    private HashMap<String, String> links;
+    private ArrayList<String> linkTexts;
+    private ArrayList<String> linkHrefs;
     private TrayIcon trayIcon;
 
     public SystemTrayComponent() {
         if (MainConfiguration.ADD_ICON_IN_SYSTEM_TRAY == true) {
 
             // links to create, from top to bottom
-            links = new HashMap<>();
-            links.put("Welcome", Mappings.APPLICATION_ROOT);
-            links.put("Make a reservation", Mappings.RESERVATION_FORM);
+            linkTexts = new ArrayList<>();
+            linkHrefs = new ArrayList<>();
+            linkTexts.add("Welcome");
+            linkHrefs.add(Mappings.APPLICATION_ROOT);
+            linkTexts.add("Make a reservation");
+            linkHrefs.add(Mappings.RESERVATION_FORM);
 
             try {
                 createTrayMenu();
@@ -94,16 +97,15 @@ public class SystemTrayComponent {
         popup.add(header);
 
         // Add components to pop-up menu
-        Iterator<String> keys = links.keySet().iterator();
-        while (keys.hasNext()) {
-            String k = keys.next();
-            String v = links.get(k);
+        for (int i = 0; i < linkTexts.size(); i++) {
+            String text = linkTexts.get(i);
+            String href = linkHrefs.get(i);
 
-            MenuItem it = new MenuItem(k);
+            MenuItem it = new MenuItem(text);
             it.addActionListener((ev) -> {
                 String url = null;
                 try {
-                    url = Utils.getBaseUrlForEmbeddedTomcat() + v;
+                    url = Utils.getBaseUrlForEmbeddedTomcat() + href;
                     Desktop.getDesktop().browse(new URI(url));
                 } catch (Exception e) {
                     logger.error("Cannot open: " + e);
