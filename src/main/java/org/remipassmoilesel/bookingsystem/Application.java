@@ -5,11 +5,8 @@ import org.remipassmoilesel.bookingsystem.utils.UpdateFilesListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -20,15 +17,17 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Locale;
 
-@Configuration
-@EnableAutoConfiguration
-@ComponentScan
-@ServletComponentScan
+/**
+ * Use option -Djava.awt.headless=false if you want to add a system tray icon
+ */
+@SpringBootApplication
 public class Application extends WebMvcConfigurerAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
-    public static void main(String[] args) {
+    private static SpringApplication mainApp;
+
+    public static void main(String[] args) throws Exception {
 
         // drop database if asked in configuration, for debug purposes
         if (MainConfiguration.DROP_DATABASE_ON_LAUNCH == true) {
@@ -41,21 +40,20 @@ public class Application extends WebMvcConfigurerAdapter {
         }
 
         // standalone server for development
-        SpringApplication app = new SpringApplication(Application.class);
+        mainApp = new SpringApplication(Application.class);
 
         // listen application to update files
         UpdateFilesListener updater = new UpdateFilesListener();
         updater.addPeer(Paths.get("src/main/resources"), Paths.get("target/classes"));
 
         // first file update
-        app.addListeners(updater);
-        updater.update();
+        mainApp.addListeners(updater);
 
         //TODO
         // wait 2 minutes and launch user browser
 
         // run server
-        app.run(args);
+        mainApp.run(args);
 
     }
 
@@ -85,7 +83,7 @@ public class Application extends WebMvcConfigurerAdapter {
     public CookieLocaleResolver localeResolver() {
         CookieLocaleResolver localeResolver = new CookieLocaleResolver();
         localeResolver.setDefaultLocale(Locale.ENGLISH);
-        localeResolver.setCookieName("my-locale-cookie");
+        localeResolver.setCookieName("bookme-locale-cookie");
         localeResolver.setCookieMaxAge(3600);
         return localeResolver;
     }

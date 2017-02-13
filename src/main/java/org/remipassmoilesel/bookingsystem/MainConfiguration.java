@@ -8,7 +8,9 @@ import java.nio.file.Paths;
  */
 public class MainConfiguration {
 
-    public static final boolean DROP_DATABASE_ON_LAUNCH = true;
+    public static final boolean DROP_DATABASE_ON_LAUNCH = false;
+
+    public static final boolean ADD_ICON_IN_SYSTEM_TRAY = true;
 
     public static final Path DATABASE_DIRECTORY = Paths.get("database");
     public static final Path DATABASE_PATH = DATABASE_DIRECTORY.resolve("db.h2");

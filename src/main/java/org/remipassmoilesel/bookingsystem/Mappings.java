@@ -13,16 +13,16 @@ public class Mappings {
     public static final String ROOT = "/";
     public static final String METRICS = "/metrics";
 
-    public static final String APPLICATION_INDEX = "/app";
+    public static final String APPLICATION_ROOT = "/app";
 
-    public static final String RESERVATION_ROOT = APPLICATION_INDEX + "/reservation";
+    public static final String RESERVATION_ROOT = APPLICATION_ROOT + "/reservation";
     public static final String RESERVATION_LASTS = RESERVATION_ROOT + "/lasts";
     public static final String RESERVATION_CALENDAR = RESERVATION_ROOT + "/calendar";
     public static final String RESERVATION_FORM = RESERVATION_ROOT + "/form";
     public static final String RESERVATION_JSON = RESERVATION_ROOT + "/json";
     public static final String RESERVATION_JSON_GET = RESERVATION_JSON + "/json";
 
-    public static final String ROOMS_ROOT = APPLICATION_INDEX + "/room";
+    public static final String ROOMS_ROOT = APPLICATION_ROOT + "/room";
     public static final String ROOMS_SHOW = ROOMS_ROOT + "/show";
     public static final String ROOMS_FORM = ROOMS_ROOT + "/form";
     public static final String ROOMS_JSON = ROOMS_ROOT + "/json";
