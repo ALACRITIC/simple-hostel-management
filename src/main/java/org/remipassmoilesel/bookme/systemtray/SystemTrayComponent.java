@@ -37,7 +37,7 @@ public class SystemTrayComponent {
     public SystemTrayComponent() {
         if (MainConfiguration.ADD_ICON_IN_SYSTEM_TRAY == true) {
 
-            // links to create, from bottom to top
+            // links to create, from top to bottom
             links = new HashMap<>();
             links.put("Welcome", Mappings.APPLICATION_ROOT);
             links.put("Make a reservation", Mappings.RESERVATION_FORM);
@@ -87,6 +87,11 @@ public class SystemTrayComponent {
         exitItem.addActionListener((ev) -> {
             exitSpringApplication();
         });
+
+        // add header
+        MenuItem header = new MenuItem("* Book-me ! *");
+        header.setFont(new Font(Font.DIALOG, Font.BOLD, 12));
+        popup.add(header);
 
         // Add components to pop-up menu
         Iterator<String> keys = links.keySet().iterator();

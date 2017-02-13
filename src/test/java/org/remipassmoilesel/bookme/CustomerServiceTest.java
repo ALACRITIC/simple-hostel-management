@@ -56,7 +56,7 @@ public class CustomerServiceTest {
         customers.get(0).setFirstname(newName);
         customerService.refresh(customers.get(0));
         assertFalse("Refresh test", customers.get(0).getFirstname().equals(newName));
-        
+
     }
 
 }
