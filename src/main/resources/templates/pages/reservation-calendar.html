@@ -4,17 +4,15 @@
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
+    <script th:replace="fragments/headers"></script>
     <script src="/assets/scripts/calendar-utils.js"></script>
-    <div th:replace="fragments/headers"></div>
 
     <script th:inline="javascript">
 
+        CalendarUtils.setCalendarFeedUrl(/*[[${mappings.get('RESERVATION_JSON_GET')}]]*/ "/wrong/json/feed");
+
         $(function(){
-
-            CalendarUtils.setFeedUrl(/*[[${mappings.get('RESERVATION_JSON_GET')}]]*/ "/reservation/json/get");
-
-            CalendarUtils.createCalendar("#calendar");
-
+            CalendarUtils.createReservationCalendar("#calendar");
         });
 
     </script>

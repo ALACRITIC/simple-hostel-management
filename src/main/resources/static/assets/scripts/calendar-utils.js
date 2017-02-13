@@ -1,18 +1,19 @@
 var CalendarUtils = {
 
     // fill me first !
-    FEED_URL: null,
+    calendarFeedUrl: null,
 
-    setFeedUrl: function (url) {
-        CalendarUtils.FEED_URL = url;
+    setCalendarFeedUrl: function(url){
+        var self = CalendarUtils;
+        self.calendarFeedUrl = url;
     },
 
-    createCalendar: function (selector) {
+    createReservationCalendar: function (selector) {
 
         var self = CalendarUtils;
 
-        if (!self.FEED_URL) {
-            throw "Calendar feed url is null";
+        if(!self.calendarFeedUrl){
+            throw "Calendar feed url is null !"
         }
 
         $(selector).fullCalendar({
@@ -30,17 +31,21 @@ var CalendarUtils = {
                 var expectedFormat = "YYYY-MM-DD";
 
                 $.ajax({
-                    url: self.FEED_URL,
+                    url: self.calendarFeedUrl,
                     data: {
                         // our hypothetical feed requires UNIX timestamps
                         start: start.format(expectedFormat),
                         end: end.format(expectedFormat)
-                    },
-                    success: function (response) {
+                    }
+                })
+                    .done(function (response) {
                         var events = self.distantEventsToFullcalendarEvents(response);
                         callback(events);
-                    }
-                });
+                    })
+
+                    .fail(function (error) {
+                        console.error(error)
+                    });
             }
         });
     },

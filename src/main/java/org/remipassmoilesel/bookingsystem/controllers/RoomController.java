@@ -1,11 +1,13 @@
 package org.remipassmoilesel.bookingsystem.controllers;
 
 import org.remipassmoilesel.bookingsystem.Mappings;
+import org.remipassmoilesel.bookingsystem.reservations.ReservationService;
 import org.remipassmoilesel.bookingsystem.sharedresources.CreateRoomForm;
 import org.remipassmoilesel.bookingsystem.sharedresources.SharedResource;
 import org.remipassmoilesel.bookingsystem.sharedresources.SharedResourceService;
 import org.remipassmoilesel.bookingsystem.sharedresources.Type;
 import org.remipassmoilesel.bookingsystem.utils.TokenManager;
+import org.remipassmoilesel.bookingsystem.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,10 +36,27 @@ public class RoomController {
     @Autowired
     private SharedResourceService resourceService;
 
+    @Autowired
+    private ReservationService reservationService;
+
     @RequestMapping(value = Mappings.ROOMS_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<SharedResource> getRooms() throws Exception {
         List<SharedResource> result = resourceService.getAll(Type.ROOM);
+        return result;
+    }
+
+    @RequestMapping(value = Mappings.ROOMS_AVAILABLE_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<SharedResource> getAvailableRooms(
+            @RequestParam(value = "start", required = true) String startDateStr,
+            @RequestParam(value = "end", required = true) String endDateStr) throws Exception {
+
+        Date startDate = Utils.stringToDate(startDateStr);
+        Date endDate = Utils.stringToDate(endDateStr);
+
+        List<SharedResource> result = reservationService.getAvailableResources(Type.ROOM, startDate, endDate);
+
         return result;
     }
 

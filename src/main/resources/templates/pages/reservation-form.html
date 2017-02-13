@@ -5,6 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <div th:replace="fragments/headers"></div>
+    <script src="/assets/scripts/reservation-utils.js"></script>
+
+    <script th:inline="javascript">
+        ReservationUtils.setRoomsAvailableFeedUrl(/*[[${mappings.get('ROOMS_AVAILABLE_JSON_GET')}]]*/ "/wrong/json/feed");
+    </script>
 
 </head>
 <body>

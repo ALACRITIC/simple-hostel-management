@@ -7,11 +7,10 @@
     <div th:replace="fragments/headers"></div>
 
     <script>
-        $(function () {
+       /* $(function () {
 
 
-        });
-
+        }); */
     </script>
 
 </head>
@@ -21,17 +20,12 @@
 <!-- include nav bar -->
 <div th:replace="fragments/navbar"></div>
 
-<!--
-<div th:text="${reservationList}"></div>
-<div th:text="${reservationList.size()}"></div>
--->
-
 <div class="container">
 
     <div class="row">
         <div class="col-md-12">
 
-            <h1>Lasts réservations</h1>
+            <h1>Lasts reservations</h1>
 
             <table class="table table-striped">
                 <thead>
@@ -49,8 +43,8 @@
                     <td th:text="${reservation.getCustomer().getFirstname()}"></td>
                     <td th:text="${reservation.getCustomer().getLastname()}"></td>
                     <td th:text="${reservation.getCustomer().getPhonenumber()}"></td>
-                    <td th:text="${reservation.getDeparture()}"></td>
-                    <td th:text="${reservation.getArrival()}"></td>
+                    <td th:text="${reservation.getBegin()}"></td>
+                    <td th:text="${reservation.getEnd()}"></td>
                 </tr>
 
                 </tbody>

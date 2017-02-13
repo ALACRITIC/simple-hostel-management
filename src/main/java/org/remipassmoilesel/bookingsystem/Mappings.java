@@ -26,7 +26,10 @@ public class Mappings {
     public static final String ROOMS_SHOW = ROOMS_ROOT + "/show";
     public static final String ROOMS_FORM = ROOMS_ROOT + "/form";
     public static final String ROOMS_JSON = ROOMS_ROOT + "/json";
-    public static final String ROOMS_JSON_GET = ROOMS_JSON + "/get";
+    public static final String ROOMS_JSON_GET = ROOMS_JSON + "/all";
+    public static final String ROOMS_AVAILABLE_JSON_GET = ROOMS_JSON + "/available";
+
+    public static final String POPULATE_TABLES = APPLICATION_ROOT + "/populate-tables";
 
     public static HashMap<String, Object> getMap() {
 
