@@ -11,6 +11,7 @@ import org.remipassmoilesel.bookingsystem.customers.Customer;
 import org.remipassmoilesel.bookingsystem.customers.CustomerService;
 import org.remipassmoilesel.bookingsystem.sharedresources.SharedResource;
 import org.remipassmoilesel.bookingsystem.sharedresources.SharedResourceService;
+import org.remipassmoilesel.bookingsystem.sharedresources.Type;
 import org.remipassmoilesel.bookingsystem.utils.DatabaseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -149,11 +151,11 @@ public class ReservationService {
 
         try {
             QueryBuilder<Reservation, String> queryBuilder = reservationDao.queryBuilder();
-            queryBuilder.orderBy(Reservation.DATEARRIVAL_FIELD_NAME, orderAscending);
+            queryBuilder.orderBy(Reservation.DATEBEGIN_FIELD_NAME, orderAscending);
             Where<Reservation, String> where = queryBuilder.where();
 
-            where.between(Reservation.DATEARRIVAL_FIELD_NAME, beginDate, endDate)
-                    .or().between(Reservation.DATEDEPARTURE_FIELD_NAME, beginDate, endDate);
+            where.between(Reservation.DATEBEGIN_FIELD_NAME, beginDate, endDate)
+                    .or().between(Reservation.DATEEND_FIELD_NAME, beginDate, endDate);
 
             List<Reservation> results = queryBuilder.query();
 
@@ -167,4 +169,46 @@ public class ReservationService {
             throw new IOException(e);
         }
     }
+
+    /**
+     * Return a list of shared resources available
+     *
+     * @param type
+     * @param begin
+     * @param end
+     * @return
+     * @throws Exception
+     */
+    public List<SharedResource> getAvailableResources(Type type, Date begin, Date end) throws Exception {
+
+        ArrayList<SharedResource> result = new ArrayList<>();
+        for (SharedResource res : sharedResourceService.getAll(type)) {
+
+            QueryBuilder<Reservation, String> builder = reservationDao.queryBuilder();
+
+            Where<Reservation, String> where = builder.where();
+            where.and(
+                    where.eq(Reservation.SHARED_RESOURCE, res.getId()),
+                    where.or(
+                            // case 1: reservation begin or end in interval
+                            where.between(Reservation.DATEBEGIN_FIELD_NAME, begin, end)
+                                    .or().between(Reservation.DATEEND_FIELD_NAME, begin, end),
+
+                            // case 2: interval is in reservation
+                            where.lt(Reservation.DATEBEGIN_FIELD_NAME, begin)
+                                    .and().gt(Reservation.DATEEND_FIELD_NAME, end)
+                    )
+            );
+
+            int reservationNumber = builder.query().size();
+
+            if (reservationNumber < res.getPlaces()) {
+                result.add(res);
+            }
+
+        }
+
+        return result;
+    }
+
 }
