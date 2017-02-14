@@ -56,8 +56,8 @@ public class PopulateTables {
 
         // create reservations
         DateTime now = new DateTime();
-        ArrayList<Reservation> reservations = createReservations(rooms, now.toString("mm/yyyy"));
-        reservations.addAll(createReservations(rooms, now.plusMonths(1).toString("mm/yyyy")));
+        ArrayList<Reservation> reservations = createReservations(rooms, now.toString("MM/yyyy"));
+        reservations.addAll(createReservations(rooms, now.plusMonths(1).toString("MM/yyyy")));
 
         return reservations;
     }
