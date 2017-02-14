@@ -25,7 +25,7 @@ import java.util.Locale;
  * Use option -Djava.awt.headless=false if you want to add a system tray icon
  */
 @SpringBootApplication
-public class Application extends WebMvcConfigurerAdapter {
+public class Application {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
@@ -80,54 +80,5 @@ public class Application extends WebMvcConfigurerAdapter {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    /**
-     * Locale settings
-     */
-
-    /**
-     * Set up the localized message source
-     *
-     * @return
-     */
-    @Bean
-    public ReloadableResourceBundleMessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:/locales/messages");
-        messageSource.setDefaultEncoding("UTF-8");
-        return messageSource;
-    }
-
-    /**
-     * Set up a locale cookie system
-     *
-     * @return
-     */
-    @Bean
-    public CookieLocaleResolver localeResolver() {
-        CookieLocaleResolver localeResolver = new CookieLocaleResolver();
-        localeResolver.setDefaultLocale(Locale.ENGLISH);
-        localeResolver.setCookieName("bookme-locale-cookie");
-        localeResolver.setCookieMaxAge(3600);
-        return localeResolver;
-    }
-
-    /**
-     * Set up locale configuration by url parameter
-     *
-     * @return
-     */
-    @Bean
-    public LocaleChangeInterceptor localeInterceptor() {
-        LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
-        interceptor.setParamName("lang");
-        return interceptor;
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(localeInterceptor());
-    }
-
 
 }
