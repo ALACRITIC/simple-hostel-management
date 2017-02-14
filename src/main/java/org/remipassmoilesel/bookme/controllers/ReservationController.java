@@ -57,7 +57,7 @@ public class ReservationController {
     public String showLastsReservation(HttpServletRequest request, Model model) {
 
         try {
-            List<Reservation> lasts = reservationService.getLasts(20, 0);
+            List<Reservation> lasts = reservationService.getLastReservations(20, 0);
             model.addAttribute("reservationList", lasts);
         } catch (IOException e) {
             model.addAttribute("reservationNumber", new ArrayList<Reservation>());

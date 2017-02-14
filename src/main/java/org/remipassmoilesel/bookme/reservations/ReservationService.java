@@ -6,6 +6,7 @@ import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.table.TableUtils;
+import org.joda.time.DateTime;
 import org.remipassmoilesel.bookme.MainConfiguration;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
@@ -99,7 +100,7 @@ public class ReservationService {
      * @return
      * @throws IOException
      */
-    public List<Reservation> getLasts(long limit, long offset) throws IOException {
+    public List<Reservation> getLastReservations(long limit, long offset) throws IOException {
 
         try {
             QueryBuilder<Reservation, String> statement = reservationDao.queryBuilder()
@@ -170,7 +171,7 @@ public class ReservationService {
     }
 
     /**
-     * Return a list of shared resources available
+     * Return a list of shared resources available for specified period and specified places number
      *
      * @param type
      * @param begin
@@ -178,41 +179,68 @@ public class ReservationService {
      * @return
      * @throws Exception
      */
-    public List<SharedResource> getAvailableResources(Type type, Date begin, Date end, int places) throws Exception {
+    public List<SharedResource> getAvailableResources(Type type, Date begin, Date end, int places) throws IOException {
 
-        ArrayList<SharedResource> result = new ArrayList<>();
-        for (SharedResource resource : sharedResourceService.getAll(type)) {
+        try {
+            ArrayList<SharedResource> result = new ArrayList<>();
+            for (SharedResource resource : sharedResourceService.getAll(type)) {
 
+                QueryBuilder<Reservation, String> builder = reservationDao.queryBuilder();
+
+                Where<Reservation, String> where = builder.where();
+                where.and(
+                        where.eq(Reservation.SHARED_RESOURCE_FIELD_NAME, resource.getId()),
+                        where.or(
+                                // case 1: reservation begin or end in interval
+                                where.between(Reservation.DATEBEGIN_FIELD_NAME, begin, end)
+                                        .or().between(Reservation.DATEEND_FIELD_NAME, begin, end),
+
+                                // case 2: interval is in reservation
+                                where.lt(Reservation.DATEBEGIN_FIELD_NAME, begin)
+                                        .and().gt(Reservation.DATEEND_FIELD_NAME, end)
+                        )
+                );
+
+                List<Reservation> results = builder.query();
+
+                int existingPlacesReserved = 0;
+                for (Reservation reservation : results) {
+                    existingPlacesReserved += reservation.getPlaces();
+                }
+
+                if (resource.getPlaces() - existingPlacesReserved >= places) {
+                    result.add(resource);
+                }
+
+            }
+
+            return result;
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
+    }
+
+    public List<Reservation> getNextCheckouts(long limit, long offset) throws IOException {
+
+        try {
             QueryBuilder<Reservation, String> builder = reservationDao.queryBuilder();
 
+            DateTime now = new DateTime();
+            DateTime future = now.plusYears(1);
+
             Where<Reservation, String> where = builder.where();
-            where.and(
-                    where.eq(Reservation.SHARED_RESOURCE_FIELD_NAME, resource.getId()),
-                    where.or(
-                            // case 1: reservation begin or end in interval
-                            where.between(Reservation.DATEBEGIN_FIELD_NAME, begin, end)
-                                    .or().between(Reservation.DATEEND_FIELD_NAME, begin, end),
-
-                            // case 2: interval is in reservation
-                            where.lt(Reservation.DATEBEGIN_FIELD_NAME, begin)
-                                    .and().gt(Reservation.DATEEND_FIELD_NAME, end)
-                    )
-            );
-
-            List<Reservation> results = builder.query();
-
-            int existingPlacesReserved = 0;
-            for (Reservation reservation : results) {
-                existingPlacesReserved += reservation.getPlaces();
+            where.between(Reservation.DATEEND_FIELD_NAME, now.toDate(), future.toDate());
+            builder.orderBy(Reservation.DATEEND_FIELD_NAME, true);
+            builder.limit(limit);
+            if (offset > 0) {
+                builder.offset(offset);
             }
 
-            if (resource.getPlaces() - existingPlacesReserved >= places) {
-                result.add(resource);
-            }
-
+            return builder.query();
+        } catch (Exception e) {
+            throw new IOException(e);
         }
-
-        return result;
     }
+
 
 }
