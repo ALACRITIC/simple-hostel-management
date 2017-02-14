@@ -1,5 +1,6 @@
 package org.remipassmoilesel.bookme.messages;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -22,7 +23,7 @@ public class Message {
     @DatabaseField(columnName = DATE_FIELD_NAME)
     private Date date;
 
-    @DatabaseField(columnName = MESSAGE_FIELD_NAME)
+    @DatabaseField(columnName = MESSAGE_FIELD_NAME, dataType = DataType.LONG_STRING)
     private String message;
 
     public Message() {
