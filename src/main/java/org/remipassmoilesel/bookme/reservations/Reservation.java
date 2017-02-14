@@ -1,5 +1,6 @@
 package org.remipassmoilesel.bookme.reservations;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import org.remipassmoilesel.bookme.customers.Customer;
@@ -21,6 +22,7 @@ public class Reservation {
     public static final String PLACES_FIELD_NAME = "PLACES";
     public static final String DATEBEGIN_FIELD_NAME = "BEGIN";
     public static final String DATEEND_FIELD_NAME = "END";
+    public static final String COMMENT_FIELD_NAME = "COMMENT";
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private int id;
@@ -42,6 +44,9 @@ public class Reservation {
 
     @DatabaseField(columnName = DATEEND_FIELD_NAME)
     private Date end;
+
+    @DatabaseField(columnName = COMMENT_FIELD_NAME,  dataType = DataType.LONG_STRING)
+    private String comment;
 
     public Reservation() {
         // ORMLite needs a no-arg constructor
@@ -121,23 +126,12 @@ public class Reservation {
         this.places = places;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Reservation that = (Reservation) o;
-        return id == that.id &&
-                places == that.places &&
-                Objects.equals(customer, that.customer) &&
-                Objects.equals(resource, that.resource) &&
-                Objects.equals(reservationDate, that.reservationDate) &&
-                Objects.equals(begin, that.begin) &&
-                Objects.equals(end, that.end);
+    public String getComment() {
+        return comment;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, customer, resource, places, reservationDate, begin, end);
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     @Override
@@ -150,6 +144,27 @@ public class Reservation {
                 ", reservationDate=" + reservationDate +
                 ", begin=" + begin +
                 ", end=" + end +
+                ", comment='" + comment + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reservation that = (Reservation) o;
+        return id == that.id &&
+                places == that.places &&
+                Objects.equals(customer, that.customer) &&
+                Objects.equals(resource, that.resource) &&
+                Objects.equals(reservationDate, that.reservationDate) &&
+                Objects.equals(begin, that.begin) &&
+                Objects.equals(end, that.end) &&
+                Objects.equals(comment, that.comment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, customer, resource, places, reservationDate, begin, end, comment);
     }
 }
