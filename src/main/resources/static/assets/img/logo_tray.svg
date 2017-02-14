@@ -12,13 +12,13 @@
    id="svg2"
    sodipodi:version="0.32"
    inkscape:version="0.92.0 r15299"
-   width="20pt"
-   height="20pt"
+   width="500"
+   height="500"
    sodipodi:docname="logo_tray.svg"
    version="1.0"
    inkscape:export-filename="/home/remipassmoilesel/projects/spring/book-me/src/main/resources/static/assets/img/logo_tray.png"
-   inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-xdpi="4.8000002"
+   inkscape:export-ydpi="4.8000002">
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -37,24 +37,32 @@
      inkscape:window-height="715"
      inkscape:window-width="1366"
      inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
+     inkscape:pageopacity="0"
      borderopacity="1.0"
      bordercolor="#666666"
      pagecolor="#ffffff"
      id="base"
-     inkscape:zoom="5.9425747"
-     inkscape:cx="11.700541"
-     inkscape:cy="16.839775"
+     inkscape:zoom="0.37141092"
+     inkscape:cx="606.46398"
+     inkscape:cy="119.78486"
      inkscape:window-x="1920"
      inkscape:window-y="312"
      inkscape:current-layer="svg2"
      showgrid="false"
+     units="px"
      inkscape:window-maximized="1" />
-  <rect
-     style="fill:#1a1a1a;fill-opacity:1;stroke:#ffffff;stroke-width:0.73799998;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect4613"
-     width="24.23192"
-     height="24.063644"
-     x="1.2173733"
-     y="1.3015112" />
+  <g
+     id="g4742"
+     transform="matrix(0.89868099,0,0,0.89868099,25.329753,25.329753)">
+    <path
+       id="path4698"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:18.39727592px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 10.835408,176.41089 v 36.79455 L 66.027236,194.80817 V 452.37003 H 433.97276 V 194.80817 l 55.19182,18.39727 V 176.41089 L 250,47.629961 Z"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path4700"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:18.39727592px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 231.60272,102.82179 h 36.79455 l 128.78093,73.5891 V 415.57548 H 305.19182 V 231.60272 H 194.80817 V 415.57548 H 102.82179 V 176.41089 Z"
+       inkscape:connector-curvature="0" />
+  </g>
 </svg>
