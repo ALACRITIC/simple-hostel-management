@@ -1,5 +1,6 @@
 package org.remipassmoilesel.bookme.reservations;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -24,8 +25,8 @@ public class CreateReservationForm {
     private String customerPhonenumber;
 
     @NotNull
-    @Size(min = 1)
-    private int places;
+    @Min(1)
+    private int places = 1;
 
     @NotNull
     @Size(min = 10, max = 10)
