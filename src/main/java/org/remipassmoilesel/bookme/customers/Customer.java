@@ -38,7 +38,7 @@ public class Customer {
     }
 
     public Customer(String firstname, String lastname, String phonenumber) {
-
+        this(firstname, lastname, phonenumber, null);
     }
 
     public Customer(String firstname, String lastname, String phonenumber, Date creationDate) {
