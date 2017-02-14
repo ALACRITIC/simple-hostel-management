@@ -64,6 +64,12 @@
             <version>1.4.193</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.9.7</version>
+        </dependency>
 
 
         <!-- Web admin -->
