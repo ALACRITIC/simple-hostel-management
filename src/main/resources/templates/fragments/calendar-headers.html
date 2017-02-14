@@ -1,0 +1,8 @@
+<script src='/bower_components/moment/moment.js'></script>
+<script src='/bower_components/fullcalendar/dist/fullcalendar.js'></script>
+
+<script src="/assets/scripts/calendar-utils.js"></script>
+
+<script th:inline="javascript">
+    CalendarUtils.setCalendarFeedUrl(/*[[${mappings.get('RESERVATION_JSON_GET')}]]*/ "/wrong/json/feed");
+</script>

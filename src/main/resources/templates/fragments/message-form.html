@@ -1,11 +1,19 @@
-<form th:object="${createMessageForm}" method="post">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+<body>
+<form th:object="${createMessageForm}" method="post" th:fragment="message-form">
 
     <table class="formtable">
 
         <!-- Message -->
         <tr>
             <td>
-                <textarea class="form-control" placeholder="Message" th:field="*{message}"></textarea>
+                <textarea class="form-control" placeholder="Message" th:field="*{message}"
+                    style="width: 80%; height: 8em"></textarea>
                 <div th:if="${#fields.hasErrors('message')}" th:errors="*{message}">
                     Room name error
                 </div>
@@ -43,3 +51,6 @@
     </script>
 
 </form>
+
+</body>
+</html>

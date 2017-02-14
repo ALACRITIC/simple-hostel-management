@@ -1,3 +1,12 @@
+<!-- Remove .disabled to enable this page -->
 <html>
-<h1>Erreur !</h1>
+
+<head>
+    <title>Error !</title>
+</head>
+
+<body>
+    <h1>Error !</h1>
+</body>
+
 </html>

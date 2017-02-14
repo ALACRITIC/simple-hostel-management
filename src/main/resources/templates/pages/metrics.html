@@ -1,34 +1,45 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>/metrics </title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <title>/metrics </title>
+
+    <script th:replace="main-template :: page-headers"></script>
 
 </head>
 <body>
 
-<div class="row">
-    <div class="col-sm-3">&nbsp;</div>
-    <div class="col-sm-6"><h1>Statistics</h1></div>
-</div>
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
 
-<div class="row">
-    <div class="col-sm-3">&nbsp;</div>
-    <table class="col-sm-6">
-        <tr>
-            <th>Name</th>
-            <th>Address</th>
-        </tr>
+<div class="container">
 
-        <tr th:each="mapping : ${metricsMapping}">
-            <td th:text="${mapping}">Mapping</td>
-            <td><a th:attr="href='http://127.0.0.1:8081' + ${mapping}" target="_blank">json</a></td>
-        </tr>
-    </table>
+    <div class="row">
+        <div class="col-md-12">
+
+            <h1>Metrics</h1>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3">&nbsp;</div>
+        <table class="col-sm-6">
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+            </tr>
+
+            <tr th:each="mapping : ${metricsMapping}">
+                <td th:text="${mapping}">Mapping</td>
+                <td><a th:attr="href='http://127.0.0.1:8081' + ${mapping}" target="_blank">json</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="main-template :: footer"></div>
+
 </div>
 
 

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Dashboard</title>
+
+    <script th:replace="main-template :: page-headers"></script>
+
+</head>
+<body>
+
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <h1>Welcome</h1>
+
+            <h2>Last messages</h2>
+            <div th:each="messageObject : ${lastMessagesList}">
+                <div th:replace="main-template :: message-small (
+                                                    title=${messageObject.getDate()},
+                                                    message=${#strings.substring(messageObject.getMessage(), 0, 200) + '...'})">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="row top-buffer">
+        <div class="col-md-12">
+
+            <div th:text="${lastReservationsList}"></div>
+            <div th:text="${todayCheckoutsList}"></div>
+            <div th:text="${lastCustomersList}"></div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="main-template :: footer"></div>
+
+</div>
+
+
+</body>
+</html>

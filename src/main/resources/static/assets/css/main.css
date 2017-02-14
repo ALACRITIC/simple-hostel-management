@@ -1,3 +1,27 @@
-table.formtable td{
+
+table.formtable {
+    width: 100%;
     padding: 10px;
+}
+
+table.formtable td {
+    padding: 10px;
+}
+
+.card {
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .25rem;
+    padding: 0.2em 1em 0.7em 1em;
+}
+
+.card-message-small {
+    margin-top: 0.7em;
+}
+
+.footer {
+    margin-top: 1em;
+}
+
+.top-buffer {
+    margin-top: 1em;
 }

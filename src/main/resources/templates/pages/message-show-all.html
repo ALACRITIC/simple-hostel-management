@@ -4,13 +4,13 @@
     <title>Messages</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-    <div th:replace="fragments/headers"></div>
+    <script th:replace="main-template :: page-headers"></script>
 
 </head>
 <body>
 
-<!-- include nav bar -->
-<div th:replace="fragments/navbar"></div>
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
 
 <div class="container">
 
@@ -38,7 +38,8 @@
         </div>
     </div>
 
-    <!--<div th:replace="fragments/show-debug"></div>-->
+    <!-- Footer -->
+    <div th:replace="main-template :: footer"></div>
 
 </div>
 

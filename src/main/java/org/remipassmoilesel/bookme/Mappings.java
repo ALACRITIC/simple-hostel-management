@@ -39,6 +39,7 @@ public class Mappings {
     public static final String MESSAGES_SHOW_ALL = MESSAGES_ROOT + "/show";
 
     public static final String POPULATE_TABLES = APPLICATION_ROOT + "/populate-tables";
+    public static final String LIVE_TEMPLATE = APPLICATION_ROOT + "/live-template";
 
 
     public static MappingMap getMap() {

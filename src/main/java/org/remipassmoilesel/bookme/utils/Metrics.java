@@ -23,11 +23,15 @@ public class Metrics {
             "/management/beans",
             "/management/env",
             "/management/heapdump",
-            "/management/autoconfig"};
+            "/management/autoconfig"
+    };
 
     @RequestMapping(method = RequestMethod.GET)
     public String metrics(Model model) {
+
         model.addAttribute("metricsMapping", metricsMapping);
+
+        Mappings.includeMappings(model);
         return Templates.METRICS;
     }
 

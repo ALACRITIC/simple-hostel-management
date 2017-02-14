@@ -1,0 +1,5 @@
+<script src="/assets/scripts/reservation-utils.js"></script>
+
+<script th:inline="javascript">
+    ReservationUtils.setRoomsAvailableFeedUrl(/*[[${mappings.get('RESERVATION_ROOMS_AVAILABLE_JSON_GET')}]]*/ "/wrong/json/feed");
+</script>

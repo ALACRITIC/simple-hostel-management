@@ -71,7 +71,21 @@ public class MainController {
         Mappings.includeMappings(model);
 
         // name of template
-        return Templates.MAIN;
+        return Templates.DASHBOARD;
+    }
+
+  /**
+     *
+     *
+     * @return
+     */
+    @RequestMapping(value = Mappings.LIVE_TEMPLATE, method = RequestMethod.GET)
+    public String showLiveTemplate(Model model) throws IOException {
+
+        Mappings.includeMappings(model);
+
+        // name of template
+        return Templates.MAIN_TEMPLATE;
     }
 
 

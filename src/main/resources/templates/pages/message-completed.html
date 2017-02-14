@@ -1,22 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title></title>
+    <title>Message saved</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-    <div th:replace="fragments/headers"></div>
-
-    <script>
-        /*$(function () {
-
-        });*/
-    </script>
+    <script th:replace="main-template :: page-headers"></script>
 
 </head>
 <body>
 
-<!-- include nav bar -->
-<div th:replace="fragments/navbar"></div>
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
 
 <div class="container">
 
@@ -33,6 +27,10 @@
         </div>
 
     </div>
+
+    <!-- Footer -->
+    <div th:replace="main-template :: footer"></div>
+
 </div>
 
 </body>

@@ -1,28 +1,22 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Reservation calendar</title>
 
-    <script th:replace="fragments/headers"></script>
-    <script src="/assets/scripts/calendar-utils.js"></script>
+    <script th:replace="main-template :: page-headers"></script>
 
-    <script th:inline="javascript">
-
-        CalendarUtils.setCalendarFeedUrl(/*[[${mappings.get('RESERVATION_JSON_GET')}]]*/ "/wrong/json/feed");
-
-        $(function(){
+    <script th:replace="fragments/calendar-headers"></script>
+    <script>
+        $(function () {
             CalendarUtils.createReservationCalendar("#calendar");
         });
-
     </script>
 
 </head>
 <body>
 
-
-<!-- include nav bar -->
-<div th:replace="fragments/navbar"></div>
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
 
 <div class="container">
 

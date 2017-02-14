@@ -1,22 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Reservation saved</title>
 
-    <div th:replace="fragments/headers"></div>
-
-    <script>
-        /*$(function () {
-
-        });*/
-    </script>
+    <script th:replace="main-template :: page-headers"></script>
 
 </head>
 <body>
 
-<!-- include nav bar -->
-<div th:replace="fragments/navbar"></div>
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
 
 <div class="container">
 
@@ -24,7 +17,7 @@
 
         <div class="col-md-12">
 
-            <h1>Reservation completed</h1>
+            <h1>Reservation saved</h1>
 
             <div th:text="${createReservationForm}"></div>
             <div th:text="${reservationResult}"></div>

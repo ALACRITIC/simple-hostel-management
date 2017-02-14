@@ -70,7 +70,7 @@ public class MessageController {
         tokenman.addToken(session);
 
         Mappings.includeMappings(model);
-        return Templates.MESSAGE_FORM;
+        return Templates.MESSAGE_NEW;
     }
 
     @PostMapping(Mappings.MESSAGES_FORM)
@@ -86,7 +86,7 @@ public class MessageController {
             model.addAttribute("errorMessage", "");
 
             Mappings.includeMappings(model);
-            return Templates.MESSAGE_FORM;
+            return Templates.MESSAGE_NEW;
         }
 
         // checks tokens

@@ -4,13 +4,13 @@
     <title>Create a message</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-    <div th:replace="fragments/headers"></div>
+    <script th:replace="main-template :: page-headers"></script>
 
 </head>
 <body>
 
-<!-- include nav bar -->
-<div th:replace="fragments/navbar"></div>
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
 
 <div class="container">
 
@@ -18,15 +18,19 @@
 
         <div class="col-md-12">
 
-            <h1>Messages</h1>
+            <h1>New message</h1>
 
-            <div th:replace="fragments/message-form"></div>
+            <div th:replace="fragments/message-form :: message-form"></div>
 
             <!--<div th:replace="fragments/show-debug"></div>-->
 
         </div>
 
     </div>
+
+    <!-- Footer -->
+    <div th:replace="main-template :: footer"></div>
+
 </div>
 
 </body>

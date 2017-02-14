@@ -1,22 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-    <div th:replace="fragments/headers"></div>
+    <title>Room saved</title>
 
-    <script>
-        /*$(function () {
-
-        });*/
-    </script>
+    <script th:replace="main-template :: page-headers"></script>
 
 </head>
 <body>
 
-<!-- include nav bar -->
-<div th:replace="fragments/navbar"></div>
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
 
 <div class="container">
 
@@ -24,7 +18,7 @@
 
         <div class="col-md-12">
 
-            <h1>Room created</h1>
+            <h1>Room saved</h1>
 
             <div th:text="${room}"></div>
             <div th:text="${roomResult}"></div>

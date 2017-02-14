@@ -1,21 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Make a reservation</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Add a reservation</title>
 
-    <div th:replace="fragments/headers"></div>
-    <script src="/assets/scripts/reservation-utils.js"></script>
-
-    <script th:inline="javascript">
-        ReservationUtils.setRoomsAvailableFeedUrl(/*[[${mappings.get('RESERVATION_ROOMS_AVAILABLE_JSON_GET')}]]*/ "/wrong/json/feed");
-    </script>
+    <script th:replace="main-template :: page-headers"></script>
+    <script th:replace="fragments/reservation-headers"></script>
 
 </head>
 <body>
 
-<!-- include nav bar -->
-<div th:replace="fragments/navbar"></div>
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
 
 <div class="container">
 

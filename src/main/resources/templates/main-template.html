@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="page-headers">
+
+    <!--<title>Do not put title here</title>-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-ui/themes/base/jquery-ui.css"/>
+    <link rel='stylesheet' href='/bower_components/fullcalendar/dist/fullcalendar.css'/>
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css"/>
+
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="/bower_components/jquery-ui/jquery-ui.js"></script>
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+    <script th:inline="javascript">
+
+    </script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default" th:fragment="navbar">
+    <div class="container-fluid">
+
+        <!-- Brand -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" style="width: 20%">
+                <img style="vertical-align:middle" src="/assets/img/logo.svg" width="60px"/>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+
+                <li><a th:href="${mappings.get('APPLICATION_ROOT')}">Dashboard</a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Reservations <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="${mappings.get('RESERVATION_CALENDAR')}">Calendar</a></li>
+                        <li><a th:href="${mappings.get('RESERVATION_LASTS')}">Lasts reservations</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a th:href="${mappings.get('RESERVATION_FORM')}">Make a reservation</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Rooms <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="${mappings.get('ROOMS_SHOW')}">Show all</a></li>
+                        <li><a th:href="${mappings.get('ROOMS_FORM')}">Add a room</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Messages <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="${mappings.get('MESSAGES_SHOW_ALL')}">Show all</a></li>
+                        <li><a th:href="${mappings.get('MESSAGES_FORM')}">New message</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container">
+
+    <!--
+
+    PAGE CONTENT
+
+    -->
+
+    <!-- Titles -->
+    <div class="row">
+
+        <div class="col-md-12">
+            <h1>Page title</h1>
+        </div>
+
+    </div>
+
+    <!-- Normal text -->
+    <div class="row">
+        <div class="col-md-12">
+            <b>Static content used for natural templates.</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Donec a diam lectus. Sed sit amet ipsum
+            mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.
+            Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem
+            lacinia consectetur. Donec ut
+            libero sed arcu vehicula ultricies a non tortor.
+        </div>
+    </div>
+
+    <!-- Partial elements -->
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="card card-message-small" th:fragment="message-small">
+                <div class="card-block">
+                    <h4 class="card-title" th:text="${title}">Small message / Date / Writer</h4>
+                    <p class="card-text" th:text="${message}">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum
+                        mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis
+                        dolor....
+                    </p>
+                    <div style="text-align: right">
+                        <a href="#" class="btn btn-info btn-sm" style="display: inline-block;">
+                            View all
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+
+    <div class="row footer" th:fragment="footer">
+
+        <div class="col-md-12" style="text-align: right">
+            &copy; 2017 <a href="https://github.com/remipassmoilesel" target="_blank">@Remipassmoilesel</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
