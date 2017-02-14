@@ -16,4 +16,5 @@ public class MainConfiguration {
     public static final Path DATABASE_PATH = DATABASE_DIRECTORY.resolve("db.h2");
 
 
+    public static boolean OPEN_BROWSER_ON_LAUNCH = true;
 }

@@ -97,18 +97,7 @@ public class SystemTrayComponent {
         for (TrayItem item : trayItems) {
             MenuItem it = new MenuItem(item.getName());
             it.addActionListener((ev) -> {
-                String url = null;
-                try {
-                    url = Utils.getBaseUrlForEmbeddedTomcat() + item.getMapping();
-                    Desktop.getDesktop().browse(new URI(url));
-                } catch (Exception e) {
-                    logger.error("Cannot open: " + e);
-
-                    String message = "<html>Unable to open application, but it can be accessible anyway. <br/>" +
-                            "Used address: %s</html>";
-
-                    JOptionPane.showMessageDialog(null, String.format(message, url));
-                }
+                openItem(item);
             });
 
             popup.add(it);
@@ -123,6 +112,28 @@ public class SystemTrayComponent {
         trayIcon.setPopupMenu(popup);
 
         tray.add(trayIcon);
+    }
+
+    private void openItem(TrayItem item) {
+
+        URI url = null;
+        try {
+            url = new URI(Utils.getBaseUrlForEmbeddedTomcat() + item.getMapping());
+            throw new Exception();
+            //Desktop.getDesktop().browse(url);
+        } catch (Exception e) {
+            logger.error("Unable to launch browser: ", e);
+
+            String message = "Unable to launch your web browser. ";
+
+            if (url != null) {
+                message += "Please visit manually: " + url;
+            }
+            JOptionPane.showMessageDialog(null,
+                    message,
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
