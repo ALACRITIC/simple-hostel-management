@@ -30,20 +30,17 @@ import java.util.ArrayList;
 public class SystemTrayComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(SystemTrayComponent.class);
-    private ArrayList<String> linkTexts;
-    private ArrayList<String> linkHrefs;
+    private ArrayList<TrayItem> trayItems;
     private TrayIcon trayIcon;
 
     public SystemTrayComponent() {
         if (MainConfiguration.ADD_ICON_IN_SYSTEM_TRAY == true) {
 
             // links to create, from top to bottom
-            linkTexts = new ArrayList<>();
-            linkHrefs = new ArrayList<>();
-            linkTexts.add("Welcome");
-            linkHrefs.add(Mappings.APPLICATION_ROOT);
-            linkTexts.add("Make a reservation");
-            linkHrefs.add(Mappings.RESERVATION_FORM);
+            trayItems = new ArrayList<>();
+
+            trayItems.add(new TrayItem("Welcome", Mappings.APPLICATION_ROOT));
+            trayItems.add(new TrayItem("Make a reservation", Mappings.RESERVATION_FORM));
 
             try {
                 createTrayMenu();
@@ -97,15 +94,12 @@ public class SystemTrayComponent {
         popup.add(header);
 
         // Add components to pop-up menu
-        for (int i = 0; i < linkTexts.size(); i++) {
-            String text = linkTexts.get(i);
-            String href = linkHrefs.get(i);
-
-            MenuItem it = new MenuItem(text);
+        for (TrayItem item : trayItems) {
+            MenuItem it = new MenuItem(item.getName());
             it.addActionListener((ev) -> {
                 String url = null;
                 try {
-                    url = Utils.getBaseUrlForEmbeddedTomcat() + href;
+                    url = Utils.getBaseUrlForEmbeddedTomcat() + item.getMapping();
                     Desktop.getDesktop().browse(new URI(url));
                 } catch (Exception e) {
                     logger.error("Cannot open: " + e);
