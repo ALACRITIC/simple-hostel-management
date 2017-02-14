@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-mvn package && 7z a book-me.7z . -x="*.7z"
+rm book-me.zip || true
+mvn compile && mvn package && 7z a book-me.zip .

@@ -4,3 +4,5 @@ database/*
 *.swp
 .idea
 tomcat-logs
+*.7z
+*.zip
