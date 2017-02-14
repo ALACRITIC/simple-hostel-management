@@ -5,7 +5,7 @@ package org.remipassmoilesel.bookme;
  */
 public class Templates {
 
-    public static final String MAIN_TEMPLATE = "page-template";
+    public static final String MAIN_TEMPLATE = "main-template";
 
     public static final String PAGES_DIR = "pages/";
     public static final String DASHBOARD = PAGES_DIR + "/dashboard";

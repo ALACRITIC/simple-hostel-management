@@ -128,9 +128,57 @@
         </div>
     </div>
 
-    <!-- Partial elements -->
-    <div class="row">
+    <!--
+
+         Partial elements
+
+    -->
+
+    <!-- Reservations -->
+
+    <div class="row top-buffer">
         <div class="col-md-12">
+
+            <h2>Reservations list</h2>
+
+            <table class="table table-striped" th:fragment="reservation-list">
+                <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone number</th>
+                    <th>Departure</th>
+                    <th>Arrival</th>
+                    <th>Resource</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="reservation : ${reservationsList}">
+                    <td th:text="${reservation.getCustomer().getFirstname()}">Jean</td>
+                    <td th:text="${reservation.getCustomer().getLastname()}">Claude</td>
+                    <td th:text="${reservation.getCustomer().getPhonenumber()}">+000002</td>
+                    <td th:text="${#dates.format(reservation.getBegin(), 'dd/MM/yyyy')}">01/01/2016</td>
+                    <td th:text="${#dates.format(reservation.getEnd(), 'dd/MM/yyyy')}">05/01/2016</td>
+                    <td th:text="${reservation.getResource().getName()}">A2</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <div th:fragment="button-view-all-reservations" style="text-align: right; margin: 1em;">
+                <a href="#" class="btn btn-info btn-sm" style="display: inline-block">View all reservations</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Messages -->
+
+    <div class="row top-buffer">
+        <div class="col-md-12">
+
+            <h2>Messages small</h2>
 
             <div class="card card-message-small" th:fragment="message-small">
                 <div class="card-block">
@@ -142,10 +190,14 @@
                     </p>
                     <div style="text-align: right">
                         <a href="#" class="btn btn-info btn-sm" style="display: inline-block;">
-                            View all
+                            View
                         </a>
                     </div>
                 </div>
+            </div>
+
+            <div th:fragment="button-view-all-messages" style="text-align: right; margin: 1em;">
+                <a href="#" class="btn btn-info btn-sm" style="display: inline-block">View all messages</a>
             </div>
 
         </div>

@@ -79,7 +79,7 @@ public class MainController {
      *
      * @return
      */
-    @RequestMapping(value = Mappings.LIVE_TEMPLATE, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.MAIN_TEMPLATE, method = RequestMethod.GET)
     public String showLiveTemplate(Model model) throws IOException {
 
         Mappings.includeMappings(model);

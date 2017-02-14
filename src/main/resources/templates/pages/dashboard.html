@@ -16,10 +16,27 @@
 
     <div class="row">
         <div class="col-md-12">
-
             <h1>Welcome</h1>
+        </div>
+
+        <!-- Last reservations -->
+
+        <div class="col-md-12">
+
+            <h2>Last reservations</h2>
+
+            <div th:replace="main-template :: reservation-list (reservationsList=${lastReservationsList})"></div>
+
+            <div th:replace="main-template :: button-view-all-reservations"></div>
+
+        </div>
+
+        <!-- Last messages -->
+
+        <div class="col-md-12">
 
             <h2>Last messages</h2>
+
             <div th:each="messageObject : ${lastMessagesList}">
                 <div th:replace="main-template :: message-small (
                                                     title=${messageObject.getDate()},
@@ -27,14 +44,16 @@
                 </div>
             </div>
 
+            <div th:replace="main-template :: button-view-all-messages"></div>
+
         </div>
+
     </div>
 
 
     <div class="row top-buffer">
         <div class="col-md-12">
 
-            <div th:text="${lastReservationsList}"></div>
             <div th:text="${todayCheckoutsList}"></div>
             <div th:text="${lastCustomersList}"></div>
 
@@ -43,6 +62,8 @@
 
     <!-- Footer -->
     <div th:replace="main-template :: footer"></div>
+
+    <div th:replace="fragments/show-debug :: debug"></div>
 
 </div>
 
