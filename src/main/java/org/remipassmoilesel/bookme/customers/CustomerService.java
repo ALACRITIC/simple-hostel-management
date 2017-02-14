@@ -112,6 +112,15 @@ public class CustomerService {
         } catch (SQLException e) {
             throw new IOException(e);
         }
+
+    }
+
+    public List<Customer> getAll() throws IOException {
+        try {
+            return customerDao.queryForAll();
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
     }
 
     public List<Customer> getLasts(long limit, long offset) throws IOException {
@@ -128,4 +137,6 @@ public class CustomerService {
             throw new IOException(e);
         }
     }
+
+
 }

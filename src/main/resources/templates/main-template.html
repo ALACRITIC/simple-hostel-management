@@ -86,6 +86,15 @@
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Customers <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="${mappings.get('CUSTOMERS_SHOW_ALL')}">Show all</a></li>
+                        <li><a th:href="${mappings.get('CUSTOMERS_SEARCH')}">Search</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Messages <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a th:href="${mappings.get('MESSAGES_SHOW_ALL')}">Show all</a></li>
@@ -133,6 +142,39 @@
          Partial elements
 
     -->
+
+    <!-- Customers -->
+
+    <div class="row top-buffer">
+        <div class="col-md-12">
+
+            <h2>Customers list</h2>
+
+            <table class="table table-striped" th:fragment="customers-list">
+                <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone number</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="customer : ${customersList}">
+                    <td th:text="${customer.getFirstname()}">Jean</td>
+                    <td th:text="${customer.getLastname()}">Claude</td>
+                    <td th:text="${customer.getPhonenumber()}">+000002</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <div th:fragment="button-view-all-customers" style="text-align: right; margin: 1em;">
+                <a href="#" class="btn btn-info btn-sm" style="display: inline-block">View all customers</a>
+            </div>
+
+        </div>
+    </div>
 
     <!-- Reservations -->
 

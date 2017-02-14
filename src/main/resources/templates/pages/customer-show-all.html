@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Show customers</title>
+
+    <script th:replace="main-template :: page-headers"></script>
+
+</head>
+<body>
+
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <h1>Customers</h1>
+
+            <div th:replace="main-template :: customers-list(customersList=${customers})"></div>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
