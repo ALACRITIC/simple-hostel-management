@@ -86,7 +86,13 @@ public class ReservationService {
      */
     public Reservation getById(Long id) throws IOException {
         try {
-            return reservationDao.queryForId(String.valueOf(id));
+            Reservation result = reservationDao.queryForId(String.valueOf(id));
+
+            if (result != null) {
+                refreshReservation(result);
+            }
+
+            return result;
         } catch (SQLException e) {
             throw new IOException(e);
         }
@@ -128,8 +134,12 @@ public class ReservationService {
      * @throws IOException
      */
     public Reservation createReservation(Customer customer, SharedResource resource, int places, Date begin, Date end) throws IOException {
+        Reservation res = new Reservation(customer, resource, places, begin, end, null);
+        return createReservation(res);
+    }
+
+    public Reservation createReservation(Reservation res) throws IOException {
         try {
-            Reservation res = new Reservation(customer, resource, places, begin, end, null);
             reservationDao.create(res);
             return res;
         } catch (SQLException e) {
@@ -263,7 +273,14 @@ public class ReservationService {
     }
 
     private void refreshReservation(Reservation res) throws IOException {
+
+        if (res == null) {
+            throw new NullPointerException("Reservation is null");
+        }
+
         customerService.refresh(res.getCustomer());
         sharedResourceService.refresh(res.getResource());
     }
+
+
 }

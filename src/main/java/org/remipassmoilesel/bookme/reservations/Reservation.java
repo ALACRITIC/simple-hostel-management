@@ -25,7 +25,7 @@ public class Reservation {
     public static final String COMMENT_FIELD_NAME = "COMMENT";
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
-    private int id;
+    private long id;
 
     @DatabaseField(foreign = true, columnName = CUSTOMER_FIELD_NAME)
     private Customer customer;
@@ -45,11 +45,15 @@ public class Reservation {
     @DatabaseField(columnName = DATEEND_FIELD_NAME)
     private Date end;
 
-    @DatabaseField(columnName = COMMENT_FIELD_NAME,  dataType = DataType.LONG_STRING)
+    @DatabaseField(columnName = COMMENT_FIELD_NAME, dataType = DataType.LONG_STRING)
     private String comment;
 
     public Reservation() {
         // ORMLite needs a no-arg constructor
+    }
+
+    public Reservation(Customer customer, SharedResource resource, int places, Date begin, Date end) {
+        this(customer, resource, places, begin, end, null);
     }
 
     public Reservation(Customer customer, SharedResource resource, int places, Date begin, Date end, Date reservationDate) {
@@ -70,11 +74,11 @@ public class Reservation {
     }
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
