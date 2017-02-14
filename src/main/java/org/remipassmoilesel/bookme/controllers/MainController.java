@@ -55,7 +55,7 @@ public class MainController {
         List<Message> lastMessagesList = messageService.getLasts(3, 0);
 
         // get lasts checkouts
-        List<Reservation> todayCheckoutsList = reservationService.getNextCheckouts(3, 0);
+        List<Reservation> nextCheckoutsList = reservationService.getNextCheckouts(3, 0);
 
         // get lasts reservations
         List<Reservation> lastReservationsList = reservationService.getLastReservations(3, 0);
@@ -64,7 +64,7 @@ public class MainController {
         List<Customer> lastCustomersList = customerService.getLasts(3, 0);
 
         model.addAttribute("lastMessagesList", lastMessagesList);
-        model.addAttribute("todayCheckoutsList", todayCheckoutsList);
+        model.addAttribute("nextCheckoutsList", nextCheckoutsList);
         model.addAttribute("lastReservationsList", lastReservationsList);
         model.addAttribute("lastCustomersList", lastCustomersList);
 

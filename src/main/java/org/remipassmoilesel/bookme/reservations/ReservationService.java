@@ -108,8 +108,7 @@ public class ReservationService {
             List<Reservation> results = statement.query();
 
             for (Reservation r : results) {
-                customerService.refresh(r.getCustomer());
-                sharedResourceService.refresh(r.getResource());
+                refreshReservation(r);
             }
 
             return results;
@@ -160,8 +159,7 @@ public class ReservationService {
             List<Reservation> results = queryBuilder.query();
 
             for (Reservation r : results) {
-                customerService.refresh(r.getCustomer());
-                sharedResourceService.refresh(r.getResource());
+                refreshReservation(r);
             }
 
             return results;
@@ -236,11 +234,36 @@ public class ReservationService {
                 builder.offset(offset);
             }
 
-            return builder.query();
+            List<Reservation> results = builder.query();
+
+            for (Reservation res : results) {
+                refreshReservation(res);
+            }
+
+            return results;
         } catch (Exception e) {
             throw new IOException(e);
         }
     }
 
+    public List<Reservation> getAll() throws IOException {
 
+        try {
+            List<Reservation> results = reservationDao.queryForAll();
+            for (Reservation res : results) {
+                refreshReservation(res);
+            }
+
+            return results;
+
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+
+    }
+
+    private void refreshReservation(Reservation res) throws IOException {
+        customerService.refresh(res.getCustomer());
+        sharedResourceService.refresh(res.getResource());
+    }
 }

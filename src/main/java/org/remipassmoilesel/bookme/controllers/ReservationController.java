@@ -193,6 +193,12 @@ public class ReservationController {
 
     }
 
+    @RequestMapping(value = Mappings.RESERVATION_JSON_GET_ALL, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Reservation> getAllReservations() throws Exception {
+        return reservationService.getAll();
+    }
+
     @RequestMapping(value = Mappings.RESERVATION_ROOMS_AVAILABLE_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<SharedResource> getAvailableRooms(
