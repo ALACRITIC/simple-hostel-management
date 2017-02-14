@@ -3,6 +3,7 @@ package org.remipassmoilesel.bookme.customers;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -11,10 +12,11 @@ import java.util.Objects;
 @DatabaseTable(tableName = "CUSTOMERS")
 public class Customer {
 
-    private static final String ID_FIELD_NAME = "ID";
-    private static final String LASTNAME_FIELD_NAME = "LASTNAME";
-    private static final String FIRSTNAME_FIELD_NAME = "FIRSTNAME";
-    private static final String PHONENUMBER_FIELD_NAME = "PHONENUMBER";
+    public static final String ID_FIELD_NAME = "ID";
+    public static final String LASTNAME_FIELD_NAME = "LASTNAME";
+    public static final String FIRSTNAME_FIELD_NAME = "FIRSTNAME";
+    public static final String PHONENUMBER_FIELD_NAME = "PHONENUMBER";
+    public static final String CREATIONDATE_FIELD_NAME = "CREATIONDATE";
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private long id;
@@ -28,14 +30,26 @@ public class Customer {
     @DatabaseField(columnName = PHONENUMBER_FIELD_NAME)
     private String phonenumber;
 
+    @DatabaseField(columnName = CREATIONDATE_FIELD_NAME)
+    private Date creationDate;
+
     public Customer() {
         // ORMLite needs a no-arg constructor
     }
 
     public Customer(String firstname, String lastname, String phonenumber) {
+
+    }
+
+    public Customer(String firstname, String lastname, String phonenumber, Date creationDate) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.phonenumber = phonenumber;
+
+        if (creationDate == null) {
+            creationDate = new Date();
+        }
+        this.creationDate = creationDate;
     }
 
     public String getLastname() {
@@ -70,6 +84,14 @@ public class Customer {
         this.phonenumber = phonenumber;
     }
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -78,21 +100,23 @@ public class Customer {
         return id == customer.id &&
                 Objects.equals(lastname, customer.lastname) &&
                 Objects.equals(firstname, customer.firstname) &&
-                Objects.equals(phonenumber, customer.phonenumber);
+                Objects.equals(phonenumber, customer.phonenumber) &&
+                Objects.equals(creationDate, customer.creationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, lastname, firstname, phonenumber);
+        return Objects.hash(id, lastname, firstname, phonenumber, creationDate);
     }
 
     @Override
     public String toString() {
         return "Customer{" +
                 "id=" + id +
-                ", name='" + lastname + '\'' +
+                ", lastname='" + lastname + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", phonenumber='" + phonenumber + '\'' +
+                ", creationDate=" + creationDate +
                 '}';
     }
 }

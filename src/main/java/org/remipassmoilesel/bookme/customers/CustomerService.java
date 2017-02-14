@@ -3,6 +3,7 @@ package org.remipassmoilesel.bookme.customers;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
+import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.table.TableUtils;
 import org.remipassmoilesel.bookme.MainConfiguration;
 import org.remipassmoilesel.bookme.utils.DatabaseUtils;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by remipassmoilesel on 30/01/17.
@@ -108,6 +110,21 @@ public class CustomerService {
         try {
             customerDao.refresh(customer);
         } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+
+    public List<Customer> getLasts(long limit, long offset) throws IOException {
+        try {
+            QueryBuilder<Customer, String> builder = customerDao.queryBuilder();
+            builder.orderBy(Customer.CREATIONDATE_FIELD_NAME, true);
+            builder.limit(limit);
+            if (offset > 0) {
+                builder.offset(offset);
+            }
+
+            return builder.query();
+        } catch (Exception e) {
             throw new IOException(e);
         }
     }
