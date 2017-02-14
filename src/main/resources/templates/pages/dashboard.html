@@ -43,32 +43,18 @@
 
         </div>
 
-        <!-- Last messages -->
+        <!-- Last customers registered-->
 
         <div class="col-md-12">
 
-            <h2>Last messages</h2>
+            <h2>Last customers registered</h2>
 
-            <div th:each="messageObject : ${lastMessagesList}">
-                <div th:replace="main-template :: message-small (
-                                                    title=${messageObject.getDate()},
-                                                    message=${#strings.substring(messageObject.getMessage(), 0, 200) + '...'})">
-                </div>
-            </div>
+            <div th:replace="main-template :: customers-list(customersList=${lastCustomersList})"></div>
 
-            <div th:replace="main-template :: button-view-all-messages"></div>
+            <div th:replace="main-template :: button-view-all-customers"></div>
 
         </div>
 
-    </div>
-
-
-    <div class="row top-buffer">
-        <div class="col-md-12">
-
-            <div th:text="${lastCustomersList}"></div>
-
-        </div>
     </div>
 
     <!-- Footer -->
