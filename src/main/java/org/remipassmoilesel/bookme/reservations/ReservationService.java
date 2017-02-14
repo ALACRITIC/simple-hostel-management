@@ -3,7 +3,7 @@ package org.remipassmoilesel.bookme.reservations;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import org.joda.time.DateTime;
-import org.remipassmoilesel.bookme.MainConfiguration;
+import org.remipassmoilesel.bookme.CustomConfiguration;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.sharedresources.SharedResource;
@@ -31,7 +31,7 @@ public class ReservationService extends AbstractDaoService {
     private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
 
     @Autowired
-    private MainConfiguration configuration;
+    private CustomConfiguration configuration;
 
     @Autowired
     private CustomerService customerService;
@@ -39,8 +39,8 @@ public class ReservationService extends AbstractDaoService {
     @Autowired
     private SharedResourceService sharedResourceService;
 
-    public ReservationService() {
-        super(Reservation.class);
+    public ReservationService(CustomConfiguration configuration) {
+        super(Reservation.class, configuration);
     }
 
     /**

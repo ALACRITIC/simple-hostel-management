@@ -1,5 +1,6 @@
 package org.remipassmoilesel.bookme.sharedresources;
 
+import org.remipassmoilesel.bookme.CustomConfiguration;
 import org.remipassmoilesel.bookme.utils.AbstractDaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +18,8 @@ public class SharedResourceService extends AbstractDaoService {
 
     private static final Logger logger = LoggerFactory.getLogger(SharedResourceService.class);
 
-    public SharedResourceService() {
-        super(SharedResource.class);
+    public SharedResourceService(CustomConfiguration configuration) {
+        super(SharedResource.class, configuration);
     }
 
     /**

@@ -4,8 +4,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import org.remipassmoilesel.bookme.MainConfiguration;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.remipassmoilesel.bookme.CustomConfiguration;
 
 import java.sql.SQLException;
 
@@ -14,16 +13,14 @@ import java.sql.SQLException;
  */
 public abstract class AbstractDaoService {
 
-    @Autowired
-    protected MainConfiguration configuration;
-
     protected Dao dao;
     protected JdbcPooledConnectionSource connection;
 
-    public AbstractDaoService(Class clazz) {
+    public AbstractDaoService(Class clazz, CustomConfiguration configuration) {
+
         try {
 
-            connection = DatabaseUtils.getH2OrmliteConnectionPool(MainConfiguration.PROD_DATABASE_PATH);
+            connection = DatabaseUtils.getH2OrmliteConnectionPool(configuration.getDatabasePath());
 
             TableUtils.createTableIfNotExists(connection, clazz);
 

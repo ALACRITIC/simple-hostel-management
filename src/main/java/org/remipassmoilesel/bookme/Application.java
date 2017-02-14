@@ -1,6 +1,5 @@
 package org.remipassmoilesel.bookme;
 
-import org.apache.commons.io.FileUtils;
 import org.remipassmoilesel.bookme.utils.UpdateFilesListener;
 import org.remipassmoilesel.bookme.utils.Utils;
 import org.slf4j.Logger;
@@ -17,9 +16,9 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Locale;
 
 /**
@@ -34,18 +33,12 @@ public class Application extends WebMvcConfigurerAdapter {
 
     public static void main(String[] args) throws Exception {
 
-        // drop database if asked in configuration, for debug purposes
-        if (MainConfiguration.DROP_DATABASE_ON_LAUNCH == true) {
-            try {
-                FileUtils.deleteDirectory(MainConfiguration.DATABASE_DIRECTORY.toFile());
-                logger.error("Database have been dropped");
-            } catch (IOException e) {
-                logger.error("Error while reseting database");
-            }
-        }
-
         // standalone server for development
         mainApp = new SpringApplication(Application.class);
+
+        if (Arrays.asList(args).contains(CustomConfiguration.DEV_PROFILE)) {
+            mainApp.setAdditionalProfiles(CustomConfiguration.DEV_PROFILE);
+        }
 
         // listen application to update files
         UpdateFilesListener updater = new UpdateFilesListener();
@@ -56,13 +49,13 @@ public class Application extends WebMvcConfigurerAdapter {
 
         // open browser on launch if needed
         mainApp.addListeners((event) -> {
-            if (event instanceof ApplicationReadyEvent && MainConfiguration.OPEN_BROWSER_ON_LAUNCH == true) {
-                showMainPage();
+            if (event instanceof ApplicationReadyEvent) {
+                CustomConfiguration config = ((ApplicationReadyEvent) event).getApplicationContext().getBean(CustomConfiguration.class);
+                if (config.isLaunchBrowserOnStart() == true) {
+                    showMainPage();
+                }
             }
         });
-
-        //TODO
-        // wait 2 minutes and launch user browser
 
         // run server
         mainApp.run(args);

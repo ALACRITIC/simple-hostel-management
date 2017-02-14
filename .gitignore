@@ -1,5 +1,6 @@
 target/*
 database/*
+database-test
 *.iml
 *.swp
 .idea

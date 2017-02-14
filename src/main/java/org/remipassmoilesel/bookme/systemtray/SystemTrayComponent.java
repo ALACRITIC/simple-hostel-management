@@ -1,7 +1,6 @@
 package org.remipassmoilesel.bookme.systemtray;
 
 import org.remipassmoilesel.bookme.Application;
-import org.remipassmoilesel.bookme.MainConfiguration;
 import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.utils.ApplicationContextProvider;
 import org.remipassmoilesel.bookme.utils.Utils;
@@ -30,24 +29,24 @@ import java.util.ArrayList;
 public class SystemTrayComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(SystemTrayComponent.class);
+
     private ArrayList<TrayItem> trayItems;
     private TrayIcon trayIcon;
 
     public SystemTrayComponent() {
-        if (MainConfiguration.ADD_ICON_IN_SYSTEM_TRAY == true) {
 
-            // links to create, from top to bottom
-            trayItems = new ArrayList<>();
+        // links to create, from top to bottom
+        trayItems = new ArrayList<>();
 
-            trayItems.add(new TrayItem("Welcome", Mappings.APPLICATION_ROOT));
-            trayItems.add(new TrayItem("Make a reservation", Mappings.RESERVATION_FORM));
+        trayItems.add(new TrayItem("Welcome", Mappings.APPLICATION_ROOT));
+        trayItems.add(new TrayItem("Make a reservation", Mappings.RESERVATION_FORM));
 
-            try {
-                createTrayMenu();
-            } catch (AWTException e) {
-                logger.error("Unable to create system tray icon");
-            }
+        try {
+            createTrayMenu();
+        } catch (AWTException e) {
+            logger.error("Unable to create system tray icon");
         }
+
     }
 
     private void createTrayMenu() throws AWTException {
