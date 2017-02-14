@@ -1,11 +1,7 @@
 package org.remipassmoilesel.bookme.reservations;
 
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
-import com.j256.ormlite.table.TableUtils;
 import org.joda.time.DateTime;
 import org.remipassmoilesel.bookme.MainConfiguration;
 import org.remipassmoilesel.bookme.customers.Customer;
@@ -13,7 +9,7 @@ import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.sharedresources.SharedResource;
 import org.remipassmoilesel.bookme.sharedresources.SharedResourceService;
 import org.remipassmoilesel.bookme.sharedresources.Type;
-import org.remipassmoilesel.bookme.utils.DatabaseUtils;
+import org.remipassmoilesel.bookme.utils.AbstractDaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +26,12 @@ import java.util.List;
  */
 
 @Service
-public class ReservationService {
+public class ReservationService extends AbstractDaoService {
 
     private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
+
+    @Autowired
+    private MainConfiguration configuration;
 
     @Autowired
     private CustomerService customerService;
@@ -40,24 +39,8 @@ public class ReservationService {
     @Autowired
     private SharedResourceService sharedResourceService;
 
-    private Dao<Reservation, String> reservationDao;
-    private JdbcPooledConnectionSource connection;
-
     public ReservationService() {
-
-        try {
-
-            connection = DatabaseUtils.getH2OrmliteConnectionPool(MainConfiguration.DATABASE_PATH);
-
-            TableUtils.createTableIfNotExists(connection, Reservation.class);
-
-            // instantiate the dao
-            reservationDao = DaoManager.createDao(connection, Reservation.class);
-
-        } catch (SQLException e) {
-            throw new IllegalStateException(e);
-        }
-
+        super(Reservation.class);
     }
 
     /**
@@ -86,7 +69,7 @@ public class ReservationService {
      */
     public Reservation getById(Long id) throws IOException {
         try {
-            Reservation result = reservationDao.queryForId(String.valueOf(id));
+            Reservation result = (Reservation) dao.queryForId(String.valueOf(id));
 
             if (result != null) {
                 refreshReservation(result);
@@ -109,7 +92,7 @@ public class ReservationService {
     public List<Reservation> getLastReservations(long limit, long offset) throws IOException {
 
         try {
-            QueryBuilder<Reservation, String> statement = reservationDao.queryBuilder()
+            QueryBuilder<Reservation, String> statement = dao.queryBuilder()
                     .orderBy(Reservation.RESERVATION_DATE, false).limit(limit).offset(offset);
             List<Reservation> results = statement.query();
 
@@ -140,7 +123,7 @@ public class ReservationService {
 
     public Reservation createReservation(Reservation res) throws IOException {
         try {
-            reservationDao.create(res);
+            dao.create(res);
             return res;
         } catch (SQLException e) {
             throw new IOException(e);
@@ -159,7 +142,7 @@ public class ReservationService {
     public List<Reservation> getByInterval(Date beginDate, Date endDate, boolean orderAscending) throws IOException {
 
         try {
-            QueryBuilder<Reservation, String> queryBuilder = reservationDao.queryBuilder();
+            QueryBuilder<Reservation, String> queryBuilder = dao.queryBuilder();
             queryBuilder.orderBy(Reservation.DATEBEGIN_FIELD_NAME, orderAscending);
             Where<Reservation, String> where = queryBuilder.where();
 
@@ -193,7 +176,7 @@ public class ReservationService {
             ArrayList<SharedResource> result = new ArrayList<>();
             for (SharedResource resource : sharedResourceService.getAll(type)) {
 
-                QueryBuilder<Reservation, String> builder = reservationDao.queryBuilder();
+                QueryBuilder<Reservation, String> builder = dao.queryBuilder();
 
                 Where<Reservation, String> where = builder.where();
                 where.and(
@@ -231,7 +214,7 @@ public class ReservationService {
     public List<Reservation> getNextCheckouts(long limit, long offset) throws IOException {
 
         try {
-            QueryBuilder<Reservation, String> builder = reservationDao.queryBuilder();
+            QueryBuilder<Reservation, String> builder = dao.queryBuilder();
 
             DateTime now = new DateTime();
             DateTime future = now.plusYears(1);
@@ -259,7 +242,7 @@ public class ReservationService {
     public List<Reservation> getAll() throws IOException {
 
         try {
-            List<Reservation> results = reservationDao.queryForAll();
+            List<Reservation> results = dao.queryForAll();
             for (Reservation res : results) {
                 refreshReservation(res);
             }

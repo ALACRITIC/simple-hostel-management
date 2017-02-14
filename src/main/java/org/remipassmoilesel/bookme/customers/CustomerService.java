@@ -1,12 +1,7 @@
 package org.remipassmoilesel.bookme.customers;
 
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.stmt.QueryBuilder;
-import com.j256.ormlite.table.TableUtils;
-import org.remipassmoilesel.bookme.MainConfiguration;
-import org.remipassmoilesel.bookme.utils.DatabaseUtils;
+import org.remipassmoilesel.bookme.utils.AbstractDaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -19,25 +14,12 @@ import java.util.List;
  * Created by remipassmoilesel on 30/01/17.
  */
 @Service
-public class CustomerService {
+public class CustomerService extends AbstractDaoService {
 
     private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
-    private Dao<Customer, String> customerDao;
-    private JdbcPooledConnectionSource connection;
 
     public CustomerService() {
-
-        try {
-            connection = DatabaseUtils.getH2OrmliteConnectionPool(MainConfiguration.DATABASE_PATH);
-
-            TableUtils.createTableIfNotExists(connection, Customer.class);
-
-            // instantiate the dao
-            customerDao = DaoManager.createDao(connection, Customer.class);
-
-        } catch (SQLException e) {
-            throw new IllegalStateException(e);
-        }
+        super(Customer.class);
     }
 
     /**
@@ -63,7 +45,7 @@ public class CustomerService {
      */
     public Customer getById(Long id) throws IOException {
         try {
-            return customerDao.queryForId(String.valueOf(id));
+            return (Customer) dao.queryForId(String.valueOf(id));
         } catch (SQLException e) {
             throw new IOException(e);
         }
@@ -92,7 +74,7 @@ public class CustomerService {
     public Customer createCustomer(Customer customer) throws IOException {
 
         try {
-            customerDao.create(customer);
+            dao.create(customer);
             return customer;
         } catch (SQLException e) {
             throw new IOException(e);
@@ -108,7 +90,7 @@ public class CustomerService {
      */
     public void refresh(Customer customer) throws IOException {
         try {
-            customerDao.refresh(customer);
+            dao.refresh(customer);
         } catch (SQLException e) {
             throw new IOException(e);
         }
@@ -117,7 +99,7 @@ public class CustomerService {
 
     public List<Customer> getAll() throws IOException {
         try {
-            return customerDao.queryForAll();
+            return dao.queryForAll();
         } catch (SQLException e) {
             throw new IOException(e);
         }
@@ -125,7 +107,7 @@ public class CustomerService {
 
     public List<Customer> getLasts(long limit, long offset) throws IOException {
         try {
-            QueryBuilder<Customer, String> builder = customerDao.queryBuilder();
+            QueryBuilder<Customer, String> builder = dao.queryBuilder();
             builder.orderBy(Customer.CREATIONDATE_FIELD_NAME, true);
             builder.limit(limit);
             if (offset > 0) {

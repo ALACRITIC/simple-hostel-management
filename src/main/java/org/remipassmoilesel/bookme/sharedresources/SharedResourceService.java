@@ -1,11 +1,6 @@
 package org.remipassmoilesel.bookme.sharedresources;
 
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
-import com.j256.ormlite.table.TableUtils;
-import org.remipassmoilesel.bookme.MainConfiguration;
-import org.remipassmoilesel.bookme.utils.DatabaseUtils;
+import org.remipassmoilesel.bookme.utils.AbstractDaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -18,28 +13,12 @@ import java.util.List;
  * Created by remipassmoilesel on 11/02/17.
  */
 @Service
-public class SharedResourceService {
+public class SharedResourceService extends AbstractDaoService {
 
     private static final Logger logger = LoggerFactory.getLogger(SharedResourceService.class);
 
-    private Dao<SharedResource, String> resourceDao;
-    private JdbcPooledConnectionSource connection;
-
     public SharedResourceService() {
-
-        try {
-
-            connection = DatabaseUtils.getH2OrmliteConnectionPool(MainConfiguration.DATABASE_PATH);
-
-            TableUtils.createTableIfNotExists(connection, SharedResource.class);
-
-            // instantiate the dao
-            resourceDao = DaoManager.createDao(connection, SharedResource.class);
-
-        } catch (SQLException e) {
-            throw new IllegalStateException(e);
-        }
-
+        super(SharedResource.class);
     }
 
     /**
@@ -68,7 +47,7 @@ public class SharedResourceService {
      */
     public SharedResource getById(Long id) {
         try {
-            return resourceDao.queryForId(String.valueOf(id));
+            return (SharedResource) dao.queryForId(String.valueOf(id));
         } catch (SQLException e) {
             logger.error("Error while retrieving: " + id, e);
             return null;
@@ -83,7 +62,7 @@ public class SharedResourceService {
      */
     public SharedResource createResource(SharedResource room) throws IOException {
         try {
-            resourceDao.create(room);
+            dao.create(room);
             return room;
         } catch (SQLException e) {
             throw new IOException(e);
@@ -93,9 +72,9 @@ public class SharedResourceService {
     public List<SharedResource> getAll(Type type) throws IOException {
         try {
             if (type != null) {
-                return resourceDao.queryForEq(SharedResource.TYPE_FIELD_NAME, type);
+                return dao.queryForEq(SharedResource.TYPE_FIELD_NAME, type);
             } else {
-                return resourceDao.queryForAll();
+                return dao.queryForAll();
             }
         } catch (SQLException e) {
             throw new IOException(e);
@@ -114,7 +93,7 @@ public class SharedResourceService {
      */
     public void refresh(SharedResource resource) throws IOException {
         try {
-            resourceDao.refresh(resource);
+            dao.refresh(resource);
         } catch (SQLException e) {
             throw new IOException(e);
         }
