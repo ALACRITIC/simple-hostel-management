@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
@@ -43,7 +42,8 @@
         <!-- Places -->
         <tr>
             <td colspan="2">
-                <input type="text" class="form-control" placeholder="Number of places" th:field="*{places}" id="places"/>
+                <input type="text" class="form-control" placeholder="Number of places" th:field="*{places}"
+                       id="places"/>
                 <div th:if="${#fields.hasErrors('places')}" th:errors="*{places}">
                     Places errors
                 </div>
@@ -157,7 +157,7 @@
                                 roomSelect.append(elmt);
                             });
 
-                            if(!result || result.length == 0){
+                            if (!result || result.length == 0) {
                                 roomSelect.append("<option>No room available</option>");
                             }
 
@@ -187,7 +187,7 @@
                 }
             });
 
-            placesTxt.on('input', function() {
+            placesTxt.on('input', function () {
                 checkAvailability();
             });
 
@@ -195,3 +195,5 @@
     </script>
 
 </form>
+</body>
+</html>
