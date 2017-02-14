@@ -1,6 +1,7 @@
 package org.remipassmoilesel.bookme.sharedresources;
 
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -31,12 +32,13 @@ public class SharedResource {
     @DatabaseField(columnName = TYPE_FIELD_NAME)
     private Type type;
 
-    @DatabaseField(columnName = COMMENT_FIELD_NAME)
+    @DatabaseField(columnName = COMMENT_FIELD_NAME,  dataType = DataType.LONG_STRING)
     private String comment;
 
     public SharedResource() {
         // ORMLite needs a no-arg constructor
     }
+
 
     public SharedResource(String name, int places, String comment, Type type) {
         this.name = name;
