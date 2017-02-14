@@ -20,19 +20,18 @@ public class SharedResource {
     public static final String TYPE_FIELD_NAME = "TYPE";
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
-    private int id;
+    private long id;
 
     @DatabaseField(columnName = NAME_FIELD_NAME)
     private String name;
 
     @DatabaseField(columnName = PLACES_FIELD_NAME)
     private int places;
-    ;
 
     @DatabaseField(columnName = TYPE_FIELD_NAME)
     private Type type;
 
-    @DatabaseField(columnName = COMMENT_FIELD_NAME,  dataType = DataType.LONG_STRING)
+    @DatabaseField(columnName = COMMENT_FIELD_NAME, dataType = DataType.LONG_STRING)
     private String comment;
 
     public SharedResource() {
@@ -47,11 +46,11 @@ public class SharedResource {
         this.type = type;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
