@@ -2,6 +2,7 @@ package org.remipassmoilesel.bookme;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
 import org.remipassmoilesel.bookme.sharedresources.SharedResource;
 import org.remipassmoilesel.bookme.sharedresources.SharedResourceService;
 import org.remipassmoilesel.bookme.sharedresources.Type;

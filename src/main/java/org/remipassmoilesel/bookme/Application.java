@@ -1,5 +1,6 @@
 package org.remipassmoilesel.bookme;
 
+import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
 import org.remipassmoilesel.bookme.utils.UpdateFilesListener;
 import org.remipassmoilesel.bookme.utils.Utils;
 import org.slf4j.Logger;
