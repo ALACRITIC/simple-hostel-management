@@ -19,6 +19,12 @@ public class Mappings {
 
     public static final String APPLICATION_ROOT = "/app";
 
+    // no ending slash here
+    public static final String BOWER_COMPONENTS_DIR = "/bower-components";
+    public static final String ASSETS_DIR = "/assets";
+
+    public static final String LOGIN_PAGE = APPLICATION_ROOT + "/login";
+
     public static final String RESERVATION_ROOT = APPLICATION_ROOT + "/reservation";
     public static final String RESERVATION_LASTS = RESERVATION_ROOT + "/lasts";
     public static final String RESERVATION_CALENDAR = RESERVATION_ROOT + "/calendar";

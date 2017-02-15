@@ -25,4 +25,6 @@ public class Templates {
     public static final String MESSAGE_COMPLETED = PAGES_DIR + "message-completed";
 
     public static final String CUSTOMER_SHOW = PAGES_DIR + "customer-show-all";
+
+    public static final String PAGES_LOGIN = PAGES_DIR + "login";
 }
