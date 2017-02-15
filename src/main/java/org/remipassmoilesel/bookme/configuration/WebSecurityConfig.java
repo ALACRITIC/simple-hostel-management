@@ -24,6 +24,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        // disable CSRF control in order to prevent errors
+        http.csrf().disable();
+
         http
                 // authorize essentials directories
                 .authorizeRequests()
@@ -45,5 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
     }
+
 
 }
