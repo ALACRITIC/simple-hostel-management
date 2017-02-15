@@ -23,24 +23,6 @@ public class SharedResourceService extends AbstractDaoService {
     }
 
     /**
-     * Close connection on finalization
-     *
-     * @throws Throwable
-     */
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (Exception e) {
-                logger.error("Error while closing connection source", e);
-            }
-        }
-    }
-
-    /**
      * Get a reservation by its id
      *
      * @param id

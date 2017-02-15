@@ -6,6 +6,7 @@ import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
 
+import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -26,7 +27,7 @@ public abstract class AbstractDaoService {
             // TODO: let user create it's own database
             connection = DatabaseUtils.getH2OrmliteConnectionPool(configuration.getDatabasePath(),
                     // please do not laugh :)
-                    "i03KvGVpQIwja-nxr5gq7I1oiOErdbCS", "hcNEfW0zcDoY0yuM50aCgXRbY-rRSxiX");
+                    CustomConfiguration.DB_LOGIN, CustomConfiguration.DB_PASSWORD);
 
             TableUtils.createTableIfNotExists(connection, clazz);
 
@@ -35,6 +36,18 @@ public abstract class AbstractDaoService {
 
         } catch (SQLException e) {
             throw new IllegalStateException(e);
+        }
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        dispose();
+    }
+
+    @PreDestroy
+    public void dispose() throws IOException {
+        if (connection != null) {
+            connection.close();
         }
     }
 

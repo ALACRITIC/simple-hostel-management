@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class SecurityController {
 
-    @RequestMapping(Mappings.LOGIN_PAGE)
+    @RequestMapping(Mappings.LOGIN_URL)
     public String showForm(Model model) {
 
         Mappings.includeMappings(model);

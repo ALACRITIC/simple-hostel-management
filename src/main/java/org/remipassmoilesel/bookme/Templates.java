@@ -26,5 +26,5 @@ public class Templates {
 
     public static final String CUSTOMER_SHOW = PAGES_DIR + "customer-show-all";
 
-    public static final String PAGES_LOGIN = PAGES_DIR + "login";
+    public static final String PAGES_LOGIN = PAGES_DIR + "signin";
 }

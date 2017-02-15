@@ -104,7 +104,7 @@
 
             </ul>
 
-            <form class="form-inline" th:action="@{/logout}" method="post">
+            <form class="form-inline" th:action="${mappings.get('LOGOUT_URL')}" method="post">
                 <button type="submit" class="btn btn-warning my-2 my-sm-0" style="float: right; margin-top: 0.4em">Sign
                     out
                 </button>

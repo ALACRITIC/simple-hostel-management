@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create a message</title>
+    <title>Please sign in</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link rel="stylesheet" type="text/css" href="/assets/css/form-login.css"/>
@@ -13,13 +13,13 @@
 
 <div class="container">
 
-    <form name="f" th:action="${mappings.get('LOGIN_PAGE')}" method="post" class="form-signin"
+    <form name="f" th:action="${mappings.get('LOGIN_URL')}" method="post" class="form-signin"
           default-target-url="/"
           always-use-default-target="true">
 
         <h2 class="form-signin-heading">Please sign in</h2>
 
-        <div th:if="${param.error}" class="alert alert-error">
+        <div th:if="${param.error}" class="alert alert-warning">
             Invalid username and password.
         </div>
 

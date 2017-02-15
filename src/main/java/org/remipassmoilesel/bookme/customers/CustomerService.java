@@ -24,20 +24,6 @@ public class CustomerService extends AbstractDaoService {
     }
 
     /**
-     * Close connection on finalize
-     *
-     * @throws Throwable
-     */
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-
-        if (connection != null) {
-            connection.close();
-        }
-    }
-
-    /**
      * Get a customer by ID
      *
      * @param id

@@ -17,7 +17,7 @@ public class DatabaseUtils {
 
     public static JdbcPooledConnectionSource getH2OrmliteConnectionPool(Path database, String user, String psswd) throws SQLException {
 
-        String databaseUrl = getJdbcUrlForH2(database);
+        String databaseUrl = getH2JdbcUrlFor(database);
 
         JdbcPooledConnectionSource connectionSource = new JdbcPooledConnectionSource(databaseUrl);
         connectionSource.setMaxConnectionAgeMillis(Long.MAX_VALUE);
@@ -34,8 +34,9 @@ public class DatabaseUtils {
         return connectionSource;
     }
 
-    public static String getJdbcUrlForH2(Path databasePath) {
-        return "jdbc:h2:file:" + databasePath.toAbsolutePath().toString();
+    public static String getH2JdbcUrlFor(Path databasePath) {
+        // DB_CLOSE_ON_EXIT=FALSE recommended by https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-sql.html
+        return "jdbc:h2:file:" + databasePath.toAbsolutePath().toString() + ";DB_CLOSE_ON_EXIT=FALSE";
     }
 
     public static Connection getH2Connection(Path databasePath) throws SQLException {
@@ -46,7 +47,7 @@ public class DatabaseUtils {
 
         String key = databasePath.toAbsolutePath().toString();
         if (currentH2Pool.get(key) == null) {
-            currentH2Pool.put(key, JdbcConnectionPool.create(getJdbcUrlForH2(databasePath), "", ""));
+            currentH2Pool.put(key, JdbcConnectionPool.create(getH2JdbcUrlFor(databasePath), "", ""));
         }
 
         return currentH2Pool.get(key).getConnection();

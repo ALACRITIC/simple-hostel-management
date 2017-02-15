@@ -23,7 +23,9 @@ public class Mappings {
     public static final String BOWER_COMPONENTS_DIR = "/bower-components";
     public static final String ASSETS_DIR = "/assets";
 
-    public static final String LOGIN_PAGE = APPLICATION_ROOT + "/login";
+    public static final String LOGIN_URL = APPLICATION_ROOT + "/login";
+    public static final String LOGOUT_URL = APPLICATION_ROOT + "/logout";
+    public static final String LOGOUT_SUCCESS_URL = APPLICATION_ROOT + "/login?logout";
 
     public static final String RESERVATION_ROOT = APPLICATION_ROOT + "/reservation";
     public static final String RESERVATION_LASTS = RESERVATION_ROOT + "/lasts";
@@ -52,7 +54,6 @@ public class Mappings {
     public static final String POPULATE_TABLES = APPLICATION_ROOT + "/populate-tables";
     public static final String MAIN_TEMPLATE = APPLICATION_ROOT + "/main-template";
     public static final String MESSAGES_GET_AS_JSON = APPLICATION_ROOT + "/json/all";
-
 
     public static MappingMap getMap() {
 
