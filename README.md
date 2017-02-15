@@ -9,3 +9,7 @@ Launch on GNU/Linux:
 Default user:
 
     admin : admin
+    
+Screenshot:
+
+    ![Screenshot](screenshots/screenshot_1.png)
