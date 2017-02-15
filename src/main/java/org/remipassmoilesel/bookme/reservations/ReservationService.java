@@ -172,8 +172,14 @@ public class ReservationService extends AbstractDaoService {
      */
     public List<SharedResource> getAvailableResources(Type type, Date begin, Date end, int places) throws IOException {
 
+        // list all resources
+        // for each
+        //      find all reservations for period
+        //      count places
+        //      compare places
+
         try {
-            ArrayList<SharedResource> result = new ArrayList<>();
+            ArrayList<SharedResource> freeRessources = new ArrayList<>();
             for (SharedResource resource : sharedResourceService.getAll(type)) {
 
                 QueryBuilder<Reservation, String> builder = dao.queryBuilder();
@@ -182,30 +188,44 @@ public class ReservationService extends AbstractDaoService {
                 where.and(
                         where.eq(Reservation.SHARED_RESOURCE_FIELD_NAME, resource.getId()),
                         where.or(
-                                // case 1: reservation begin or end in interval
-                                where.between(Reservation.DATEBEGIN_FIELD_NAME, begin, end)
-                                        .or().between(Reservation.DATEEND_FIELD_NAME, begin, end),
+                                // case 1: reservation begin or end in specified interval (SI)
+                                where.or(
+                                        where.between(Reservation.DATEBEGIN_FIELD_NAME, begin, end),
+                                        where.between(Reservation.DATEEND_FIELD_NAME, begin, end)
+                                ),
 
-                                // case 2: interval is in reservation
-                                where.lt(Reservation.DATEBEGIN_FIELD_NAME, begin)
-                                        .and().gt(Reservation.DATEEND_FIELD_NAME, end)
+                                // case 2: reservation equal SI
+                                // case 3: reservation contains SI
+                                where.and(
+                                        where.le(Reservation.DATEBEGIN_FIELD_NAME, begin),
+                                        where.ge(Reservation.DATEEND_FIELD_NAME, end)
+                                )
                         )
                 );
 
-                List<Reservation> results = builder.query();
+                List<Reservation> reservations = builder.query();
 
-                int existingPlacesReserved = 0;
-                for (Reservation reservation : results) {
-                    existingPlacesReserved += reservation.getPlaces();
+                // no reservations, resource is free
+                if (reservations.size() < 1) {
+                    freeRessources.add(resource);
                 }
 
-                if (resource.getPlaces() - existingPlacesReserved >= places) {
-                    result.add(resource);
+                // some reservations, count places
+                // TODO: create a raw statement for sum() instead of this ?
+                else {
+                    int reservedPlaces = 0;
+                    for (Reservation reservation : reservations) {
+                        reservedPlaces += reservation.getPlaces();
+                    }
+
+                    if (resource.getPlaces() - reservedPlaces >= places) {
+                        freeRessources.add(resource);
+                    }
                 }
 
             }
 
-            return result;
+            return freeRessources;
         } catch (Exception e) {
             throw new IOException(e);
         }

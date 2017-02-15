@@ -14,11 +14,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -29,6 +30,7 @@ import static org.junit.Assert.assertTrue;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
+@ActiveProfiles(CustomConfiguration.TEST_PROFILE)
 public class ReservationServiceTest {
 
     private final Logger logger = LoggerFactory.getLogger(ReservationServiceTest.class);
@@ -44,6 +46,12 @@ public class ReservationServiceTest {
 
     @Test
     public void test() throws IOException {
+
+        customerService.clearAllRows();
+        sharedResourceService.clearAllRows();
+        reservationService.clearAllRows();
+
+        DateTime baseDate = new DateTime(2017, 02, 15, 12, 50);
 
         ArrayList<Customer> customers = new ArrayList<>();
         customers.add(new Customer("Jean", "Claude", "+3333333"));
@@ -63,7 +71,7 @@ public class ReservationServiceTest {
         Reservation wrongRes = null;
         try {
             wrongRes = new Reservation(customers.get(0), resources.get(0), 2,
-                    new DateTime().plusDays(5).toDate(), new Date(), null);
+                    baseDate.plusDays(5).toDate(), baseDate.toDate(), null);
         } catch (Exception e) {
             logger.info("Error while creating reservation: ", e);
         }
@@ -74,7 +82,7 @@ public class ReservationServiceTest {
         ArrayList<Reservation> reservations = new ArrayList<>();
         for (int i = 0; i < reservationsNumber; i++) {
             Reservation res = new Reservation(customers.get(i % 2 == 0 ? 0 : 1), resources.get(i), 2,
-                    new Date(), new DateTime().plusDays(5).toDate(), null);
+                    baseDate.toDate(), baseDate.plusDays(5).toDate(), null);
 
             reservationService.createReservation(res);
 
@@ -93,6 +101,30 @@ public class ReservationServiceTest {
             assertTrue("Database retrieving test: " + resA + " / " + resB, resA.getResource().getName() != null);
         }
 
+        // Free resources test
+
+        DateTime beginTestPeriod = baseDate.plusDays(30);
+        DateTime endTestPeriod = baseDate.plusDays(40);
+
+        // add special reservations to test against test period (TP)
+        // 1: begin before TP and finish in TP
+        reservationService.createReservation(customers.get(0), resources.get(0), 2, beginTestPeriod.minusDays(2).toDate(), beginTestPeriod.plusDays(2).toDate());
+        // 2: begin in TP and finish after TP
+        reservationService.createReservation(customers.get(0), resources.get(1), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
+        // 3: begin before TP and finish after TP
+        reservationService.createReservation(customers.get(0), resources.get(2), 2, beginTestPeriod.minusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
+        // 4: begin after TP and finish before end of TP
+        reservationService.createReservation(customers.get(0), resources.get(3), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.minusDays(2).toDate());
+        // 5: same period
+        reservationService.createReservation(customers.get(0), resources.get(4), 2, beginTestPeriod.toDate(), endTestPeriod.toDate());
+
+        List<SharedResource> freeResources = reservationService.getAvailableResources(Type.ROOM, beginTestPeriod.toDate(), endTestPeriod.toDate(), 1);
+        assertTrue("Free resources test 1", resources.size() > 1);
+
+        for (SharedResource resource : freeResources) {
+            // all ressources under 4 should be not free
+            assertTrue("Free resources test: " + resources.indexOf(resource), resources.indexOf(resource) > 4);
+        }
 
     }
 
