@@ -7,19 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.i18n.CookieLocaleResolver;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.net.URI;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Locale;
 
 /**
  * Use option -Djava.awt.headless=false if you want to add a system tray icon
@@ -35,6 +28,8 @@ public class Application {
 
         // standalone server for development
         mainApp = new SpringApplication(Application.class);
+
+        logger.warn("Specified arguments: " + Arrays.asList(args));
 
         if (Arrays.asList(args).contains(CustomConfiguration.DEV_PROFILE)) {
             mainApp.setAdditionalProfiles(CustomConfiguration.DEV_PROFILE);

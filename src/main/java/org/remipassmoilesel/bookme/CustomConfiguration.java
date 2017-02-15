@@ -22,7 +22,6 @@ import java.util.Locale;
 @Configuration
 public class CustomConfiguration extends WebMvcConfigurerAdapter {
 
-    public static final String NORMAL_PROFILE = "NORMAL_PROFILE";
     public static final String TEST_PROFILE = "TEST_PROFILE";
     public static final String DEV_PROFILE = "DEV_PROFILE";
 
@@ -103,5 +102,5 @@ public class CustomConfiguration extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeInterceptor());
     }
-    
+
 }
