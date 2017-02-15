@@ -91,9 +91,15 @@ public class ReservationController {
      */
     @GetMapping(Mappings.RESERVATION_FORM)
     public String showForm(
+            @RequestParam(value = "id", required = false, defaultValue = "-1") Long reservationId,
             HttpServletRequest request,
             CreateReservationForm reservationForm,
             Model model) throws Exception {
+
+        if (reservationId != -1) {
+            Reservation res = reservationService.getById(reservationId);
+            reservationForm.load(res);
+        }
 
         // create a token and add it to model
         TokenManager tokenman = new TokenManager(TOKEN_NAME);

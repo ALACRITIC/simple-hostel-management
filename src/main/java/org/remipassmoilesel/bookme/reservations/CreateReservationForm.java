@@ -1,5 +1,7 @@
 package org.remipassmoilesel.bookme.reservations;
 
+import org.joda.time.DateTime;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -37,13 +39,39 @@ public class CreateReservationForm {
     private String end;
 
     @NotNull
-    private long sharedResourceId;
+    private long sharedResourceId = -1;
 
     @NotNull
     private Long token;
 
     public CreateReservationForm() {
 
+    }
+
+    /**
+     * Load a reservation in form
+     *
+     * @param res
+     */
+    public void load(Reservation res) {
+
+        if (res.getCustomer() != null) {
+            setCustomerFirstname(res.getCustomer().getFirstname());
+            setCustomerLastname(res.getCustomer().getLastname());
+            setCustomerPhonenumber(res.getCustomer().getPhonenumber());
+        }
+
+        if (res.getBegin() != null) {
+            setBegin(new DateTime(res.getBegin()).toString("dd/MM/YYYY"));
+        }
+
+        if (res.getEnd() != null) {
+            setEnd(new DateTime(res.getEnd()).toString("dd/MM/YYYY"));
+        }
+
+        if (res.getResource() != null) {
+            setSharedResourceId(res.getResource().getId());
+        }
     }
 
     public String getCustomerPhonenumber() {
@@ -143,4 +171,6 @@ public class CreateReservationForm {
                 ", token=" + token +
                 '}';
     }
+
+
 }

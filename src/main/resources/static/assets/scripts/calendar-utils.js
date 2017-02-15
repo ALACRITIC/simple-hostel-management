@@ -2,25 +2,33 @@ var CalendarUtils = {
 
     // fill me first !
     calendarFeedUrl: null,
+    showReservationUrl: null,
 
-    setCalendarFeedUrl: function(url){
-        var self = CalendarUtils;
-        self.calendarFeedUrl = url;
+    setCalendarFeedUrl: function (url) {
+        CalendarUtils.calendarFeedUrl = url;
+    },
+
+    setShowReservationUrl: function (url) {
+        CalendarUtils.showReservationUrl = url;
     },
 
     createReservationCalendar: function (selector) {
 
         var self = CalendarUtils;
 
-        if(!self.calendarFeedUrl){
+        if (!self.calendarFeedUrl) {
             throw "Calendar feed url is null !"
+        }
+
+        if (!self.showReservationUrl) {
+            throw "Reservation url is null !"
         }
 
         $(selector).fullCalendar({
             header: {
                 left: 'prev,next today',
                 center: 'title',
-                right: 'month,agendaWeek,agendaDay,listWeek'
+                right: 'month,listWeek'
             },
             defaultDate: new Date(),
             navLinks: true, // can click day/week names to navigate views
@@ -46,6 +54,10 @@ var CalendarUtils = {
                     .fail(function (error) {
                         console.error(error)
                     });
+            },
+            eventClick: function (calEvent, jsEvent, view) {
+                var self = CalendarUtils;
+                window.location = self.showReservationUrl + "?id=" + calEvent._reservationId;
             }
         });
     },
@@ -67,7 +79,8 @@ var CalendarUtils = {
             events.push({
                 title: lastname + " " + firstname,
                 start: startDate,
-                start: endDate
+                end: endDate,
+                _reservationId: element.id
             });
         });
 
