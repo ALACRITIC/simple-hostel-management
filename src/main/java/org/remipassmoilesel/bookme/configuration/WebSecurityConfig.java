@@ -28,7 +28,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // authorize essentials directories
                 .authorizeRequests()
                 .antMatchers(
-                        Mappings.APPLICATION_ROOT,
                         Mappings.ASSETS_DIR + "/**",
                         Mappings.BOWER_COMPONENTS_DIR + "/**").permitAll()
 
