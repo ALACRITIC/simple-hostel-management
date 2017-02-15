@@ -1,17 +1,14 @@
 package org.remipassmoilesel.bookme.configuration;
 
-import org.remipassmoilesel.bookme.utils.DatabaseUtils;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.annotation.Resource;
+import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Created by remipassmoilesel on 12/12/16.
@@ -37,6 +34,11 @@ public class CustomConfiguration {
     @Resource
     private Environment environment;
 
+    /**
+     * Return database path. Database path can change if we are in tests or production environment
+     *
+     * @return
+     */
     public Path getDatabasePath() {
 
         List<String> activeProfiles = Arrays.asList(environment.getActiveProfiles());
@@ -48,10 +50,20 @@ public class CustomConfiguration {
 
     }
 
+    /**
+     * Return true if browser should be start on launch
+     *
+     * @return
+     */
     public boolean isLaunchBrowserOnStart() {
-        return isDevProfileEnabled() == false;
+        return isDevProfileEnabled() == false && GraphicsEnvironment.isHeadless() == false;
     }
 
+    /**
+     * Return true if dev profile is enable
+     *
+     * @return
+     */
     public boolean isDevProfileEnabled() {
         List<String> activeProfiles = Arrays.asList(environment.getActiveProfiles());
         return activeProfiles.contains(DEV_PROFILE);
