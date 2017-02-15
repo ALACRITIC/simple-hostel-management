@@ -1,4 +1,4 @@
-package org.remipassmoilesel.bookme.security;
+package org.remipassmoilesel.bookme.credentials;
 
 import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;

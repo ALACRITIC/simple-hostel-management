@@ -1,4 +1,4 @@
-package org.remipassmoilesel.bookme.security;
+package org.remipassmoilesel.bookme.credentials;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     private static Logger logger = LoggerFactory.getLogger(CustomAuthenticationProvider.class);
 
     @Autowired
-    private CredentialService credentialService;
+    private UserService userService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -34,12 +34,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString().trim();
 
         try {
-            Credential storedCredentials = credentialService.testCredentials(username, password);
+            User storedCredentials = userService.testCredentials(username, password);
 
             // if user is authenticated return Spring authentication
             if (storedCredentials != null) {
                 return new UsernamePasswordAuthenticationToken(username, storedCredentials.getPassword(),
-                        Arrays.asList(new SimpleGrantedAuthority(storedCredentials.getRole())));
+                        Arrays.asList(new SimpleGrantedAuthority(storedCredentials.getRole().toString())));
             }
 
         } catch (IOException e) {

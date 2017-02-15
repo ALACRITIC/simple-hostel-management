@@ -1,4 +1,4 @@
-package org.remipassmoilesel.bookme.security;
+package org.remipassmoilesel.bookme.credentials;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -9,32 +9,30 @@ import java.util.Objects;
  * Created by remipassmoilesel on 15/02/17.
  */
 @DatabaseTable(tableName = "USERS")
-public class Credential {
+public class User {
 
     public static final String ID_FIELD_NAME = "ID";
     public static final String USERNAME_FIELD_NAME = "USERNAME";
     public static final String PASSWORD_FIELD_NAME = "PASSWORD";
     public static final String ROLE_FIELD_NAME = "ROLE";
 
-    public static final String ADMIN_ROLE = "ADMIN";
-
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private long id;
 
-    @DatabaseField(columnName = USERNAME_FIELD_NAME)
+    @DatabaseField(unique = true, columnName = USERNAME_FIELD_NAME)
     private String username;
 
     @DatabaseField(columnName = PASSWORD_FIELD_NAME)
     private String password;
 
     @DatabaseField(columnName = ROLE_FIELD_NAME)
-    private String role;
+    private Role role;
 
-    public Credential() {
+    public User() {
 
     }
 
-    public Credential(String username, String hashedPassword, String role) {
+    public User(String username, String hashedPassword, Role role) {
         this.username = username;
         this.password = hashedPassword;
         this.role = role;
@@ -64,11 +62,11 @@ public class Credential {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -86,7 +84,7 @@ public class Credential {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Credential that = (Credential) o;
+        User that = (User) o;
         return id == that.id &&
                 Objects.equals(username, that.username) &&
                 Objects.equals(password, that.password) &&

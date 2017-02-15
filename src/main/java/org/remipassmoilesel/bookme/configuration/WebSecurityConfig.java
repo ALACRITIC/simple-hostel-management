@@ -1,7 +1,7 @@
 package org.remipassmoilesel.bookme.configuration;
 
 import org.remipassmoilesel.bookme.Mappings;
-import org.remipassmoilesel.bookme.security.CustomAuthenticationProvider;
+import org.remipassmoilesel.bookme.credentials.CustomAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
