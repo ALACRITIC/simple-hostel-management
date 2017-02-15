@@ -38,8 +38,9 @@ public class SystemTrayComponent {
         // links to create, from top to bottom
         trayItems = new ArrayList<>();
 
-        trayItems.add(new TrayItem("Welcome", Mappings.APPLICATION_ROOT));
-        trayItems.add(new TrayItem("Make a reservation", Mappings.RESERVATION_FORM));
+        trayItems.add(new TrayItem("Dashboard", Mappings.APPLICATION_ROOT));
+        trayItems.add(new TrayItem("Add a reservation", Mappings.RESERVATION_FORM));
+        trayItems.add(new TrayItem("Add a message", Mappings.MESSAGES_FORM));
 
         try {
             createTrayMenu();
@@ -118,8 +119,7 @@ public class SystemTrayComponent {
         URI url = null;
         try {
             url = new URI(Utils.getBaseUrlForEmbeddedTomcat() + item.getMapping());
-            throw new Exception();
-            //Desktop.getDesktop().browse(url);
+            Desktop.getDesktop().browse(url);
         } catch (Exception e) {
             logger.error("Unable to launch browser: ", e);
 
