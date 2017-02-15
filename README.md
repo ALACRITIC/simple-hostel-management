@@ -1,17 +1,11 @@
-# Spring experiments 
+# Simple hostel management
 
-Various experiments with Spring Boot and Thymeleaf template engine. 
+Based on Spring Boot, work in progress. 
 
-https://projects.spring.io/spring-boot/
+Launch on GNU/Linux:
 
-http://www.thymeleaf.org/
-
-## Usage
-
-To launch a standalone Tomcat server:
-
-    $ git clone https://github.com/remipassmoilesel/spring-experiments
-    $ cd spring-experiments
-    $ mvn spring-boot:run
+    $ ./launch.sh
     
-After visit http://127.0.0.1:8080   
+Default user:
+
+    admin : admin
