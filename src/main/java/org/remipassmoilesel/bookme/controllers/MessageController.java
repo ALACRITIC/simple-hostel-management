@@ -9,13 +9,11 @@ import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -44,6 +42,14 @@ public class MessageController {
 
         Mappings.includeMappings(model);
         return Templates.MESSAGE_SHOW_ALL;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = Mappings.MESSAGES_GET_AS_JSON, method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<Message> getMessagesAsJson() throws Exception {
+        List<Message> messagesList = messageService.getAll();
+        return messagesList;
     }
 
     /**
