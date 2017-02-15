@@ -20,7 +20,7 @@ public class Mappings {
     public static final String APPLICATION_ROOT = "/app";
 
     // no ending slash here
-    public static final String BOWER_COMPONENTS_DIR = "/bower-components";
+    public static final String BOWER_COMPONENTS_DIR = "/bower_components";
     public static final String ASSETS_DIR = "/assets";
 
     public static final String LOGIN_URL = APPLICATION_ROOT + "/login";

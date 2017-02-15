@@ -24,9 +24,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-
-
-        // TODO encode passwords
         http
                 // authorize essentials directories
                 .authorizeRequests()
@@ -40,6 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage(Mappings.LOGIN_URL)
+                .defaultSuccessUrl(Mappings.APPLICATION_ROOT)
                 .permitAll()
                 .and()
                 .logout()
