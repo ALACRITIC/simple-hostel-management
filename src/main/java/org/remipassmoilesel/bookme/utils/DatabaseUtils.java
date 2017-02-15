@@ -15,7 +15,7 @@ public class DatabaseUtils {
 
     private static HashMap<String, JdbcConnectionPool> currentH2Pool;
 
-    public static JdbcPooledConnectionSource getH2OrmliteConnectionPool(Path database) throws SQLException {
+    public static JdbcPooledConnectionSource getH2OrmliteConnectionPool(Path database, String user, String psswd) throws SQLException {
 
         String databaseUrl = getJdbcUrlForH2(database);
 
@@ -24,19 +24,22 @@ public class DatabaseUtils {
         connectionSource.setCheckConnectionsEveryMillis(-1);
         connectionSource.setTestBeforeGet(false);
 
+        if(user != null && psswd != null){
+            connectionSource.setUsername(user);
+            connectionSource.setPassword(psswd);
+        }
+
         connectionSource.initialize();
 
         return connectionSource;
     }
 
     public static String getJdbcUrlForH2(Path databasePath) {
-        // TODO: close database on VM exit ?
-        // return "jdbc:h2:file:" + databasePath.toAbsolutePath().toString() + ";DB_CLOSE_ON_EXIT=FALSE";
         return "jdbc:h2:file:" + databasePath.toAbsolutePath().toString();
     }
 
-
     public static Connection getH2Connection(Path databasePath) throws SQLException {
+
         if (currentH2Pool == null) {
             currentH2Pool = new HashMap<>();
         }

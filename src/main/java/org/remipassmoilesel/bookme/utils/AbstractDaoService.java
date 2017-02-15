@@ -22,7 +22,11 @@ public abstract class AbstractDaoService {
 
         try {
             this.clazz = clazz;
-            connection = DatabaseUtils.getH2OrmliteConnectionPool(configuration.getDatabasePath());
+
+            // TODO: let user create it's own database
+            connection = DatabaseUtils.getH2OrmliteConnectionPool(configuration.getDatabasePath(),
+                    // please do not laugh :)
+                    "i03KvGVpQIwja-nxr5gq7I1oiOErdbCS", "hcNEfW0zcDoY0yuM50aCgXRbY-rRSxiX");
 
             TableUtils.createTableIfNotExists(connection, clazz);
 
