@@ -154,12 +154,6 @@ public class ReservationService extends AbstractDaoService {
      */
     public List<SharedResource> getAvailableResources(Type type, Date begin, Date end, int places) throws IOException {
 
-        // list all resources
-        // for each
-        //      find all reservations for period
-        //      count places
-        //      compare places
-
         try {
             ArrayList<SharedResource> freeRessources = new ArrayList<>();
             for (SharedResource resource : sharedResourceService.getAll(type)) {
@@ -188,7 +182,7 @@ public class ReservationService extends AbstractDaoService {
                 List<Reservation> reservations = builder.query();
 
                 // no reservations, resource is free
-                if (reservations.size() < 1) {
+                if (reservations.size() < 1 && places <= resource.getPlaces()) {
                     freeRessources.add(resource);
                 }
 

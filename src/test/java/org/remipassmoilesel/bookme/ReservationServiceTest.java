@@ -127,6 +127,9 @@ public class ReservationServiceTest {
             assertTrue("Free resources test: " + resources.indexOf(resource), resources.indexOf(resource) > 4);
         }
 
+        // check if we ask too much places
+        freeResources = reservationService.getAvailableResources(Type.ROOM, beginTestPeriod.toDate(), endTestPeriod.toDate(), 100);
+        assertTrue("Free resources test: " + freeResources.size(), freeResources.size() == 0);
     }
 
 }
