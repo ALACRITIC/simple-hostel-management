@@ -43,7 +43,7 @@ public class MessageController {
         model.addAttribute("message", message);
 
         Mappings.includeMappings(model);
-        return Templates.MESSAGE_SHOW_ONE;
+        return Templates.MESSAGES_SHOW_ONE;
     }
 
     @RequestMapping(value = Mappings.MESSAGES_SHOW_ALL, method = RequestMethod.GET)
@@ -54,7 +54,7 @@ public class MessageController {
         model.addAttribute("messagesList", messagesList);
 
         Mappings.includeMappings(model);
-        return Templates.MESSAGE_SHOW_ALL;
+        return Templates.MESSAGES_SHOW_ALL;
     }
 
     @ResponseBody
@@ -89,7 +89,7 @@ public class MessageController {
         tokenman.addToken(session);
 
         Mappings.includeMappings(model);
-        return Templates.MESSAGE_NEW;
+        return Templates.MESSAGES_NEW;
     }
 
     @PostMapping(Mappings.MESSAGES_FORM)
@@ -105,7 +105,7 @@ public class MessageController {
             model.addAttribute("errorMessage", "");
 
             Mappings.includeMappings(model);
-            return Templates.MESSAGE_NEW;
+            return Templates.MESSAGES_NEW;
         }
 
         // checks tokens
@@ -140,7 +140,7 @@ public class MessageController {
         model.addAttribute("errorMessage", errorMessage);
 
         Mappings.includeMappings(model);
-        return Templates.MESSAGE_COMPLETED;
+        return Templates.MESSAGES_COMPLETED;
     }
 
 }

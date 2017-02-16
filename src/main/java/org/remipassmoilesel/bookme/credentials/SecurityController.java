@@ -16,7 +16,7 @@ public class SecurityController {
     public String showForm(Model model) {
 
         Mappings.includeMappings(model);
-        return Templates.PAGES_LOGIN;
+        return Templates.LOGIN;
     }
 
 }

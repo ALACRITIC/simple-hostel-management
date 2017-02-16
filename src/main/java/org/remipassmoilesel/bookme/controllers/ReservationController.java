@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -97,7 +96,7 @@ public class ReservationController {
         Mappings.includeMappings(model);
 
         // name of template
-        return Templates.RESERVATION_CALENDAR;
+        return Templates.RESERVATIONS_CALENDAR;
     }
 
     /**
@@ -132,7 +131,7 @@ public class ReservationController {
         tokenman.addToken(session);
 
         Mappings.includeMappings(model);
-        return Templates.RESERVATION_FORM;
+        return Templates.RESERVATIONS_FORM;
     }
 
     /**
@@ -171,7 +170,7 @@ public class ReservationController {
         model.addAttribute("errorMessage", errorMessage);
 
         Mappings.includeMappings(model);
-        return Templates.RESERVATION_ACTION_COMPLETED;
+        return Templates.RESERVATIONS_ACTION_COMPLETED;
     }
 
     @PostMapping(Mappings.RESERVATION_FORM)
@@ -190,7 +189,7 @@ public class ReservationController {
             model.addAttribute("sharedResources", sharedResourceService.getAll(null));
 
             Mappings.includeMappings(model);
-            return Templates.RESERVATION_FORM;
+            return Templates.RESERVATIONS_FORM;
         }
 
         Customer customer = null;
@@ -236,7 +235,7 @@ public class ReservationController {
         model.addAttribute("errorMessage", errorMessage);
 
         Mappings.includeMappings(model);
-        return Templates.RESERVATION_ACTION_COMPLETED;
+        return Templates.RESERVATIONS_ACTION_COMPLETED;
     }
 
     @RequestMapping(value = Mappings.RESERVATION_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

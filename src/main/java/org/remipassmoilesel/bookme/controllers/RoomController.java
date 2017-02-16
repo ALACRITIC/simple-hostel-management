@@ -53,7 +53,7 @@ public class RoomController {
         model.addAttribute("rooms", rooms);
 
         Mappings.includeMappings(model);
-        return Templates.ROOM_SHOW;
+        return Templates.ROOMS_SHOW;
     }
 
     /**
@@ -81,7 +81,7 @@ public class RoomController {
         tokenman.addToken(session);
 
         Mappings.includeMappings(model);
-        return Templates.ROOM_FORM;
+        return Templates.ROOMS_FORM;
     }
 
     @PostMapping(Mappings.ROOMS_FORM)
@@ -97,7 +97,7 @@ public class RoomController {
             model.addAttribute("errorMessage", "");
 
             Mappings.includeMappings(model);
-            return Templates.ROOM_FORM;
+            return Templates.ROOMS_FORM;
         }
 
         SharedResource room = null;
@@ -138,7 +138,7 @@ public class RoomController {
         model.addAttribute("errorMessage", errorMessage);
 
         Mappings.includeMappings(model);
-        return Templates.ROOM_COMPLETED;
+        return Templates.ROOMS_COMPLETED;
     }
 
 }

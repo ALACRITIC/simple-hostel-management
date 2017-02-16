@@ -43,3 +43,7 @@ table.formtable td {
 a.glyphicon {
     text-decoration: none !important;
 }
+
+.fc-list-item-title.fc-widget-content a{
+    cursor: pointer;
+}
