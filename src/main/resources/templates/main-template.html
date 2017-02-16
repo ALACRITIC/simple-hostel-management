@@ -45,7 +45,7 @@
         UrlTree.setDeleteReservationUrl(/*[[${mappings.get('RESERVATION_DELETE')}]]*/ "/wrong/json/feed");
 
         // enable tooltips on page
-        $(function(){
+        $(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
@@ -156,7 +156,7 @@
         </div>
     </div>
 
-    <!-- Rooms -->
+    <!-- Resources -->
 
     <div class="row top-buffer">
         <div class="col-md-12">
@@ -174,11 +174,11 @@
                 </thead>
                 <tbody>
 
-                <tr th:each="room : ${resourcesList}">
-                    <td th:text="${room.getName()}" style="width: 15%">A2</td>
-                    <td th:text="${room.getType().getReadableName()}" style="width: 15%">ROOM</td>
-                    <td th:text="${room.getComment()}">Comment</td>
-                    <td><a th:href="${mappings.get('RESERVATION_BY_RESOURCE') + '?id=' + room.getId()}"
+                <tr th:each="resource : ${resourcesList}">
+                    <td th:text="${resource.getName()}" style="width: 15%">A2</td>
+                    <td th:text="${resource.getType().getReadableName()}" style="width: 15%">ROOM</td>
+                    <td th:text="${resource.getComment()}">Comment</td>
+                    <td><a th:href="${mappings.get('RESERVATIONS_BY_RESOURCE') + '?id=' + resource.getId()}"
                            data-toggle="tooltip" data-placement="left" title="Show reservations ..."
                            class="glyphicon glyphicon-chevron-right"></a></td>
                 </tr>
@@ -188,6 +188,27 @@
                 </tr>
 
                 </tbody>
+            </table>
+
+            <h2>Resources simple</h2>
+
+            <table class="table table-striped" th:fragment="resource-simple">
+
+                <tr>
+                    <td style="width: 20%">Name:</td>
+                    <td th:text="${resource.getName()}">05/01/2016</td>
+                </tr>
+
+                <tr>
+                    <td>Type:</td>
+                    <td th:text="${resource.getType().getReadableName()}" style="width: 15%">ROOM</td>
+                </tr>
+
+                <tr>
+                    <td>Comment:</td>
+                    <td th:text="${resource.getComment()}">Comment</td>
+                </tr>
+
             </table>
 
         </div>

@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -196,9 +197,6 @@ public class ReservationService extends AbstractDaoService<Reservation> {
             Where<Reservation, String> where = builder.where();
             where.between(Reservation.DATEEND_FIELD_NAME, start.toDate(), future.toDate());
 
-            System.out.println("start");
-            System.out.println(start);
-
             builder.orderBy(Reservation.DATEEND_FIELD_NAME, true);
             builder.limit(limit);
             if (offset > 0) {
@@ -206,13 +204,28 @@ public class ReservationService extends AbstractDaoService<Reservation> {
             }
 
             List<Reservation> results = builder.query();
-
-            for (Reservation res : results) {
-                refresh(res);
-            }
+            refresh(results);
 
             return results;
         } catch (Exception e) {
+            throw new IOException(e);
+        }
+    }
+
+    public List<Reservation> getByResourceId(Long resourceId, long limit, long offset) throws IOException {
+
+        try {
+            QueryBuilder queryBuilder = dao.queryBuilder();
+            queryBuilder.where().eq(Reservation.SHARED_RESOURCE_FIELD_NAME, resourceId);
+            queryBuilder.orderBy(Reservation.DATEBEGIN_FIELD_NAME, true);
+            queryBuilder.limit(limit);
+            queryBuilder.offset(offset);
+
+            List results = queryBuilder.query();
+            refresh(results);
+
+            return results;
+        } catch (SQLException e) {
             throw new IOException(e);
         }
     }
@@ -236,4 +249,5 @@ public class ReservationService extends AbstractDaoService<Reservation> {
         refresh(result);
         return result;
     }
+
 }

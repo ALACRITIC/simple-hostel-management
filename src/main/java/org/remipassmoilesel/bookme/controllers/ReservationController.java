@@ -68,6 +68,27 @@ public class ReservationController {
     }
 
     /**
+     * Display reservations by resource id
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = Mappings.RESERVATIONS_BY_RESOURCE, method = RequestMethod.GET)
+    public String showByResourceId(
+            @RequestParam(value = "id", required = true) Long resourceId,
+            Model model) throws IOException {
+
+        List<Reservation> reservationsList = reservationService.getByResourceId(resourceId, 30, 0);
+
+        model.addAttribute("resource", sharedResourceService.getById(resourceId));
+        model.addAttribute("reservationsList", reservationsList);
+
+        Mappings.includeMappings(model);
+        return Templates.RESERVATIONS_BY_RESOURCE;
+    }
+
+
+    /**
      * Display lasts reservation
      *
      * @param model
