@@ -62,17 +62,17 @@
             </td>
         </tr>
 
-        <!-- Dates arrival / departure-->
+        <!-- Dates check-in / check-out-->
 
         <tr>
             <td>
                 <input type="text" th:field="*{begin}" class="form-control" id="reservationBeginDate"
-                       placeholder="Arrival"
+                       placeholder="Check-in"
                        readonly="readonly"/>
             </td>
             <td>
                 <input type="text" th:field="*{end}" class="form-control" id="reservationEndDate"
-                       placeholder="Departure"
+                       placeholder="Check-out"
                        readonly="readonly"/>
             </td>
         </tr>
@@ -99,8 +99,8 @@
                 <div th:if="${#fields.hasErrors('sharedResourceId')}" th:errors="*{sharedResourceId}">
                     Shared resource error
                 </div>
-                <div th:if="${#fields.hasErrors('begin')}" th:errors="*{begin}">Arrival error</div>
-                <div th:if="${#fields.hasErrors('end')}" th:errors="*{end}">Departure error</div>
+                <div th:if="${#fields.hasErrors('begin')}" th:errors="*{begin}">Check-in error</div>
+                <div th:if="${#fields.hasErrors('end')}" th:errors="*{end}">Check-out error</div>
                 <div th:if="${#fields.hasErrors('token')}" th:text="'Please update form and try again'">Token error
                 </div>
                 <div th:if="${errorMessage == null || errorMessage.isEmpty() == false}" th:text="${errorMessage}">Error

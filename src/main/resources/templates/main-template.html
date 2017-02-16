@@ -201,22 +201,22 @@
             <table class="table table-striped" th:fragment="reservation-list">
                 <thead>
                 <tr>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Phone number</th>
-                    <th>Arrival</th>
-                    <th>Departure</th>
                     <th>Resource</th>
                 </tr>
                 </thead>
                 <tbody>
 
                 <tr th:each="reservation : ${reservationsList}">
+                    <td th:text="${#dates.format(reservation.getBegin(), 'dd/MM/yyyy')}">01/01/2016</td>
+                    <td th:text="${#dates.format(reservation.getEnd(), 'dd/MM/yyyy')}">05/01/2016</td>
                     <td th:text="${reservation.getCustomer().getFirstname()}">Jean</td>
                     <td th:text="${reservation.getCustomer().getLastname()}">Claude</td>
                     <td th:text="${reservation.getCustomer().getPhonenumber()}">+000002</td>
-                    <td th:text="${#dates.format(reservation.getBegin(), 'dd/MM/yyyy')}">01/01/2016</td>
-                    <td th:text="${#dates.format(reservation.getEnd(), 'dd/MM/yyyy')}">05/01/2016</td>
                     <td th:text="${reservation.getResource().getName()}">A2</td>
                     <td><a th:href="${mappings.get('RESERVATION_FORM') + '?id=' + reservation.getId()}"
                            class="glyphicon glyphicon-chevron-right"></a></td>
@@ -239,11 +239,11 @@
                 <thead>
                 <tr>
                     <th>Resource</th>
-                    <th>Departure</th>
+                    <th>Check-in</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Phone number</th>
-                    <th>Arrival</th>
+                    <th>Check-out</th>
                 </tr>
                 </thead>
                 <tbody>

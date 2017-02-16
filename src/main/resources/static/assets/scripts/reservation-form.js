@@ -120,18 +120,18 @@ var ReservationForm = {
         var roomSelect = $("#reservationSharedResourceSelect");
         var placesTxt = $("#reservationPlaces");
 
-        var arrival = beginDate.val();
-        var departure = endDate.val();
+        var checkin = beginDate.val();
+        var checkout = endDate.val();
         var places = placesTxt.val();
 
-        if(!arrival || !departure || !places){
-            console.error("Invalid reservation form: " + arrival + " / " + departure + " / " + places);
+        if(!checkin || !checkout || !places){
+            console.error("Invalid reservation form: " + checkin + " / " + checkout + " / " + places);
             return;
         }
 
         roomSelect.empty();
 
-        ReservationUtils.getRoomsAvailable(arrival, departure, places)
+        ReservationUtils.getRoomsAvailable(checkin, checkout, places)
             .then(function (result) {
 
                 $.each(result, function (index, element) {
