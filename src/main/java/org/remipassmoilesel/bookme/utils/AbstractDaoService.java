@@ -161,4 +161,19 @@ public abstract class AbstractDaoService<T> {
         }
     }
 
+    /**
+     * Update specified entity in database
+     *
+     * @param obj
+     * @return
+     * @throws IOException
+     */
+    public int update(T obj) throws IOException {
+        try {
+            return dao.update(obj);
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+
 }

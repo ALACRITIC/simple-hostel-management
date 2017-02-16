@@ -2,6 +2,8 @@ package org.remipassmoilesel.bookme.utils;
 
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.Tomcat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer;
 
@@ -17,6 +19,8 @@ import java.util.Random;
  */
 public class Utils {
 
+    private static final Logger logger = LoggerFactory.getLogger(Utils.class);
+
     private static DateFormat formatterDDMMYYYY = new SimpleDateFormat("dd/MM/yyyy");
     private static DateFormat formatterYYYYMMDD = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -26,15 +30,23 @@ public class Utils {
 
     private static Random rand = new Random();
 
+    /**
+     * Parse two type of dates: YYYYMMDD or DDMMYYYY
+     *
+     * @param str
+     * @return
+     * @throws Exception
+     */
     public static Date stringToDate(String str) throws Exception {
         try {
             return formatterDDMMYYYY.parse(str);
         } catch (Exception e) {
-            try {
-                return formatterYYYYMMDD.parse(str);
-            } catch (Exception e2) {
-                throw new Exception(e2);
-            }
+            logger.error("Error while parsing date: ", e);
+        }
+        try {
+            return formatterYYYYMMDD.parse(str);
+        } catch (Exception e2) {
+            throw new Exception("Invalid date: " + str);
         }
     }
 

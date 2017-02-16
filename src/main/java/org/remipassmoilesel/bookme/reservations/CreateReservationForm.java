@@ -45,6 +45,12 @@ public class CreateReservationForm {
     private long reservationId = -1;
 
     @NotNull
+    private long customerId = -1;
+
+    @Size(max = 2000)
+    private String comment;
+
+    @NotNull
     private Long token;
 
     public CreateReservationForm() {
@@ -151,6 +157,49 @@ public class CreateReservationForm {
         this.places = places;
     }
 
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setReservationId(long reservationId) {
+        this.reservationId = reservationId;
+    }
+
+    public void setCustomerId(long customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CreateReservationForm that = (CreateReservationForm) o;
+        return places == that.places &&
+                sharedResourceId == that.sharedResourceId &&
+                reservationId == that.reservationId &&
+                customerId == that.customerId &&
+                Objects.equals(customerFirstname, that.customerFirstname) &&
+                Objects.equals(customerLastname, that.customerLastname) &&
+                Objects.equals(customerPhonenumber, that.customerPhonenumber) &&
+                Objects.equals(begin, that.begin) &&
+                Objects.equals(end, that.end) &&
+                Objects.equals(comment, that.comment) &&
+                Objects.equals(token, that.token);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(customerFirstname, customerLastname, customerPhonenumber, places, begin, end, sharedResourceId, reservationId, customerId, comment, token);
+    }
+
     @Override
     public String toString() {
         return "CreateReservationForm{" +
@@ -162,28 +211,9 @@ public class CreateReservationForm {
                 ", end='" + end + '\'' +
                 ", sharedResourceId=" + sharedResourceId +
                 ", reservationId=" + reservationId +
+                ", customerId=" + customerId +
+                ", comment='" + comment + '\'' +
                 ", token=" + token +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CreateReservationForm that = (CreateReservationForm) o;
-        return places == that.places &&
-                sharedResourceId == that.sharedResourceId &&
-                Objects.equals(customerFirstname, that.customerFirstname) &&
-                Objects.equals(customerLastname, that.customerLastname) &&
-                Objects.equals(customerPhonenumber, that.customerPhonenumber) &&
-                Objects.equals(begin, that.begin) &&
-                Objects.equals(end, that.end) &&
-                Objects.equals(reservationId, that.reservationId) &&
-                Objects.equals(token, that.token);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(customerFirstname, customerLastname, customerPhonenumber, places, begin, end, sharedResourceId, reservationId, token);
     }
 }

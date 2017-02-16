@@ -135,6 +135,122 @@ public class ReservationController {
         return Templates.RESERVATIONS_FORM;
     }
 
+    @PostMapping(Mappings.RESERVATION_FORM)
+    public String submitReservation(
+            @Valid CreateReservationForm reservationForm,
+            BindingResult reservationResults,
+            Model model,
+            HttpServletRequest request) throws Exception {
+
+        if (reservationResults.hasErrors()) {
+
+            //System.out.println(reservationResults.getAllErrors());
+            model.addAttribute("token", reservationForm.getToken());
+            model.addAttribute("errorMessage", "");
+
+            model.addAttribute("sharedResources", new ArrayList<>());
+
+            Mappings.includeMappings(model);
+            return Templates.RESERVATIONS_FORM;
+        }
+
+        // checks tokens
+        HttpSession session = request.getSession();
+        TokenManager tokenman = new TokenManager(TOKEN_NAME);
+
+        String errorMessage = "";
+        Reservation reservation = null;
+
+        try {
+
+            // token is invalid
+            if (tokenman.isTokenValid(session, reservationForm.getToken()) == false) {
+                logger.error("Invalid token: " + reservationForm.getToken());
+                throw new IllegalStateException("Invalid form, please try again later.");
+            }
+
+            // always delete token before leave
+            tokenman.deleteTokenFrom(session);
+
+            // parse dates
+            Date beginDate = null;
+            Date endDate = null;
+            try {
+                beginDate = Utils.stringToDate(reservationForm.getBegin());
+                endDate = Utils.stringToDate(reservationForm.getEnd());
+            } catch (Exception e) {
+                logger.error("Invalid date: ", e);
+                throw new IllegalStateException("Invalid dates: " + reservationForm.getBegin() + ", " + reservationForm.getEnd());
+            }
+
+            // add reservation if it is a new one
+            if (reservationForm.getReservationId() == -1) {
+                try {
+
+                    int pl = reservationForm.getPlaces();
+                    SharedResource res = sharedResourceService.getById(reservationForm.getSharedResourceId());
+                    Customer customer = customerService.create(
+                            reservationForm.getCustomerFirstname(),
+                            reservationForm.getCustomerLastname(),
+                            reservationForm.getCustomerPhonenumber());
+                    reservation = reservationService.create(customer, res, pl, beginDate, endDate);
+
+                } catch (Exception e) {
+                    logger.error("Error while creating reservation", e);
+                    throw new Exception("Error while creating reservation, please try again later.");
+                }
+            }
+
+            // else update existing reservation
+            else {
+
+                try {
+
+                    reservation = reservationService.getById(reservationForm.getReservationId());
+                    Customer customer = customerService.getById(reservationForm.getCustomerId());
+                    SharedResource res = sharedResourceService.getById(reservationForm.getSharedResourceId());
+
+                    if (res == null || customer == null) {
+                        throw new IllegalStateException("Error, please try again later.");
+                    }
+
+                    // update customer
+                    customer.setFirstname(reservationForm.getCustomerFirstname());
+                    customer.setLastname(reservationForm.getCustomerLastname());
+                    customer.setPhonenumber(reservationForm.getCustomerPhonenumber());
+
+                    // update reservation
+                    reservation.setResource(res);
+                    reservation.setBegin(beginDate);
+                    reservation.setEnd(endDate);
+                    reservation.setCustomer(customer);
+                    reservation.setResource(res);
+                    reservation.setComment(reservationForm.getComment());
+                    reservation.setPlaces(reservationForm.getPlaces());
+
+                    // update repository
+                    reservationService.update(reservation);
+                    customerService.update(customer);
+
+                } catch (Exception e) {
+                    logger.error("Error while updating reservation", e);
+                    throw new Exception("Error while creating updating, please try again later.");
+                }
+
+            }
+
+        } catch (Exception e) {
+            logger.error("Error while validating form: ", e);
+            errorMessage = e.getMessage();
+        }
+
+        model.addAttribute("reservation", reservation);
+        model.addAttribute("errorMessage", errorMessage);
+
+        Mappings.includeMappings(model);
+        return Templates.RESERVATIONS_SAVED;
+    }
+
     /**
      * Delete reservation
      *
@@ -168,71 +284,6 @@ public class ReservationController {
 
         }
 
-        model.addAttribute("errorMessage", errorMessage);
-
-        Mappings.includeMappings(model);
-        return Templates.RESERVATIONS_SAVED;
-    }
-
-    @PostMapping(Mappings.RESERVATION_FORM)
-    public String submitReservation(
-            @Valid CreateReservationForm reservationForm,
-            BindingResult reservationResults,
-            Model model,
-            HttpServletRequest request) throws Exception {
-
-        if (reservationResults.hasErrors()) {
-
-            //System.out.println(reservationResults.getAllErrors());
-            model.addAttribute("token", reservationForm.getToken());
-            model.addAttribute("errorMessage", "");
-
-            model.addAttribute("sharedResources", new ArrayList<>());
-
-            Mappings.includeMappings(model);
-            return Templates.RESERVATIONS_FORM;
-        }
-
-        Customer customer = null;
-        Reservation reservation = null;
-
-        // checks tokens
-        HttpSession session = request.getSession();
-        TokenManager tokenman = new TokenManager(TOKEN_NAME);
-
-        String errorMessage = "";
-
-        // token is invalid
-        if (tokenman.isTokenValid(session, reservationForm.getToken()) == false) {
-            errorMessage = "Invalid session";
-        }
-
-        // token is valid
-        else {
-
-            // always delete token before leave
-            tokenman.deleteTokenFrom(session);
-
-            try {
-                customer = customerService.create(
-                        reservationForm.getCustomerFirstname(),
-                        reservationForm.getCustomerLastname(),
-                        reservationForm.getCustomerPhonenumber());
-
-                Date beginDate = Utils.stringToDate(reservationForm.getBegin());
-                Date endDate = Utils.stringToDate(reservationForm.getEnd());
-                SharedResource res = sharedResourceService.getById(reservationForm.getSharedResourceId());
-                int pl = reservationForm.getPlaces();
-                reservation = reservationService.create(customer, res, pl, beginDate, endDate);
-
-            } catch (Exception e) {
-                logger.error("Error while creating reservation", e);
-                errorMessage = e.getMessage();
-            }
-
-        }
-
-        model.addAttribute("reservation", reservation);
         model.addAttribute("errorMessage", errorMessage);
 
         Mappings.includeMappings(model);

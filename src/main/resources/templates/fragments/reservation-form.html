@@ -94,6 +94,8 @@
 
         </tr>
 
+        <!-- Misc errors -->
+
         <tr>
             <td colspan="2">
                 <div th:if="${#fields.hasErrors('sharedResourceId')}" th:errors="*{sharedResourceId}">
@@ -109,6 +111,15 @@
             </td>
         </tr>
 
+        <!-- Comment-->
+
+        <tr>
+            <td colspan="2">
+                <textarea class="form-control" placeholder="Comment" th:field="*{comment}"></textarea>
+                <div th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">Comment error</div>
+            </td>
+        </tr>
+
         <!-- Token and submit button -->
 
         <tr>
@@ -117,10 +128,12 @@
                 <!-- Add control token -->
                 <input type="hidden" id="reservationToken" name="token" th:value="${token}"/>
 
-                <!-- Add reservation id -->
+                <!-- Add reservation and cutomer id -->
                 <input type="hidden" id="reservationId" th:field="*{reservationId}"/>
+                <input type="hidden" id="customerId" th:field="*{customerId}"/>
 
-                <button type="button" id="reservationDeleteButton" class="btn btn-primary glyphicon glyphicon-trash"></button>
+                <button type="button" id="reservationDeleteButton"
+                        class="btn btn-primary glyphicon glyphicon-trash"></button>
                 <button type="submit" class="btn btn-primary">Save reservation</button>
             </td>
         </tr>
