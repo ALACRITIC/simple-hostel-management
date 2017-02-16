@@ -29,6 +29,7 @@ public class Mappings {
 
     public static final String RESERVATION_ROOT = APPLICATION_ROOT + "/reservation";
     public static final String RESERVATION_LASTS = RESERVATION_ROOT + "/lasts";
+    public static final String RESERVATION_BY_RESOURCE = RESERVATION_ROOT + "/byresource";
     public static final String RESERVATION_NEXT_CHECKOUTS = RESERVATION_ROOT + "/nextcheckouts";
     public static final String RESERVATION_CALENDAR = RESERVATION_ROOT + "/calendar";
     public static final String RESERVATION_FORM = RESERVATION_ROOT + "/form";
@@ -39,7 +40,7 @@ public class Mappings {
     public static final String RESERVATION_ROOMS_AVAILABLE_JSON_GET = RESERVATION_JSON + "/availablerooms";
 
     public static final String ROOMS_ROOT = APPLICATION_ROOT + "/room";
-    public static final String ROOMS_SHOW = ROOMS_ROOT + "/show";
+    public static final String ROOMS_SHOW_ALL = ROOMS_ROOT + "/show/all";
     public static final String ROOMS_FORM = ROOMS_ROOT + "/form";
     public static final String ROOMS_JSON = ROOMS_ROOT + "/json";
     public static final String ROOMS_JSON_GET = ROOMS_JSON + "/all";

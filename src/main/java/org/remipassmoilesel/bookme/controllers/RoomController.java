@@ -45,12 +45,12 @@ public class RoomController {
         return result;
     }
 
-    @RequestMapping(value = Mappings.ROOMS_SHOW, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.ROOMS_SHOW_ALL, method = RequestMethod.GET)
     public String showAll(Model model) throws Exception {
 
-        List<SharedResource> rooms = resourceService.getAll(Type.ROOM);
+        List<SharedResource> roomsList = resourceService.getAll(Type.ROOM);
 
-        model.addAttribute("rooms", rooms);
+        model.addAttribute("roomsList", roomsList);
 
         Mappings.includeMappings(model);
         return Templates.ROOMS_SHOW;

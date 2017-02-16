@@ -22,7 +22,7 @@ public class Templates {
     public static final String ROOMS_DIR = PAGES_DIR + "rooms/";
     public static final String ROOMS_COMPLETED = ROOMS_DIR + "rooms-completed";
     public static final String ROOMS_FORM = ROOMS_DIR + "rooms-form";
-    public static final String ROOMS_SHOW = ROOMS_DIR + "rooms-show";
+    public static final String ROOMS_SHOW = ROOMS_DIR + "rooms-show-all";
 
     public static final String MESSAGES_DIR = PAGES_DIR + "messages/";
     public static final String MESSAGES_SHOW_ALL = MESSAGES_DIR + "messages-show-all";

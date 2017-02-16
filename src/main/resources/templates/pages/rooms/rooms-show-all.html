@@ -20,7 +20,7 @@
 
             <h1>Rooms</h1>
 
-            <div th:text="${rooms}"></div>
+            <div th:replace="main-template :: resources-list (resourcesList=${roomsList})"></div>
 
         </div>
 

@@ -43,6 +43,11 @@
         UrlTree.setCalendarFeedUrl(/*[[${mappings.get('RESERVATION_JSON_GET')}]]*/ "/wrong/json/feed");
         UrlTree.setShowReservationUrl(/*[[${mappings.get('RESERVATION_FORM')}]]*/ "/wrong/json/feed");
         UrlTree.setDeleteReservationUrl(/*[[${mappings.get('RESERVATION_DELETE')}]]*/ "/wrong/json/feed");
+
+        // enable tooltips on page
+        $(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     </script>
 
 </head>
@@ -79,7 +84,7 @@
                         <li><a th:href="${mappings.get('RESERVATION_NEXT_CHECKOUTS')}">Next check-outs</a></li>
                         <li><a th:href="${mappings.get('RESERVATION_LASTS')}">Lasts reservations</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a th:href="${mappings.get('RESERVATION_FORM')}">Make a reservation</a></li>
+                        <li><a th:href="${mappings.get('RESERVATION_FORM')}">New reservation</a></li>
                     </ul>
                 </li>
 
@@ -87,7 +92,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Rooms <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="${mappings.get('ROOMS_SHOW')}">Show all</a></li>
+                        <li><a th:href="${mappings.get('ROOMS_SHOW_ALL')}">Show all</a></li>
                         <li><a th:href="${mappings.get('ROOMS_FORM')}">Add a room</a></li>
                     </ul>
                 </li>
@@ -148,6 +153,43 @@
             Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem
             lacinia consectetur. Donec ut
             libero sed arcu vehicula ultricies a non tortor.
+        </div>
+    </div>
+
+    <!-- Rooms -->
+
+    <div class="row top-buffer">
+        <div class="col-md-12">
+
+            <h2>Resources list</h2>
+
+            <table class="table table-striped" th:fragment="resources-list">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Comment</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="room : ${resourcesList}">
+                    <td th:text="${room.getName()}" style="width: 15%">A2</td>
+                    <td th:text="${room.getType().getReadableName()}" style="width: 15%">ROOM</td>
+                    <td th:text="${room.getComment()}">Comment</td>
+                    <td><a th:href="${mappings.get('RESERVATION_BY_RESOURCE') + '?id=' + room.getId()}"
+                           data-toggle="tooltip" data-placement="left" title="Show reservations ..."
+                           class="glyphicon glyphicon-chevron-right"></a></td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(resourcesList)}">
+                    <td colspan="20"><i>No resources found</i></td>
+                </tr>
+
+                </tbody>
+            </table>
+
         </div>
     </div>
 
