@@ -6,7 +6,19 @@
 
 <body>
 
-<form th:object="${createReservationForm}" method="post" th:fragment="">
+<!--
+
+    Need ReservationUtils
+
+-->
+
+<form th:object="${createReservationForm}" method="post" th:fragment="reservation-form">
+
+    <!--
+
+    Only one form is allowed per page
+
+    -->
 
     <table class="formtable">
 
@@ -43,7 +55,7 @@
         <tr>
             <td colspan="2">
                 <input type="text" class="form-control" placeholder="Number of places" th:field="*{places}"
-                       id="places"/>
+                       id="reservationPlaces"/>
                 <div th:if="${#fields.hasErrors('places')}" th:errors="*{places}">
                     Places errors
                 </div>
@@ -54,11 +66,13 @@
 
         <tr>
             <td>
-                <input type="text" th:field="*{begin}" class="form-control" id="beginDate" placeholder="Arrival"
+                <input type="text" th:field="*{begin}" class="form-control" id="reservationBeginDate"
+                       placeholder="Arrival"
                        readonly="readonly"/>
             </td>
             <td>
-                <input type="text" th:field="*{end}" class="form-control" id="endDate" placeholder="Departure"
+                <input type="text" th:field="*{end}" class="form-control" id="reservationEndDate"
+                       placeholder="Departure"
                        readonly="readonly"/>
             </td>
         </tr>
@@ -70,7 +84,7 @@
                 Room:
             </td>
             <td>
-                <select id="sharedResourceIdSelect" class="form-control" th:field="*{sharedResourceId}">
+                <select id="reservationSharedResourceSelect" class="form-control" th:field="*{sharedResourceId}">
                     <option th:each="resource : ${sharedResources}"
                             th:value="${resource.getId()}"
                             th:text="${resource.getName()}">Resource name
@@ -98,104 +112,22 @@
         <!-- Token and submit button -->
 
         <tr>
-            <td colspan="2">
+            <td colspan="2" style="text-align: right">
 
                 <!-- Add control token -->
                 <input type="hidden" name="token" th:value="${token}"/>
 
-                <button type="submit" class="btn btn-primary">Make a reservation</button>
+                <!-- Add reservation id -->
+                <input type="hidden" id="reservationId" th:field="*{reservationId}"/>
+
+                <button type="button" id="deletebutton" class="btn btn-primary glyphicon glyphicon-trash"></button>
+                <button type="submit" class="btn btn-primary">Save reservation</button>
             </td>
         </tr>
 
     </table>
 
-    <script th:inline="javascript">
-        $(function () {
-
-            var beginDate = $("#beginDate");
-            var endDate = $("#endDate");
-            var roomSelect = $("#sharedResourceIdSelect");
-            var placesTxt = $("#places");
-
-            var defaultColor = $(beginDate).css('background');
-            var errorColor = "rgb(255, 191, 191)";
-
-            var setDateFieldBackground = function (error) {
-                endDate.css('background', error ? errorColor : defaultColor);
-                beginDate.css('background', error ? errorColor : defaultColor);
-            };
-
-            var checkDates = function () {
-
-                var bd = moment(beginDate.val(), "DD/MM/YYYY");
-                var ed = moment(endDate.val(), "DD/MM/YYYY");
-
-                // check if dates are in order
-                if (bd._isValid == false || ed._isValid == false || bd.isAfter(ed)) {
-                    setDateFieldBackground(true);
-                    throw "Dates are invalid"
-                }
-
-            };
-
-            var checkAvailability = function () {
-                var arrival = beginDate.val();
-                var departure = endDate.val();
-                var places = placesTxt.val();
-
-                roomSelect.empty();
-
-                ReservationUtils.getRoomsAvailable(arrival, departure, places)
-                        .then(function (result) {
-
-                            $.each(result, function (index, element) {
-
-                                var elmt = $("<option/>");
-                                elmt.text(element.name);
-                                elmt.attr("value", element.id);
-
-                                roomSelect.append(elmt);
-                            });
-
-                            if (!result || result.length == 0) {
-                                roomSelect.append("<option>No room available</option>");
-                            }
-
-                        })
-                        .fail(function () {
-                            console.error("Fail !");
-                            roomSelect.append("<option>Error</option>");
-                        });
-            };
-
-            // transform fields in date picker
-            beginDate.datepicker({
-                dateFormat: "dd/mm/yy",
-                onSelect: function () {
-                    setDateFieldBackground(false);
-                    checkDates();
-                    checkAvailability();
-                }
-            });
-
-            endDate.datepicker({
-                dateFormat: "dd/mm/yy",
-                onSelect: function () {
-                    setDateFieldBackground(false);
-                    checkDates();
-                    checkAvailability();
-                }
-            });
-
-            placesTxt.on('input', function () {
-                checkAvailability();
-            });
-
-            // first check
-            checkAvailability();
-
-        });
-    </script>
+    <script src="/assets/scripts/reservation-form.js"></script>
 
 </form>
 </body>

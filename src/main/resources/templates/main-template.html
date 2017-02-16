@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="page-headers">
+<head th:fragment="page-headers" th:remove="tag">
 
     <!--<title>Do not put title here</title>-->
 
@@ -26,16 +26,20 @@
 
     <link rel="stylesheet" type="text/css" href="/bower_components/jquery-ui/themes/base/jquery-ui.css"/>
     <link rel='stylesheet' href='/bower_components/fullcalendar/dist/fullcalendar.css'/>
-    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/bootstrap.themed/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/assets/css/main.css"/>
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="/bower_components/jquery-ui/jquery-ui.js"></script>
-    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/assets/bootstrap.themed/js/bootstrap.js"></script>
+    <script src='/bower_components/moment/moment.js'></script>
+
+    <script src="/assets/scripts/url-tree.js"></script>
 
     <script th:inline="javascript">
-
+        UrlTree.setRoomsAvailableFeedUrl(/*[[${mappings.get('RESERVATION_ROOMS_AVAILABLE_JSON_GET')}]]*/ "/wrong/json/feed");
+        UrlTree.setCalendarFeedUrl(/*[[${mappings.get('RESERVATION_JSON_GET')}]]*/ "/wrong/json/feed");
+        UrlTree.setShowReservationUrl(/*[[${mappings.get('RESERVATION_FORM')}]]*/ "/wrong/json/feed");
     </script>
 
 </head>
@@ -209,6 +213,8 @@
                     <td th:text="${#dates.format(reservation.getBegin(), 'dd/MM/yyyy')}">01/01/2016</td>
                     <td th:text="${#dates.format(reservation.getEnd(), 'dd/MM/yyyy')}">05/01/2016</td>
                     <td th:text="${reservation.getResource().getName()}">A2</td>
+                    <td><a th:href="${mappings.get('RESERVATION_FORM') + '?id=' + reservation.getId()}"
+                           class="glyphicon glyphicon-chevron-right"></a></td>
                 </tr>
 
                 </tbody>

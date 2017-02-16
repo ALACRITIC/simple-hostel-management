@@ -6,11 +6,6 @@
     <script th:replace="main-template :: page-headers"></script>
 
     <script th:replace="fragments/calendar-headers"></script>
-    <script>
-        $(function () {
-            CalendarUtils.createReservationCalendar("#calendar");
-        });
-    </script>
 
 </head>
 <body>
@@ -32,6 +27,12 @@
 
     <!-- Footer -->
     <div th:replace="main-template :: footer"></div>
+
+    <script>
+        $(function () {
+            CalendarUtils.createReservationCalendar("#calendar");
+        });
+    </script>
 
 </div>
 

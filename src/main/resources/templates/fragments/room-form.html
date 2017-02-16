@@ -1,4 +1,12 @@
-<form th:object="${createRoomForm}" method="post">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+<body>
+
+<form th:object="${createRoomForm}" method="post" th:fragment="room-form">
 
     <table class="formtable">
 
@@ -60,3 +68,5 @@
     </script>
 
 </form>
+</body>
+</html>

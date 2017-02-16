@@ -1,9 +1,5 @@
-<script src='/bower_components/moment/moment.js'></script>
+
+<!-- Require moment.js -->
 <script src='/bower_components/fullcalendar/dist/fullcalendar.js'></script>
-
 <script src="/assets/scripts/calendar-utils.js"></script>
-
-<script th:inline="javascript">
-    CalendarUtils.setCalendarFeedUrl(/*[[${mappings.get('RESERVATION_JSON_GET')}]]*/ "/wrong/json/feed");
-    CalendarUtils.setShowReservationUrl(/*[[${mappings.get('RESERVATION_FORM')}]]*/ "/wrong/json/feed");
-</script>
+<script src="/assets/scripts/reservation-utils.js"></script>

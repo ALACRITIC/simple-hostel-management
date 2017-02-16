@@ -1,9 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add a reservation</title>
+    <title>Reservation form</title>
 
     <script th:replace="main-template :: page-headers"></script>
+
     <script th:replace="fragments/reservation-headers"></script>
 
 </head>
@@ -20,7 +21,7 @@
 
             <h1>Reservation</h1>
 
-            <div th:replace="fragments/reservation-form"></div>
+            <div th:replace="fragments/reservation-form :: reservation-form"></div>
 
         </div>
 
