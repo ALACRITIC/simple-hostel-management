@@ -323,14 +323,14 @@
 
             <div class="card card-message-small" th:fragment="message-small">
                 <div class="card-block">
-                    <h4 class="card-title" th:text="${date}">Small message / Date / Writer</h4>
-                    <p class="card-text" th:text="${message}">
+                    <h4 class="card-title" th:text="${#dates.format(message.getDate(), 'dd/MM/yyyy')}">Small message / Date / Writer</h4>
+                    <p class="card-text" th:text="${#strings.substring(message.getMessage(), 0, 200) + '...'}">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum
                         mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis
                         dolor....
                     </p>
                     <div style="text-align: right">
-                        <a href="#" class="btn btn-info btn-sm" style="display: inline-block;">
+                        <a th:href="${mappings.get('MESSAGES_SHOW_BY_ID') + '?id=' + message.getId()}" class="btn btn-info btn-sm" style="display: inline-block;">
                             View
                         </a>
                     </div>
@@ -338,8 +338,7 @@
             </div>
 
             <div th:fragment="button-view-all-messages" style="text-align: right; margin: 1em;">
-                <a th:href="${mappings.get('MESSAGES_SHOW_ALL')}" class="btn btn-info btn-sm"
-                   style="display: inline-block">View all messages</a>
+                <a th:href="${mappings.get('MESSAGES_SHOW_ALL')}" class="btn btn-info btn-sm" style="display: inline-block">View all messages</a>
             </div>
 
         </div>

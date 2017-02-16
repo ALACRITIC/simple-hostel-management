@@ -61,7 +61,9 @@
 
             <h2>Last messages</h2>
 
-            <div th:replace="main-template :: messages-list(messagesList=${lastMessagesList})"></div>
+            <div th:each="message : ${lastMessagesList}">
+                <div th:replace="main-template :: message-small(message=${message})"></div>
+            </div>
 
             <div th:replace="main-template :: button-view-all-messages"></div>
 

@@ -115,6 +115,7 @@ public class MainController {
         model.addAttribute("messagesList", messagesList);
         model.addAttribute("customersList", customersList);
         model.addAttribute("resourcesList", resourcesList);
+        model.addAttribute("message", messagesList.get(0));
 
         Mappings.includeMappings(model);
 
