@@ -213,7 +213,7 @@ public class ReservationController {
             @RequestParam(value = "places", required = false) int places) throws Exception {
 
         if (places < 1) {
-            places = 0;
+            places = 1;
         }
 
         Date startDate = Utils.stringToDate(startDateStr);

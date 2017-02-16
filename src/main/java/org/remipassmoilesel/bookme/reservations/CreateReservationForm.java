@@ -42,6 +42,9 @@ public class CreateReservationForm {
     private long sharedResourceId = -1;
 
     @NotNull
+    private long reservationId = -1;
+
+    @NotNull
     private Long token;
 
     public CreateReservationForm() {
@@ -72,6 +75,16 @@ public class CreateReservationForm {
         if (res.getResource() != null) {
             setSharedResourceId(res.getResource().getId());
         }
+
+        setReservationId(res.getId());
+    }
+
+    public Long getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(Long reservationId) {
+        this.reservationId = reservationId;
     }
 
     public String getCustomerPhonenumber() {
@@ -139,6 +152,21 @@ public class CreateReservationForm {
     }
 
     @Override
+    public String toString() {
+        return "CreateReservationForm{" +
+                "customerFirstname='" + customerFirstname + '\'' +
+                ", customerLastname='" + customerLastname + '\'' +
+                ", customerPhonenumber='" + customerPhonenumber + '\'' +
+                ", places=" + places +
+                ", begin='" + begin + '\'' +
+                ", end='" + end + '\'' +
+                ", sharedResourceId=" + sharedResourceId +
+                ", reservationId=" + reservationId +
+                ", token=" + token +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -150,27 +178,12 @@ public class CreateReservationForm {
                 Objects.equals(customerPhonenumber, that.customerPhonenumber) &&
                 Objects.equals(begin, that.begin) &&
                 Objects.equals(end, that.end) &&
+                Objects.equals(reservationId, that.reservationId) &&
                 Objects.equals(token, that.token);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerFirstname, customerLastname, customerPhonenumber, places, begin, end, sharedResourceId, token);
+        return Objects.hash(customerFirstname, customerLastname, customerPhonenumber, places, begin, end, sharedResourceId, reservationId, token);
     }
-
-    @Override
-    public String toString() {
-        return "CreateReservationForm{" +
-                "customerFirstname='" + customerFirstname + '\'' +
-                ", customerLastname='" + customerLastname + '\'' +
-                ", customerPhonenumber='" + customerPhonenumber + '\'' +
-                ", places=" + places +
-                ", begin='" + begin + '\'' +
-                ", end='" + end + '\'' +
-                ", sharedResourceId=" + sharedResourceId +
-                ", token=" + token +
-                '}';
-    }
-
-
 }
