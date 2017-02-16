@@ -9,11 +9,12 @@ import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by remipassmoilesel on 14/02/17.
  */
-public abstract class AbstractDaoService {
+public abstract class AbstractDaoService<T> {
 
     private final Class clazz;
     protected Dao dao;
@@ -51,9 +52,87 @@ public abstract class AbstractDaoService {
         }
     }
 
-    public void clearAllRows() throws IOException {
+    /**
+     * Clear all entities in this repository
+     *
+     * @throws IOException
+     */
+    public void clearAllEntities() throws IOException {
         try {
             TableUtils.clearTable(connection, clazz);
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+
+    /**
+     * Delete entity corresponding to specified id
+     *
+     * @param reservationId
+     * @throws IOException
+     */
+    public void deleteById(Long reservationId) throws IOException {
+        try {
+            dao.deleteById(reservationId);
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+
+    /**
+     * Return object corresponding to specified id or null
+     *
+     * @param id
+     * @return
+     * @throws IOException
+     */
+    public T getById(Long id) throws IOException {
+        try {
+            return (T) dao.queryForId(id);
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+
+    /**
+     * Create an entity
+     *
+     * @param toCreate
+     * @return
+     * @throws IOException
+     */
+    public T create(T toCreate) throws IOException {
+        try {
+            dao.create(toCreate);
+            return toCreate;
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+
+    /**
+     * Refresh information of a customer object from database
+     *
+     * @param obj
+     * @throws IOException
+     */
+    public void refresh(T obj) throws IOException {
+        try {
+            dao.refresh(obj);
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+
+    /**
+     * Return a list of all entities
+     *
+     * @return
+     * @throws IOException
+     */
+    public List<T> getAll() throws IOException {
+        try {
+            return dao.queryForAll();
         } catch (SQLException e) {
             throw new IOException(e);
         }

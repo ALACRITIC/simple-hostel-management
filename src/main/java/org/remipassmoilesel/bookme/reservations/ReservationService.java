@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +25,7 @@ import java.util.List;
  */
 
 @Service
-public class ReservationService extends AbstractDaoService {
+public class ReservationService extends AbstractDaoService<Reservation> {
 
     private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
 
@@ -41,26 +40,6 @@ public class ReservationService extends AbstractDaoService {
 
     public ReservationService(CustomConfiguration configuration) {
         super(Reservation.class, configuration);
-    }
-
-    /**
-     * Get a reservation by its id
-     *
-     * @param id
-     * @return
-     */
-    public Reservation getById(Long id) throws IOException {
-        try {
-            Reservation result = (Reservation) dao.queryForId(String.valueOf(id));
-
-            if (result != null) {
-                refreshReservation(result);
-            }
-
-            return result;
-        } catch (SQLException e) {
-            throw new IOException(e);
-        }
     }
 
     /**
@@ -79,7 +58,7 @@ public class ReservationService extends AbstractDaoService {
             List<Reservation> results = statement.query();
 
             for (Reservation r : results) {
-                refreshReservation(r);
+                refresh(r);
             }
 
             return results;
@@ -98,18 +77,8 @@ public class ReservationService extends AbstractDaoService {
      * @return
      * @throws IOException
      */
-    public Reservation createReservation(Customer customer, SharedResource resource, int places, Date begin, Date end) throws IOException {
-        Reservation res = new Reservation(customer, resource, places, begin, end, null);
-        return createReservation(res);
-    }
-
-    public Reservation createReservation(Reservation res) throws IOException {
-        try {
-            dao.create(res);
-            return res;
-        } catch (SQLException e) {
-            throw new IOException(e);
-        }
+    public Reservation create(Customer customer, SharedResource resource, int places, Date begin, Date end) throws IOException {
+        return create(new Reservation(customer, resource, places, begin, end, null));
     }
 
     /**
@@ -134,7 +103,7 @@ public class ReservationService extends AbstractDaoService {
             List<Reservation> results = queryBuilder.query();
 
             for (Reservation r : results) {
-                refreshReservation(r);
+                refresh(r);
             }
 
             return results;
@@ -207,6 +176,14 @@ public class ReservationService extends AbstractDaoService {
         }
     }
 
+    /**
+     * Get future checkouts
+     *
+     * @param limit
+     * @param offset
+     * @return
+     * @throws IOException
+     */
     public List<Reservation> getNextCheckouts(long limit, long offset) throws IOException {
 
         try {
@@ -226,7 +203,7 @@ public class ReservationService extends AbstractDaoService {
             List<Reservation> results = builder.query();
 
             for (Reservation res : results) {
-                refreshReservation(res);
+                refresh(res);
             }
 
             return results;
@@ -235,27 +212,13 @@ public class ReservationService extends AbstractDaoService {
         }
     }
 
-    public List<Reservation> getAll() throws IOException {
-
-        try {
-            List<Reservation> results = dao.queryForAll();
-            for (Reservation res : results) {
-                refreshReservation(res);
-            }
-
-            return results;
-
-        } catch (SQLException e) {
-            throw new IOException(e);
-        }
-
-    }
-
-    private void refreshReservation(Reservation res) throws IOException {
+    public void refresh(Reservation res) throws IOException {
 
         if (res == null) {
             throw new NullPointerException("Reservation is null");
         }
+
+        super.refresh(res);
 
         customerService.refresh(res.getCustomer());
         sharedResourceService.refresh(res.getResource());

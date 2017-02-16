@@ -15,7 +15,7 @@ import java.sql.SQLException;
  * Created by remipassmoilesel on 15/02/17.
  */
 @Service
-public class UserService extends AbstractDaoService {
+public class UserService extends AbstractDaoService<User> {
 
     private static final String HASH_SALT = "$2a$10$ceil.owlq1EG0IP8f0QZeO";
 
@@ -26,7 +26,7 @@ public class UserService extends AbstractDaoService {
 
         // create default user if needed
         if (dao.queryForAll().size() < 1) {
-            createUser(CustomConfiguration.DEFAULT_USER, CustomConfiguration.DEFAULT_PASSWORD, Role.ADMIN);
+            create(CustomConfiguration.DEFAULT_USER, CustomConfiguration.DEFAULT_PASSWORD, Role.ADMIN);
         }
 
     }
@@ -40,7 +40,7 @@ public class UserService extends AbstractDaoService {
      * @return
      * @throws IOException
      */
-    public User createUser(String username, String clearPassword, Role role) throws IOException {
+    public User create(String username, String clearPassword, Role role) throws IOException {
 
         username = username.trim().toLowerCase();
 

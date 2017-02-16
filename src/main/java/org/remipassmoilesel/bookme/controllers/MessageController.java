@@ -114,7 +114,7 @@ public class MessageController {
             tokenman.deleteTokenFrom(session);
 
             try {
-                message = messageService.createMessage(messageForm.getMessage());
+                message = messageService.create(messageForm.getMessage());
 
             } catch (Exception e) {
                 logger.error("Error while creating reservation", e);

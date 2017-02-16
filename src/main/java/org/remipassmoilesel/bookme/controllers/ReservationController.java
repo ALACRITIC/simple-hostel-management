@@ -106,7 +106,7 @@ public class ReservationController {
         tokenman.addToken(model);
 
         model.addAttribute("errorMessage", "");
-        model.addAttribute("sharedResources", sharedResourceService.getAll(null));
+        model.addAttribute("sharedResources", sharedResourceService.getAll());
 
         // add it to session for check
         HttpSession session = request.getSession();
@@ -114,6 +114,49 @@ public class ReservationController {
 
         Mappings.includeMappings(model);
         return Templates.RESERVATION_FORM;
+    }
+
+    /**
+     * Delete reservation
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping(Mappings.RESERVATION_DELETE)
+    public String deleteReservation(
+            @RequestParam(value = "id", required = true) Long reservationId,
+            @RequestParam(value = "token", required = true) String token,
+            HttpServletRequest request,
+            Model model) throws Exception {
+
+        HttpSession session = request.getSession();
+        TokenManager tokenman = new TokenManager(TOKEN_NAME);
+
+        String errorMessage = "";
+
+        // token is invalid
+        if (tokenman.isTokenValid(session, Long.valueOf(token)) == false) {
+            errorMessage = "Invalid session";
+        }
+
+        // token is valid
+        else {
+
+            // always delete token before leave
+            tokenman.deleteTokenFrom(session);
+
+            sharedResourceService.deleteById(reservationId);
+
+            // TODO: delete
+        }
+
+        System.out.println("reservationId : " + reservationId);
+        System.out.println("errorMessage : " + errorMessage);
+
+        model.addAttribute("errorMessage", errorMessage);
+
+        Mappings.includeMappings(model);
+        return Templates.RESERVATION_ACTION_COMPLETED;
     }
 
     @PostMapping(Mappings.RESERVATION_FORM)
@@ -156,7 +199,7 @@ public class ReservationController {
             tokenman.deleteTokenFrom(session);
 
             try {
-                customer = customerService.createCustomer(
+                customer = customerService.create(
                         reservationForm.getCustomerFirstname(),
                         reservationForm.getCustomerLastname(),
                         reservationForm.getCustomerPhonenumber());
@@ -165,7 +208,7 @@ public class ReservationController {
                 Date endDate = Utils.stringToDate(reservationForm.getEnd());
                 SharedResource res = sharedResourceService.getById(reservationForm.getSharedResourceId());
                 int pl = reservationForm.getPlaces();
-                reservation = reservationService.createReservation(customer, res, pl, beginDate, endDate);
+                reservation = reservationService.create(customer, res, pl, beginDate, endDate);
 
             } catch (Exception e) {
                 logger.error("Error while creating reservation", e);
@@ -178,7 +221,7 @@ public class ReservationController {
         model.addAttribute("errorMessage", errorMessage);
 
         Mappings.includeMappings(model);
-        return Templates.RESERVATION_COMPLETED;
+        return Templates.RESERVATION_ACTION_COMPLETED;
     }
 
     @RequestMapping(value = Mappings.RESERVATION_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

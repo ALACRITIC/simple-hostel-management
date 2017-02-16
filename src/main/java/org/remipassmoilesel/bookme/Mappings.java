@@ -31,6 +31,7 @@ public class Mappings {
     public static final String RESERVATION_LASTS = RESERVATION_ROOT + "/lasts";
     public static final String RESERVATION_CALENDAR = RESERVATION_ROOT + "/calendar";
     public static final String RESERVATION_FORM = RESERVATION_ROOT + "/form";
+    public static final String RESERVATION_DELETE = RESERVATION_ROOT + "/delete";
     public static final String RESERVATION_JSON = RESERVATION_ROOT + "/json";
     public static final String RESERVATION_JSON_GET = RESERVATION_JSON + "/get";
     public static final String RESERVATION_JSON_GET_ALL = RESERVATION_JSON + "/all";

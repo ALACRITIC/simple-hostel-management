@@ -12,7 +12,7 @@ public class Templates {
     public static final String METRICS = PAGES_DIR + "metrics";
 
     public static final String RESERVATION_CALENDAR = PAGES_DIR + "reservation-calendar";
-    public static final String RESERVATION_COMPLETED = PAGES_DIR + "reservation-completed";
+    public static final String RESERVATION_ACTION_COMPLETED = PAGES_DIR + "reservation-completed";
     public static final String RESERVATION_FORM = PAGES_DIR + "reservation-form";
     public static final String RESERVATIONS_LAST = PAGES_DIR + "reservation-show-last";
 

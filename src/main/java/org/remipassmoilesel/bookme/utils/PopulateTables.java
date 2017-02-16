@@ -66,7 +66,7 @@ public class PopulateTables {
         int messageNumber = 10;
         for (int i = 0; i < messageNumber; i++) {
             Message msg = new Message(null, Utils.generateLoremIpsum(2000));
-            messageService.createMessage(msg);
+            messageService.create(msg);
         }
     }
 
@@ -87,10 +87,10 @@ public class PopulateTables {
         ArrayList<Reservation> reservations = new ArrayList<>();
         for (int i = 0; i < totalReservations; i++) {
 
-            Customer customer = customerService.createCustomer("Jean_" + i, "Paul_" + i, "000000" + i);
+            Customer customer = customerService.create("Jean_" + i, "Paul_" + i, "000000" + i);
             SharedResource resource = rooms.get(Utils.randInt(0, rooms.size() - 1));
 
-            Reservation reservation = reservationService.createReservation(customer, resource, 1,
+            Reservation reservation = reservationService.create(customer, resource, 1,
                     sdf.parse(i + "/" + partialDate), sdf.parse((i + 1) + "/" + partialDate));
             reservations.add(reservation);
 
