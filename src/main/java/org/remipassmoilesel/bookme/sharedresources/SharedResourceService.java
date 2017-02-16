@@ -1,5 +1,6 @@
 package org.remipassmoilesel.bookme.sharedresources;
 
+import com.j256.ormlite.stmt.QueryBuilder;
 import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
 import org.remipassmoilesel.bookme.utils.AbstractDaoService;
 import org.slf4j.Logger;
@@ -26,16 +27,83 @@ public class SharedResourceService extends AbstractDaoService<SharedResource> {
         return create(new SharedResource(roomName, places, roomComment, type));
     }
 
+    /**
+     * This method do not return deleted resources
+     *
+     * @param type
+     * @return
+     * @throws IOException
+     */
     public List<SharedResource> getAll(Type type) throws IOException {
+
+        if (type == null) {
+            throw new NullPointerException("Type is null");
+        }
+
         try {
-            if (type != null) {
-                return dao.queryForEq(SharedResource.TYPE_FIELD_NAME, type);
-            } else {
-                return dao.queryForAll();
-            }
+            QueryBuilder builder = dao.queryBuilder();
+            builder.where().eq(SharedResource.TYPE_FIELD_NAME, type);
+            builder.where().eq(SharedResource.DELETED_FIELD_NAME, false);
+            return builder.query();
         } catch (SQLException e) {
             throw new IOException(e);
         }
     }
 
+    @Override
+    public List<SharedResource> getAll() throws IOException {
+        return getAll(false);
+    }
+
+    public List<SharedResource> getAll(boolean withDeletedEntities) throws IOException {
+
+        // return all with deleted
+        if (withDeletedEntities) {
+            return super.getAll();
+        }
+
+        // return all but deleted
+        else {
+            try {
+                QueryBuilder builder = dao.queryBuilder();
+                builder.where().eq(SharedResource.DELETED_FIELD_NAME, false);
+                return builder.query();
+            } catch (SQLException e) {
+                throw new IOException(e);
+            }
+        }
+    }
+
+    /**
+     * Resources are not deleted, just marked as delete
+     *
+     * @param res
+     * @throws IOException
+     */
+    public void markAsDeleted(SharedResource res) throws IOException {
+        res.setDeleted(true);
+        markAsDeleted(res.getId());
+    }
+
+    /**
+     * Resources are not deleted, just marked as delete
+     *
+     * @param id
+     * @throws IOException
+     */
+    public void markAsDeleted(Long id) throws IOException {
+        try {
+            SharedResource res = (SharedResource) dao.queryForId(id);
+
+            if (res == null) {
+                logger.warn("No resource found: " + id);
+            }
+
+            res.setDeleted(true);
+            dao.update(res);
+
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
 }

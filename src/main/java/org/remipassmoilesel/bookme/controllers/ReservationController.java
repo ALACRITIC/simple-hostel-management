@@ -164,13 +164,9 @@ public class ReservationController {
             // always delete token before leave
             tokenman.deleteTokenFrom(session);
 
-            sharedResourceService.deleteById(reservationId);
+            reservationService.deleteById(reservationId);
 
-            // TODO: delete
         }
-
-        System.out.println("reservationId : " + reservationId);
-        System.out.println("errorMessage : " + errorMessage);
 
         model.addAttribute("errorMessage", errorMessage);
 

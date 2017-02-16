@@ -36,6 +36,8 @@ public class SharedResourceServiceTest {
     @Test
     public void test() throws IOException {
 
+        sharedResourceService.clearAllEntities();
+
         int resourcesNumber = 10;
         ArrayList<SharedResource> resources = new ArrayList<>();
         for (int i = 0; i < resourcesNumber; i++) {
@@ -60,6 +62,15 @@ public class SharedResourceServiceTest {
         resources.get(0).setName(newName);
         sharedResourceService.refresh(resources.get(0));
         assertFalse("Refresh test", resources.get(0).getName().equals(newName));
+
+        // mark all as deleted
+        for (SharedResource res : resources) {
+            sharedResourceService.markAsDeleted(res);
+            assertTrue("Delete resource test", res.isDeleted());
+        }
+
+        assertTrue("Delete resources test", sharedResourceService.getAll().size() == 0);
+        assertTrue("Delete resources test", sharedResourceService.getAll(true).size() == 10);
 
     }
 

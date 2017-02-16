@@ -18,6 +18,7 @@ public class SharedResource {
     public static final String PLACES_FIELD_NAME = "PLACES";
     public static final String COMMENT_FIELD_NAME = "COMMENT";
     public static final String TYPE_FIELD_NAME = "TYPE";
+    public static final String DELETED_FIELD_NAME = "DELETED";
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private long id;
@@ -34,6 +35,9 @@ public class SharedResource {
     @DatabaseField(columnName = COMMENT_FIELD_NAME, dataType = DataType.LONG_STRING)
     private String comment;
 
+    @DatabaseField(columnName = DELETED_FIELD_NAME)
+    private boolean deleted;
+
     public SharedResource() {
         // ORMLite needs a no-arg constructor
     }
@@ -44,6 +48,7 @@ public class SharedResource {
         this.comment = comment;
         this.places = places;
         this.type = type;
+        this.deleted = false;
     }
 
     public long getId() {
@@ -86,6 +91,32 @@ public class SharedResource {
         this.places = places;
     }
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SharedResource resource = (SharedResource) o;
+        return id == resource.id &&
+                places == resource.places &&
+                deleted == resource.deleted &&
+                Objects.equals(name, resource.name) &&
+                type == resource.type &&
+                Objects.equals(comment, resource.comment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, places, type, comment, deleted);
+    }
+
     @Override
     public String toString() {
         return "SharedResource{" +
@@ -94,25 +125,7 @@ public class SharedResource {
                 ", places=" + places +
                 ", type=" + type +
                 ", comment='" + comment + '\'' +
+                ", deleted=" + deleted +
                 '}';
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SharedResource that = (SharedResource) o;
-        return id == that.id &&
-                places == that.places &&
-                Objects.equals(name, that.name) &&
-                type == that.type &&
-                Objects.equals(comment, that.comment);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, places, type, comment);
-    }
-
-
 }

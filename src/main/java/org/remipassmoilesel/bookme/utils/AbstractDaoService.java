@@ -68,12 +68,12 @@ public abstract class AbstractDaoService<T> {
     /**
      * Delete entity corresponding to specified id
      *
-     * @param reservationId
+     * @param objectId
      * @throws IOException
      */
-    public void deleteById(Long reservationId) throws IOException {
+    public void deleteById(Long objectId) throws IOException {
         try {
-            dao.deleteById(reservationId);
+            dao.deleteById(objectId);
         } catch (SQLException e) {
             throw new IOException(e);
         }
@@ -144,7 +144,7 @@ public abstract class AbstractDaoService<T> {
         for (T o : listObj) {
             refresh(o);
         }
-        
+
     }
 
     /**
