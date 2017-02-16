@@ -47,3 +47,7 @@ a.glyphicon {
 .fc-list-item-title.fc-widget-content a{
     cursor: pointer;
 }
+
+a.fc-day-number{
+    text-decoration: none !important;
+}
