@@ -93,6 +93,12 @@
             <version>2.9.7</version>
         </dependency>
 
+        <!-- CSV -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.2</version>
+        </dependency>
 
         <!-- Web admin -->
         <!--

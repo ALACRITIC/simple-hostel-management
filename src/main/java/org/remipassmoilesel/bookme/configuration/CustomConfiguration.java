@@ -31,6 +31,9 @@ public class CustomConfiguration {
     public static final String DEFAULT_USER = "admin";
     public static final String DEFAULT_PASSWORD = "admin";
 
+    public static final Path TEMP_DIRECTORY = Paths.get("./tmp");
+
+
     @Resource
     private Environment environment;
 

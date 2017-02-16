@@ -1,9 +1,10 @@
 target/*
 database/*
 database-test
-*.iml
-*.swp
+tmp
 .idea
 tomcat-logs
+*.iml
+*.swp
 *.7z
 *.zip

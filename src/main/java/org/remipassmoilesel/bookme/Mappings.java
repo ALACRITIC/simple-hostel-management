@@ -60,6 +60,8 @@ public class Mappings {
     public static final String MAIN_TEMPLATE = APPLICATION_ROOT + "/main-template";
     public static final String MESSAGES_GET_AS_JSON = APPLICATION_ROOT + "/json/all";
 
+    public static final String EXPORT_RESERVATIONS = APPLICATION_ROOT + "/export/reservations/csv";
+
     public static MappingMap getMap() {
 
         MappingMap result = new MappingMap();
