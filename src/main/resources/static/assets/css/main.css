@@ -69,3 +69,10 @@ a.fc-day-number {
 .errorMessageBlock h4 {
     margin: 0.4em;
 }
+
+.formError{
+    margin: 1em 1em 1em 0.3em;
+    border-left: 0.5em solid darkred;
+    padding-left: 1em;
+    color: darkred;
+}

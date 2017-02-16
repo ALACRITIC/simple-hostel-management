@@ -54,7 +54,8 @@ public class CreateReservationForm {
     private Long token;
 
     public CreateReservationForm() {
-
+        begin = new DateTime().toString("dd/MM/yyyy");
+        end = new DateTime().plusDays(5).toString("dd/MM/yyyy");
     }
 
     /**
