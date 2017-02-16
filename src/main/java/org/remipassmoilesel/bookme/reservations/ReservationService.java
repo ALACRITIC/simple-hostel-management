@@ -213,16 +213,22 @@ public class ReservationService extends AbstractDaoService<Reservation> {
     }
 
     public void refresh(Reservation res) throws IOException {
-
-        if (res == null) {
-            throw new NullPointerException("Reservation is null");
-        }
-
         super.refresh(res);
-
         customerService.refresh(res.getCustomer());
         sharedResourceService.refresh(res.getResource());
     }
 
+    @Override
+    public Reservation getById(Long id) throws IOException {
+        Reservation res = super.getById(id);
+        refresh(res);
+        return res;
+    }
 
+    @Override
+    public List<Reservation> getAll() throws IOException {
+        List<Reservation> result = super.getAll();
+        refresh(result);
+        return result;
+    }
 }

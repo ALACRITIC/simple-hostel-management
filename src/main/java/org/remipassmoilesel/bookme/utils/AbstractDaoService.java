@@ -117,11 +117,34 @@ public abstract class AbstractDaoService<T> {
      * @throws IOException
      */
     public void refresh(T obj) throws IOException {
+
+        if (obj == null) {
+            throw new NullPointerException("Cannot refresh null object");
+        }
+
         try {
             dao.refresh(obj);
         } catch (SQLException e) {
             throw new IOException(e);
         }
+    }
+
+    /**
+     * Refresh information of a customer object from database
+     *
+     * @param listObj
+     * @throws IOException
+     */
+    public void refresh(List<T> listObj) throws IOException {
+
+        if (listObj == null) {
+            throw new NullPointerException("Cannot refresh null object");
+        }
+
+        for (T o : listObj) {
+            refresh(o);
+        }
+        
     }
 
     /**

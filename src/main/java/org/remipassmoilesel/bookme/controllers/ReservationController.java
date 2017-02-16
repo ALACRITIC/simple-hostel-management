@@ -45,11 +45,9 @@ public class ReservationController {
     @Autowired
     private SharedResourceService sharedResourceService;
 
-
     /**
      * Display lasts reservation
      *
-     * @param request
      * @param model
      * @return
      */
