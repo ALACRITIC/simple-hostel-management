@@ -1,32 +1,20 @@
 var ReservationUtils = {
 
-    // fill me first !
-    roomAvailablesFeedUrl: null,
-
-    setRoomsAvailableFeedUrl: function (url) {
-        var self = ReservationUtils;
-        self.roomAvailablesFeedUrl = url;
-    },
-
     getRoomsAvailable: function (start, end, places) {
 
-        if(!places){
+        if (!places) {
             places = 1;
         }
-        
-        var self = ReservationUtils;
-        if (!self.roomAvailablesFeedUrl) {
-            throw "Calendar feed url is null !"
-        }
 
+        var self = ReservationUtils;
         var result = $.Deferred();
 
         $.ajax({
-            url: self.roomAvailablesFeedUrl,
+            url: UrlTree.getRoomsAvailableFeedUrl(),
             data: {
                 start: start,
                 end: end,
-                places: places 
+                places: places
             }
         }).done(function (response) {
             result.resolve(response);
@@ -36,8 +24,26 @@ var ReservationUtils = {
         });
 
         return result.promise();
+    },
+
+    /**
+     * Change current location and show reservation with specified ID
+     * @param id
+     */
+    showReservation: function (reservationId) {
+        window.location = UrlTree.getShowReservationUrl() + "?id=" + reservationId;
+    },
+
+
+    /**
+     * Change current location and delete reservation with specified ID
+     * @param id
+     */
+    showReservation: function (reservationId) {
+        window.location = UrlTree.getDeleteReservationUrl() + "?id=" + reservationId;
     }
 
 };
+
 
 

@@ -30,3 +30,12 @@ table.formtable td {
 .top-buffer {
     margin-top: 1em;
 }
+
+.reservationRow{
+    cursor: pointer;
+}
+
+.reservationRow :hover{
+    cursor: pointer;
+    background: rgba(98, 111, 255, 0.36);
+}

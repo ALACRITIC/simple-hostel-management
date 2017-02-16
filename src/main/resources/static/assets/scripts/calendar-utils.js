@@ -1,28 +1,8 @@
 var CalendarUtils = {
 
-    // fill me first !
-    calendarFeedUrl: null,
-    showReservationUrl: null,
-
-    setCalendarFeedUrl: function (url) {
-        CalendarUtils.calendarFeedUrl = url;
-    },
-
-    setShowReservationUrl: function (url) {
-        CalendarUtils.showReservationUrl = url;
-    },
-
     createReservationCalendar: function (selector) {
 
         var self = CalendarUtils;
-
-        if (!self.calendarFeedUrl) {
-            throw "Calendar feed url is null !"
-        }
-
-        if (!self.showReservationUrl) {
-            throw "Reservation url is null !"
-        }
 
         $(selector).fullCalendar({
             header: {
@@ -39,7 +19,7 @@ var CalendarUtils = {
                 var expectedFormat = "YYYY-MM-DD";
 
                 $.ajax({
-                    url: self.calendarFeedUrl,
+                    url: UrlTree.getCalendarFeedUrl(),
                     data: {
                         // our hypothetical feed requires UNIX timestamps
                         start: start.format(expectedFormat),
@@ -56,8 +36,7 @@ var CalendarUtils = {
                     });
             },
             eventClick: function (calEvent, jsEvent, view) {
-                var self = CalendarUtils;
-                window.location = self.showReservationUrl + "?id=" + calEvent._reservationId;
+                ReservationUtils.showReservation(calEvent._reservationId);
             }
         });
     },
