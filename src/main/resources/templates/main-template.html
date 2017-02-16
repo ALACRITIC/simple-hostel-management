@@ -76,6 +76,7 @@
                        aria-expanded="false">Reservations <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a th:href="${mappings.get('RESERVATION_CALENDAR')}">Calendar</a></li>
+                        <li><a th:href="${mappings.get('RESERVATION_NEXT_CHECKOUTS')}">Next check-outs</a></li>
                         <li><a th:href="${mappings.get('RESERVATION_LASTS')}">Lasts reservations</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a th:href="${mappings.get('RESERVATION_FORM')}">Make a reservation</a></li>
@@ -301,22 +302,22 @@
                 <thead>
                 <tr>
                     <th>Resource</th>
-                    <th>Check-in</th>
+                    <th>Check-out</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Phone number</th>
-                    <th>Check-out</th>
+                    <th>Check-in</th>
                 </tr>
                 </thead>
                 <tbody>
 
                 <tr th:each="reservation : ${reservationsList}">
                     <td th:text="${reservation.getResource().getName()}">A2</td>
-                    <td th:text="${#dates.format(reservation.getBegin(), 'dd/MM/yyyy')}">01/01/2016</td>
+                    <td th:text="${#dates.format(reservation.getEnd(), 'dd/MM/yyyy')}">05/01/2016</td>
                     <td th:text="${reservation.getCustomer().getFirstname()}">Jean</td>
                     <td th:text="${reservation.getCustomer().getLastname()}">Claude</td>
                     <td th:text="${reservation.getCustomer().getPhonenumber()}">+000002</td>
-                    <td th:text="${#dates.format(reservation.getEnd(), 'dd/MM/yyyy')}">05/01/2016</td>
+                    <td th:text="${#dates.format(reservation.getBegin(), 'dd/MM/yyyy')}">01/01/2016</td>
                     <td><a th:href="${mappings.get('RESERVATION_FORM') + '?id=' + reservation.getId()}"
                            class="glyphicon glyphicon-chevron-right"></a></td>
                 </tr>

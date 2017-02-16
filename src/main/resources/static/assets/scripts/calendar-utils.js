@@ -55,10 +55,13 @@ var CalendarUtils = {
             var startDate = element.begin;
             var endDate = element.end;
 
+            console.log("startDate");
+            console.log(startDate);
+
             events.push({
                 title: lastname + " " + firstname,
-                start: startDate,
-                end: endDate,
+                start: moment(startDate).add(12, 'hours'),
+                end: moment(endDate).add(12, 'hours'),
                 _reservationId: element.id
             });
         });

@@ -83,6 +83,7 @@ public class CreateReservationForm {
         }
 
         setReservationId(res.getId());
+        setCustomerId(res.getCustomer().getId());
     }
 
     public Long getReservationId() {

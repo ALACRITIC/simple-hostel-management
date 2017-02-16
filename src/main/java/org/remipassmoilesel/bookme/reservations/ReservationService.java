@@ -190,10 +190,15 @@ public class ReservationService extends AbstractDaoService<Reservation> {
             QueryBuilder<Reservation, String> builder = dao.queryBuilder();
 
             DateTime now = new DateTime();
-            DateTime future = now.plusYears(1);
+            DateTime start = new DateTime(now.getYear(), now.getMonthOfYear(), now.getDayOfMonth(), 0, 0).minusHours(2);
+            DateTime future = start.plusYears(1);
 
             Where<Reservation, String> where = builder.where();
-            where.between(Reservation.DATEEND_FIELD_NAME, now.toDate(), future.toDate());
+            where.between(Reservation.DATEEND_FIELD_NAME, start.toDate(), future.toDate());
+
+            System.out.println("start");
+            System.out.println(start);
+
             builder.orderBy(Reservation.DATEEND_FIELD_NAME, true);
             builder.limit(limit);
             if (offset > 0) {

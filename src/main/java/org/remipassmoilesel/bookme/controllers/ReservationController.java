@@ -204,29 +204,37 @@ public class ReservationController {
             // else update existing reservation
             else {
 
+                Customer customer = null;
+                SharedResource res = null;
                 try {
-
                     reservation = reservationService.getById(reservationForm.getReservationId());
-                    Customer customer = customerService.getById(reservationForm.getCustomerId());
-                    SharedResource res = sharedResourceService.getById(reservationForm.getSharedResourceId());
+                    customer = customerService.getById(reservationForm.getCustomerId());
+                    res = sharedResourceService.getById(reservationForm.getSharedResourceId());
+                } catch (Exception e) {
+                    logger.error("Error while updating reservation", e);
+                    throw new Exception("Error while updating, please try again later.");
+                }
 
-                    if (res == null || customer == null) {
-                        throw new IllegalStateException("Error, please try again later.");
-                    }
+                if (res == null || customer == null) {
+                    logger.error("Invalid resource or customer: r/" + res + " c/" + customer);
+                    throw new IllegalStateException("Error, please try again later.");
+                }
 
-                    // update customer
-                    customer.setFirstname(reservationForm.getCustomerFirstname());
-                    customer.setLastname(reservationForm.getCustomerLastname());
-                    customer.setPhonenumber(reservationForm.getCustomerPhonenumber());
+                // update customer
+                customer.setFirstname(reservationForm.getCustomerFirstname());
+                customer.setLastname(reservationForm.getCustomerLastname());
+                customer.setPhonenumber(reservationForm.getCustomerPhonenumber());
 
-                    // update reservation
-                    reservation.setResource(res);
-                    reservation.setBegin(beginDate);
-                    reservation.setEnd(endDate);
-                    reservation.setCustomer(customer);
-                    reservation.setResource(res);
-                    reservation.setComment(reservationForm.getComment());
-                    reservation.setPlaces(reservationForm.getPlaces());
+                // update reservation
+                reservation.setResource(res);
+                reservation.setBegin(beginDate);
+                reservation.setEnd(endDate);
+                reservation.setCustomer(customer);
+                reservation.setResource(res);
+                reservation.setComment(reservationForm.getComment());
+                reservation.setPlaces(reservationForm.getPlaces());
+
+                try {
 
                     // update repository
                     reservationService.update(reservation);
@@ -234,7 +242,7 @@ public class ReservationController {
 
                 } catch (Exception e) {
                     logger.error("Error while updating reservation", e);
-                    throw new Exception("Error while creating updating, please try again later.");
+                    throw new Exception("Error while updating, please try again later.");
                 }
 
             }
