@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Next checkouts</title>
+
+    <script th:replace="main-template :: page-headers"></script>
+
+</head>
+<body>
+
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <h1>Next checkouts</h1>
+
+            <div th:replace="main-template :: checkouts-list (reservationsList=${checkoutsList})"></div>
+
+            <div th:replace="main-template :: button-view-more-checkouts"></div>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

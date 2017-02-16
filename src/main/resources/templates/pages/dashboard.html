@@ -25,9 +25,9 @@
 
             <h2>Next checkouts</h2>
 
-            <div th:replace="main-template :: reservation-list (reservationsList=${nextCheckoutsList})"></div>
+            <div th:replace="main-template :: checkouts-list (reservationsList=${nextCheckoutsList})"></div>
 
-            <div th:replace="main-template :: button-view-all-reservations"></div>
+            <div th:replace="main-template :: button-view-more-checkouts"></div>
 
         </div>
 
@@ -39,7 +39,7 @@
 
             <div th:replace="main-template :: reservation-list (reservationsList=${lastReservationsList})"></div>
 
-            <div th:replace="main-template :: button-view-all-reservations"></div>
+            <div th:replace="main-template :: button-view-more-reservations"></div>
 
         </div>
 

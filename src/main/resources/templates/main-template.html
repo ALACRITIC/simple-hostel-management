@@ -185,7 +185,7 @@
             </table>
 
             <div th:fragment="button-view-all-customers" style="text-align: right; margin: 1em;">
-                <a href="#" class="btn btn-info btn-sm" style="display: inline-block">View all customers</a>
+                <a th:href="${mappings.get('CUSTOMERS_SHOW_ALL')}" class="btn btn-info btn-sm" style="display: inline-block">View all customers</a>
             </div>
 
         </div>
@@ -229,8 +229,46 @@
                 </tbody>
             </table>
 
-            <div th:fragment="button-view-all-reservations" style="text-align: right; margin: 1em;">
-                <a href="#" class="btn btn-info btn-sm" style="display: inline-block">View all reservations</a>
+            <div th:fragment="button-view-more-reservations" style="text-align: right; margin: 1em;">
+                <a th:href="${mappings.get('RESERVATION_LASTS')}" class="btn btn-info btn-sm" style="display: inline-block">View more reservations</a>
+            </div>
+
+            <h2>Checkouts list</h2>
+
+            <table class="table table-striped" th:fragment="checkouts-list">
+                <thead>
+                <tr>
+                    <th>Resource</th>
+                    <th>Departure</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone number</th>
+                    <th>Arrival</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="reservation : ${reservationsList}">
+                    <td th:text="${reservation.getResource().getName()}">A2</td>
+                    <td th:text="${#dates.format(reservation.getBegin(), 'dd/MM/yyyy')}">01/01/2016</td>
+                    <td th:text="${reservation.getCustomer().getFirstname()}">Jean</td>
+                    <td th:text="${reservation.getCustomer().getLastname()}">Claude</td>
+                    <td th:text="${reservation.getCustomer().getPhonenumber()}">+000002</td>
+                    <td th:text="${#dates.format(reservation.getEnd(), 'dd/MM/yyyy')}">05/01/2016</td>
+                    <td><a th:href="${mappings.get('RESERVATION_FORM') + '?id=' + reservation.getId()}"
+                           class="glyphicon glyphicon-chevron-right"></a></td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(reservationsList)}">
+                    <td colspan="20"><i>No reservations found</i></td>
+                </tr>
+
+                </tbody>
+            </table>
+
+
+            <div th:fragment="button-view-more-checkouts" style="text-align: right; margin: 1em;">
+                <a th:href="${mappings.get('RESERVATION_NEXT_CHECKOUTS')}" class="btn btn-info btn-sm" style="display: inline-block">View more checkouts</a>
             </div>
 
         </div>
@@ -259,9 +297,9 @@
                 </div>
             </div>
 
-            <!-- <div th:fragment="button-view-all-messages" style="text-align: right; margin: 1em;">
-                <a href="#" class="btn btn-info btn-sm" style="display: inline-block">View all messages</a>
-            </div> -->
+            <div th:fragment="button-view-all-messages" style="text-align: right; margin: 1em;">
+                <a th:href="${mappings.get('MESSAGES_SHOW_ALL')}" class="btn btn-info btn-sm" style="display: inline-block">View all messages</a>
+            </div>
 
         </div>
     </div>
@@ -296,10 +334,6 @@
 
                 </tbody>
             </table>
-
-            <div th:fragment="button-view-all-messages" style="text-align: right; margin: 1em;">
-                <a href="#" class="btn btn-info btn-sm" style="display: inline-block">View all messages</a>
-            </div>
 
         </div>
     </div>

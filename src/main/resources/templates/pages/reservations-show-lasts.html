@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Last reservations</title>
+
+    <script th:replace="main-template :: page-headers"></script>
+
+</head>
+<body>
+
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <h1>Lasts reservations</h1>
+
+            <div th:replace="main-template :: reservation-list (reservationsList=${reservationsList})"></div>
+
+            <div th:replace="main-template :: button-view-more-reservations"></div>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

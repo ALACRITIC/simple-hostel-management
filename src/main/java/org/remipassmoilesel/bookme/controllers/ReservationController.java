@@ -54,13 +54,12 @@ public class ReservationController {
      * @return
      */
     @RequestMapping(value = Mappings.RESERVATION_LASTS, method = RequestMethod.GET)
-    public String showLastsReservation(HttpServletRequest request, Model model) {
+    public String showLastsReservation(Model model) {
 
         try {
             List<Reservation> lasts = reservationService.getLastReservations(20, 0);
-            model.addAttribute("reservationList", lasts);
+            model.addAttribute("reservationsList", lasts);
         } catch (IOException e) {
-            model.addAttribute("reservationNumber", new ArrayList<Reservation>());
             logger.error("Error while retrieving reservations", e);
         }
 
@@ -68,6 +67,28 @@ public class ReservationController {
 
         // name of template
         return Templates.RESERVATIONS_LAST;
+    }
+
+    /**
+     * Display lasts reservation
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = Mappings.RESERVATION_NEXT_CHECKOUTS, method = RequestMethod.GET)
+    public String showNextCheckouts(Model model) {
+
+        try {
+            List<Reservation> nextCheckouts = reservationService.getNextCheckouts(40, 0);
+            model.addAttribute("checkoutsList", nextCheckouts);
+        } catch (IOException e) {
+            logger.error("Error while retrieving reservations", e);
+        }
+
+        Mappings.includeMappings(model);
+
+        // name of template
+        return Templates.RESERVATIONS_NEXT_CHECKOUTS;
     }
 
     @RequestMapping(value = Mappings.RESERVATION_CALENDAR, method = RequestMethod.GET)

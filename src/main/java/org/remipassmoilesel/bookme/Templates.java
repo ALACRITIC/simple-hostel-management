@@ -11,22 +11,24 @@ public class Templates {
     public static final String DASHBOARD = PAGES_DIR + "dashboard";
     public static final String METRICS = PAGES_DIR + "metrics";
 
-    public static final String RESERVATION_CALENDAR = PAGES_DIR + "reservation-calendar";
-    public static final String RESERVATION_ACTION_COMPLETED = PAGES_DIR + "reservation-completed";
-    public static final String RESERVATION_FORM = PAGES_DIR + "reservation-form";
-    public static final String RESERVATIONS_LAST = PAGES_DIR + "reservation-show-last";
+    public static final String RESERVATION_CALENDAR = PAGES_DIR + "reservations-calendar";
+    public static final String RESERVATION_ACTION_COMPLETED = PAGES_DIR + "reservations-completed";
+    public static final String RESERVATION_FORM = PAGES_DIR + "reservations-form";
+    public static final String RESERVATIONS_LAST = PAGES_DIR + "reservations-show-lasts";
+    public static final String RESERVATIONS_NEXT_CHECKOUTS = PAGES_DIR + "reservations-next-checkouts";
 
-    public static final String ROOM_COMPLETED = PAGES_DIR + "room-completed";
-    public static final String ROOM_FORM = PAGES_DIR + "room-form";
-    public static final String ROOM_SHOW = PAGES_DIR + "room-show";
+    public static final String ROOM_COMPLETED = PAGES_DIR + "rooms-completed";
+    public static final String ROOM_FORM = PAGES_DIR + "rooms-form";
+    public static final String ROOM_SHOW = PAGES_DIR + "rooms-show";
 
-    public static final String MESSAGE_SHOW_ALL = PAGES_DIR + "message-show-all";
-    public static final String MESSAGE_NEW = PAGES_DIR + "message-new";
-    public static final String MESSAGE_COMPLETED = PAGES_DIR + "message-completed";
-    public static final String MESSAGE_SHOW_ONE = PAGES_DIR + "message-show-one";
+    public static final String MESSAGE_SHOW_ALL = PAGES_DIR + "messages-show-all";
+    public static final String MESSAGE_NEW = PAGES_DIR + "messages-new";
+    public static final String MESSAGE_COMPLETED = PAGES_DIR + "messages-completed";
+    public static final String MESSAGE_SHOW_ONE = PAGES_DIR + "messages-show-one";
 
-    public static final String CUSTOMER_SHOW = PAGES_DIR + "customer-show-all";
+    public static final String CUSTOMER_SHOW = PAGES_DIR + "customers-show-all";
 
-    public static final String PAGES_LOGIN = PAGES_DIR + "signin";
+    public static final String PAGES_LOGIN = PAGES_DIR + "signin-form";
+
 
 }

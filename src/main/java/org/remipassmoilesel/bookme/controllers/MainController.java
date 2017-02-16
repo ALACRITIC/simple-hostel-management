@@ -55,7 +55,7 @@ public class MainController {
         List<Message> lastMessagesList = messageService.getLasts(3, 0);
 
         // get lasts checkouts
-        List<Reservation> nextCheckoutsList = reservationService.getNextCheckouts(3, 0);
+        List<Reservation> nextCheckoutsList = reservationService.getNextCheckouts(5, 0);
 
         // get lasts reservations
         List<Reservation> lastReservationsList = reservationService.getLastReservations(3, 0);
