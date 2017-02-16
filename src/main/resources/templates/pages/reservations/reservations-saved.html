@@ -19,11 +19,13 @@
             <h1>Reservation saved</h1>
 
             <!-- Error happen saved -->
+
             <div th:if="${not #strings.isEmpty(errorMessage)}">
-                <div th:text="${errorMessage}"></div>
+                <div th:replace="main-template :: error-block (errorMessage=${errorMessage})"></div>
             </div>
 
             <!-- Reservation saved -->
+
             <div th:if="${#strings.isEmpty(errorMessage)}">
                 <div th:replace="main-template :: reservation-simple (reservation=${reservation})"></div>
             </div>

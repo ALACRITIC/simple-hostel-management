@@ -44,10 +44,28 @@ a.glyphicon {
     text-decoration: none !important;
 }
 
-.fc-list-item-title.fc-widget-content a{
+.fc-list-item-title.fc-widget-content a {
     cursor: pointer;
 }
 
-a.fc-day-number{
+a.fc-day-number {
     text-decoration: none !important;
+}
+
+.errorMessageBlock {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+.errorMessageBlock .alert-warning {
+    background: #f2dede;
+    color: #a94442;
+}
+
+.errorMessageBlock p {
+    margin: 0.7em;
+}
+
+.errorMessageBlock h4 {
+    margin: 0.4em;
 }

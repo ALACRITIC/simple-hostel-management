@@ -148,11 +148,32 @@
         </div>
     </div>
 
-    <!--
+    <!-- Errors -->
 
-         Partial elements
+    <div class="row errorMessageBlock" th:fragment="error-block">
+        <div class="col-md-12">
 
-    -->
+            <div class="alert alert-warning">
+
+                <h4>
+                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                    <span th:text="${errorMessage}">Error message</span>
+                </h4>
+
+                <p><b>What can you do ?</b></p>
+
+                <p>If you are using a form, verify that the values are consistent. If nothing goes better,
+                    try returning to the <a th:href="${mappings.get('APPLICATION_ROOT')}">dashboard</a>
+                    and repeating the form.
+                </p>
+
+                <p>If this error persists, report it to the developer of this software:
+                    <a href="https://github.com/remipassmoilesel" target="_blank">@Remipassmoilesel</a></p>
+
+            </div>
+
+        </div>
+    </div>
 
     <!-- Customers -->
 
@@ -323,14 +344,16 @@
 
             <div class="card card-message-small" th:fragment="message-small">
                 <div class="card-block">
-                    <h4 class="card-title" th:text="${#dates.format(message.getDate(), 'dd/MM/yyyy')}">Small message / Date / Writer</h4>
+                    <h4 class="card-title" th:text="${#dates.format(message.getDate(), 'dd/MM/yyyy')}">Small message /
+                        Date / Writer</h4>
                     <p class="card-text" th:text="${#strings.substring(message.getMessage(), 0, 200) + '...'}">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum
                         mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis
                         dolor....
                     </p>
                     <div style="text-align: right">
-                        <a th:href="${mappings.get('MESSAGES_SHOW_BY_ID') + '?id=' + message.getId()}" class="btn btn-info btn-sm" style="display: inline-block;">
+                        <a th:href="${mappings.get('MESSAGES_SHOW_BY_ID') + '?id=' + message.getId()}"
+                           class="btn btn-info btn-sm" style="display: inline-block;">
                             View
                         </a>
                     </div>
@@ -338,7 +361,8 @@
             </div>
 
             <div th:fragment="button-view-all-messages" style="text-align: right; margin: 1em;">
-                <a th:href="${mappings.get('MESSAGES_SHOW_ALL')}" class="btn btn-info btn-sm" style="display: inline-block">View all messages</a>
+                <a th:href="${mappings.get('MESSAGES_SHOW_ALL')}" class="btn btn-info btn-sm"
+                   style="display: inline-block">View all messages</a>
             </div>
 
         </div>
