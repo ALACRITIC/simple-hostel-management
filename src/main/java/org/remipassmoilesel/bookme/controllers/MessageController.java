@@ -33,6 +33,19 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
+    @RequestMapping(value = Mappings.MESSAGES_SHOW_BY_ID, method = RequestMethod.GET)
+    public String showById(
+            @RequestParam("id") Long id,
+            Model model) throws Exception {
+
+        Message message = messageService.getById(id);
+
+        model.addAttribute("message", message);
+
+        Mappings.includeMappings(model);
+        return Templates.MESSAGE_SHOW_ONE;
+    }
+
     @RequestMapping(value = Mappings.MESSAGES_SHOW_ALL, method = RequestMethod.GET)
     public String showAll(Model model) throws Exception {
 

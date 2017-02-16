@@ -23,8 +23,10 @@ public class Templates {
     public static final String MESSAGE_SHOW_ALL = PAGES_DIR + "message-show-all";
     public static final String MESSAGE_NEW = PAGES_DIR + "message-new";
     public static final String MESSAGE_COMPLETED = PAGES_DIR + "message-completed";
+    public static final String MESSAGE_SHOW_ONE = PAGES_DIR + "message-show-one";
 
     public static final String CUSTOMER_SHOW = PAGES_DIR + "customer-show-all";
 
     public static final String PAGES_LOGIN = PAGES_DIR + "signin";
+
 }

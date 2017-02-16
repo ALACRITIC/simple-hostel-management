@@ -43,7 +43,7 @@
 
         </div>
 
-        <!-- Last customers registered-->
+        <!-- Last customers registered -->
 
         <div class="col-md-12">
 
@@ -52,6 +52,18 @@
             <div th:replace="main-template :: customers-list(customersList=${lastCustomersList})"></div>
 
             <div th:replace="main-template :: button-view-all-customers"></div>
+
+        </div>
+
+        <!-- Last messages -->
+
+        <div class="col-md-12">
+
+            <h2>Last messages</h2>
+
+            <div th:replace="main-template :: messages-list(messagesList=${lastMessagesList})"></div>
+
+            <div th:replace="main-template :: button-view-all-messages"></div>
 
         </div>
 

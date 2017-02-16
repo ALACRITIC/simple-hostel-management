@@ -273,39 +273,32 @@
 
             <h2>Message lists</h2>
 
-            <table class="table table-striped" th:fragment="reservation-list">
+            <table class="table table-striped" th:fragment="messages-list">
                 <thead>
                 <tr>
                     <th>Date</th>
                     <th>Message</th>
-                    <th>Phone number</th>
-                    <th>Arrival</th>
-                    <th>Departure</th>
-                    <th>Resource</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
 
-                <tr th:each="reservation : ${reservationsList}">
-                    <td th:text="${reservation.getCustomer().getFirstname()}">Jean</td>
-                    <td th:text="${reservation.getCustomer().getLastname()}">Claude</td>
-                    <td th:text="${reservation.getCustomer().getPhonenumber()}">+000002</td>
-                    <td th:text="${#dates.format(reservation.getBegin(), 'dd/MM/yyyy')}">01/01/2016</td>
-                    <td th:text="${#dates.format(reservation.getEnd(), 'dd/MM/yyyy')}">05/01/2016</td>
-                    <td th:text="${reservation.getResource().getName()}">A2</td>
-                    <td><a th:href="${mappings.get('RESERVATION_FORM') + '?id=' + reservation.getId()}"
+                <tr th:each="message : ${messagesList}">
+                    <td th:text="${#dates.format(message.getDate(), 'dd/MM/yyyy')}">Date</td>
+                    <td th:text="${#strings.substring(message.getMessage(), 0, 100) + '...'}">Message</td>
+                    <td><a th:href="${mappings.get('MESSAGES_SHOW_BY_ID') + '?id=' + message.getId()}"
                            class="glyphicon glyphicon-chevron-right"></a></td>
                 </tr>
 
-                <tr th:if="${#lists.isEmpty(reservationsList)}">
-                    <td colspan="20"><i>No reservations found</i></td>
+                <tr th:if="${#lists.isEmpty(messagesList)}">
+                    <td colspan="20"><i>No messages found</i></td>
                 </tr>
 
                 </tbody>
             </table>
 
-            <div th:fragment="button-view-all-reservations" style="text-align: right; margin: 1em;">
-                <a href="#" class="btn btn-info btn-sm" style="display: inline-block">View all reservations</a>
+            <div th:fragment="button-view-all-messages" style="text-align: right; margin: 1em;">
+                <a href="#" class="btn btn-info btn-sm" style="display: inline-block">View all messages</a>
             </div>
 
         </div>
