@@ -45,7 +45,8 @@ public class Mappings {
 
     public static final String MESSAGES_ROOT = APPLICATION_ROOT + "/messages";
     public static final String MESSAGES_FORM = MESSAGES_ROOT + "/form";
-    public static final String MESSAGES_SHOW_ALL = MESSAGES_ROOT + "/show";
+    public static final String MESSAGES_SHOW = MESSAGES_ROOT + "/show";
+    public static final String MESSAGES_SHOW_ALL = MESSAGES_SHOW + "/all";
 
     public static final String CUSTOMERS_ROOT = APPLICATION_ROOT + "/customers";
     public static final String CUSTOMERS_SHOW_ALL = CUSTOMERS_ROOT + "/show";

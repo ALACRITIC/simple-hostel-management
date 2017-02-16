@@ -36,7 +36,7 @@ public class UserServiceTest {
     @Test
     public void test() throws IOException {
 
-        userService.clearAllRows();
+        userService.clearAllEntities();
 
         // create fake users
         int userNumber = 10;
@@ -45,12 +45,12 @@ public class UserServiceTest {
         for (int i = 0; i < userNumber; i++) {
             usernames.add("PaulBedel" + i);
             passwords.add("PaulBedel//" + i);
-            userService.createUser(usernames.get(i), passwords.get(i), Role.ADMIN);
+            userService.create(usernames.get(i), passwords.get(i), Role.ADMIN);
         }
 
         // try adding double
         try {
-            userService.createUser(usernames.get(0), passwords.get(0), Role.ADMIN);
+            userService.create(usernames.get(0), passwords.get(0), Role.ADMIN);
             assertTrue("Adding double user test", false);
         } catch (Exception e) {
             logger.error("Error while adding user", e);

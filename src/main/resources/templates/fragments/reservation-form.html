@@ -115,12 +115,12 @@
             <td colspan="2" style="text-align: right">
 
                 <!-- Add control token -->
-                <input type="hidden" name="token" th:value="${token}"/>
+                <input type="hidden" id="reservationToken" name="token" th:value="${token}"/>
 
                 <!-- Add reservation id -->
                 <input type="hidden" id="reservationId" th:field="*{reservationId}"/>
 
-                <button type="button" id="deletebutton" class="btn btn-primary glyphicon glyphicon-trash"></button>
+                <button type="button" id="reservationDeleteButton" class="btn btn-primary glyphicon glyphicon-trash"></button>
                 <button type="submit" class="btn btn-primary">Save reservation</button>
             </td>
         </tr>

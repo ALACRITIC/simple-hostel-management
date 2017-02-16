@@ -29,8 +29,12 @@
                 <tbody>
 
                 <tr th:each="message : ${messagesList}">
-                    <td th:text="${message.getDate()}" width="20%"></td>
+                    <td th:text="${#dates.format(message.getDate(), 'dd/MM/yyyy')}" width="20%"></td>
                     <td th:text="${message.getMessage()}"></td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(messagesList)}">
+                    <td colspan="20"><i>No messages found</i></td>
                 </tr>
 
                 </tbody>

@@ -44,7 +44,7 @@ var UrlTree = {
 
     deleteReservationUrl: null,
 
-    setShowReservationUrl: function (url) {
+    setDeleteReservationUrl: function (url) {
         UrlTree.deleteReservationUrl = url;
     },
 

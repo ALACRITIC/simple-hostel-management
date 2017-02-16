@@ -48,24 +48,24 @@ public class ReservationServiceTest {
     @Test
     public void test() throws IOException {
 
-        customerService.clearAllRows();
-        sharedResourceService.clearAllRows();
-        reservationService.clearAllRows();
+        customerService.clearAllEntities();
+        sharedResourceService.clearAllEntities();
+        reservationService.clearAllEntities();
 
         DateTime baseDate = new DateTime(2017, 02, 15, 12, 50);
 
         ArrayList<Customer> customers = new ArrayList<>();
         customers.add(new Customer("Jean", "Claude", "+3333333"));
         customers.add(new Customer("Paul", "Bedel", "+3333333"));
-        customerService.createCustomer(customers.get(0));
-        customerService.createCustomer(customers.get(1));
+        customerService.create(customers.get(0));
+        customerService.create(customers.get(1));
 
         ArrayList<SharedResource> resources = new ArrayList<>();
         int resourcesNumber = 10;
         for (int i = 0; i < resourcesNumber; i++) {
             SharedResource res = new SharedResource("A" + i, 2, "Comment", Type.ROOM);
             resources.add(res);
-            sharedResourceService.createResource(res);
+            sharedResourceService.create(res);
         }
 
         // test creation with wrong dates, should fail
@@ -85,7 +85,7 @@ public class ReservationServiceTest {
             Reservation res = new Reservation(customers.get(i % 2 == 0 ? 0 : 1), resources.get(i), 2,
                     baseDate.toDate(), baseDate.plusDays(5).toDate(), null);
 
-            reservationService.createReservation(res);
+            reservationService.create(res);
 
             reservations.add(res);
         }
@@ -109,15 +109,15 @@ public class ReservationServiceTest {
 
         // add special reservations to test against test period (TP)
         // 1: begin before TP and finish in TP
-        reservationService.createReservation(customers.get(0), resources.get(0), 2, beginTestPeriod.minusDays(2).toDate(), beginTestPeriod.plusDays(2).toDate());
+        reservationService.create(customers.get(0), resources.get(0), 2, beginTestPeriod.minusDays(2).toDate(), beginTestPeriod.plusDays(2).toDate());
         // 2: begin in TP and finish after TP
-        reservationService.createReservation(customers.get(0), resources.get(1), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
+        reservationService.create(customers.get(0), resources.get(1), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
         // 3: begin before TP and finish after TP
-        reservationService.createReservation(customers.get(0), resources.get(2), 2, beginTestPeriod.minusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
+        reservationService.create(customers.get(0), resources.get(2), 2, beginTestPeriod.minusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
         // 4: begin after TP and finish before end of TP
-        reservationService.createReservation(customers.get(0), resources.get(3), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.minusDays(2).toDate());
+        reservationService.create(customers.get(0), resources.get(3), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.minusDays(2).toDate());
         // 5: same period
-        reservationService.createReservation(customers.get(0), resources.get(4), 2, beginTestPeriod.toDate(), endTestPeriod.toDate());
+        reservationService.create(customers.get(0), resources.get(4), 2, beginTestPeriod.toDate(), endTestPeriod.toDate());
 
         List<SharedResource> freeResources = reservationService.getAvailableResources(Type.ROOM, beginTestPeriod.toDate(), endTestPeriod.toDate(), 1);
         assertTrue("Free resources test 1", resources.size() > 1);

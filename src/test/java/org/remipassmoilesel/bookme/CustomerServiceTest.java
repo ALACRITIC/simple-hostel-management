@@ -39,7 +39,7 @@ public class CustomerServiceTest {
         ArrayList<Customer> customers = new ArrayList<>();
         for (int i = 0; i < customerNumber; i++) {
             Customer customer = new Customer("Jean_" + i, "Paul_" + i, "+00000" + i);
-            customerService.createCustomer(customer);
+            customerService.create(customer);
 
             customers.add(customer);
         }

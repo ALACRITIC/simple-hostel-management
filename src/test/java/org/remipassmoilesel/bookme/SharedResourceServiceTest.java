@@ -40,7 +40,7 @@ public class SharedResourceServiceTest {
         ArrayList<SharedResource> resources = new ArrayList<>();
         for (int i = 0; i < resourcesNumber; i++) {
             SharedResource resource = new SharedResource("A" + i, 2, "Comment " + i, Type.ROOM);
-            sharedResourceService.createResource(resource);
+            sharedResourceService.create(resource);
 
             resources.add(resource);
         }

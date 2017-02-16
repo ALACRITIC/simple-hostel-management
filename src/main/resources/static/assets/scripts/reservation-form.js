@@ -15,8 +15,10 @@ var ReservationForm = {
         var endDate = $("#reservationEndDate");
         var placesTxt = $("#reservationPlaces");
         var deleteButton = $("#reservationDeleteButton");
-        var reservationId = $("#reservationId");
 
+        var reservationId = $("#reservationId").val();
+        var token = $("#reservationToken").val();
+        
         // transform fields in date picker
         beginDate.datepicker({
             dateFormat: "dd/mm/yy",
@@ -41,8 +43,8 @@ var ReservationForm = {
         });
 
         deleteButton.click(function(){
-
-            $("#reservationDeleteConfirm").dialog({
+            
+            $("<div>You will delete this reservation. Are you sure ?</div>").dialog({
                 resizable: false,
                 height: "auto",
                 width: 400,
@@ -51,9 +53,9 @@ var ReservationForm = {
                     "Cancel": function() {
                         $( this ).dialog( "close" );
                     },
-                    "Delete all items": function() {
+                    "Delete": function() {
 
-                        ReservationUtils.deleteReservation();
+                        ReservationUtils.deleteReservation(reservationId, token);
                         
                         $(this).dialog( "close" );
                         

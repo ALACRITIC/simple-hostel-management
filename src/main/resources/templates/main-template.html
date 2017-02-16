@@ -30,8 +30,8 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/main.css"/>
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="/bower_components/jquery-ui/jquery-ui.js"></script>
     <script type="text/javascript" src="/assets/bootstrap.themed/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/bower_components/jquery-ui/jquery-ui.js"></script>
     <script src='/bower_components/moment/moment.js'></script>
 
     <script src="/assets/scripts/url-tree.js"></script>
@@ -40,6 +40,7 @@
         UrlTree.setRoomsAvailableFeedUrl(/*[[${mappings.get('RESERVATION_ROOMS_AVAILABLE_JSON_GET')}]]*/ "/wrong/json/feed");
         UrlTree.setCalendarFeedUrl(/*[[${mappings.get('RESERVATION_JSON_GET')}]]*/ "/wrong/json/feed");
         UrlTree.setShowReservationUrl(/*[[${mappings.get('RESERVATION_FORM')}]]*/ "/wrong/json/feed");
+        UrlTree.setDeleteReservationUrl(/*[[${mappings.get('RESERVATION_DELETE')}]]*/ "/wrong/json/feed");
     </script>
 
 </head>
@@ -176,6 +177,10 @@
                     <td th:text="${customer.getPhonenumber()}">+000002</td>
                 </tr>
 
+                <tr th:if="${#lists.isEmpty(customersList)}">
+                    <td colspan="20"><i>No customers found</i></td>
+                </tr>
+
                 </tbody>
             </table>
 
@@ -217,6 +222,10 @@
                            class="glyphicon glyphicon-chevron-right"></a></td>
                 </tr>
 
+                <tr th:if="${#lists.isEmpty(reservationsList)}">
+                    <td colspan="20"><i>No reservations found</i></td>
+                </tr>
+
                 </tbody>
             </table>
 
@@ -236,7 +245,7 @@
 
             <div class="card card-message-small" th:fragment="message-small">
                 <div class="card-block">
-                    <h4 class="card-title" th:text="${title}">Small message / Date / Writer</h4>
+                    <h4 class="card-title" th:text="${date}">Small message / Date / Writer</h4>
                     <p class="card-text" th:text="${message}">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum
                         mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis
@@ -250,8 +259,53 @@
                 </div>
             </div>
 
-            <div th:fragment="button-view-all-messages" style="text-align: right; margin: 1em;">
+            <!-- <div th:fragment="button-view-all-messages" style="text-align: right; margin: 1em;">
                 <a href="#" class="btn btn-info btn-sm" style="display: inline-block">View all messages</a>
+            </div> -->
+
+        </div>
+    </div>
+
+    <!-- Messages list -->
+
+    <div class="row top-buffer">
+        <div class="col-md-12">
+
+            <h2>Message lists</h2>
+
+            <table class="table table-striped" th:fragment="reservation-list">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Message</th>
+                    <th>Phone number</th>
+                    <th>Arrival</th>
+                    <th>Departure</th>
+                    <th>Resource</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="reservation : ${reservationsList}">
+                    <td th:text="${reservation.getCustomer().getFirstname()}">Jean</td>
+                    <td th:text="${reservation.getCustomer().getLastname()}">Claude</td>
+                    <td th:text="${reservation.getCustomer().getPhonenumber()}">+000002</td>
+                    <td th:text="${#dates.format(reservation.getBegin(), 'dd/MM/yyyy')}">01/01/2016</td>
+                    <td th:text="${#dates.format(reservation.getEnd(), 'dd/MM/yyyy')}">05/01/2016</td>
+                    <td th:text="${reservation.getResource().getName()}">A2</td>
+                    <td><a th:href="${mappings.get('RESERVATION_FORM') + '?id=' + reservation.getId()}"
+                           class="glyphicon glyphicon-chevron-right"></a></td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(reservationsList)}">
+                    <td colspan="20"><i>No reservations found</i></td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <div th:fragment="button-view-all-reservations" style="text-align: right; margin: 1em;">
+                <a href="#" class="btn btn-info btn-sm" style="display: inline-block">View all reservations</a>
             </div>
 
         </div>
@@ -265,6 +319,8 @@
         </div>
 
     </div>
+
+    <div th:replace="fragments/show-debug :: debug"></div>
 
 </div>
 

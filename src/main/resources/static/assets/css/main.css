@@ -19,11 +19,11 @@ table.formtable td {
 }
 
 .footer {
-    margin-top: 1em;
+    margin-top: 2em;
     margin-bottom: 4em;
 }
 
-.footer div{
+.footer div {
     text-align: right;
 }
 
@@ -31,11 +31,15 @@ table.formtable td {
     margin-top: 1em;
 }
 
-.reservationRow{
+.reservationRow {
     cursor: pointer;
 }
 
-.reservationRow :hover{
+.reservationRow :hover {
     cursor: pointer;
     background: rgba(98, 111, 255, 0.36);
+}
+
+a.glyphicon {
+    text-decoration: none !important;
 }

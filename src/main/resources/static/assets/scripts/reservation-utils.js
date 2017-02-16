@@ -33,14 +33,13 @@ var ReservationUtils = {
     showReservation: function (reservationId) {
         window.location = UrlTree.getShowReservationUrl() + "?id=" + reservationId;
     },
-
-
+    
     /**
      * Change current location and delete reservation with specified ID
      * @param id
      */
-    showReservation: function (reservationId) {
-        window.location = UrlTree.getDeleteReservationUrl() + "?id=" + reservationId;
+    deleteReservation: function (reservationId, token) {
+        window.location = UrlTree.getDeleteReservationUrl() + "?id=" + reservationId + "&token=" + token;
     }
 
 };
