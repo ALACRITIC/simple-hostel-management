@@ -14,7 +14,7 @@ public class Templates {
 
     public static final String RESERVATIONS_DIR = PAGES_DIR + "reservations/";
     public static final String RESERVATIONS_CALENDAR = RESERVATIONS_DIR + "reservations-calendar";
-    public static final String RESERVATIONS_ACTION_COMPLETED = RESERVATIONS_DIR + "reservations-completed";
+    public static final String RESERVATIONS_SAVED = RESERVATIONS_DIR + "reservations-saved";
     public static final String RESERVATIONS_FORM = RESERVATIONS_DIR + "reservations-form";
     public static final String RESERVATIONS_LAST = RESERVATIONS_DIR + "reservations-show-lasts";
     public static final String RESERVATIONS_NEXT_CHECKOUTS = RESERVATIONS_DIR + "reservations-next-checkouts";

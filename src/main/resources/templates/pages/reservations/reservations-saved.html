@@ -14,19 +14,21 @@
 <div class="container">
 
     <div class="row">
-
         <div class="col-md-12">
 
             <h1>Reservation saved</h1>
 
-            <div th:text="${createReservationForm}"></div>
-            <div th:text="${reservationResult}"></div>
-            <div th:text="${customer}"></div>
-            <div th:text="${reservation}"></div>
-            <div th:text="${errorMessage}"></div>
+            <!-- Error happen saved -->
+            <div th:if="${not #strings.isEmpty(errorMessage)}">
+                <div th:text="${errorMessage}"></div>
+            </div>
+
+            <!-- Reservation saved -->
+            <div th:if="${#strings.isEmpty(errorMessage)}">
+                <div th:replace="main-template :: reservation-simple (reservation=${reservation})"></div>
+            </div>
 
         </div>
-
     </div>
 
     <!-- Footer -->

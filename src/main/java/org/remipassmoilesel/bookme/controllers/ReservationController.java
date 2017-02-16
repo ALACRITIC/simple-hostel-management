@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -124,7 +125,7 @@ public class ReservationController {
         tokenman.addToken(model);
 
         model.addAttribute("errorMessage", "");
-        model.addAttribute("sharedResources", sharedResourceService.getAll());
+        model.addAttribute("sharedResources", new ArrayList<>());
 
         // add it to session for check
         HttpSession session = request.getSession();
@@ -170,7 +171,7 @@ public class ReservationController {
         model.addAttribute("errorMessage", errorMessage);
 
         Mappings.includeMappings(model);
-        return Templates.RESERVATIONS_ACTION_COMPLETED;
+        return Templates.RESERVATIONS_SAVED;
     }
 
     @PostMapping(Mappings.RESERVATION_FORM)
@@ -186,7 +187,7 @@ public class ReservationController {
             model.addAttribute("token", reservationForm.getToken());
             model.addAttribute("errorMessage", "");
 
-            model.addAttribute("sharedResources", sharedResourceService.getAll(null));
+            model.addAttribute("sharedResources", new ArrayList<>());
 
             Mappings.includeMappings(model);
             return Templates.RESERVATIONS_FORM;
@@ -235,7 +236,7 @@ public class ReservationController {
         model.addAttribute("errorMessage", errorMessage);
 
         Mappings.includeMappings(model);
-        return Templates.RESERVATIONS_ACTION_COMPLETED;
+        return Templates.RESERVATIONS_SAVED;
     }
 
     @RequestMapping(value = Mappings.RESERVATION_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
