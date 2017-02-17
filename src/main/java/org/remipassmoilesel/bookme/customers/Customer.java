@@ -27,7 +27,7 @@ public class Customer {
     @DatabaseField(columnName = FIRSTNAME_FIELD_NAME)
     private String firstname;
 
-    @DatabaseField(columnName = PHONENUMBER_FIELD_NAME)
+    @DatabaseField(columnName = PHONENUMBER_FIELD_NAME, unique = true)
     private String phonenumber;
 
     @DatabaseField(columnName = CREATIONDATE_FIELD_NAME)

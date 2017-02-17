@@ -23,7 +23,7 @@ public class SharedResource {
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private long id;
 
-    @DatabaseField(columnName = NAME_FIELD_NAME)
+    @DatabaseField(columnName = NAME_FIELD_NAME, unique = true)
     private String name;
 
     @DatabaseField(columnName = PLACES_FIELD_NAME)
