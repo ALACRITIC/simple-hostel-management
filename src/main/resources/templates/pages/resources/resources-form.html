@@ -2,9 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
-    <title>Show rooms</title>
+    <title>Resource form</title>
 
     <script th:replace="main-template :: page-headers"></script>
+
+    <script th:replace="fragments/resource-headers"></script>
 
 </head>
 <body>
@@ -18,13 +20,17 @@
 
         <div class="col-md-12">
 
-            <h1>Rooms</h1>
+            <h1>Resource form</h1>
 
-            <div th:replace="main-template :: resources-list (resourcesList=${roomsList})"></div>
+            <div th:replace="fragments/resource-form :: resource-form"></div>
 
         </div>
 
     </div>
+
+    <!-- Footer -->
+    <div th:replace="main-template :: footer"></div>
+    
 </div>
 
 </body>

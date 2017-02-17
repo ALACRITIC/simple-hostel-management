@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
-    <title>Room saved</title>
+    <title>Show resources</title>
 
     <script th:replace="main-template :: page-headers"></script>
 
@@ -18,15 +18,16 @@
 
         <div class="col-md-12">
 
-            <h1>Room saved</h1>
+            <h1>Resources</h1>
 
-            <div th:text="${room}"></div>
-            <div th:text="${roomResult}"></div>
-            <div th:text="${errorMessage}"></div>
+            <div th:replace="main-template :: resources-list (resourcesList=${resourcesList})"></div>
 
         </div>
 
     </div>
+
+    <!--<div th:replace="fragments/show-debug :: debug"></div>-->
+
 </div>
 
 </body>

@@ -15,7 +15,7 @@
                 <textarea class="form-control" placeholder="Message" th:field="*{message}"
                     style="width: 80%; height: 8em"></textarea>
                 <div th:if="${#fields.hasErrors('message')}" th:errors="*{message}">
-                    Room name error
+                    Message name error
                 </div>
             </td>
         </tr>

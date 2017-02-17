@@ -39,10 +39,11 @@
     <script src="/assets/scripts/url-tree.js"></script>
 
     <script th:inline="javascript">
-        UrlTree.setRoomsAvailableFeedUrl(/*[[${mappings.get('RESERVATION_ROOMS_AVAILABLE_JSON_GET')}]]*/ "/wrong/json/feed");
-        UrlTree.setCalendarFeedUrl(/*[[${mappings.get('RESERVATION_JSON_GET')}]]*/ "/wrong/json/feed");
-        UrlTree.setShowReservationUrl(/*[[${mappings.get('RESERVATION_FORM')}]]*/ "/wrong/json/feed");
-        UrlTree.setDeleteReservationUrl(/*[[${mappings.get('RESERVATION_DELETE')}]]*/ "/wrong/json/feed");
+        UrlTree.setResourcesAvailableFeedUrl(/*[[${mappings.get('RESERVATIONS_RESOURCES_AVAILABLE_JSON_GET')}]]*/ "/wrong/json/feed");
+        UrlTree.setCalendarFeedUrl(/*[[${mappings.get('RESERVATIONS_JSON_GET')}]]*/ "/wrong/json/feed");
+        UrlTree.setShowReservationUrl(/*[[${mappings.get('RESERVATIONS_FORM')}]]*/ "/wrong/json/feed");
+        UrlTree.setDeleteReservationUrl(/*[[${mappings.get('RESERVATIONS_DELETE')}]]*/ "/wrong/json/feed");
+        UrlTree.setDeleteResourceUrl(/*[[${mappings.get('RESOURCES_DELETE')}]]*/ "/wrong/json/feed");
 
         // enable tooltips on page
         $(function () {
@@ -80,20 +81,20 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Reservations <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="${mappings.get('RESERVATION_CALENDAR')}">Calendar</a></li>
-                        <li><a th:href="${mappings.get('RESERVATION_NEXT_CHECKOUTS')}">Next check-outs</a></li>
-                        <li><a th:href="${mappings.get('RESERVATION_LASTS')}">Lasts reservations</a></li>
+                        <li><a th:href="${mappings.get('RESERVATIONS_CALENDAR')}">Calendar</a></li>
+                        <li><a th:href="${mappings.get('RESERVATIONS_NEXT_CHECKOUTS')}">Next check-outs</a></li>
+                        <li><a th:href="${mappings.get('RESERVATIONS_LASTS')}">Lasts reservations</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a th:href="${mappings.get('RESERVATION_FORM')}">New reservation</a></li>
+                        <li><a th:href="${mappings.get('RESERVATIONS_FORM')}">New reservation</a></li>
                     </ul>
                 </li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Rooms <span class="caret"></span></a>
+                       aria-expanded="false">Resources <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="${mappings.get('ROOMS_SHOW_ALL')}">Show all</a></li>
-                        <li><a th:href="${mappings.get('ROOMS_FORM')}">Add a room</a></li>
+                        <li><a th:href="${mappings.get('RESOURCES_SHOW_ALL')}">Show all</a></li>
+                        <li><a th:href="${mappings.get('RESOURCES_FORM')}">Add a resource</a></li>
                     </ul>
                 </li>
 
@@ -166,24 +167,24 @@
             <table class="table table-striped" th:fragment="resources-list">
                 <thead>
                 <tr>
-                    <th>Name</th>
+                    <th style="width: 15%">Name</th>
                     <th>Type</th>
                     <th>Comment</th>
-                    <th style="width: 5%">&nbsp;</th>
+                    <th style="width: 5em">&nbsp;</th>
                 </tr>
                 </thead>
                 <tbody>
 
                 <tr th:each="resource : ${resourcesList}">
-                    <td th:text="${resource.getName()}" style="width: 15%">A2</td>
-                    <td th:text="${resource.getType().getReadableName()}" style="width: 15%">ROOM</td>
+                    <td th:text="${resource.getName()}">A2</td>
+                    <td th:text="${resource.getType().getReadableName()}" style="width: 5em">Room</td>
                     <td th:text="${resource.getComment()}">Comment</td>
                     <td>
                         <a th:href="${mappings.get('RESERVATIONS_BY_RESOURCE') + '?id=' + resource.getId()}"
                            data-toggle="tooltip" data-placement="left" title="Show reservations ..."
                            class="glyphicon glyphicon-search"></a>
                         &nbsp;&nbsp;
-                        <a th:href="${mappings.get('RESERVATIONS_BY_RESOURCE') + '?id=' + resource.getId()}"
+                        <a th:href="${mappings.get('RESOURCES_FORM') + '?id=' + resource.getId()}"
                            data-toggle="tooltip" title="Edit ..."
                            class="glyphicon glyphicon-chevron-right"></a></td>
                 </tr>
@@ -206,7 +207,7 @@
 
                 <tr>
                     <td>Type:</td>
-                    <td th:text="${resource.getType().getReadableName()}" style="width: 15%">ROOM</td>
+                    <td th:text="${resource.getType().getReadableName()}" style="width: 5em">Room</td>
                 </tr>
 
                 <tr>
@@ -251,7 +252,7 @@
                     <span th:text="${informationMessage}">Information message</span>
                 </h4>
 
-                <p>It's so good when it works !</p>
+                <!--<p>It's so good when it works !</p>-->
 
             </div>
 
@@ -324,7 +325,7 @@
                     <td th:text="${reservation.getCustomer().getLastname()}">Claude</td>
                     <td th:text="${reservation.getCustomer().getPhonenumber()}">+000002</td>
                     <td th:text="${reservation.getResource().getName()}">A2</td>
-                    <td><a th:href="${mappings.get('RESERVATION_FORM') + '?id=' + reservation.getId()}"
+                    <td><a th:href="${mappings.get('RESERVATIONS_FORM') + '?id=' + reservation.getId()}"
                            class="glyphicon glyphicon-chevron-right"></a></td>
                 </tr>
 
@@ -365,7 +366,7 @@
             </table>
 
             <div th:fragment="button-view-more-reservations" style="text-align: right; margin: 1em;">
-                <a th:href="${mappings.get('RESERVATION_LASTS')}" class="btn btn-info btn-sm"
+                <a th:href="${mappings.get('RESERVATIONS_LASTS')}" class="btn btn-info btn-sm"
                    style="display: inline-block">View more reservations</a>
             </div>
 
@@ -399,7 +400,7 @@
                     <td th:text="${reservation.getCustomer().getLastname()}">Claude</td>
                     <td th:text="${reservation.getCustomer().getPhonenumber()}">+000002</td>
                     <td th:text="${#dates.format(reservation.getBegin(), 'dd/MM/yyyy')}">01/01/2016</td>
-                    <td><a th:href="${mappings.get('RESERVATION_FORM') + '?id=' + reservation.getId()}"
+                    <td><a th:href="${mappings.get('RESERVATIONS_FORM') + '?id=' + reservation.getId()}"
                            class="glyphicon glyphicon-chevron-right"></a></td>
                 </tr>
 
@@ -412,7 +413,7 @@
 
 
             <div th:fragment="button-view-more-checkouts" style="text-align: right; margin: 1em;">
-                <a th:href="${mappings.get('RESERVATION_NEXT_CHECKOUTS')}" class="btn btn-info btn-sm"
+                <a th:href="${mappings.get('RESERVATIONS_NEXT_CHECKOUTS')}" class="btn btn-info btn-sm"
                    style="display: inline-block">View more checkouts</a>
             </div>
 

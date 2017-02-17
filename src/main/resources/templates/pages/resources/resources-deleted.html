@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Reservation</title>
+    <title>Resource</title>
 
     <script th:replace="main-template :: page-headers"></script>
 
@@ -16,22 +16,18 @@
     <div class="row">
         <div class="col-md-12">
 
-            <h1>Reservation</h1>
+            <h1>Resource</h1>
 
-            <!-- Error happen when saved -->
+            <!-- Error happen -->
 
             <div th:if="${not #strings.isEmpty(errorMessage)}">
                 <div th:replace="main-template :: error-block (errorMessage=${errorMessage})"></div>
             </div>
 
-            <!-- Reservation saved -->
+            <!-- No errors -->
 
             <div th:if="${#strings.isEmpty(errorMessage)}">
-                <div th:replace="main-template :: information-block (informationMessage=${'Reservation saved'})"></div>
-            </div>
-
-            <div th:if="${#strings.isEmpty(errorMessage)}">
-                <div th:replace="main-template :: reservation-simple (reservation=${reservation})"></div>
+                <div th:replace="main-template :: information-block (informationMessage=${'Resource deleted'})"></div>
             </div>
 
         </div>

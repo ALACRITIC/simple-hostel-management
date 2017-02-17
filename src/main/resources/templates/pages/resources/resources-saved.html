@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Reservation</title>
+
+    <title>Room saved</title>
 
     <script th:replace="main-template :: page-headers"></script>
 
@@ -12,11 +13,10 @@
 <div th:replace="main-template :: navbar"></div>
 
 <div class="container">
-
     <div class="row">
         <div class="col-md-12">
 
-            <h1>Reservation</h1>
+            <h1>Resource saved</h1>
 
             <!-- Error happen when saved -->
 
@@ -24,14 +24,14 @@
                 <div th:replace="main-template :: error-block (errorMessage=${errorMessage})"></div>
             </div>
 
-            <!-- Reservation saved -->
+            <!-- Resource saved -->
 
             <div th:if="${#strings.isEmpty(errorMessage)}">
-                <div th:replace="main-template :: information-block (informationMessage=${'Reservation saved'})"></div>
+                <div th:replace="main-template :: information-block (informationMessage=${'Resource saved'})"></div>
             </div>
 
             <div th:if="${#strings.isEmpty(errorMessage)}">
-                <div th:replace="main-template :: reservation-simple (reservation=${reservation})"></div>
+                <div th:replace="main-template :: resource-simple (resource=${resource})"></div>
             </div>
 
         </div>
