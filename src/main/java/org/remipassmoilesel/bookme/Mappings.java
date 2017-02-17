@@ -49,17 +49,16 @@ public class Mappings {
     public static final String MESSAGES_FORM = MESSAGES_ROOT + "/form";
     public static final String MESSAGES_SHOW = MESSAGES_ROOT + "/show";
     public static final String MESSAGES_SHOW_BY_ID = MESSAGES_ROOT + "/byid";
-    public static final String MESSAGES_SHOW_ALL = MESSAGES_SHOW + "/all";
+    public static final String MESSAGES_GET_AS_JSON = APPLICATION_ROOT + "/json/all";
 
+    public static final String MESSAGES_SHOW_ALL = MESSAGES_SHOW + "/all";
     public static final String CUSTOMERS_ROOT = APPLICATION_ROOT + "/customers";
     public static final String CUSTOMERS_SHOW_ALL = CUSTOMERS_ROOT + "/show";
     public static final String CUSTOMERS_SEARCH = CUSTOMERS_ROOT + "/search";
-    public static final String CUSTOMERS_JSON_GET_ALL = CUSTOMERS_ROOT + "/json/all";
 
+    public static final String CUSTOMERS_JSON_GET_ALL = CUSTOMERS_ROOT + "/json/all";
     public static final String POPULATE_TABLES = APPLICATION_ROOT + "/populate-tables";
     public static final String MAIN_TEMPLATE = APPLICATION_ROOT + "/main-template";
-    public static final String MESSAGES_GET_AS_JSON = APPLICATION_ROOT + "/json/all";
-
     public static final String EXPORT_RESERVATIONS = APPLICATION_ROOT + "/export/reservations/csv";
 
     public static MappingMap getMap() {

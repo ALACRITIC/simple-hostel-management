@@ -169,7 +169,7 @@
                     <th>Name</th>
                     <th>Type</th>
                     <th>Comment</th>
-                    <th></th>
+                    <th style="width: 5%">&nbsp;</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -178,8 +178,13 @@
                     <td th:text="${resource.getName()}" style="width: 15%">A2</td>
                     <td th:text="${resource.getType().getReadableName()}" style="width: 15%">ROOM</td>
                     <td th:text="${resource.getComment()}">Comment</td>
-                    <td><a th:href="${mappings.get('RESERVATIONS_BY_RESOURCE') + '?id=' + resource.getId()}"
+                    <td>
+                        <a th:href="${mappings.get('RESERVATIONS_BY_RESOURCE') + '?id=' + resource.getId()}"
                            data-toggle="tooltip" data-placement="left" title="Show reservations ..."
+                           class="glyphicon glyphicon-search"></a>
+                        &nbsp;&nbsp;
+                        <a th:href="${mappings.get('RESERVATIONS_BY_RESOURCE') + '?id=' + resource.getId()}"
+                           data-toggle="tooltip" title="Edit ..."
                            class="glyphicon glyphicon-chevron-right"></a></td>
                 </tr>
 
@@ -214,32 +219,45 @@
         </div>
     </div>
 
-    <!-- Errors -->
+    <!-- Information block -->
 
-    <div class="row errorMessageBlock" th:fragment="error-block">
+    <div class="row">
         <div class="col-md-12">
 
-            <div class="alert alert-warning">
+            <div class="errorMessageBlock alert alert-warning" th:fragment="error-block">
 
                 <h4>
                     <span class="glyphicon glyphicon-exclamation-sign"></span>
+                    &nbsp;&nbsp;
                     <span th:text="${errorMessage}">Error message</span>
                 </h4>
 
-                <p><b>What can you do ?</b></p>
+                <p style="margin-top: 2em"><b>What can you do ?</b></p>
 
-                <p>If you are using a form, verify that the values are consistent. If nothing goes better,
-                    try returning to the <a th:href="${mappings.get('APPLICATION_ROOT')}">dashboard</a>
-                    and repeating the form.
-                </p>
+                <p>If you are using a form, verify that the values are consistent, an try to resend it.</p>
 
-                <p>If this error persists, report it to the developer of this software:
+                <p> If nothing goes better, try returning to the <a th:href="${mappings.get('APPLICATION_ROOT')}">dashboard</a>
+                    and repeating your operation. If this error persists, report it to the developer of this software:
                     <a href="https://github.com/remipassmoilesel" target="_blank">@Remipassmoilesel</a></p>
+
+            </div>
+
+
+            <div class="informationMessageBlock alert alert-info" th:fragment="information-block">
+
+                <h4>
+                    <span class="glyphicon glyphicon-send"></span>
+                    &nbsp;&nbsp;
+                    <span th:text="${informationMessage}">Information message</span>
+                </h4>
+
+                <p>It's so good when it works !</p>
 
             </div>
 
         </div>
     </div>
+
 
     <!-- Customers -->
 

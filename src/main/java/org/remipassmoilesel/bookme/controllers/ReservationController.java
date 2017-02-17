@@ -316,7 +316,7 @@ public class ReservationController {
         model.addAttribute("errorMessage", errorMessage);
 
         Mappings.includeMappings(model);
-        return Templates.RESERVATIONS_SAVED;
+        return Templates.RESERVATIONS_DELETED;
     }
 
     @RequestMapping(value = Mappings.RESERVATION_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

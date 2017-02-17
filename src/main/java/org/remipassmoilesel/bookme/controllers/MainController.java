@@ -116,7 +116,9 @@ public class MainController {
         model.addAttribute("customersList", customersList);
         model.addAttribute("resourcesList", resourcesList);
         model.addAttribute("message", messagesList.get(0));
+        model.addAttribute("resource", resourcesList.get(0));
         model.addAttribute("errorMessage", "Invalid date: 11/11/2555");
+        model.addAttribute("informationMessage", "Operation success !");
 
         Mappings.includeMappings(model);
 

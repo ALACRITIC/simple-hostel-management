@@ -18,20 +18,16 @@
 
             <h1>Reservation saved</h1>
 
-            <!-- Error happen saved -->
+            <!-- Error happen -->
 
             <div th:if="${not #strings.isEmpty(errorMessage)}">
                 <div th:replace="main-template :: error-block (errorMessage=${errorMessage})"></div>
             </div>
 
-            <!-- Reservation saved -->
+            <!-- No errors -->
 
             <div th:if="${#strings.isEmpty(errorMessage)}">
-                <div th:replace="main-template :: information-block (informationMessage=${'Reservation saved'})"></div>
-            </div>
-
-            <div th:if="${#strings.isEmpty(errorMessage)}">
-                <div th:replace="main-template :: reservation-simple (reservation=${reservation})"></div>
+                <div th:replace="main-template :: information-block (informationMessage=${'Reservation deleted'})"></div>
             </div>
 
         </div>

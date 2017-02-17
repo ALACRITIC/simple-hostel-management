@@ -55,9 +55,6 @@ a.fc-day-number {
 .errorMessageBlock {
     margin-top: 1.5em;
     margin-bottom: 1.5em;
-}
-
-.errorMessageBlock .alert-warning {
     background: #f2dede;
     color: #a94442;
 }
@@ -66,7 +63,27 @@ a.fc-day-number {
     margin: 0.7em;
 }
 
+.errorMessageBlock a {
+    color: #a94442;
+    font-weight: bold;
+}
+
 .errorMessageBlock h4 {
+    margin: 0.4em;
+}
+
+.informationMessageBlock {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    background: #d9edf7;
+    color: #31708f;
+}
+
+.informationMessageBlock p {
+    margin: 0.7em;
+}
+
+.informationMessageBlock h4 {
     margin: 0.4em;
 }
 

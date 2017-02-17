@@ -2,6 +2,7 @@ target/*
 database/*
 database-test
 tmp
+
 .idea
 tomcat-logs
 *.iml
