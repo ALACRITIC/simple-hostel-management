@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -56,6 +57,24 @@ public class CustomerService extends AbstractDaoService<Customer> {
         } catch (Exception e) {
             throw new IOException(e);
         }
+    }
+
+    public Customer getByPhonenumber(String phonenumber) throws IOException {
+
+        try {
+            QueryBuilder queryBuilder = dao.queryBuilder();
+            queryBuilder.where().eq(Customer.PHONENUMBER_FIELD_NAME, phonenumber);
+
+            List<Customer> result = queryBuilder.query();
+            if (result.size() < 1) {
+                return null;
+            } else {
+                return result.get(0);
+            }
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+
     }
 
     public List<Customer> search(String firstname, String lastname, long limit, long offset) throws IOException {

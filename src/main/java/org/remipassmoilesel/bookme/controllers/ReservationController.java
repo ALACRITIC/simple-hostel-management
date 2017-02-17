@@ -4,8 +4,8 @@ import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
-import org.remipassmoilesel.bookme.reservations.ReservationForm;
 import org.remipassmoilesel.bookme.reservations.Reservation;
+import org.remipassmoilesel.bookme.reservations.ReservationForm;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
 import org.remipassmoilesel.bookme.sharedresources.SharedResource;
 import org.remipassmoilesel.bookme.sharedresources.SharedResourceService;
@@ -223,14 +223,33 @@ public class ReservationController {
 
             // add reservation if it is a new one
             if (reservationForm.getReservationId() == -1) {
+
                 try {
 
+                    Customer customer = customerService.getByPhonenumber(reservationForm.getCustomerPhonenumber());
+
+                    // customer does not exit, create it
+                    if (customer == null) {
+                        customer = new Customer();
+                        customer.setFirstname(reservationForm.getCustomerFirstname());
+                        customer.setLastname(reservationForm.getCustomerLastname());
+                        customer.setPhonenumber(reservationForm.getCustomerPhonenumber());
+                        customerService.create(customer);
+                    }
+
+                    // customer exist, update customer information
+                    else {
+                        customer.setFirstname(reservationForm.getCustomerFirstname());
+                        customer.setLastname(reservationForm.getCustomerLastname());
+                        customer.setPhonenumber(reservationForm.getCustomerPhonenumber());
+                        customerService.update(customer);
+                    }
+
+                    // get resource
                     int pl = reservationForm.getPlaces();
                     SharedResource res = sharedResourceService.getById(reservationForm.getSharedResourceId());
-                    Customer customer = customerService.create(
-                            reservationForm.getCustomerFirstname(),
-                            reservationForm.getCustomerLastname(),
-                            reservationForm.getCustomerPhonenumber());
+
+                    // create reservation
                     reservation = reservationService.create(customer, res, pl, beginDate, endDate);
 
                 } catch (Exception e) {
