@@ -65,6 +65,19 @@ var UrlTree = {
         UrlTree._checkIfDefined(UrlTree.deleteResourceUrl, "deleteResourceUrl");
         return UrlTree.deleteResourceUrl;
     },
+    
+    ///////////////////////////////
+
+    customersJsonFeedUrl: null,
+
+    setCustomersJsonFeedUrl: function (url) {
+        UrlTree.customersJsonFeedUrl = url;
+    },
+
+    getCustomersJsonFeedUrl: function () {
+        UrlTree._checkIfDefined(UrlTree.customersJsonFeedUrl, "customersJsonFeedUrl");
+        return UrlTree.customersJsonFeedUrl;
+    },
 
     ///////////////////////////////
 

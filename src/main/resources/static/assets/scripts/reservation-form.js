@@ -1,4 +1,3 @@
-
 $(function () {
     ReservationForm.init();
 });
@@ -14,11 +13,12 @@ var ReservationForm = {
         var beginDate = $("#reservationBeginDate");
         var endDate = $("#reservationEndDate");
         var placesTxt = $("#reservationPlaces");
+        var phoneNumberTxt = $("#reservationCustomerPhonenumber");
         var deleteButton = $("#reservationDeleteButton");
 
         var reservationId = $("#reservationId").val();
         var token = $("#reservationToken").val();
-        
+
         // transform fields in date picker
         beginDate.datepicker({
             dateFormat: "dd/mm/yy",
@@ -42,13 +42,52 @@ var ReservationForm = {
             self.checkAvailability();
         });
 
-        deleteButton.click(function(){
+        phoneNumberTxt.on('input', function () {
+            self.checkPhoneNumber();
+        });
+
+        deleteButton.click(function () {
             ReservationUtils.showDeleteReservationDialog(reservationId, token);
         });
 
         // first check
         self.checkAvailability();
 
+    },
+
+    checkPhoneNumber: function () {
+
+        var phoneNumberTxt = $("#reservationCustomerPhonenumber");
+        var warnZone = $("#reservationCustomerPhonenumberWarning");
+
+        warnZone.empty();
+
+        var pnumber = phoneNumberTxt.val();
+        if (!pnumber) {
+            console.error("Invalid phone number");
+            return;
+        }
+
+        $.ajax({
+            url: UrlTree.getCustomersJsonFeedUrl(),
+            data: {
+                phonenumber: pnumber
+            }
+        })
+            .done(function (response) {
+                if (response) {
+                    var first = response.firstname;
+                    var last = response.lastname;
+                    var text = "Somebody already have this phone number: <b>" + first + " " + last + "</b>&nbsp;";
+                    text += "If you validate form, customer entry will be updated with new values.";
+                    warnZone.html(text);
+                }
+            })
+
+            .fail(function (error) {
+                console.error(error);
+                warnZone.html("Unable to check if phone number already exist");
+            });
     },
 
     /**
@@ -77,7 +116,7 @@ var ReservationForm = {
 
         var beginDate = $("#reservationBeginDate");
         var endDate = $("#reservationEndDate");
-        
+
         var bd = moment(beginDate.val(), "DD/MM/YYYY");
         var ed = moment(endDate.val(), "DD/MM/YYYY");
 
@@ -105,7 +144,7 @@ var ReservationForm = {
         var checkout = endDate.val();
         var places = placesTxt.val();
 
-        if(!checkin || !checkout || !places){
+        if (!checkin || !checkout || !places) {
             console.error("Invalid reservation form: " + checkin + " / " + checkout + " / " + places);
             return;
         }

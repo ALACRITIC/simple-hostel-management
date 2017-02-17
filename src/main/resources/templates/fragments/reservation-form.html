@@ -46,11 +46,13 @@
         <!-- Phone number -->
         <tr>
             <td colspan="2">
-                <input type="text" class="form-control" placeholder="Phone number" th:field="*{customerPhonenumber}"/>
+                <input type="text" id="reservationCustomerPhonenumber" class="form-control" placeholder="Phone number"
+                       th:field="*{customerPhonenumber}"/>
                 <div th:if="${#fields.hasErrors('customerPhonenumber')}" th:errors="*{customerPhonenumber}"
                      class="formError">
                     Phone number error
                 </div>
+                <div class="formInformation" id="reservationCustomerPhonenumberWarning"></div>
             </td>
         </tr>
 

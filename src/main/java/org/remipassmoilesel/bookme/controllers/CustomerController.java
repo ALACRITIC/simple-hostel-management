@@ -72,6 +72,16 @@ public class CustomerController {
         return customers;
     }
 
+    @RequestMapping(value = Mappings.CUSTOMERS_JSON_BY_PHONENUMBER, method = RequestMethod.GET)
+    @ResponseBody
+    public Customer getJsonByPhonenumber(
+            @RequestParam(value = "phonenumber", required = true) String phonenumber)
+            throws Exception {
+
+        return customerService.getByPhonenumber(phonenumber);
+
+    }
+
 
     /**
      * Show reservation form
