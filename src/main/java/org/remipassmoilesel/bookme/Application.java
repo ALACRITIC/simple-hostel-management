@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,8 +54,30 @@ public class Application {
         });
 
         // run server
-        mainApp.run(args);
+        try {
+            mainApp.run(args);
+        } catch (Throwable e) {
+            logger.error("Error while launching application: ", e);
 
+            // if not headless, show a dialog
+            if (GraphicsEnvironment.isHeadless() == false) {
+
+                String message = "<html><p>Unable to launch application: ";
+                if (e.getMessage() != null && e.getMessage().length() > 50) {
+                    message += e.getMessage().substring(0, 50) + " ...";
+                } else {
+                    message += e.getMessage();
+                }
+
+                message += "</p>";
+                message += "<p>Try restarting the program. If this error persists, try restarting your computer and restart the program.</p></html>";
+
+                JOptionPane.showMessageDialog(null,
+                        message,
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     private static void showMainPage() {
