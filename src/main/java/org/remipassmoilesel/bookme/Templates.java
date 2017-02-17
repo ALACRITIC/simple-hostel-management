@@ -21,10 +21,11 @@ public class Templates {
     public static final String RESERVATIONS_SAVED = RESERVATIONS_DIR + "reservations-saved";
     public static final String RESERVATIONS_DELETED = RESERVATIONS_DIR + "reservations-deleted";
 
-    public static final String ROOMS_DIR = PAGES_DIR + "rooms/";
-    public static final String ROOMS_COMPLETED = ROOMS_DIR + "rooms-completed";
-    public static final String ROOMS_FORM = ROOMS_DIR + "rooms-form";
-    public static final String ROOMS_SHOW = ROOMS_DIR + "rooms-show-all";
+    public static final String RESOURCES_DIR = PAGES_DIR + "resources/";
+    public static final String RESOURCES_FORM = RESOURCES_DIR + "resources-form";
+    public static final String RESOURCES_SAVED = RESOURCES_DIR + "resources-saved";
+    public static final String RESOURCES_SHOW = RESOURCES_DIR + "resources-show-all";
+    public static final String RESOURCES_DELETED = RESOURCES_DIR + "resources-deleted";
 
     public static final String MESSAGES_DIR = PAGES_DIR + "messages/";
     public static final String MESSAGES_SHOW_ALL = MESSAGES_DIR + "messages-show-all";
@@ -34,6 +35,5 @@ public class Templates {
 
     public static final String CUSTOMER_DIR = PAGES_DIR + "customers/";
     public static final String CUSTOMER_SHOW = CUSTOMER_DIR + "customers-show-all";
-
 
 }

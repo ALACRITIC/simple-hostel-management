@@ -51,7 +51,7 @@ public class ReservationController {
      * @param model
      * @return
      */
-    @RequestMapping(value = Mappings.RESERVATION_LASTS, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.RESERVATIONS_LASTS, method = RequestMethod.GET)
     public String showLastsReservation(Model model) {
 
         try {
@@ -94,7 +94,7 @@ public class ReservationController {
      * @param model
      * @return
      */
-    @RequestMapping(value = Mappings.RESERVATION_NEXT_CHECKOUTS, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.RESERVATIONS_NEXT_CHECKOUTS, method = RequestMethod.GET)
     public String showNextCheckouts(Model model) {
 
         try {
@@ -110,7 +110,7 @@ public class ReservationController {
         return Templates.RESERVATIONS_NEXT_CHECKOUTS;
     }
 
-    @RequestMapping(value = Mappings.RESERVATION_CALENDAR, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.RESERVATIONS_CALENDAR, method = RequestMethod.GET)
     public String showCalendar(Model model) {
 
         //model.addAttribute("name", name);
@@ -129,7 +129,7 @@ public class ReservationController {
      * @param model
      * @return
      */
-    @GetMapping(Mappings.RESERVATION_FORM)
+    @GetMapping(Mappings.RESERVATIONS_FORM)
     public String showForm(
             @RequestParam(value = "id", required = false, defaultValue = "-1") Long reservationId,
             HttpServletRequest request,
@@ -156,7 +156,7 @@ public class ReservationController {
         return Templates.RESERVATIONS_FORM;
     }
 
-    @PostMapping(Mappings.RESERVATION_FORM)
+    @PostMapping(Mappings.RESERVATIONS_FORM)
     public String submitReservation(
             @Valid CreateReservationForm reservationForm,
             BindingResult reservationResults,
@@ -187,7 +187,7 @@ public class ReservationController {
             // token is invalid
             if (tokenman.isTokenValid(session, reservationForm.getToken()) == false) {
                 logger.error("Invalid token: " + reservationForm.getToken());
-                throw new IllegalStateException("Invalid form, please try again later.");
+                throw new IllegalStateException("Invalid form, please update form and try again");
             }
 
             // always delete token before leave
@@ -286,7 +286,7 @@ public class ReservationController {
      * @param model
      * @return
      */
-    @GetMapping(Mappings.RESERVATION_DELETE)
+    @GetMapping(Mappings.RESERVATIONS_DELETE)
     public String deleteReservation(
             @RequestParam(value = "id", required = true) Long reservationId,
             @RequestParam(value = "token", required = true) String token,
@@ -300,7 +300,7 @@ public class ReservationController {
 
         // token is invalid
         if (tokenman.isTokenValid(session, Long.valueOf(token)) == false) {
-            errorMessage = "Invalid session";
+            errorMessage = "Invalid form. Please reload form and try again.";
         }
 
         // token is valid
@@ -319,7 +319,7 @@ public class ReservationController {
         return Templates.RESERVATIONS_DELETED;
     }
 
-    @RequestMapping(value = Mappings.RESERVATION_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = Mappings.RESERVATIONS_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<Reservation> getReservations(
             @RequestParam(value = "start", required = true) String startDateStr,
@@ -337,13 +337,13 @@ public class ReservationController {
 
     }
 
-    @RequestMapping(value = Mappings.RESERVATION_JSON_GET_ALL, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = Mappings.RESERVATIONS_JSON_GET_ALL, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<Reservation> getAllReservations() throws Exception {
         return reservationService.getAll();
     }
 
-    @RequestMapping(value = Mappings.RESERVATION_ROOMS_AVAILABLE_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = Mappings.RESERVATIONS_RESOURCES_AVAILABLE_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<SharedResource> getAvailableRooms(
             @RequestParam(value = "start", required = true) String startDateStr,

@@ -27,23 +27,26 @@ public class Mappings {
     public static final String LOGOUT_URL = APPLICATION_ROOT + "/logout";
     public static final String LOGOUT_SUCCESS_URL = APPLICATION_ROOT + "/login?logout";
 
-    public static final String RESERVATION_ROOT = APPLICATION_ROOT + "/reservation";
-    public static final String RESERVATION_LASTS = RESERVATION_ROOT + "/lasts";
-    public static final String RESERVATIONS_BY_RESOURCE = RESERVATION_ROOT + "/byresource";
-    public static final String RESERVATION_NEXT_CHECKOUTS = RESERVATION_ROOT + "/nextcheckouts";
-    public static final String RESERVATION_CALENDAR = RESERVATION_ROOT + "/calendar";
-    public static final String RESERVATION_FORM = RESERVATION_ROOT + "/form";
-    public static final String RESERVATION_DELETE = RESERVATION_ROOT + "/delete";
-    public static final String RESERVATION_JSON = RESERVATION_ROOT + "/json";
-    public static final String RESERVATION_JSON_GET = RESERVATION_JSON + "/get";
-    public static final String RESERVATION_JSON_GET_ALL = RESERVATION_JSON + "/all";
-    public static final String RESERVATION_ROOMS_AVAILABLE_JSON_GET = RESERVATION_JSON + "/availablerooms";
+    public static final String RESERVATIONS_ROOT = APPLICATION_ROOT + "/reservation";
+    public static final String RESERVATIONS_LASTS = RESERVATIONS_ROOT + "/lasts";
+    public static final String RESERVATIONS_BY_RESOURCE = RESERVATIONS_ROOT + "/byresource";
+    public static final String RESERVATIONS_NEXT_CHECKOUTS = RESERVATIONS_ROOT + "/nextcheckouts";
+    public static final String RESERVATIONS_CALENDAR = RESERVATIONS_ROOT + "/calendar";
+    public static final String RESERVATIONS_FORM = RESERVATIONS_ROOT + "/form";
+    public static final String RESERVATIONS_DELETE = RESERVATIONS_ROOT + "/delete";
+    public static final String RESERVATIONS_JSON = RESERVATIONS_ROOT + "/json";
+    public static final String RESERVATIONS_JSON_GET = RESERVATIONS_JSON + "/get";
+    public static final String RESERVATIONS_JSON_GET_ALL = RESERVATIONS_JSON + "/all";
+    public static final String RESERVATIONS_RESOURCES_AVAILABLE_JSON_GET = RESERVATIONS_JSON + "/availableresources";
 
     public static final String ROOMS_ROOT = APPLICATION_ROOT + "/room";
-    public static final String ROOMS_SHOW_ALL = ROOMS_ROOT + "/show/all";
-    public static final String ROOMS_FORM = ROOMS_ROOT + "/form";
+    public static final String RESOURCES_SHOW_ALL = ROOMS_ROOT + "/show/all";
     public static final String ROOMS_JSON = ROOMS_ROOT + "/json";
     public static final String ROOMS_JSON_GET = ROOMS_JSON + "/all";
+
+    public static final String RESOURCES_ROOT = APPLICATION_ROOT + "/resources";
+    public static final String RESOURCES_FORM = RESOURCES_ROOT + "/form";
+    public static final String RESOURCES_DELETE = RESOURCES_ROOT + "/delete";
 
     public static final String MESSAGES_ROOT = APPLICATION_ROOT + "/messages";
     public static final String MESSAGES_FORM = MESSAGES_ROOT + "/form";

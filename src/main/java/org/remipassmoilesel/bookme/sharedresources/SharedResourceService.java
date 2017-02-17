@@ -19,11 +19,24 @@ public class SharedResourceService extends AbstractDaoService<SharedResource> {
 
     private static final Logger logger = LoggerFactory.getLogger(SharedResourceService.class);
 
-    public SharedResourceService(CustomConfiguration configuration) {
+    public SharedResourceService(CustomConfiguration configuration) throws SQLException {
         super(SharedResource.class, configuration);
+
+        // create resources if resource table is empty
+        if (dao.queryForAll().size() < 1) {
+
+            for (int i = 0; i < 3; i++) {
+                dao.create(new SharedResource("Room " + i, 2, "", Type.ROOM));
+            }
+
+            for (int i = 0; i < 3; i++) {
+                dao.create(new SharedResource("Bed " + i, 1, "", Type.BED));
+            }
+
+        }
     }
 
-    public SharedResource createRoom(String roomName, int places, String roomComment, Type type) throws IOException {
+    public SharedResource createResource(String roomName, int places, String roomComment, Type type) throws IOException {
         return create(new SharedResource(roomName, places, roomComment, type));
     }
 
@@ -106,4 +119,6 @@ public class SharedResourceService extends AbstractDaoService<SharedResource> {
             throw new IOException(e);
         }
     }
+
+
 }

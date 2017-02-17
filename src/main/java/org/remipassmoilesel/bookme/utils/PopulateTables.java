@@ -104,7 +104,7 @@ public class PopulateTables {
         ArrayList<SharedResource> rooms = new ArrayList<>();
         int totalRooms = 10;
         for (int i = 0; i < totalRooms; i++) {
-            rooms.add(sharedResourceService.createRoom("A" + i, 2, "", Type.ROOM));
+            rooms.add(sharedResourceService.createResource("A" + i, 2, "", Type.ROOM));
         }
 
         return rooms;

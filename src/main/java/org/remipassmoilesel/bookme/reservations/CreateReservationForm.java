@@ -65,6 +65,10 @@ public class CreateReservationForm {
      */
     public void load(Reservation res) {
 
+        if(res == null){
+            return;
+        }
+
         if (res.getCustomer() != null) {
             setCustomerFirstname(res.getCustomer().getFirstname());
             setCustomerLastname(res.getCustomer().getLastname());

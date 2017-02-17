@@ -39,8 +39,8 @@ public class SystemTrayComponent {
         trayItems = new ArrayList<>();
 
         trayItems.add(new TrayItem("Dashboard", Mappings.APPLICATION_ROOT));
-        trayItems.add(new TrayItem("Calendar", Mappings.RESERVATION_CALENDAR));
-        trayItems.add(new TrayItem("Add a reservation", Mappings.RESERVATION_FORM));
+        trayItems.add(new TrayItem("Calendar", Mappings.RESERVATIONS_CALENDAR));
+        trayItems.add(new TrayItem("Add a reservation", Mappings.RESERVATIONS_FORM));
         trayItems.add(new TrayItem("Add a message", Mappings.MESSAGES_FORM));
 
         try {
