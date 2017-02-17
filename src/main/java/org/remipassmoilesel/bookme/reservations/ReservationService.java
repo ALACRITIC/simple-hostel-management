@@ -230,6 +230,23 @@ public class ReservationService extends AbstractDaoService<Reservation> {
         }
     }
 
+    public List<Reservation> getByCustomerId(Long customerId, long limit, long offset) throws IOException {
+        try {
+            QueryBuilder queryBuilder = dao.queryBuilder();
+            queryBuilder.where().eq(Reservation.CUSTOMER_FIELD_NAME, customerId);
+            queryBuilder.orderBy(Reservation.DATEBEGIN_FIELD_NAME, true);
+            queryBuilder.limit(limit);
+            queryBuilder.offset(offset);
+
+            List results = queryBuilder.query();
+            refresh(results);
+
+            return results;
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+
     public void refresh(Reservation res) throws IOException {
         super.refresh(res);
         customerService.refresh(res.getCustomer());
@@ -249,5 +266,6 @@ public class ReservationService extends AbstractDaoService<Reservation> {
         refresh(result);
         return result;
     }
+
 
 }
