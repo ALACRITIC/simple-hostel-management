@@ -78,9 +78,16 @@ var ReservationForm = {
                 if (response) {
                     var first = response.firstname;
                     var last = response.lastname;
-                    var text = "Somebody already have this phone number: <b>" + first + " " + last + "</b>&nbsp;";
-                    text += "If you validate form, customer entry will be updated with new values.";
+                    var text = "Somebody already have this phone number: <b>" + first + " " + last + "</b>.&nbsp;";
+                    text += "If you validate form, customer entry will be updated with new values.&nbsp;";
                     warnZone.html(text);
+
+                    var fillLink = $("<a style='cursor: pointer'>Fill fields with existing values.</a>");
+                    fillLink.click(function () {
+                        $("#customerFirstname").val(first);
+                        $("#customerLastname").val(last);
+                    });
+                    warnZone.append(fillLink);
                 }
             })
 
