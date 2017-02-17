@@ -43,26 +43,7 @@ var ReservationForm = {
         });
 
         deleteButton.click(function(){
-            
-            $("<div>You will delete this reservation. Are you sure ?</div>").dialog({
-                resizable: false,
-                height: "auto",
-                width: 400,
-                modal: true,
-                buttons: {
-                    "Cancel": function() {
-                        $( this ).dialog( "close" );
-                    },
-                    "Delete": function() {
-
-                        ReservationUtils.deleteReservation(reservationId, token);
-                        
-                        $(this).dialog( "close" );
-                        
-                    }
-                }
-            });
-            
+            ReservationUtils.showDeleteReservationDialog(reservationId, token);
         });
 
         // first check

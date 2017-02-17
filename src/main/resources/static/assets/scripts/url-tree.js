@@ -4,11 +4,11 @@ var UrlTree = {
 
     roomAvailablesFeedUrl: null,
 
-    setRoomsAvailableFeedUrl: function (url) {
+    setResourcesAvailableFeedUrl: function (url) {
         UrlTree.roomAvailablesFeedUrl = url;
     },
 
-    getRoomsAvailableFeedUrl: function () {
+    getResourcesAvailableFeedUrl: function () {
         UrlTree._checkIfDefined(UrlTree.roomAvailablesFeedUrl, "roomAvailablesFeedUrl");
         return UrlTree.roomAvailablesFeedUrl;
     },
@@ -51,6 +51,19 @@ var UrlTree = {
     getDeleteReservationUrl: function () {
         UrlTree._checkIfDefined(UrlTree.deleteReservationUrl, "deleteReservationUrl");
         return UrlTree.deleteReservationUrl;
+    },
+
+    ///////////////////////////////
+
+    deleteResourceUrl: null,
+
+    setDeleteResourceUrl: function (url) {
+        UrlTree.deleteResourceUrl = url;
+    },
+
+    getDeleteResourceUrl: function () {
+        UrlTree._checkIfDefined(UrlTree.deleteResourceUrl, "deleteResourceUrl");
+        return UrlTree.deleteResourceUrl;
     },
 
     ///////////////////////////////
