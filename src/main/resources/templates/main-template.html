@@ -459,7 +459,8 @@
                 <div class="card-block">
                     <h4 class="card-title" th:text="${#dates.format(message.getDate(), 'dd/MM/yyyy')}">Small message /
                         Date / Writer</h4>
-                    <p class="card-text" th:text="${#strings.substring(message.getMessage(), 0, 200) + '...'}">
+                    <p class="card-text"
+                       th:text="${message.getMessage().length() > 200} ? ${#strings.substring(message.getMessage(), 0, 200) + '...'} : ${message.getMessage()}">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum
                         mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis
                         dolor....

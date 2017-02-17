@@ -70,7 +70,8 @@ public class Application {
                 }
 
                 message += "</p>";
-                message += "<p>Try restarting the program. If this error persists, try restarting your computer and restart the program.</p></html>";
+                message += "<p>First of all, check if software is not already launched (you will see an icon in your task bar)</p>";
+                message += "<p>Then try restarting the program. If this error persists, try restarting your computer and restart the program.</p></html>";
 
                 JOptionPane.showMessageDialog(null,
                         message,
