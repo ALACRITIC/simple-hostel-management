@@ -18,8 +18,6 @@ public class Templates {
     public static final String RESERVATIONS_LAST = RESERVATIONS_DIR + "reservations-show-lasts";
     public static final String RESERVATIONS_NEXT_CHECKOUTS = RESERVATIONS_DIR + "reservations-next-checkouts";
     public static final String RESERVATIONS_BY_RESOURCE = RESERVATIONS_DIR + "reservations-by-resource";
-    public static final String RESERVATIONS_SAVED = RESERVATIONS_DIR + "reservations-saved";
-    public static final String RESERVATIONS_DELETED = RESERVATIONS_DIR + "reservations-deleted";
 
     public static final String RESOURCES_DIR = PAGES_DIR + "resources/";
     public static final String RESOURCES_FORM = RESOURCES_DIR + "resources-form";

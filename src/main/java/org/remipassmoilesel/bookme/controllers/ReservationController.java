@@ -145,7 +145,6 @@ public class ReservationController {
         TokenManager tokenman = new TokenManager(TOKEN_NAME);
         tokenman.addToken(model);
 
-        model.addAttribute("errorMessage", "");
         model.addAttribute("sharedResources", new ArrayList<>());
 
         // add it to session for check
@@ -167,8 +166,6 @@ public class ReservationController {
 
             //System.out.println(reservationResults.getAllErrors());
             model.addAttribute("token", reservationForm.getToken());
-            model.addAttribute("errorMessage", "");
-
             model.addAttribute("sharedResources", new ArrayList<>());
 
             Mappings.includeMappings(model);
@@ -273,11 +270,12 @@ public class ReservationController {
             errorMessage = e.getMessage();
         }
 
+        model.addAttribute("formstate", "completed");
         model.addAttribute("reservation", reservation);
         model.addAttribute("errorMessage", errorMessage);
 
         Mappings.includeMappings(model);
-        return Templates.RESERVATIONS_SAVED;
+        return Templates.RESERVATIONS_FORM;
     }
 
     /**
@@ -314,9 +312,10 @@ public class ReservationController {
         }
 
         model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute("formstate", "deleted");
 
         Mappings.includeMappings(model);
-        return Templates.RESERVATIONS_DELETED;
+        return Templates.RESERVATIONS_FORM;
     }
 
     @RequestMapping(value = Mappings.RESERVATIONS_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
