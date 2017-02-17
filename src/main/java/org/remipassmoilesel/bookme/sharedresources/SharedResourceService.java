@@ -25,11 +25,11 @@ public class SharedResourceService extends AbstractDaoService<SharedResource> {
         // create resources if resource table is empty
         if (dao.queryForAll().size() < 1) {
 
-            for (int i = 0; i < 3; i++) {
+            for (int i = 1; i < 4; i++) {
                 dao.create(new SharedResource("Room " + i, 2, "", Type.ROOM));
             }
 
-            for (int i = 0; i < 3; i++) {
+            for (int i = 1; i < 4; i++) {
                 dao.create(new SharedResource("Bed " + i, 1, "", Type.BED));
             }
 
