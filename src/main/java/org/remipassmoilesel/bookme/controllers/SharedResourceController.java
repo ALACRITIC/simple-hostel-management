@@ -164,11 +164,12 @@ public class SharedResourceController {
             errorMessage = e.getMessage();
         }
 
+        model.addAttribute("formstate", "completed");
         model.addAttribute("resource", resource);
         model.addAttribute("errorMessage", errorMessage);
 
         Mappings.includeMappings(model);
-        return Templates.RESOURCES_SAVED;
+        return Templates.RESOURCES_FORM;
     }
 
     /**
@@ -205,9 +206,10 @@ public class SharedResourceController {
         }
 
         model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute("formstate", "deleted");
 
         Mappings.includeMappings(model);
-        return Templates.RESOURCES_DELETED;
+        return Templates.RESOURCES_FORM;
     }
 
 }

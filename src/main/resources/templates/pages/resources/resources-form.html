@@ -16,21 +16,70 @@
 
 <div class="container">
 
-    <div class="row">
+    <!-- Resource form -->
 
-        <div class="col-md-12">
+    <div class="row">
+        <div class="col-md-12" th:if="${#strings.isEmpty(formstate)}">
 
             <h1>Resource form</h1>
 
             <div th:replace="fragments/resource-form :: resource-form"></div>
 
         </div>
+    </div>
 
+    <!-- Resource saved -->
+
+    <div class="row">
+        <div class="col-md-12" th:if="${formstate?.equals('completed')}">
+
+            <h1>Resource</h1>
+
+            <!-- Error happen when saved -->
+
+            <div th:if="${not #strings.isEmpty(errorMessage)}">
+                <div th:replace="main-template :: error-block (errorMessage=${errorMessage})"></div>
+            </div>
+
+            <!-- Resource saved -->
+
+            <div th:if="${#strings.isEmpty(errorMessage)}">
+                <div th:replace="main-template :: information-block (informationMessage=${'Resource saved'})"></div>
+            </div>
+
+            <div th:if="${#strings.isEmpty(errorMessage)}">
+                <div th:replace="main-template :: resource-simple (resource=${resource})"></div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Resource deleted -->
+
+    <div class="row" th:if="${formstate?.equals('deleted')}">
+        <div class="col-md-12">
+
+            <h1>Resource</h1>
+
+            <!-- Error happen -->
+
+            <div th:if="${not #strings.isEmpty(errorMessage)}">
+                <div th:replace="main-template :: error-block (errorMessage=${errorMessage})"></div>
+            </div>
+
+            <!-- No errors -->
+
+            <div th:if="${#strings.isEmpty(errorMessage)}">
+                <div th:replace="main-template :: information-block (informationMessage=${'Resource deleted'})"></div>
+            </div>
+
+        </div>
     </div>
 
     <!-- Footer -->
     <div th:replace="main-template :: footer"></div>
-    
+
 </div>
 
 </body>

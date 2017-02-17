@@ -21,9 +21,7 @@ public class Templates {
 
     public static final String RESOURCES_DIR = PAGES_DIR + "resources/";
     public static final String RESOURCES_FORM = RESOURCES_DIR + "resources-form";
-    public static final String RESOURCES_SAVED = RESOURCES_DIR + "resources-saved";
     public static final String RESOURCES_SHOW = RESOURCES_DIR + "resources-show-all";
-    public static final String RESOURCES_DELETED = RESOURCES_DIR + "resources-deleted";
 
     public static final String MESSAGES_DIR = PAGES_DIR + "messages/";
     public static final String MESSAGES_SHOW_ALL = MESSAGES_DIR + "messages-show-all";

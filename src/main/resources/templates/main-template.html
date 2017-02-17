@@ -202,17 +202,17 @@
 
                 <tr>
                     <td style="width: 20%">Name:</td>
-                    <td th:text="${resource.getName()}">05/01/2016</td>
+                    <td th:text="${resource?.getName()}">05/01/2016</td>
                 </tr>
 
                 <tr>
                     <td>Type:</td>
-                    <td th:text="${resource.getType().getReadableName()}" style="width: 5em">Room</td>
+                    <td th:text="${resource?.getType().getReadableName()}" style="width: 5em">Room</td>
                 </tr>
 
                 <tr>
                     <td>Comment:</td>
-                    <td th:text="${resource.getComment()}">Comment</td>
+                    <td th:text="${resource?.getComment()}">Comment</td>
                 </tr>
 
             </table>
