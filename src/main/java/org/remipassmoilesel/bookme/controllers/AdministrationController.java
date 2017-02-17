@@ -1,10 +1,13 @@
-package org.remipassmoilesel.bookme.export;
+package org.remipassmoilesel.bookme.controllers;
 
 import org.apache.commons.io.IOUtils;
 import org.remipassmoilesel.bookme.Mappings;
+import org.remipassmoilesel.bookme.Templates;
+import org.remipassmoilesel.bookme.export.ExportService;
 import org.remipassmoilesel.bookme.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,15 +20,22 @@ import java.nio.file.Files;
 import java.util.Date;
 
 /**
- * Created by remipassmoilesel on 16/02/17.
+ * Created by remipassmoilesel on 17/02/17.
  */
 @Controller
-public class ExportController {
+public class AdministrationController {
 
     @Autowired
     private ExportService exportService;
 
-    @RequestMapping(value = Mappings.EXPORT_RESERVATIONS, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.ADMINISTRATION_ROOT, method = RequestMethod.GET)
+    public String searchCustomer(Model model) throws Exception {
+
+        Mappings.includeMappings(model);
+        return Templates.ADMINISTRATION;
+    }
+
+    @RequestMapping(value = Mappings.ADMINISTRATION_EXPORT_RESERVATIONS_CSV, method = RequestMethod.GET)
     public void exportReservations(
             @RequestParam("begin") String begin,
             @RequestParam("end") String end,

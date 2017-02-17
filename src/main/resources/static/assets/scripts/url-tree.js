@@ -65,7 +65,7 @@ var UrlTree = {
         UrlTree._checkIfDefined(UrlTree.deleteResourceUrl, "deleteResourceUrl");
         return UrlTree.deleteResourceUrl;
     },
-    
+
     ///////////////////////////////
 
     customersJsonFeedUrl: null,
@@ -77,6 +77,19 @@ var UrlTree = {
     getCustomersJsonFeedUrl: function () {
         UrlTree._checkIfDefined(UrlTree.customersJsonFeedUrl, "customersJsonFeedUrl");
         return UrlTree.customersJsonFeedUrl;
+    },
+
+    ///////////////////////////////
+
+    exportCsvUrl: null,
+
+    setExportCsvUrl: function (url) {
+        UrlTree.exportCsvUrl = url;
+    },
+
+    getExportCsvUrl: function () {
+        UrlTree._checkIfDefined(UrlTree.exportCsvUrl, "exportCsvUrl");
+        return UrlTree.exportCsvUrl;
     },
 
     ///////////////////////////////

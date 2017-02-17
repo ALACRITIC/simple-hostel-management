@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Administration</title>
+
+    <script th:replace="main-template :: page-headers"></script>
+
+</head>
+<body>
+
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Administration</h1>
+        </div>
+
+        <div class="col-md-12">
+
+            <h2>Export</h2>
+
+            <table class="formtable">
+
+                <!-- Begin and end date-->
+
+                <tr>
+                    <td>
+                        <input class="form-control" id="exportBeginDate" placeholder="Begin date" readonly="true"/>
+                    </td>
+
+                    <td>
+                        <input class="form-control" id="exportEndDate" placeholder="End date" readonly="true"/>
+                    </td>
+
+                    <td style="text-align: right">
+                        <button type="button" id="exportValidButton" class="btn btn-primary">Export</button>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/scripts/admin-page.js"></script>
+
+    <!-- Footer -->
+    <div th:replace="main-template :: footer"></div>
+
+    <!--<div th:replace="fragments/show-debug :: debug"></div>-->
+
+</div>
+
+
+</body>
+</html>

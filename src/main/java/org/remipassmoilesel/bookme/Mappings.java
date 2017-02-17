@@ -66,9 +66,11 @@ public class Mappings {
     public static final String CUSTOMERS_JSON_BY_PHONENUMBER = CUSTOMERS_JSON_ROOT + "/byphonenumber";
     public static final String CUSTOMERS_JSON_GET_ALL = CUSTOMERS_JSON_ROOT + "/all";
 
+    public static final String ADMINISTRATION_ROOT = APPLICATION_ROOT + "/admin";
+    public static final String ADMINISTRATION_EXPORT_RESERVATIONS_CSV = ADMINISTRATION_ROOT + "/export";
+
     public static final String POPULATE_TABLES = APPLICATION_ROOT + "/populate-tables";
     public static final String MAIN_TEMPLATE = APPLICATION_ROOT + "/main-template";
-    public static final String EXPORT_RESERVATIONS = APPLICATION_ROOT + "/export/reservations/csv";
 
     public static MappingMap getMap() {
 
