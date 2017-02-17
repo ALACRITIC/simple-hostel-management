@@ -9,3 +9,4 @@ tomcat-logs
 *.swp
 *.7z
 *.zip
+!releases/*.zip

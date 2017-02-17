@@ -56,7 +56,7 @@ public class ReservationServiceTest {
 
         ArrayList<Customer> customers = new ArrayList<>();
         customers.add(new Customer("Jean", "Claude", "+3333333"));
-        customers.add(new Customer("Paul", "Bedel", "+3333333"));
+        customers.add(new Customer("Paul", "Bedel", "+444444"));
         customerService.create(customers.get(0));
         customerService.create(customers.get(1));
 
