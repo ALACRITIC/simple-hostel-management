@@ -56,7 +56,7 @@ public class Application {
         // run server
         try {
             mainApp.run(args);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             logger.error("Error while launching application: ", e);
 
             // if not headless, show a dialog

@@ -4,6 +4,7 @@ import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
+import org.remipassmoilesel.bookme.customers.SearchCustomerForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,15 +35,35 @@ public class CustomerController {
         model.addAttribute("customers", customers);
 
         Mappings.includeMappings(model);
-        return Templates.CUSTOMER_SHOW;
+        return Templates.CUSTOMERS_SHOW;
+    }
+
+    @RequestMapping(value = Mappings.CUSTOMERS_SEARCH, method = RequestMethod.GET)
+    public String searchCustomer(
+            SearchCustomerForm searchForm,
+            Model model) throws Exception {
+
+        String errorMessage = "";
+        if (searchForm.getFirstname() != null || searchForm.getLastname() != null) {
+            try {
+                List<Customer> results = customerService.search(searchForm.getFirstname(), searchForm.getLastname(), 40, 0);
+                model.addAttribute("results", results);
+            } catch (Exception e) {
+                logger.error("Error while searching customers: ", e);
+                errorMessage = "You must specify a valid first name or last name";
+            }
+        }
+
+        model.addAttribute("errorMessage", errorMessage);
+
+        Mappings.includeMappings(model);
+        return Templates.CUSTOMERS_SEARCH;
     }
 
     @RequestMapping(value = Mappings.CUSTOMERS_JSON_GET_ALL, method = RequestMethod.GET)
     @ResponseBody
-    public List<Customer> getJsonAll(Model model) throws Exception {
-
+    public List<Customer> getJsonAll() throws Exception {
         List<Customer> customers = customerService.getAll();
-
         return customers;
     }
 

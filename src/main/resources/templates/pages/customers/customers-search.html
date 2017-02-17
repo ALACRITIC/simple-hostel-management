@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Search customers</title>
+
+    <script th:replace="main-template :: page-headers"></script>
+
+</head>
+<body>
+
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <h1>Search customers</h1>
+
+            <!-- Search form -->
+
+            <form th:object="${searchCustomerForm}" method="get">
+                <table class="formtable">
+
+                    <!-- name and first name -->
+
+                    <tr>
+                        <td>
+                            <input class="form-control" placeholder="First name" th:field="*{firstname}"/>
+                        </td>
+
+                        <td>
+                            <input class="form-control" placeholder="Last name" th:field="*{lastname}"/>
+                        </td>
+
+                        <td style="text-align: right">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </td>
+                    </tr>
+
+                    <!-- errors -->
+
+                    <tr>
+                        <td th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">
+                            First name error
+                        </td>
+
+                        <td th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">
+                            Name error
+                        </td>
+                    </tr>
+
+                    <tr th:if="${#strings.isEmpty(errorMessage) == false}">
+                        <td colspan="2">
+                            <div class="formError" th:text="${errorMessage}">
+                                Search error
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+            </form>
+
+
+            <!-- Display results -->
+
+            <div th:replace="main-template :: customers-list(customersList=${results})"></div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="main-template :: footer"></div>
+
+</div>
+
+</body>
+</html>

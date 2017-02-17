@@ -33,7 +33,8 @@ public class Templates {
     public static final String MESSAGES_COMPLETED = MESSAGES_DIR + "messages-completed";
     public static final String MESSAGES_SHOW_ONE = MESSAGES_DIR + "messages-show-one";
 
-    public static final String CUSTOMER_DIR = PAGES_DIR + "customers/";
-    public static final String CUSTOMER_SHOW = CUSTOMER_DIR + "customers-show-all";
+    public static final String CUSTOMERS_DIR = PAGES_DIR + "customers/";
+    public static final String CUSTOMERS_SHOW = CUSTOMERS_DIR + "customers-show-all";
+    public static final String CUSTOMERS_SEARCH = CUSTOMERS_DIR + "customers-search";
 
 }
