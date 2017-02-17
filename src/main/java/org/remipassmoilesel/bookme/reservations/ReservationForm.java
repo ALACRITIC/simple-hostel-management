@@ -11,7 +11,7 @@ import java.util.Objects;
 /**
  * Created by remipassmoilesel on 30/01/17.
  */
-public class CreateReservationForm {
+public class ReservationForm {
 
     @NotNull
     @Size(min = 2, max = 50)
@@ -53,7 +53,7 @@ public class CreateReservationForm {
     @NotNull
     private Long token;
 
-    public CreateReservationForm() {
+    public ReservationForm() {
         begin = new DateTime().toString("dd/MM/yyyy");
         end = new DateTime().plusDays(5).toString("dd/MM/yyyy");
     }
@@ -187,7 +187,7 @@ public class CreateReservationForm {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CreateReservationForm that = (CreateReservationForm) o;
+        ReservationForm that = (ReservationForm) o;
         return places == that.places &&
                 sharedResourceId == that.sharedResourceId &&
                 reservationId == that.reservationId &&

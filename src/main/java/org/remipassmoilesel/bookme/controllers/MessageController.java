@@ -2,7 +2,7 @@ package org.remipassmoilesel.bookme.controllers;
 
 import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
-import org.remipassmoilesel.bookme.messages.CreateMessageForm;
+import org.remipassmoilesel.bookme.messages.MessageForm;
 import org.remipassmoilesel.bookme.messages.Message;
 import org.remipassmoilesel.bookme.messages.MessageService;
 import org.remipassmoilesel.bookme.utils.TokenManager;
@@ -75,7 +75,7 @@ public class MessageController {
     @GetMapping(Mappings.MESSAGES_FORM)
     public String showForm(
             HttpServletRequest request,
-            CreateMessageForm messageForm,
+            MessageForm messageForm,
             Model model) {
 
         // create a token and add it to model
@@ -94,7 +94,7 @@ public class MessageController {
 
     @PostMapping(Mappings.MESSAGES_FORM)
     public String submitRoom(
-            @Valid CreateMessageForm messageForm,
+            @Valid MessageForm messageForm,
             BindingResult messageResults,
             Model model,
             HttpServletRequest request) {

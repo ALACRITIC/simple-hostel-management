@@ -36,5 +36,6 @@ public class Templates {
     public static final String CUSTOMERS_DIR = PAGES_DIR + "customers/";
     public static final String CUSTOMERS_SHOW = CUSTOMERS_DIR + "customers-show-all";
     public static final String CUSTOMERS_SEARCH = CUSTOMERS_DIR + "customers-search";
+    public static final String CUSTOMERS_FORM = CUSTOMERS_DIR + "customers-form";
 
 }

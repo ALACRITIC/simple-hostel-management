@@ -3,7 +3,7 @@ package org.remipassmoilesel.bookme.controllers;
 import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
-import org.remipassmoilesel.bookme.sharedresources.CreateResourceForm;
+import org.remipassmoilesel.bookme.sharedresources.ResourceForm;
 import org.remipassmoilesel.bookme.sharedresources.SharedResource;
 import org.remipassmoilesel.bookme.sharedresources.SharedResourceService;
 import org.remipassmoilesel.bookme.sharedresources.Type;
@@ -69,7 +69,7 @@ public class SharedResourceController {
     public String showResourceForm(
             @RequestParam(value = "id", required = false, defaultValue = "-1") Long resourceId,
             HttpServletRequest request,
-            CreateResourceForm resourceForm,
+            ResourceForm resourceForm,
             Model model) throws IOException {
 
         if (resourceId != -1) {
@@ -95,7 +95,7 @@ public class SharedResourceController {
 
     @PostMapping(Mappings.RESOURCES_FORM)
     public String submitResourceForm(
-            @Valid CreateResourceForm resourceForm,
+            @Valid ResourceForm resourceForm,
             BindingResult resourceResult,
             Model model,
             HttpServletRequest request) {

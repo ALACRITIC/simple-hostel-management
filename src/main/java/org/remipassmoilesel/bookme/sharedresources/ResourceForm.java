@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Created by remipassmoilesel on 30/01/17.
  */
-public class CreateResourceForm {
+public class ResourceForm {
 
     @NotNull
     @Size(min = 2, max = 50)
@@ -31,7 +31,7 @@ public class CreateResourceForm {
     @NotNull
     private Long token;
 
-    public CreateResourceForm() {
+    public ResourceForm() {
 
     }
 
@@ -105,7 +105,7 @@ public class CreateResourceForm {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CreateResourceForm that = (CreateResourceForm) o;
+        ResourceForm that = (ResourceForm) o;
         return places == that.places &&
                 id == that.id &&
                 Objects.equals(name, that.name) &&

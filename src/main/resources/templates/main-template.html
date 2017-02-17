@@ -273,6 +273,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Phone number</th>
+                    <th style="width: 5em"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -281,6 +282,8 @@
                     <td th:text="${customer.getFirstname()}">Jean</td>
                     <td th:text="${customer.getLastname()}">Claude</td>
                     <td th:text="${customer.getPhonenumber()}">+000002</td>
+                    <td><a th:href="${mappings.get('CUSTOMERS_FORM') + '?id=' + customer.getId()}"
+                           class="glyphicon glyphicon-chevron-right"></a></td>
                 </tr>
 
                 <tr th:if="${#lists.isEmpty(customersList)}">
@@ -294,6 +297,25 @@
                 <a th:href="${mappings.get('CUSTOMERS_SHOW_ALL')}" class="btn btn-info btn-sm"
                    style="display: inline-block">View all customers</a>
             </div>
+
+            <table class="table table-striped" th:fragment="customer-simple">
+
+                <tr>
+                    <td style="width: 20%">First name:</td>
+                    <td th:text="${customer?.getFirstname()}">First name</td>
+                </tr>
+
+                <tr>
+                    <td>Last name:</td>
+                    <td th:text="${customer?.getLastname()}">Last name</td>
+                </tr>
+
+                <tr>
+                    <td>Phone number:</td>
+                    <td th:text="${customer?.getPhonenumber()}">Comment</td>
+                </tr>
+
+            </table>
 
         </div>
     </div>

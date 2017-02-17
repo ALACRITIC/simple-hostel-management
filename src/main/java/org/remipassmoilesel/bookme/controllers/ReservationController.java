@@ -4,7 +4,7 @@ import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
-import org.remipassmoilesel.bookme.reservations.CreateReservationForm;
+import org.remipassmoilesel.bookme.reservations.ReservationForm;
 import org.remipassmoilesel.bookme.reservations.Reservation;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
 import org.remipassmoilesel.bookme.sharedresources.SharedResource;
@@ -133,7 +133,7 @@ public class ReservationController {
     public String showForm(
             @RequestParam(value = "id", required = false, defaultValue = "-1") Long reservationId,
             HttpServletRequest request,
-            CreateReservationForm reservationForm,
+            ReservationForm reservationForm,
             Model model) throws Exception {
 
         if (reservationId != -1) {
@@ -158,7 +158,7 @@ public class ReservationController {
 
     @PostMapping(Mappings.RESERVATIONS_FORM)
     public String submitReservation(
-            @Valid CreateReservationForm reservationForm,
+            @Valid ReservationForm reservationForm,
             BindingResult reservationResults,
             Model model,
             HttpServletRequest request) throws Exception {

@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * Created by remipassmoilesel on 30/01/17.
  */
-public class CreateMessageForm {
+public class MessageForm {
 
     @NotNull
     @Size(min = 2, max = 3000)
@@ -16,7 +16,7 @@ public class CreateMessageForm {
     @NotNull
     private Long token;
 
-    public CreateMessageForm() {
+    public MessageForm() {
 
     }
 
@@ -40,7 +40,7 @@ public class CreateMessageForm {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CreateMessageForm that = (CreateMessageForm) o;
+        MessageForm that = (MessageForm) o;
         return Objects.equals(message, that.message) &&
                 Objects.equals(token, that.token);
     }

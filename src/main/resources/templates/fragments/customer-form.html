@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+<body>
+
+<form th:object="${customerForm}" method="post" th:fragment="customer-form">
+
+    <table class="formtable">
+
+        <!-- Customer first name -->
+        <tr>
+            <td colspan="2">
+                <input type="text" class="form-control" placeholder="Customer first name" th:field="*{firstname}"/>
+                <div th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" class="formError">
+                    First name error
+                </div>
+            </td>
+        </tr>
+
+        <!-- Customer last name -->
+        <tr>
+            <td colspan="2">
+                <input type="text" class="form-control" placeholder="Customer last name" th:field="*{lastname}"/>
+                <div th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" class="formError">
+                    Last name error
+                </div>
+            </td>
+        </tr>
+
+        <!-- Customer phone number -->
+        <tr>
+            <td colspan="2">
+                <input type="text" class="form-control" placeholder="Customer phone number" th:field="*{phonenumber}"/>
+                <div th:if="${#fields.hasErrors('phonenumber')}" th:errors="*{phonenumber}" class="formError">
+                    Phone number error
+                </div>
+            </td>
+        </tr>
+
+        <!-- Token and submit button -->
+        <tr>
+            <td colspan="2" style="text-align: right">
+
+                <!-- Add control token -->
+                <input type="hidden" id="customerToken" name="token" th:value="${token}"/>
+
+                <!-- Add resource id -->
+                <input type="hidden" id="customerId" th:field="*{id}"/>
+
+                <button type="submit" class="btn btn-primary">Save</button>
+
+            </td>
+        </tr>
+
+    </table>
+
+    <script src="/assets/scripts/resource-form.js"></script>
+
+    <!--<div th:replace="fragments/show-debug :: debug"></div>-->
+
+</form>
+
+</body>
+</html>
