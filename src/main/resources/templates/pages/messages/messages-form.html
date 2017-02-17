@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create a message</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <script th:replace="main-template :: page-headers"></script>
+
+</head>
+<body>
+
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="row" th:if="${#strings.isEmpty(formstate)}">
+            <div class="col-md-12">
+
+                <h1>New message</h1>
+
+                <div th:replace="fragments/message-form :: message-form"></div>
+            </div>
+        </div>
+
+        <div class="row" th:if="${formstate?.equals('completed')}">
+            <div class="col-md-12">
+
+                <h1>Message</h1>
+
+                <!-- Error happen when saved -->
+
+                <div th:if="${not #strings.isEmpty(errorMessage)}">
+                    <div th:replace="main-template :: error-block (errorMessage=${errorMessage})"></div>
+                </div>
+
+                <!-- Message saved -->
+
+                <div th:if="${#strings.isEmpty(errorMessage)}">
+                    <div th:replace="main-template :: information-block (informationMessage=${'Message saved'})"></div>
+                </div>
+
+                <div th:if="${#strings.isEmpty(errorMessage)}">
+                    <div th:replace="main-template :: message-simple (resource=${message})"></div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="main-template :: footer"></div>
+
+</div>
+
+</body>
+</html>

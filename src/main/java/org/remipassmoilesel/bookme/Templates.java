@@ -29,8 +29,7 @@ public class Templates {
 
     public static final String MESSAGES_DIR = PAGES_DIR + "messages/";
     public static final String MESSAGES_SHOW_ALL = MESSAGES_DIR + "messages-show-all";
-    public static final String MESSAGES_NEW = MESSAGES_DIR + "messages-new";
-    public static final String MESSAGES_COMPLETED = MESSAGES_DIR + "messages-completed";
+    public static final String MESSAGES_FORM = MESSAGES_DIR + "messages-form";
     public static final String MESSAGES_SHOW_ONE = MESSAGES_DIR + "messages-show-one";
 
     public static final String CUSTOMERS_DIR = PAGES_DIR + "customers/";

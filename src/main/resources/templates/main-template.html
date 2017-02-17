@@ -282,8 +282,14 @@
                     <td th:text="${customer.getFirstname()}">Jean</td>
                     <td th:text="${customer.getLastname()}">Claude</td>
                     <td th:text="${customer.getPhonenumber()}">+000002</td>
-                    <td><a th:href="${mappings.get('CUSTOMERS_FORM') + '?id=' + customer.getId()}"
+                    <td>
+                        <a th:href="${mappings.get('RESERVATIONS_BY_CUSTOMER') + '?id=' + customer.getId()}"
+                           data-toggle="tooltip" data-placement="left" title="Show reservations ..."
+                           class="glyphicon glyphicon-search"></a>
+                        &nbsp;&nbsp;
+                        <a th:href="${mappings.get('CUSTOMERS_FORM') + '?id=' + customer.getId()}"
                            class="glyphicon glyphicon-chevron-right"></a></td>
+
                 </tr>
 
                 <tr th:if="${#lists.isEmpty(customersList)}">
@@ -470,6 +476,17 @@
             <div th:fragment="button-view-all-messages" style="text-align: right; margin: 1em;">
                 <a th:href="${mappings.get('MESSAGES_SHOW_ALL')}" class="btn btn-info btn-sm"
                    style="display: inline-block">View all messages</a>
+            </div>
+
+            <div th:fragment="message-simple">
+                <h4 th:text="${#dates.format(message.getDate(), 'dd/MM/yyyy')}">Small message /Date / Writer</h4>
+                <p>
+                    <b>Message: </b>
+
+                    <span th:text="${message.getMessage()}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum
+                    mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis
+                    dolor....</span>
+                </p>
             </div>
 
         </div>

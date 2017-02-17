@@ -61,8 +61,10 @@ public class MessageController {
     @RequestMapping(value = Mappings.MESSAGES_GET_AS_JSON, method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Message> getMessagesAsJson() throws Exception {
+
         List<Message> messagesList = messageService.getAll();
         return messagesList;
+
     }
 
     /**
@@ -82,14 +84,13 @@ public class MessageController {
         TokenManager tokenman = new TokenManager(TOKEN_NAME);
 
         tokenman.addToken(model);
-        model.addAttribute("errorMessage", "");
 
         // add it to session for check
         HttpSession session = request.getSession();
         tokenman.addToken(session);
 
         Mappings.includeMappings(model);
-        return Templates.MESSAGES_NEW;
+        return Templates.MESSAGES_FORM;
     }
 
     @PostMapping(Mappings.MESSAGES_FORM)
@@ -100,12 +101,9 @@ public class MessageController {
             HttpServletRequest request) {
 
         if (messageResults.hasErrors()) {
-            //System.out.println(reservationResults.getAllErrors());
             model.addAttribute("token", messageForm.getToken());
-            model.addAttribute("errorMessage", "");
-
             Mappings.includeMappings(model);
-            return Templates.MESSAGES_NEW;
+            return Templates.MESSAGES_FORM;
         }
 
         // checks tokens
@@ -138,9 +136,10 @@ public class MessageController {
 
         model.addAttribute("message", message);
         model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute("formstate", "completed");
 
         Mappings.includeMappings(model);
-        return Templates.MESSAGES_COMPLETED;
+        return Templates.MESSAGES_FORM;
     }
 
 }

@@ -191,7 +191,7 @@ public class CustomerController {
             errorMessage = e.getMessage();
         }
 
-        model.addAttribute("formstate", "saved");
+        model.addAttribute("formstate", "completed");
         model.addAttribute("customer", customer);
         model.addAttribute("errorMessage", errorMessage);
 
