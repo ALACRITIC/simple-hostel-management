@@ -87,7 +87,7 @@ public class PopulateTables {
         ArrayList<Reservation> reservations = new ArrayList<>();
         for (int i = 0; i < totalReservations; i++) {
 
-            Customer customer = customerService.create("Jean_" + i, "Paul_" + i, "000000" + i);
+            Customer customer = customerService.create("Jean_" + i, "Paul_" + i, "+" + System.currentTimeMillis());
             SharedResource resource = rooms.get(Utils.randInt(0, rooms.size() - 1));
 
             Reservation reservation = reservationService.create(customer, resource, 1,
@@ -104,7 +104,7 @@ public class PopulateTables {
         ArrayList<SharedResource> rooms = new ArrayList<>();
         int totalRooms = 10;
         for (int i = 0; i < totalRooms; i++) {
-            rooms.add(sharedResourceService.createResource("A" + i, 2, "", Type.ROOM));
+            rooms.add(sharedResourceService.createResource("A_" + i, 2, "", Type.ROOM));
         }
 
         return rooms;
