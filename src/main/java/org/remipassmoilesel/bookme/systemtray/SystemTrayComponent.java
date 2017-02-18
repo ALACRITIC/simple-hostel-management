@@ -45,8 +45,8 @@ public class SystemTrayComponent {
 
         try {
             createTrayMenu();
-        } catch (AWTException e) {
-            logger.error("Unable to create system tray icon");
+        } catch (Exception e) {
+            logger.error("Unable to create system tray icon", e);
         }
 
     }
