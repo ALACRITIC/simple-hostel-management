@@ -174,6 +174,11 @@ var ReservationForm = {
                     roomSelect.append("<option>No room available</option>");
                 }
 
+                var pval = roomSelect.attr("data-primary-value");
+                if (pval) {
+                    roomSelect.val(pval);
+                }
+
             })
             .fail(function () {
                 console.error("Fail !");

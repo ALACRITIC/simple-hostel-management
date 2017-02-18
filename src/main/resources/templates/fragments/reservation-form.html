@@ -89,7 +89,8 @@
                 Resource for rent:
             </td>
             <td>
-                <select id="reservationSharedResourceSelect" class="form-control" th:field="*{sharedResourceId}">
+                <select id="reservationSharedResourceSelect" class="form-control" th:field="*{sharedResourceId}"
+                        th:attr="data-primary-value=*{sharedResourceId}">
                     <option th:each="resource : ${sharedResources}"
                             th:value="${resource.getId()}"
                             th:text="${resource.getName()}">Resource name
