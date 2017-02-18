@@ -183,4 +183,7 @@ public class Utils {
         return colorToHex(color);
     }
 
+    public static Color hexToColor(String hexStr) {
+        return Color.decode(hexStr);
+    }
 }
