@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.awt.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,9 +29,9 @@ import java.util.ArrayList;
  */
 
 @Controller
-public class PopulateTables {
+public class DevTools {
 
-    private static final Logger logger = LoggerFactory.getLogger(PopulateTables.class);
+    private static final Logger logger = LoggerFactory.getLogger(DevTools.class);
 
     @Autowired
     private ReservationService reservationService;
@@ -70,6 +71,19 @@ public class PopulateTables {
         }
     }
 
+    private ArrayList<SharedResource> createRooms() throws IOException {
+
+        // create rooms
+        ArrayList<SharedResource> rooms = new ArrayList<>();
+        int totalRooms = 10;
+        for (int i = 0; i < totalRooms; i++) {
+            rooms.add(sharedResourceService.createResource("B " + i, 2, "", Type.ROOM, Color.blue));
+        }
+
+        return rooms;
+    }
+
+
     /**
      * Partial date example: 02/2017
      *
@@ -87,7 +101,7 @@ public class PopulateTables {
         ArrayList<Reservation> reservations = new ArrayList<>();
         for (int i = 0; i < totalReservations; i++) {
 
-            Customer customer = customerService.create("Jean " + i, "Paul " + i, "+" + System.currentTimeMillis());
+            Customer customer = customerService.create("Jean " + i, "Paul " + i, "+" + System.currentTimeMillis() + i);
             SharedResource resource = rooms.get(Utils.randInt(0, rooms.size() - 1));
 
             Reservation reservation = reservationService.create(customer, resource, 1,
@@ -98,17 +112,5 @@ public class PopulateTables {
 
         return reservations;
     }
-
-    private ArrayList<SharedResource> createRooms() throws IOException {
-        // create rooms
-        ArrayList<SharedResource> rooms = new ArrayList<>();
-        int totalRooms = 10;
-        for (int i = 0; i < totalRooms; i++) {
-            rooms.add(sharedResourceService.createResource("A " + i, 2, "", Type.ROOM));
-        }
-
-        return rooms;
-    }
-
 
 }
