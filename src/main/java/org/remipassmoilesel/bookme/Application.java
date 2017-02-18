@@ -73,10 +73,14 @@ public class Application {
                 message += "<p>First of all, check if software is not already launched (you will see an icon in your task bar)</p>";
                 message += "<p>Then try restarting the program. If this error persists, try restarting your computer and restart the program.</p></html>";
 
-                JOptionPane.showMessageDialog(null,
-                        message,
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                try {
+                    JOptionPane.showMessageDialog(null,
+                            message,
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } catch (Exception e2) {
+                    logger.error("Unable to show graphical error: ", e2);
+                }
             }
         }
     }
