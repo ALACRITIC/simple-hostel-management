@@ -180,9 +180,12 @@
                 <tbody>
 
                 <tr th:each="resource : ${resourcesList}">
-                    <td th:text="${resource.getName()}">A2</td>
+                    <td th:text="${resource.getName()}"
+                        th:style="${'color:' + resource.getHexadecimalColor()}">Room name
+                    </td>
                     <td th:text="${resource.getType().getReadableName()}" style="width: 5em">Room</td>
                     <td th:text="${resource.getComment()}">Comment</td>
+
                     <td>
                         <a th:href="${mappings.get('RESERVATIONS_BY_RESOURCE') + '?id=' + resource.getId()}"
                            data-toggle="tooltip" data-placement="left" title="Show reservations ..."
@@ -190,7 +193,7 @@
                         &nbsp;&nbsp;
                         <a th:href="${mappings.get('RESOURCES_FORM') + '?id=' + resource.getId()}"
                            data-toggle="tooltip" title="Edit ..."
-                           class="glyphicon glyphicon-chevron-right"></a></td>
+                           class="glyphicon glyphicon-edit"></a></td>
                 </tr>
 
                 <tr th:if="${#lists.isEmpty(resourcesList)}">
@@ -206,12 +209,13 @@
 
                 <tr>
                     <td style="width: 20%">Name:</td>
-                    <td th:text="${resource?.getName()}">05/01/2016</td>
+                    <td th:text="${resource?.getName()}"
+                        th:style="${'color:' + resource?.getHexadecimalColor()}">Room name</td>
                 </tr>
 
                 <tr>
                     <td>Type:</td>
-                    <td th:text="${resource?.getType().getReadableName()}" style="width: 5em">Room</td>
+                    <td th:text="${resource?.getType().getReadableName()}" style="width: 5em">Room type</td>
                 </tr>
 
                 <tr>
@@ -292,7 +296,7 @@
                            class="glyphicon glyphicon-search"></a>
                         &nbsp;&nbsp;
                         <a th:href="${mappings.get('CUSTOMERS_FORM') + '?id=' + customer.getId()}"
-                           class="glyphicon glyphicon-chevron-right"></a></td>
+                           class="glyphicon glyphicon-edit"></a></td>
 
                 </tr>
 
@@ -358,7 +362,7 @@
                     <td th:text="${reservation.getCustomer().getPhonenumber()}">+000002</td>
                     <td th:text="${reservation.getResource().getName()}">A2</td>
                     <td><a th:href="${mappings.get('RESERVATIONS_FORM') + '?id=' + reservation.getId()}"
-                           class="glyphicon glyphicon-chevron-right"></a></td>
+                           class="glyphicon glyphicon-edit"></a></td>
                 </tr>
 
                 <tr th:if="${#lists.isEmpty(reservationsList)}">
@@ -433,7 +437,7 @@
                     <td th:text="${reservation.getCustomer().getPhonenumber()}">+000002</td>
                     <td th:text="${#dates.format(reservation.getBegin(), 'dd/MM/yyyy')}">01/01/2016</td>
                     <td><a th:href="${mappings.get('RESERVATIONS_FORM') + '?id=' + reservation.getId()}"
-                           class="glyphicon glyphicon-chevron-right"></a></td>
+                           class="glyphicon glyphicon-edit"></a></td>
                 </tr>
 
                 <tr th:if="${#lists.isEmpty(reservationsList)}">
@@ -518,7 +522,7 @@
                     <td th:text="${#dates.format(message.getDate(), 'dd/MM/yyyy')}">Date</td>
                     <td th:text="${#strings.substring(message.getMessage(), 0, 100) + '...'}">Message</td>
                     <td><a th:href="${mappings.get('MESSAGES_SHOW_BY_ID') + '?id=' + message.getId()}"
-                           class="glyphicon glyphicon-chevron-right"></a></td>
+                           class="glyphicon glyphicon-edit"></a></td>
                 </tr>
 
                 <tr th:if="${#lists.isEmpty(messagesList)}">

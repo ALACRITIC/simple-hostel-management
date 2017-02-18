@@ -63,6 +63,31 @@
             </td>
         </tr>
 
+        <!-- Resource color -->
+        <tr>
+            <td>
+                Associated color:
+            </td>
+            <td>
+                <select class="form-control" th:field="*{color}">
+                    <option th:each="color : ${defaultColors}"
+                            th:style="${'color: ' + color.toHexadecimal()}"
+                            th:value="${color.toRgbString()}"
+                            th:text="${color.getName()}">Resource color
+                    <!--th:selected="(${resourceForm.getColor()?.equals(color.toRgbString())})"-->
+                    </option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <div th:if="${#fields.hasErrors('color')}" th:errors="*{color}" class="formError">
+                    Color error
+                </div>
+            </td>
+        </tr>
+
         <!-- Token and submit button -->
 
         <tr>

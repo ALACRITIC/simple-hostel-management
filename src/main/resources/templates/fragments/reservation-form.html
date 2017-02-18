@@ -25,7 +25,8 @@
         <!-- First name -->
         <tr>
             <td colspan="2">
-                <input type="text" id="customerFirstname" class="form-control" placeholder="First name" th:field="*{customerFirstname}"/>
+                <input type="text" id="customerFirstname" class="form-control" placeholder="First name"
+                       th:field="*{customerFirstname}"/>
                 <div th:if="${#fields.hasErrors('customerFirstname')}" th:errors="*{customerFirstname}"
                      class="formError">
                     First name error
@@ -36,7 +37,8 @@
         <!-- Last name -->
         <tr>
             <td colspan="2">
-                <input type="text" id="customerLastname" class="form-control" placeholder="Last name" th:field="*{customerLastname}"/>
+                <input type="text" id="customerLastname" class="form-control" placeholder="Last name"
+                       th:field="*{customerLastname}"/>
                 <div th:if="${#fields.hasErrors('customerLastname')}" th:errors="*{customerLastname}" class="formError">
                     Last name error
                 </div>
@@ -91,8 +93,11 @@
                     <option th:each="resource : ${sharedResources}"
                             th:value="${resource.getId()}"
                             th:text="${resource.getName()}">Resource name
+                        <span th:text="${resource.getId()}"></span>
                     </option>
+
                 </select>
+
             </td>
 
         </tr>

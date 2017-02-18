@@ -7,7 +7,9 @@ import org.remipassmoilesel.bookme.sharedresources.ResourceForm;
 import org.remipassmoilesel.bookme.sharedresources.SharedResource;
 import org.remipassmoilesel.bookme.sharedresources.SharedResourceService;
 import org.remipassmoilesel.bookme.sharedresources.Type;
+import org.remipassmoilesel.bookme.utils.DefaultColors;
 import org.remipassmoilesel.bookme.utils.TokenManager;
+import org.remipassmoilesel.bookme.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -89,6 +92,7 @@ public class SharedResourceController {
 
         model.addAttribute("sharedResourceTypes", Type.values());
 
+        DefaultColors.includeColors(model);
         Mappings.includeMappings(model);
         return Templates.RESOURCES_FORM;
     }
@@ -106,6 +110,7 @@ public class SharedResourceController {
             model.addAttribute("errorMessage", "");
             model.addAttribute("sharedResourceTypes", Type.values());
 
+            DefaultColors.includeColors(model);
             Mappings.includeMappings(model);
             return Templates.RESOURCES_FORM;
         }
@@ -126,14 +131,19 @@ public class SharedResourceController {
             // always delete token just after
             tokenman.deleteTokenFrom(session);
 
+            Color color = Utils.rgbStringToColor(resourceForm.getColor());
+
             // update room
             if (resourceForm.getId() == -1) {
+
                 try {
+
                     resource = sharedResourceService.createResource(
                             resourceForm.getName(),
                             resourceForm.getPlaces(),
                             resourceForm.getComment(),
-                            resourceForm.getType()
+                            resourceForm.getType(),
+                            color
                     );
                 } catch (Exception e) {
                     logger.error("Error while creating reservation", e);
@@ -150,6 +160,7 @@ public class SharedResourceController {
                     resource.setPlaces(resourceForm.getPlaces());
                     resource.setComment(resourceForm.getComment());
                     resource.setType(resourceForm.getType());
+                    resource.setColor(resourceForm.getColor());
 
                     sharedResourceService.update(resource);
 
@@ -168,6 +179,7 @@ public class SharedResourceController {
         model.addAttribute("resource", resource);
         model.addAttribute("errorMessage", errorMessage);
 
+        DefaultColors.includeColors(model);
         Mappings.includeMappings(model);
         return Templates.RESOURCES_FORM;
     }
@@ -209,6 +221,7 @@ public class SharedResourceController {
         model.addAttribute("formstate", "deleted");
 
         Mappings.includeMappings(model);
+        DefaultColors.includeColors(model);
         return Templates.RESOURCES_FORM;
     }
 

@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -41,7 +42,7 @@ public class SharedResourceServiceTest {
         int resourcesNumber = 10;
         ArrayList<SharedResource> resources = new ArrayList<>();
         for (int i = 0; i < resourcesNumber; i++) {
-            SharedResource resource = new SharedResource("A" + i, 2, "Comment " + i, Type.ROOM);
+            SharedResource resource = new SharedResource("A" + i, 2, "Comment " + i, Type.ROOM, Color.blue);
             sharedResourceService.create(resource);
 
             resources.add(resource);

@@ -4,7 +4,9 @@ package org.remipassmoilesel.bookme.sharedresources;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import org.remipassmoilesel.bookme.utils.Utils;
 
+import java.awt.*;
 import java.util.Objects;
 
 /**
@@ -19,6 +21,7 @@ public class SharedResource {
     public static final String COMMENT_FIELD_NAME = "COMMENT";
     public static final String TYPE_FIELD_NAME = "TYPE";
     public static final String DELETED_FIELD_NAME = "DELETED";
+    public static final String COLOR_FIELD_NAME = "COLOR";
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private long id;
@@ -35,20 +38,41 @@ public class SharedResource {
     @DatabaseField(columnName = COMMENT_FIELD_NAME, dataType = DataType.LONG_STRING)
     private String comment;
 
+    /**
+     * If set to true, this resource hould not appear in availables resources.
+     * <p>
+     * Resources cannot be deleted, in order to keep database consistency.
+     */
     @DatabaseField(columnName = DELETED_FIELD_NAME)
     private boolean deleted;
+
+    @DatabaseField(columnName = COLOR_FIELD_NAME)
+    private String color;
 
     public SharedResource() {
         // ORMLite needs a no-arg constructor
     }
 
 
-    public SharedResource(String name, int places, String comment, Type type) {
+    public SharedResource(String name, int places, String comment, Type type, Color color) {
         this.name = name;
         this.comment = comment;
         this.places = places;
         this.type = type;
         this.deleted = false;
+        this.color = Utils.colorToRgbString(color);
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getHexadecimalColor() {
+        return Utils.colorToHex(color);
     }
 
     public long getId() {
@@ -109,12 +133,13 @@ public class SharedResource {
                 deleted == resource.deleted &&
                 Objects.equals(name, resource.name) &&
                 type == resource.type &&
-                Objects.equals(comment, resource.comment);
+                Objects.equals(comment, resource.comment) &&
+                Objects.equals(color, resource.color);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, places, type, comment, deleted);
+        return Objects.hash(id, name, places, type, comment, deleted, color);
     }
 
     @Override
@@ -126,6 +151,7 @@ public class SharedResource {
                 ", type=" + type +
                 ", comment='" + comment + '\'' +
                 ", deleted=" + deleted +
+                ", color='" + color + '\'' +
                 '}';
     }
 }

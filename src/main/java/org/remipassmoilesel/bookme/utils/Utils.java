@@ -8,11 +8,10 @@ import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer;
 
 import javax.servlet.http.HttpServletRequest;
+import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by remipassmoilesel on 31/01/17.
@@ -29,6 +28,8 @@ public class Utils {
     }
 
     private static Random rand = new Random();
+
+    private static final String STRING_SEPARATOR = ",";
 
     /**
      * Parse two type of dates: YYYYMMDD or DDMMYYYY
@@ -126,6 +127,60 @@ public class Utils {
         }
 
         return rslt.substring(0, length);
+    }
+
+
+    public static String colorToRgbString(Color c) {
+
+        if (c == null) {
+            return "null";
+        }
+
+        return String.join(STRING_SEPARATOR, Arrays.asList(
+                String.valueOf(c.getRed()),
+                String.valueOf(c.getGreen()),
+                String.valueOf(c.getBlue())));
+
+    }
+
+    public static Color rgbStringToColor(String s) {
+
+        if (s.equalsIgnoreCase("null")) {
+            return null;
+        }
+
+        Integer[] vals = stringToIntArray(s);
+
+        if (vals.length != 3) {
+            throw new IllegalArgumentException("Invalid string: " + s);
+        }
+
+        return new Color(Integer.valueOf(vals[0]), Integer.valueOf(vals[1]), Integer.valueOf(vals[2]));
+    }
+
+    public static Integer[] stringToIntArray(String str) {
+
+        String[] parts = str.toLowerCase().trim().split(STRING_SEPARATOR);
+        ArrayList<Integer> result = new ArrayList<>();
+
+        for (int i = 0; i < parts.length; i++) {
+            try {
+                result.add(Integer.valueOf(parts[i].trim()));
+            } catch (Exception e) {
+                logger.error("Error while parsing string ", e);
+            }
+        }
+
+        return result.toArray(new Integer[result.size()]);
+    }
+
+    public static String colorToHex(Color color) {
+        return String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
+    }
+
+    public static String colorToHex(String rgbStr) {
+        Color color = Utils.rgbStringToColor(rgbStr);
+        return colorToHex(color);
     }
 
 }

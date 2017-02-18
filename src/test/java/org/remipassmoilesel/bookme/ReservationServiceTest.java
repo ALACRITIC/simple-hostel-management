@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,7 @@ public class ReservationServiceTest {
         ArrayList<SharedResource> resources = new ArrayList<>();
         int resourcesNumber = 10;
         for (int i = 0; i < resourcesNumber; i++) {
-            SharedResource res = new SharedResource("A" + i, 2, "Comment", Type.ROOM);
+            SharedResource res = new SharedResource("A" + i, 2, "Comment", Type.ROOM, Color.blue);
             resources.add(res);
             sharedResourceService.create(res);
         }

@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -26,18 +27,18 @@ public class SharedResourceService extends AbstractDaoService<SharedResource> {
         if (dao.queryForAll().size() < 1) {
 
             for (int i = 1; i < 4; i++) {
-                dao.create(new SharedResource("Room " + i, 2, "", Type.ROOM));
+                dao.create(new SharedResource("Room " + i, 2, "", Type.ROOM, Color.blue));
             }
 
             for (int i = 1; i < 4; i++) {
-                dao.create(new SharedResource("Bed " + i, 1, "", Type.BED));
+                dao.create(new SharedResource("Bed " + i, 1, "", Type.BED, Color.green));
             }
 
         }
     }
 
-    public SharedResource createResource(String roomName, int places, String roomComment, Type type) throws IOException {
-        return create(new SharedResource(roomName, places, roomComment, type));
+    public SharedResource createResource(String roomName, int places, String roomComment, Type type, Color color) throws IOException {
+        return create(new SharedResource(roomName, places, roomComment, type, color));
     }
 
     /**

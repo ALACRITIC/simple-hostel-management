@@ -29,6 +29,9 @@ public class ResourceForm {
     private Type type;
 
     @NotNull
+    private String color;
+
+    @NotNull
     private Long token;
 
     public ResourceForm() {
@@ -51,6 +54,7 @@ public class ResourceForm {
         setComment(res.getComment());
         setId(res.getId());
         setType(res.getType());
+        setColor(res.getColor());
     }
 
     public long getId() {
@@ -101,6 +105,27 @@ public class ResourceForm {
         this.places = places;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    @Override
+    public String toString() {
+        return "ResourceForm{" +
+                "name='" + name + '\'' +
+                ", places=" + places +
+                ", comment='" + comment + '\'' +
+                ", id=" + id +
+                ", type=" + type +
+                ", color='" + color + '\'' +
+                ", token=" + token +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -111,23 +136,12 @@ public class ResourceForm {
                 Objects.equals(name, that.name) &&
                 Objects.equals(comment, that.comment) &&
                 type == that.type &&
+                Objects.equals(color, that.color) &&
                 Objects.equals(token, that.token);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, places, comment, id, type, token);
-    }
-
-    @Override
-    public String toString() {
-        return "CreateResourceForm{" +
-                "name='" + name + '\'' +
-                ", places=" + places +
-                ", comment='" + comment + '\'' +
-                ", id=" + id +
-                ", type=" + type +
-                ", token=" + token +
-                '}';
+        return Objects.hash(name, places, comment, id, type, color, token);
     }
 }

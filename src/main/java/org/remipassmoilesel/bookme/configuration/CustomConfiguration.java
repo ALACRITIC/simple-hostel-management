@@ -25,6 +25,7 @@ public class CustomConfiguration {
     public static final Path TEST_DATABASE_DIRECTORY = Paths.get("database-test");
     public static final Path TEST_DATABASE_PATH = TEST_DATABASE_DIRECTORY.resolve("db.h2");
 
+    // please do not laugh :)
     public static final String DB_LOGIN = "i03KvGVpQIwja-nxr5gq7I1oiOErdbCS";
     public static final String DB_PASSWORD = "hcNEfW0zcDoY0yuM50aCgXRbY-rRSxiX";
 

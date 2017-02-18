@@ -53,15 +53,14 @@ var CalendarUtils = {
             var firstname = element.customer.firstname;
             var lastname = element.customer.lastname;
             var startDate = element.begin;
+            var color = "rgb(" + element.resource.color + ")";
             var endDate = element.end;
-
-            console.log("startDate");
-            console.log(startDate);
 
             events.push({
                 title: lastname + " " + firstname,
                 start: moment(startDate).add(12, 'hours'),
                 end: moment(endDate).add(12, 'hours'),
+                color: color,
                 _reservationId: element.id
             });
         });
