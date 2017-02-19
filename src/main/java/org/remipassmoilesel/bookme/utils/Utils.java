@@ -43,7 +43,7 @@ public class Utils {
         try {
             return formatterDDMMYYYY.parse(str);
         } catch (Exception e) {
-            logger.error("Error while parsing date: ", e);
+            logger.debug("Error while parsing date: ", e);
         }
         try {
             return formatterYYYYMMDD.parse(str);
