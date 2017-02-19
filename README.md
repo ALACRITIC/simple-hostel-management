@@ -14,6 +14,8 @@ Default user:
 
     admin : admin
         
-### Screenshot
+### Screenshots
 
 ![Screenshot](screenshots/screenshot_1.png)
+
+![Screenshot](screenshots/screenshot_2.png)
