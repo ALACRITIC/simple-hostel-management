@@ -50,6 +50,9 @@ var ReservationForm = {
             ReservationUtils.showDeleteReservationDialog(reservationId, token);
         });
 
+        // special checkbox
+        $("#reservationIsPaid").checkboxradio();
+
         // first check
         self.checkAvailability();
 

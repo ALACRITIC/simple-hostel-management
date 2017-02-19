@@ -86,9 +86,11 @@
 
         <tr>
             <td colspan="2">
-                <div class="checkbox">
-                    <label><input type="checkbox" th:field="*{paid}"/>&nbsp;&nbsp;&nbsp; Reservation is paid</label>
-                </div>
+                <fieldset>
+                    <input type="checkbox" id="reservationIsPaid" th:field="*{paid}"/>
+                    <label for="reservationIsPaid">&nbsp;&nbsp;&nbsp; Reservation is paid</label>
+
+                </fieldset>
             </td>
         </tr>
 
