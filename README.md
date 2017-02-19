@@ -1,5 +1,7 @@
 # Simple hostel management system
 
+[![Build Status](https://travis-ci.org/remipassmoilesel/simple-hostel-management.svg?branch=master)](https://travis-ci.org/remipassmoilesel/simple-hostel-management)
+
 Based on Spring Boot, work in progress. 
 
 ### Pre-alpha release, just for fun
