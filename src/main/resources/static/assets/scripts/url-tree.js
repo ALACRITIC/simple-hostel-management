@@ -94,6 +94,19 @@ var UrlTree = {
 
     ///////////////////////////////
 
+    deleteServiceUrl: null,
+
+    setDeleteServiceUrl: function (url) {
+        UrlTree.deleteServiceUrl = url;
+    },
+
+    getDeleteServiceUrl: function () {
+        UrlTree._checkIfDefined(UrlTree.deleteServiceUrl, "deleteServiceUrl");
+        return UrlTree.deleteServiceUrl;
+    },
+
+    ///////////////////////////////
+
     _checkIfDefined: function (field, label) {
         if (!field) {
             throw "URL field not defined ! Please set field before use it: " + label;

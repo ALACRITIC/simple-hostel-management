@@ -71,6 +71,7 @@ public class Mappings {
     public static final String SERVICES_BILL_FORM = SERVICES_ROOT + "/bill";
     public static final String SERVICES_FORM = SERVICES_ROOT + "/form";
     public static final String SERVICES_SHOW_ALL = SERVICES_ROOT + "/show/all";
+    public static final String SERVICES_CALENDAR = SERVICES_ROOT + "/calendar";
 
     public static final String ADMINISTRATION_ROOT = APPLICATION_ROOT + "/admin";
     public static final String ADMINISTRATION_EXPORT_RESERVATIONS_CSV = ADMINISTRATION_ROOT + "/export";

@@ -44,7 +44,7 @@
             </div>
 
             <div th:if="${#strings.isEmpty(errorMessage)}">
-                <div th:replace="main-template :: customer-simple (resource=${resource})"></div>
+                <div th:replace="main-template :: customer-simple (customer=${customer})"></div>
             </div>
 
         </div>

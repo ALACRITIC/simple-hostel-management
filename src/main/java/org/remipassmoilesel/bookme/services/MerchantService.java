@@ -40,10 +40,14 @@ public class MerchantService {
     }
 
     public MerchantService(String name, int price, String comment, Color color) {
+        this(name, price, comment, Utils.colorToRgbString(color));
+    }
+
+    public MerchantService(String name, int price, String comment, String color) {
         this.name = name;
         this.price = price;
         this.comment = comment;
-        this.color = Utils.colorToRgbString(color);
+        this.color = color;
     }
 
     public String getHexadecimalColor() {

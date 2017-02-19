@@ -46,6 +46,7 @@
         UrlTree.setDeleteResourceUrl(/*[[${mappings.get('RESOURCES_DELETE')}]]*/ "/wrong/json/feed");
         UrlTree.setCustomersJsonFeedUrl(/*[[${mappings.get('CUSTOMERS_JSON_BY_PHONENUMBER')}]]*/ "/wrong/json/feed");
         UrlTree.setExportCsvUrl(/*[[${mappings.get('ADMINISTRATION_EXPORT_RESERVATIONS_CSV')}]]*/ "/wrong/json/feed");
+        UrlTree.setDeleteServiceUrl(/*[[${mappings.get('SERVICES_DELETE')}]]*/ "/wrong/json/feed");
 
         // enable tooltips on page
         $(function () {
@@ -93,6 +94,18 @@
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Services <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="${mappings.get('SERVICES_SHOW_ALL')}">Show all</a></li>
+                        <li><a th:href="${mappings.get('SERVICES_BILL_FORM')}">Bill a service</a></li>
+                        <li><a th:href="${mappings.get('SERVICES_CALENDAR')}">Scheduled services</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a th:href="${mappings.get('SERVICES_FORM')}">Create a new service</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Resources <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a th:href="${mappings.get('RESOURCES_SHOW_ALL')}">Show all</a></li>
@@ -115,17 +128,6 @@
                     <ul class="dropdown-menu">
                         <li><a th:href="${mappings.get('MESSAGES_SHOW_ALL')}">Show all</a></li>
                         <li><a th:href="${mappings.get('MESSAGES_FORM')}">New message</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Services <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a th:href="${mappings.get('SERVICES_SHOW_ALL')}">Show all</a></li>
-                        <li><a th:href="${mappings.get('SERVICES_BILL_FORM')}">Bill a service</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a th:href="${mappings.get('SERVICES_FORM')}">Create a new service</a></li>
                     </ul>
                 </li>
 
@@ -366,7 +368,8 @@
 
                 <tr th:each="service: ${servicesList}">
                     <td th:text="${service.getName()}"
-                        th:style="${'color:' + service.getHexadecimalColor()}">Pressing</td>
+                        th:style="${'color:' + service.getHexadecimalColor()}">Pressing
+                    </td>
                     <td th:text="${service.getPrice()}">15</td>
                     <td th:text="${service.getComment()}">Comment</td>
                     <td>
@@ -384,6 +387,29 @@
                 </tr>
 
                 </tbody>
+            </table>
+
+            <h2>Service simple</h2>
+
+            <table class="table table-striped" th:fragment="service-simple">
+
+                <tr>
+                    <td style="width: 20%">Name:</td>
+                    <td th:text="${service.getName()}"
+                        th:style="${'color:' + service.getHexadecimalColor()}">Pressing
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Price:</td>
+                    <td th:text="${service.getPrice()}">15</td>
+                </tr>
+
+                <tr>
+                    <td>Comment:</td>
+                    <td th:text="${service.getComment()}">Comment</td>
+                </tr>
+
             </table>
         </div>
     </div>

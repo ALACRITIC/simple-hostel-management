@@ -69,7 +69,7 @@
                 Associated color:
             </td>
             <td>
-                <select class="form-control" th:field="*{color}">
+                <select class="form-control" th:field="*{color}" required="true">
                     <option th:each="color : ${defaultColors}"
                             th:style="${'color: ' + color.toHexadecimal()}"
                             th:value="${color.toRgbString()}"
