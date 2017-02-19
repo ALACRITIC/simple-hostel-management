@@ -35,7 +35,7 @@
                 <div th:replace="main-template :: error-block (errorMessage=${errorMessage})"></div>
             </div>
 
-            <!-- Resource saved -->
+            <!-- Service saved -->
 
             <div th:if="${#strings.isEmpty(errorMessage)}">
                 <div th:replace="main-template :: information-block (informationMessage=${'Service saved'})"></div>
@@ -62,12 +62,13 @@
             <!-- No errors -->
 
             <div th:if="${#strings.isEmpty(errorMessage)}">
-                <div th:replace="main-template :: information-block (informationMessage=${'Reservation deleted'})"></div>
+                <div th:replace="main-template :: information-block (informationMessage=${'Service deleted'})"></div>
             </div>
 
         </div>
     </div>
 
+    <div th:replace="fragments/show-debug :: debug"></div>
 
     <!-- Footer -->
     <div th:replace="main-template :: footer"></div>

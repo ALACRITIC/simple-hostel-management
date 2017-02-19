@@ -186,4 +186,44 @@ public class MerchantServicesController {
         return Templates.SERVICES_FORM;
     }
 
+    /**
+     * Delete a service
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping(Mappings.SERVICES_DELETE)
+    public String deleteService(
+            @RequestParam(value = "id", required = true) Long serviceId,
+            @RequestParam(value = "token", required = true) String token,
+            HttpServletRequest request,
+            Model model) throws Exception {
+
+        HttpSession session = request.getSession();
+        TokenManager tokenman = new TokenManager(TOKEN_NAME);
+
+        String errorMessage = "";
+
+        // token is invalid
+        if (tokenman.isTokenValid(session, Long.valueOf(token)) == false) {
+            errorMessage = "Invalid form. Please reload form and try again.";
+        }
+
+        // token is valid
+        else {
+
+            // always delete token before leave
+            tokenman.deleteTokenFrom(session);
+
+            merchantServicesService.markAsDeleted(serviceId);
+
+        }
+
+        model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute("formstate", "deleted");
+
+        Mappings.includeMappings(model);
+        return Templates.SERVICES_FORM;
+    }
+
 }

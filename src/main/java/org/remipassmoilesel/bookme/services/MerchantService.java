@@ -19,6 +19,7 @@ public class MerchantService {
     public static final String PRICE_FIELD_NAME = "PRICE";
     public static final String COMMENT_FIELD_NAME = "COMMENT";
     public static final String COLOR_FIELD_NAME = "COLOR";
+    public static final String DELETED_FIELD_NAME = "DELETED";
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private long id;
@@ -35,6 +36,14 @@ public class MerchantService {
     @DatabaseField(columnName = COLOR_FIELD_NAME)
     private String color;
 
+    /**
+     * If set to true, this resource hould not appear in availables resources.
+     * <p>
+     * Resources cannot be deleted, in order to keep database consistency.
+     */
+    @DatabaseField(columnName = DELETED_FIELD_NAME)
+    private boolean deleted;
+
     public MerchantService() {
         // ORMLite needs a no-arg constructor
     }
@@ -48,6 +57,14 @@ public class MerchantService {
         this.price = price;
         this.comment = comment;
         this.color = color;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     public String getHexadecimalColor() {
@@ -101,6 +118,7 @@ public class MerchantService {
         MerchantService that = (MerchantService) o;
         return id == that.id &&
                 price == that.price &&
+                deleted == that.deleted &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(comment, that.comment) &&
                 Objects.equals(color, that.color);
@@ -108,17 +126,18 @@ public class MerchantService {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, comment, color);
+        return Objects.hash(id, name, price, comment, color, deleted);
     }
 
     @Override
     public String toString() {
-        return "MerchantServiceType{" +
+        return "MerchantService{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", comment='" + comment + '\'' +
                 ", color='" + color + '\'' +
+                ", deleted=" + deleted +
                 '}';
     }
 }
