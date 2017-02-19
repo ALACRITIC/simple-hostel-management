@@ -46,6 +46,10 @@ public class MerchantService {
         this.color = Utils.colorToRgbString(color);
     }
 
+    public String getHexadecimalColor() {
+        return Utils.colorToHex(color);
+    }
+
     public long getId() {
         return id;
     }

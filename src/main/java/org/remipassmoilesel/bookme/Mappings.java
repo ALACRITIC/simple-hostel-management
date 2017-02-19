@@ -68,9 +68,8 @@ public class Mappings {
 
     public static final String SERVICES_ROOT = APPLICATION_ROOT + "/services";
     public static final String SERVICES_BY_TYPE = SERVICES_ROOT + "/bytype";
-    public static final String SERVICES_NEW_BILL = SERVICES_ROOT + "/bill";
-    public static final String SERVICE_TYPES_FORM = SERVICES_ROOT + "/types/form";
-    public static final String SERVICE_FORM = SERVICES_ROOT + "/form";
+    public static final String SERVICES_BILL_FORM = SERVICES_ROOT + "/bill";
+    public static final String SERVICES_FORM = SERVICES_ROOT + "/form";
     public static final String SERVICES_SHOW_ALL = SERVICES_ROOT + "/show/all";
 
     public static final String ADMINISTRATION_ROOT = APPLICATION_ROOT + "/admin";

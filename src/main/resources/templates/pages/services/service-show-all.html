@@ -21,9 +21,10 @@
 
             <h1>Services</h1>
 
+            <div th:replace="main-template :: services-list (servicesList=${servicesList})"></div>
+
         </div>
     </div>
-
 
     <!-- Footer -->
     <div th:replace="main-template :: footer"></div>
