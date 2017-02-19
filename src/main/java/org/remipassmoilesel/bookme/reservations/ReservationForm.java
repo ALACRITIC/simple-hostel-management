@@ -51,7 +51,11 @@ public class ReservationForm {
     private String comment;
 
     @NotNull
+    private boolean paid;
+
+    @NotNull
     private Long token;
+
 
     public ReservationForm() {
         begin = new DateTime().toString("dd/MM/yyyy");
@@ -61,34 +65,35 @@ public class ReservationForm {
     /**
      * Load a reservation in form
      *
-     * @param res
+     * @param reservation
      */
-    public void load(Reservation res) {
+    public void load(Reservation reservation) {
 
-        if(res == null){
+        if (reservation == null) {
             return;
         }
 
-        if (res.getCustomer() != null) {
-            setCustomerFirstname(res.getCustomer().getFirstname());
-            setCustomerLastname(res.getCustomer().getLastname());
-            setCustomerPhonenumber(res.getCustomer().getPhonenumber());
+        if (reservation.getCustomer() != null) {
+            setCustomerFirstname(reservation.getCustomer().getFirstname());
+            setCustomerLastname(reservation.getCustomer().getLastname());
+            setCustomerPhonenumber(reservation.getCustomer().getPhonenumber());
         }
 
-        if (res.getBegin() != null) {
-            setBegin(new DateTime(res.getBegin()).toString("dd/MM/YYYY"));
+        if (reservation.getBegin() != null) {
+            setBegin(new DateTime(reservation.getBegin()).toString("dd/MM/YYYY"));
         }
 
-        if (res.getEnd() != null) {
-            setEnd(new DateTime(res.getEnd()).toString("dd/MM/YYYY"));
+        if (reservation.getEnd() != null) {
+            setEnd(new DateTime(reservation.getEnd()).toString("dd/MM/YYYY"));
         }
 
-        if (res.getResource() != null) {
-            setSharedResourceId(res.getResource().getId());
+        if (reservation.getResource() != null) {
+            setSharedResourceId(reservation.getResource().getId());
         }
 
-        setReservationId(res.getId());
-        setCustomerId(res.getCustomer().getId());
+        setReservationId(reservation.getId());
+        setCustomerId(reservation.getCustomer().getId());
+        setPaid(reservation.isPaid());
     }
 
     public Long getReservationId() {
@@ -97,6 +102,14 @@ public class ReservationForm {
 
     public void setReservationId(Long reservationId) {
         this.reservationId = reservationId;
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
     }
 
     public String getCustomerPhonenumber() {
@@ -192,6 +205,7 @@ public class ReservationForm {
                 sharedResourceId == that.sharedResourceId &&
                 reservationId == that.reservationId &&
                 customerId == that.customerId &&
+                paid == that.paid &&
                 Objects.equals(customerFirstname, that.customerFirstname) &&
                 Objects.equals(customerLastname, that.customerLastname) &&
                 Objects.equals(customerPhonenumber, that.customerPhonenumber) &&
@@ -203,12 +217,12 @@ public class ReservationForm {
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerFirstname, customerLastname, customerPhonenumber, places, begin, end, sharedResourceId, reservationId, customerId, comment, token);
+        return Objects.hash(customerFirstname, customerLastname, customerPhonenumber, places, begin, end, sharedResourceId, reservationId, customerId, comment, paid, token);
     }
 
     @Override
     public String toString() {
-        return "CreateReservationForm{" +
+        return "ReservationForm{" +
                 "customerFirstname='" + customerFirstname + '\'' +
                 ", customerLastname='" + customerLastname + '\'' +
                 ", customerPhonenumber='" + customerPhonenumber + '\'' +
@@ -219,6 +233,7 @@ public class ReservationForm {
                 ", reservationId=" + reservationId +
                 ", customerId=" + customerId +
                 ", comment='" + comment + '\'' +
+                ", paid=" + paid +
                 ", token=" + token +
                 '}';
     }

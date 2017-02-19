@@ -247,10 +247,13 @@ public class ReservationController {
 
                     // get resource
                     int pl = reservationForm.getPlaces();
-                    SharedResource res = sharedResourceService.getById(reservationForm.getSharedResourceId());
+                    SharedResource resource = sharedResourceService.getById(reservationForm.getSharedResourceId());
 
                     // create reservation
-                    reservation = reservationService.create(customer, res, pl, beginDate, endDate);
+                    reservation = new Reservation(customer, resource, pl, beginDate, endDate);
+                    reservation.setPaid(reservationForm.isPaid());
+
+                    reservationService.create(reservation);
 
                 } catch (Exception e) {
                     logger.error("Error while creating reservation", e);
@@ -290,6 +293,7 @@ public class ReservationController {
                 reservation.setResource(res);
                 reservation.setComment(reservationForm.getComment());
                 reservation.setPlaces(reservationForm.getPlaces());
+                reservation.setPaid(reservationForm.isPaid());
 
                 try {
 

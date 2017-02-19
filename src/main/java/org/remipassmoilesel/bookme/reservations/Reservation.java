@@ -23,6 +23,7 @@ public class Reservation {
     public static final String DATEBEGIN_FIELD_NAME = "BEGIN";
     public static final String DATEEND_FIELD_NAME = "END";
     public static final String COMMENT_FIELD_NAME = "COMMENT";
+    public static final String PAID_FIELD_NAME = "PAID";
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private long id;
@@ -47,6 +48,9 @@ public class Reservation {
 
     @DatabaseField(columnName = COMMENT_FIELD_NAME, dataType = DataType.LONG_STRING)
     private String comment;
+
+    @DatabaseField(columnName = PAID_FIELD_NAME)
+    private boolean paid;
 
     public Reservation() {
         // ORMLite needs a no-arg constructor
@@ -138,6 +142,35 @@ public class Reservation {
         this.comment = comment;
     }
 
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reservation that = (Reservation) o;
+        return id == that.id &&
+                places == that.places &&
+                paid == that.paid &&
+                Objects.equals(customer, that.customer) &&
+                Objects.equals(resource, that.resource) &&
+                Objects.equals(reservationDate, that.reservationDate) &&
+                Objects.equals(begin, that.begin) &&
+                Objects.equals(end, that.end) &&
+                Objects.equals(comment, that.comment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, customer, resource, places, reservationDate, begin, end, comment, paid);
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +
@@ -149,26 +182,7 @@ public class Reservation {
                 ", begin=" + begin +
                 ", end=" + end +
                 ", comment='" + comment + '\'' +
+                ", paid=" + paid +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Reservation that = (Reservation) o;
-        return id == that.id &&
-                places == that.places &&
-                Objects.equals(customer, that.customer) &&
-                Objects.equals(resource, that.resource) &&
-                Objects.equals(reservationDate, that.reservationDate) &&
-                Objects.equals(begin, that.begin) &&
-                Objects.equals(end, that.end) &&
-                Objects.equals(comment, that.comment);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, customer, resource, places, reservationDate, begin, end, comment);
     }
 }

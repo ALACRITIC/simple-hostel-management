@@ -3,6 +3,7 @@ package org.remipassmoilesel.bookme.sharedresources;
 import com.j256.ormlite.stmt.QueryBuilder;
 import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
 import org.remipassmoilesel.bookme.utils.AbstractDaoService;
+import org.remipassmoilesel.bookme.utils.colors.DefaultColors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -26,12 +27,14 @@ public class SharedResourceService extends AbstractDaoService<SharedResource> {
         // create resources if resource table is empty
         if (dao.queryForAll().size() < 1) {
 
+            Color cadetblue = DefaultColors.get("cadetblue").getColor();
+            Color blueviolet = DefaultColors.get("blueviolet").getColor();
             for (int i = 1; i < 4; i++) {
-                dao.create(new SharedResource("Room " + i, 2, "", Type.ROOM, Color.blue));
+                dao.create(new SharedResource("Room " + i, 2, "", Type.ROOM, cadetblue));
             }
 
             for (int i = 1; i < 4; i++) {
-                dao.create(new SharedResource("Bed " + i, 1, "", Type.BED, Color.green));
+                dao.create(new SharedResource("Bed " + i, 1, "", Type.BED, blueviolet));
             }
 
         }
