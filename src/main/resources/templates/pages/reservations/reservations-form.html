@@ -15,10 +15,14 @@
 
 <div class="container">
 
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Reservation</h1>
+        </div>
+    </div>
+
     <div class="row" th:if="${#strings.isEmpty(formstate)}">
         <div class="col-md-12">
-
-            <h1>Reservation</h1>
 
             <div th:replace="fragments/reservation-form :: reservation-form"></div>
 
@@ -27,8 +31,6 @@
 
     <div class="row" th:if="${formstate?.equals('completed')}">
         <div class="col-md-12">
-
-            <h1>Reservation saved</h1>
 
             <!-- Error happen when saved -->
 
@@ -52,8 +54,6 @@
 
     <div class="row" th:if="${formstate?.equals('deleted')}">
         <div class="col-md-12">
-
-            <h1>Reservation deleted</h1>
 
             <!-- Error happen -->
 
