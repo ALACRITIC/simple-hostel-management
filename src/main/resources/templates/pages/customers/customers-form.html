@@ -16,20 +16,20 @@
 
 <div class="container">
 
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Customer</h1>
+        </div>
+    </div>
+
     <div class="row" th:if="${#strings.isEmpty(formstate)}">
         <div class="col-md-12">
-
-            <h1>Customer form</h1>
-
             <div th:replace="fragments/customer-form :: customer-form"></div>
-
         </div>
     </div>
 
     <div class="row" th:if="${formstate?.equals('completed')}">
         <div class="col-md-12">
-
-            <h1>Customer</h1>
 
             <!-- Error happen when saved -->
 
