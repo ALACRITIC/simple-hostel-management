@@ -16,7 +16,7 @@ public class DefaultColors {
                 return color;
             }
         }
-        return null;
+        throw new NullPointerException("Unknown color: " + s);
     }
 
     public static void includeColors(Model model) {

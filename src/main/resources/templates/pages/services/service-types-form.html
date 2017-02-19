@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Service form</title>
+
+    <script th:replace="main-template :: page-headers"></script>
+
+    <script th:replace="fragments/resource-headers"></script>
+
+</head>
+<body>
+
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
+
+<div class="container">
+
+    <div class="row" th:if="${#strings.isEmpty(formstate)}">
+        <div class="col-md-12">
+
+            <h1>Service form</h1>
+
+            <div th:replace="fragments/service-type-form :: service-type-form"></div>
+
+        </div>
+    </div>
+
+    <div class="row" th:if="${formstate?.equals('completed')}">
+        <div class="col-md-12">
+
+            <h1>Customer</h1>
+
+            <!-- Error happen when saved -->
+
+            <div th:if="${not #strings.isEmpty(errorMessage)}">
+                <div th:replace="main-template :: error-block (errorMessage=${errorMessage})"></div>
+            </div>
+
+            <!-- Resource saved -->
+
+            <div th:if="${#strings.isEmpty(errorMessage)}">
+                <div th:replace="main-template :: information-block (informationMessage=${'Customer saved'})"></div>
+            </div>
+
+            <div th:if="${#strings.isEmpty(errorMessage)}">
+                <div th:replace="main-template :: customer-simple (resource=${resource})"></div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <div th:replace="main-template :: footer"></div>
+
+</div>
+
+</body>
+</html>

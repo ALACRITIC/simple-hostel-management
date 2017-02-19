@@ -12,6 +12,7 @@ import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by remipassmoilesel on 31/01/17.
@@ -101,6 +102,16 @@ public class Utils {
     public static int randInt(int min, int max) {
         int randomNum = rand.nextInt((max - min) + 1) + min;
         return randomNum;
+    }
+
+    /**
+     * Return a random value from list
+     *
+     * @return
+     */
+    public static Object randValueFrom(List list) {
+        int randIndex = randInt(0, list.size() - 1);
+        return list.get(randIndex);
     }
 
     private static final String LOREM_IPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
