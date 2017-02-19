@@ -92,7 +92,7 @@ public class SharedResourceController {
 
         model.addAttribute("sharedResourceTypes", Type.values());
 
-        DefaultColors.includeColors(model);
+        DefaultColors.includeDarkColors(model);
         Mappings.includeMappings(model);
         return Templates.RESOURCES_FORM;
     }
@@ -110,7 +110,7 @@ public class SharedResourceController {
             model.addAttribute("errorMessage", "");
             model.addAttribute("sharedResourceTypes", Type.values());
 
-            DefaultColors.includeColors(model);
+            DefaultColors.includeDarkColors(model);
             Mappings.includeMappings(model);
             return Templates.RESOURCES_FORM;
         }
@@ -179,7 +179,7 @@ public class SharedResourceController {
         model.addAttribute("resource", resource);
         model.addAttribute("errorMessage", errorMessage);
 
-        DefaultColors.includeColors(model);
+        DefaultColors.includeDarkColors(model);
         Mappings.includeMappings(model);
         return Templates.RESOURCES_FORM;
     }
@@ -221,7 +221,7 @@ public class SharedResourceController {
         model.addAttribute("formstate", "deleted");
 
         Mappings.includeMappings(model);
-        DefaultColors.includeColors(model);
+        DefaultColors.includeDarkColors(model);
         return Templates.RESOURCES_FORM;
     }
 

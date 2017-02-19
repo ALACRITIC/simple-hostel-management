@@ -8,7 +8,6 @@ import org.remipassmoilesel.bookme.services.MerchantService;
 import org.remipassmoilesel.bookme.services.MerchantServiceForm;
 import org.remipassmoilesel.bookme.services.MerchantServicesService;
 import org.remipassmoilesel.bookme.utils.TokenManager;
-import org.remipassmoilesel.bookme.utils.colors.DefaultColor;
 import org.remipassmoilesel.bookme.utils.colors.DefaultColors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +83,7 @@ public class MerchantServicesController {
 
         model.addAttribute("errorMessage", "");
 
-        DefaultColors.includeColors(model);
+        DefaultColors.includeDarkColors(model);
         Mappings.includeMappings(model);
         return Templates.SERVICES_FORM;
     }
@@ -101,7 +100,7 @@ public class MerchantServicesController {
             model.addAttribute("token", serviceForm.getToken());
             model.addAttribute("errorMessage", "");
 
-            DefaultColors.includeColors(model);
+            DefaultColors.includeDarkColors(model);
             Mappings.includeMappings(model);
             return Templates.SERVICES_FORM;
         }

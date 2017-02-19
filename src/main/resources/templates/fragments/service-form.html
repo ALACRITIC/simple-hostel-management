@@ -39,7 +39,7 @@
             </td>
             <td>
                 <select class="form-control" th:field="*{color}" required="true">
-                    <option th:each="color : ${defaultColors}"
+                    <option th:each="color : ${defaultDarkColors}"
                             th:style="${'color: ' + color.toHexadecimal()}"
                             th:value="${color.toRgbString()}"
                             th:text="${color.getName()}">Service color
