@@ -1,8 +1,7 @@
-package org.remipassmoilesel.bookme.utils;
+package org.remipassmoilesel.bookme.utils.colors;
 
 import org.springframework.ui.Model;
 
-import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,35 +10,14 @@ import java.util.List;
  */
 public class DefaultColors {
 
-    public static class DefaultColor {
-
-        private final Color color;
-        private final String name;
-
-        public DefaultColor(String name, String hexStr) {
-            this.color = Utils.hexToColor(hexStr);
-            this.name = name;
+    public static DefaultColor get(String s) {
+        for (DefaultColor color : colors) {
+            if (color.getName().equalsIgnoreCase(s)) {
+                return color;
+            }
         }
-
-        public DefaultColor(String name, Color color) {
-            this.color = color;
-            this.name = name;
-        }
-
-        public String toHexadecimal() {
-            return Utils.colorToHex(color);
-        }
-
-        public String toRgbString() {
-            return Utils.colorToRgbString(color);
-        }
-
-        public String getName() {
-            return name;
-        }
-
+        return null;
     }
-
 
     public static void includeColors(Model model) {
         model.addAttribute("defaultColors", colors);
@@ -194,6 +172,6 @@ public class DefaultColors {
             new DefaultColor("WhiteSmoke", "#F5F5F5"),
             new DefaultColor("Yellow", "#FFFF00"),
             new DefaultColor("YellowGreen", "#9ACD32")
-            );
-    
+    );
+
 }

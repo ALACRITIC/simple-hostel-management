@@ -7,7 +7,7 @@ import org.remipassmoilesel.bookme.sharedresources.ResourceForm;
 import org.remipassmoilesel.bookme.sharedresources.SharedResource;
 import org.remipassmoilesel.bookme.sharedresources.SharedResourceService;
 import org.remipassmoilesel.bookme.sharedresources.Type;
-import org.remipassmoilesel.bookme.utils.DefaultColors;
+import org.remipassmoilesel.bookme.utils.colors.DefaultColors;
 import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.remipassmoilesel.bookme.utils.Utils;
 import org.slf4j.Logger;

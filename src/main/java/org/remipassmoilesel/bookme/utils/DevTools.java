@@ -11,6 +11,7 @@ import org.remipassmoilesel.bookme.reservations.ReservationService;
 import org.remipassmoilesel.bookme.sharedresources.SharedResource;
 import org.remipassmoilesel.bookme.sharedresources.SharedResourceService;
 import org.remipassmoilesel.bookme.sharedresources.Type;
+import org.remipassmoilesel.bookme.utils.colors.DefaultColors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ import java.util.ArrayList;
 public class DevTools {
 
     private static final Logger logger = LoggerFactory.getLogger(DevTools.class);
+    private final Color cadetblue;
+    private final Color blueviolet;
 
     @Autowired
     private ReservationService reservationService;
@@ -44,6 +47,11 @@ public class DevTools {
 
     @Autowired
     private SharedResourceService sharedResourceService;
+
+    public DevTools() {
+        cadetblue = DefaultColors.get("cadetblue").getColor();
+        blueviolet = DefaultColors.get("blueviolet").getColor();
+    }
 
     @RequestMapping(value = Mappings.POPULATE_TABLES, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
@@ -76,8 +84,10 @@ public class DevTools {
         // create rooms
         ArrayList<SharedResource> rooms = new ArrayList<>();
         int totalRooms = 10;
+        Color color;
         for (int i = 0; i < totalRooms; i++) {
-            rooms.add(sharedResourceService.createResource("B " + i, 2, "", Type.ROOM, Color.blue));
+            color = i % 2 == 0 ? blueviolet : cadetblue;
+            rooms.add(sharedResourceService.createResource("B " + i, 2, "", Type.ROOM, color));
         }
 
         return rooms;
