@@ -53,7 +53,7 @@ var CalendarUtils = {
             var firstname = element.customer.firstname;
             var lastname = element.customer.lastname;
             var startDate = element.begin;
-            var color = "rgb(" + element.resource.color + ")";
+            var color = element.resource ? "rgb(" + element.resource.color + ")" : "#444444";
             var endDate = element.end;
 
             events.push({

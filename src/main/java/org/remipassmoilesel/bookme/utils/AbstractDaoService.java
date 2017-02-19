@@ -5,6 +5,8 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.PreDestroy;
 import java.io.IOException;
@@ -15,6 +17,8 @@ import java.util.List;
  * Created by remipassmoilesel on 14/02/17.
  */
 public abstract class AbstractDaoService<T> {
+
+    private static final Logger logger = LoggerFactory.getLogger(AbstractDaoService.class);
 
     private final Class clazz;
     protected Dao dao;
@@ -119,7 +123,8 @@ public abstract class AbstractDaoService<T> {
     public void refresh(T obj) throws IOException {
 
         if (obj == null) {
-            throw new NullPointerException("Cannot refresh null object");
+            logger.error("Cannot refresh null object: " + obj, new NullPointerException("Cannot refresh null object: " + obj));
+            return;
         }
 
         try {
