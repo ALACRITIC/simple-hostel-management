@@ -2,6 +2,7 @@ package org.remipassmoilesel.bookme.controllers;
 
 import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
+import org.remipassmoilesel.bookme.admin.TiledMenu;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.messages.Message;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -54,7 +56,7 @@ public class MainController {
      *
      * @return
      */
-    @RequestMapping(value = Mappings.APPLICATION_ROOT, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.DASHBOARD, method = RequestMethod.GET)
     public String showIndex(Model model) throws IOException {
 
         // get last messages
@@ -80,9 +82,20 @@ public class MainController {
         return Templates.DASHBOARD;
     }
 
-    /**
-     * @return
-     */
+    @RequestMapping(value = Mappings.APPLICATION_ROOT, method = RequestMethod.GET)
+    public String showMainMenu(Model model) throws IOException {
+
+        TiledMenu.includeMenus(model);
+        Mappings.includeMappings(model);
+
+        // name of template
+        return Templates.MAIN_MENU;
+    }
+
+
+        /**
+         * @return
+         */
     @RequestMapping(value = Mappings.MAIN_TEMPLATE, method = RequestMethod.GET)
     public String showLiveTemplate(Model model) throws IOException {
 

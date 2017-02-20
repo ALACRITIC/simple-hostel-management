@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Dashboard</title>
+
+    <script th:replace="main-template :: page-headers"></script>
+
+</head>
+<body>
+
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Welcome</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div th:each="menu : ${menus}" class="col-sm-6 col-md-2">
+            <div class="thumbnail">
+                <a th:href="${menu.getHref()}">
+                    <img th:src="${menu.getImage()}" alt="tile"/>
+                    <div class="caption">
+                        <span text-align="center" th:text="${menu.getName()}"></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="main-template :: footer"></div>
+
+    <!--<div th:replace="fragments/show-debug :: debug"></div>-->
+
+</div>
+
+
+</body>
+</html>

@@ -9,6 +9,7 @@ public class Templates {
 
     public static final String PAGES_DIR = "pages/";
     public static final String DASHBOARD = PAGES_DIR + "dashboard";
+    public static final String MAIN_MENU = PAGES_DIR + "mainmenu";
     public static final String LOGIN = PAGES_DIR + "signin-form";
     public static final String METRICS = PAGES_DIR + "metrics";
 
@@ -41,7 +42,6 @@ public class Templates {
 
     public static final String ADMINISTRATION_DIR = PAGES_DIR + "admin/";
     public static final String ADMINISTRATION = ADMINISTRATION_DIR + "admin";
-
 
 
 }
