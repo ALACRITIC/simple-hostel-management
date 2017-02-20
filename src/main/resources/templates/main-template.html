@@ -46,7 +46,7 @@
         UrlTree.setDeleteResourceUrl(/*[[${mappings.get('RESOURCES_DELETE')}]]*/ "/wrong/json/feed");
         UrlTree.setCustomersJsonFeedUrl(/*[[${mappings.get('CUSTOMERS_JSON_BY_PHONENUMBER')}]]*/ "/wrong/json/feed");
         UrlTree.setExportCsvUrl(/*[[${mappings.get('ADMINISTRATION_EXPORT_RESERVATIONS_CSV')}]]*/ "/wrong/json/feed");
-        UrlTree.setDeleteServiceUrl(/*[[${mappings.get('SERVICES_DELETE')}]]*/ "/wrong/json/feed");
+        UrlTree.setDeleteServiceUrl(/*[[${mappings.get('SERVICE_TYPES_DELETE')}]]*/ "/wrong/json/feed");
 
         // enable tooltips on page
         $(function () {
@@ -97,7 +97,7 @@
                        aria-expanded="false">Services <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a th:href="${mappings.get('SERVICES_SHOW_ALL')}">Show all</a></li>
-                        <li><a th:href="${mappings.get('SERVICES_BILL_FORM')}">Bill a service</a></li>
+                        <li><a th:href="${mappings.get('SERVICES_FORM')}">Bill a service</a></li>
                         <li><a th:href="${mappings.get('SERVICES_CALENDAR')}">Scheduled services</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a th:href="${mappings.get('SERVICES_FORM')}">Create a new service</a></li>
@@ -353,9 +353,9 @@
     <div class="row top-buffer">
         <div class="col-md-12">
 
-            <h2>Services list</h2>
+            <h2>Service types list</h2>
 
-            <table class="table table-striped" th:fragment="services-list">
+            <table class="table table-striped" th:fragment="service-types-list">
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -373,11 +373,11 @@
                     <td th:text="${serviceType.getPrice()}">15</td>
                     <td th:text="${serviceType.getComment()}">Comment</td>
                     <td>
-                        <a th:href="${mappings.get('SERVICES_BY_TYPE') + '?id=' + service.getId()}"
+                        <a th:href="${mappings.get('SERVICES_BY_TYPE') + '?id=' + serviceType.getId()}"
                            data-toggle="tooltip" data-placement="left" title="Show services ..."
                            class="glyphicon glyphicon-search"></a>
                         &nbsp;&nbsp;
-                        <a th:href="${mappings.get('SERVICES_FORM') + '?id=' + service.getId()}"
+                        <a th:href="${mappings.get('SERVICE_TYPES_FORM') + '?id=' + serviceType.getId()}"
                            class="glyphicon glyphicon-edit"></a></td>
 
                 </tr>
@@ -389,7 +389,7 @@
                 </tbody>
             </table>
 
-            <h2>Service simple</h2>
+            <h2>Service type simple</h2>
 
             <table class="table table-striped" th:fragment="service-type-simple">
 
@@ -411,6 +411,69 @@
                 </tr>
 
             </table>
+
+            <h2>Service simple</h2>
+
+            <table class="table table-striped" th:fragment="service-simple">
+
+                <tr>
+                    <td style="width: 20%">Name:</td>
+                    <td th:text="${service.getServiceType().getName()}"
+                        th:style="${'color:' + service.getServiceType().getHexadecimalColor()}">Pressing
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Name:</td>
+                    <td th:text="${service.getCustomer().getNameString()}">Jean Claude</td>
+                </tr>
+
+                <tr>
+                    <td>Price:</td>
+                    <td th:text="${service.getTotalPrice()}">15</td>
+                </tr>
+
+                <tr>
+                    <td>Comment:</td>
+                    <td th:text="${service.getComment()}">Comment</td>
+                </tr>
+
+            </table>
+
+            <h2>Service list</h2>
+
+            <table class="table table-striped" th:fragment="services-list">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Customer</th>
+                    <th>Price</th>
+                    <th>Comment</th>
+                    <th style="width: 5em"></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="service: ${servicesList}">
+                    <td th:text="${service.getServiceType().getName()}"
+                        th:style="${'color:' + service.getServiceType().getHexadecimalColor()}">Pressing
+                    </td>
+                    <td th:text="${service.getCustomer().getNameString()}">Jean Claude</td>
+                    <td th:text="${service.getTotalPrice()}">15</td>
+                    <td th:text="${service.getComment()}">Comment</td>
+                    <td>
+                        <a th:href="${mappings.get('SERVICES_FORM') + '?id=' + service.getId()}"
+                           class="glyphicon glyphicon-edit"></a></td>
+
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(serviceList)}">
+                    <td colspan="20"><i>No services found</i></td>
+                </tr>
+
+                </tbody>
+            </table>
+
         </div>
     </div>
 

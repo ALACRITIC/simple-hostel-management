@@ -65,14 +65,14 @@
             <td colspan="2" style="text-align: right">
 
                 <!-- Add control token -->
-                <input type="hidden" id="serviceToken" name="token" th:value="${token}"/>
+                <input type="hidden" id="serviceTypeToken" name="token" th:value="${token}"/>
 
                 <!-- Add resource id -->
-                <input type="hidden" id="serviceId" th:field="*{id}"/>
+                <input type="hidden" id="serviceTypeId" th:field="*{id}"/>
 
                 <!-- Delete buttons, only if needed -->
                 <button th:if="*{id != -1}"
-                        type="button" id="serviceDeleteButton"
+                        type="button" id="serviceTypeDeleteButton"
                         class="btn btn-primary glyphicon glyphicon-trash"></button>
 
                 <button type="submit" class="btn btn-primary">Save</button>

@@ -2,11 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
-    <title>Service form</title>
+    <title>Service</title>
 
     <script th:replace="main-template :: page-headers"></script>
 
-    <script th:replace="fragments/service-type-headers"></script>
+    <script th:replace="fragments/service-headers"></script>
+    <script th:replace="fragments/customer-headers"></script>
 
 </head>
 <body>
@@ -22,7 +23,7 @@
 
     <div class="row" th:if="${#strings.isEmpty(formstate)}">
         <div class="col-md-12">
-            <div th:replace="fragments/service-type-form :: service-type-form"></div>
+            <div th:replace="fragments/service-form :: service-form"></div>
         </div>
     </div>
 
@@ -42,7 +43,7 @@
             </div>
 
             <div th:if="${#strings.isEmpty(errorMessage)}">
-                <div th:replace="main-template :: service-type-simple (serviceType=${serviceType})"></div>
+                <div th:replace="main-template :: service-simple (service=${service})"></div>
             </div>
 
         </div>
@@ -68,7 +69,7 @@
         </div>
     </div>
 
-    <!--<div th:replace="fragments/show-debug :: debug"></div>-->
+    <div th:replace="fragments/show-debug :: debug"></div>
 
     <!-- Footer -->
     <div th:replace="main-template :: footer"></div>

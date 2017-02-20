@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+<body>
+
+<form th:object="${merchantServiceForm}" method="post" th:fragment="service-form">
+
+    <table class="formtable">
+
+        <!-- Service color -->
+        <tr>
+            <td>
+                Service type:
+            </td>
+            <td>
+                <select class="form-control" th:field="*{serviceId}" required="true">
+                    <option th:each="serviceType : ${serviceTypes}"
+                            th:style="${'color: ' + serviceType.getHexadecimalColor()}"
+                            th:value="${serviceType.getId()}"
+                            th:text="${serviceType.getName()}">Service color
+
+                    </option>
+                </select>
+            </td>
+        </tr>
+
+        <!-- First name -->
+        <tr>
+            <td colspan="2">
+                <input type="text" id="serviceCustomerFirstname" class="form-control" placeholder="First name"
+                       th:field="*{customerFirstname}"/>
+                <div th:if="${#fields.hasErrors('customerFirstname')}" th:errors="*{customerFirstname}"
+                     class="formError">
+                    First name error
+                </div>
+            </td>
+        </tr>
+
+        <!-- Last name -->
+        <tr>
+            <td colspan="2">
+                <input type="text" id="serviceCustomerLastname" class="form-control" placeholder="Last name"
+                       th:field="*{customerLastname}"/>
+                <div th:if="${#fields.hasErrors('customerLastname')}" th:errors="*{customerLastname}" class="formError">
+                    Last name error
+                </div>
+            </td>
+        </tr>
+
+        <!-- Phone number -->
+        <tr>
+            <td colspan="2">
+                <input type="text" id="serviceCustomerPhonenumber" class="form-control" placeholder="Phone number"
+                       th:field="*{customerPhonenumber}"/>
+                <div th:if="${#fields.hasErrors('customerPhonenumber')}" th:errors="*{customerPhonenumber}"
+                     class="formError">
+                    Phone number error
+                </div>
+                <div class="formInformation" id="serviceCustomerPhonenumberWarning"></div>
+            </td>
+        </tr>
+
+        <!-- Total price  -->
+
+        <tr>
+            <td colspan="2">
+                <input type="text" class="form-control" placeholder="Service price" th:field="*{totalPrice}"/>
+                <div th:if="${#fields.hasErrors('totalPrice')}" th:errors="*{totalPrice}" class="formError">
+                    Price error
+                </div>
+            </td>
+        </tr>
+
+        <!-- Comment-->
+
+        <tr>
+            <td colspan="2">
+                <textarea class="form-control" placeholder="Comment" th:field="*{comment}"></textarea>
+                <div th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" class="formError">
+                    Comment error
+                </div>
+            </td>
+        </tr>
+
+        <!-- Service is scheduled-->
+
+        <tr>
+            <td colspan="2">
+                <fieldset>
+                    <input type="checkbox" id="serviceIsScheduled" th:field="*{scheduled}"/>
+                    <label for="serviceIsScheduled">&nbsp;&nbsp;&nbsp; Service is scheduled</label>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="text" th:field="*{executionDate}" class="form-control" id="serviceExecutionDate"
+                       placeholder="ExecutionDate" readonly="readonly"/>
+            </td>
+        </tr>
+
+        <!-- Service is paid -->
+
+        <tr>
+            <td colspan="2">
+                <fieldset>
+                    <input type="checkbox" id="serviceIsPaid" th:field="*{paid}"/>
+                    <label for="serviceIsPaid">&nbsp;&nbsp;&nbsp; Service is paid</label>
+                </fieldset>
+            </td>
+        </tr>
+
+
+        <!-- Token and submit button -->
+        <tr>
+            <td colspan="2" style="text-align: right">
+
+                <!-- Add control token -->
+                <input type="hidden" id="serviceToken" name="token" th:value="${token}"/>
+
+                <!-- Add resource id -->
+                <input type="hidden" id="serviceId" th:field="*{id}"/>
+
+                <!-- Delete buttons, only if needed -->
+                <button th:if="*{id != -1}"
+                        type="button" id="serviceDeleteButton"
+                        class="btn btn-primary glyphicon glyphicon-trash"></button>
+
+                <button type="submit" class="btn btn-primary">Save</button>
+
+            </td>
+        </tr>
+
+    </table>
+
+    <script src="/assets/scripts/service-form.js"></script>
+
+</form>
+
+</body>
+</html>
