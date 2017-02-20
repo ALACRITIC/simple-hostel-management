@@ -28,10 +28,10 @@ public class MerchantService {
     private long id;
 
     @DatabaseField(columnName = SERVICE_FIELD_NAME, foreign = true)
-    private MerchantServiceType service;
+    private MerchantServiceType serviceType;
 
     @DatabaseField(columnName = PRICE_FIELD_NAME)
-    private int price;
+    private int totalPrice;
 
     @DatabaseField(columnName = COMMENT_FIELD_NAME, dataType = DataType.LONG_STRING)
     private String comment;
@@ -56,8 +56,8 @@ public class MerchantService {
     }
 
     public MerchantService(MerchantServiceType service, Customer customer, int totalPrice, String comment, Date purchaseDate, boolean scheduled, Date executionDate) {
-        this.service = service;
-        this.price = totalPrice;
+        this.serviceType = service;
+        this.totalPrice = totalPrice;
         this.comment = comment;
         this.purchaseDate = purchaseDate;
         this.scheduled = scheduled;
@@ -73,20 +73,20 @@ public class MerchantService {
         this.id = id;
     }
 
-    public MerchantServiceType getService() {
-        return service;
+    public MerchantServiceType getServiceType() {
+        return serviceType;
     }
 
-    public void setService(MerchantServiceType service) {
-        this.service = service;
+    public void setServiceType(MerchantServiceType service) {
+        this.serviceType = service;
     }
 
-    public int getPrice() {
-        return price;
+    public int getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public String getComment() {
@@ -143,10 +143,10 @@ public class MerchantService {
         if (o == null || getClass() != o.getClass()) return false;
         MerchantService that = (MerchantService) o;
         return id == that.id &&
-                price == that.price &&
+                totalPrice == that.totalPrice &&
                 scheduled == that.scheduled &&
                 paid == that.paid &&
-                Objects.equals(service, that.service) &&
+                Objects.equals(serviceType, that.serviceType) &&
                 Objects.equals(comment, that.comment) &&
                 Objects.equals(purchaseDate, that.purchaseDate) &&
                 Objects.equals(executionDate, that.executionDate) &&
@@ -155,15 +155,15 @@ public class MerchantService {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, service, price, comment, purchaseDate, scheduled, executionDate, customer, paid);
+        return Objects.hash(id, serviceType, totalPrice, comment, purchaseDate, scheduled, executionDate, customer, paid);
     }
 
     @Override
     public String toString() {
         return "MerchantService{" +
                 "id=" + id +
-                ", serviceType=" + service +
-                ", price=" + price +
+                ", serviceType=" + serviceType +
+                ", price=" + totalPrice +
                 ", comment='" + comment + '\'' +
                 ", purchaseDate=" + purchaseDate +
                 ", scheduled=" + scheduled +

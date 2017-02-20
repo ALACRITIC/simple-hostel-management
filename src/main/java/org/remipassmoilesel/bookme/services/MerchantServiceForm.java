@@ -13,10 +13,10 @@ import java.util.Objects;
 public class MerchantServiceForm {
 
     @NotNull
-    private int price;
+    private int totalPrice;
 
     @NotNull
-    private long billId = -1;
+    private long id = -1;
 
     @NotNull
     @Size(max = 2000)
@@ -42,9 +42,6 @@ public class MerchantServiceForm {
     private String executionDate;
 
     @NotNull
-    private String purchaseDate;
-
-    @NotNull
     private long serviceId = -1;
 
     @NotNull
@@ -52,6 +49,9 @@ public class MerchantServiceForm {
 
     @NotNull
     private boolean scheduled;
+
+    @NotNull
+    private Long token;
 
     public MerchantServiceForm() {
 
@@ -68,8 +68,8 @@ public class MerchantServiceForm {
             return;
         }
 
-        setPrice(bill.getPrice());
-        setBillId(bill.getId());
+        setTotalPrice(bill.getTotalPrice());
+        setId(bill.getId());
 
         if (bill.getCustomer() != null) {
             setCustomerId(bill.getCustomer().getId());
@@ -82,32 +82,28 @@ public class MerchantServiceForm {
             setExecutionDate(Utils.dateToString(bill.getExecutionDate()));
         }
 
-        if (bill.getPurchaseDate() != null) {
-            setPurchaseDate(Utils.dateToString(bill.getPurchaseDate()));
-        }
-
-        if (bill.getService() != null) {
-            setServiceId(bill.getService().getId());
+        if (bill.getServiceType() != null) {
+            setServiceId(bill.getServiceType().getId());
         }
 
         setComment(bill.getComment());
 
     }
 
-    public int getPrice() {
-        return price;
+    public int getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public long getBillId() {
-        return billId;
+    public long getId() {
+        return id;
     }
 
-    public void setBillId(long billId) {
-        this.billId = billId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getComment() {
@@ -158,13 +154,6 @@ public class MerchantServiceForm {
         this.executionDate = executionDate;
     }
 
-    public String getPurchaseDate() {
-        return purchaseDate;
-    }
-
-    public void setPurchaseDate(String purchaseDate) {
-        this.purchaseDate = purchaseDate;
-    }
 
     public long getServiceId() {
         return serviceId;
@@ -190,13 +179,21 @@ public class MerchantServiceForm {
         this.scheduled = scheduled;
     }
 
+    public Long getToken() {
+        return token;
+    }
+
+    public void setToken(Long token) {
+        this.token = token;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MerchantServiceForm that = (MerchantServiceForm) o;
-        return price == that.price &&
-                billId == that.billId &&
+        return totalPrice == that.totalPrice &&
+                id == that.id &&
                 customerId == that.customerId &&
                 serviceId == that.serviceId &&
                 paid == that.paid &&
@@ -206,29 +203,11 @@ public class MerchantServiceForm {
                 Objects.equals(customerLastname, that.customerLastname) &&
                 Objects.equals(customerPhonenumber, that.customerPhonenumber) &&
                 Objects.equals(executionDate, that.executionDate) &&
-                Objects.equals(purchaseDate, that.purchaseDate);
+                Objects.equals(token, that.token);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(price, billId, comment, customerFirstname, customerLastname, customerPhonenumber, customerId, executionDate, purchaseDate, serviceId, paid, scheduled);
-    }
-
-    @Override
-    public String toString() {
-        return "MerchantServiceBillForm{" +
-                "price=" + price +
-                ", billId=" + billId +
-                ", comment='" + comment + '\'' +
-                ", customerFirstname='" + customerFirstname + '\'' +
-                ", customerLastname='" + customerLastname + '\'' +
-                ", customerPhonenumber='" + customerPhonenumber + '\'' +
-                ", customerId=" + customerId +
-                ", executionDate='" + executionDate + '\'' +
-                ", purchaseDate='" + purchaseDate + '\'' +
-                ", serviceId=" + serviceId +
-                ", paid=" + paid +
-                ", scheduled=" + scheduled +
-                '}';
+        return Objects.hash(totalPrice, id, comment, customerFirstname, customerLastname, customerPhonenumber, customerId, executionDate, serviceId, paid, scheduled, token);
     }
 }
