@@ -31,9 +31,6 @@ public class ReservationService extends AbstractDaoService<Reservation> {
     private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
 
     @Autowired
-    private CustomConfiguration configuration;
-
-    @Autowired
     private CustomerService customerService;
 
     @Autowired

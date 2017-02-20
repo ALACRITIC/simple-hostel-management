@@ -52,6 +52,10 @@ public class Customer {
         this.creationDate = creationDate;
     }
 
+    public String getNameString() {
+        return firstname + " " + lastname;
+    }
+
     public String getLastname() {
         return lastname;
     }

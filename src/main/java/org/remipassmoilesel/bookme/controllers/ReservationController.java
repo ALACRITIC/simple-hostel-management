@@ -201,11 +201,8 @@ public class ReservationController {
 
         try {
 
-            // token is invalid
-            if (tokenman.isTokenValid(session, reservationForm.getToken()) == false) {
-                logger.error("Invalid token: " + reservationForm.getToken());
-                throw new IllegalStateException("Invalid form, please update form and try again");
-            }
+            // check if token is invalid
+            tokenman.throwIfTokenInvalid(session, reservationForm.getToken());
 
             // always delete token before leave
             tokenman.deleteTokenFrom(session);
@@ -330,7 +327,7 @@ public class ReservationController {
     @GetMapping(Mappings.RESERVATIONS_DELETE)
     public String deleteReservation(
             @RequestParam(value = "id", required = true) Long reservationId,
-            @RequestParam(value = "token", required = true) String token,
+            @RequestParam(value = "token", required = true) Long token,
             HttpServletRequest request,
             Model model) throws Exception {
 
@@ -339,20 +336,14 @@ public class ReservationController {
 
         String errorMessage = "";
 
-        // token is invalid
-        if (tokenman.isTokenValid(session, Long.valueOf(token)) == false) {
-            errorMessage = "Invalid form. Please reload form and try again.";
-        }
+        // check if token is invalid
+        tokenman.throwIfTokenInvalid(session, token);
 
         // token is valid
-        else {
+        // always delete token before leave
+        tokenman.deleteTokenFrom(session);
 
-            // always delete token before leave
-            tokenman.deleteTokenFrom(session);
-
-            reservationService.deleteById(reservationId);
-
-        }
+        reservationService.deleteById(reservationId);
 
         model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("formstate", "deleted");

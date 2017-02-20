@@ -7,9 +7,9 @@ import org.remipassmoilesel.bookme.sharedresources.ResourceForm;
 import org.remipassmoilesel.bookme.sharedresources.SharedResource;
 import org.remipassmoilesel.bookme.sharedresources.SharedResourceService;
 import org.remipassmoilesel.bookme.sharedresources.Type;
-import org.remipassmoilesel.bookme.utils.colors.DefaultColors;
 import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.remipassmoilesel.bookme.utils.Utils;
+import org.remipassmoilesel.bookme.utils.colors.DefaultColors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,10 +123,8 @@ public class SharedResourceController {
             HttpSession session = request.getSession();
             TokenManager tokenman = new TokenManager(TOKEN_NAME);
 
-            // token is invalid
-            if (tokenman.isTokenValid(session, resourceForm.getToken()) == false) {
-                throw new IllegalStateException("Invalid form, please update form and try again");
-            }
+            // check if token is invalid
+            tokenman.throwIfTokenInvalid(session, resourceForm.getToken());
 
             // always delete token just after
             tokenman.deleteTokenFrom(session);
@@ -193,7 +191,7 @@ public class SharedResourceController {
     @GetMapping(Mappings.RESOURCES_DELETE)
     public String deleteResource(
             @RequestParam(value = "id", required = true) Long resourceId,
-            @RequestParam(value = "token", required = true) String token,
+            @RequestParam(value = "token", required = true) Long token,
             HttpServletRequest request,
             Model model) throws Exception {
 
@@ -202,20 +200,14 @@ public class SharedResourceController {
 
         String errorMessage = "";
 
-        // token is invalid
-        if (tokenman.isTokenValid(session, Long.valueOf(token)) == false) {
-            errorMessage = "Invalid form. Please reload form and try again.";
-        }
+        // check if token is invalid
+        tokenman.throwIfTokenInvalid(session, token);
 
         // token is valid
-        else {
+        // always delete token before leave
+        tokenman.deleteTokenFrom(session);
 
-            // always delete token before leave
-            tokenman.deleteTokenFrom(session);
-
-            sharedResourceService.markAsDeleted(resourceId);
-
-        }
+        sharedResourceService.markAsDeleted(resourceId);
 
         model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("formstate", "deleted");

@@ -143,10 +143,7 @@ public class CustomerController {
         try {
 
             // token is invalid
-            if (tokenman.isTokenValid(session, customerForm.getToken()) == false) {
-                logger.error("Invalid token: " + customerForm.getToken());
-                throw new IllegalStateException("Invalid form, please update form and try again");
-            }
+            tokenman.throwIfTokenInvalid(session, customerForm.getToken());
 
             // always delete token before leave
             tokenman.deleteTokenFrom(session);

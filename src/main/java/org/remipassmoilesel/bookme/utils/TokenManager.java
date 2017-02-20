@@ -114,6 +114,13 @@ public class TokenManager {
         return sessionToken != null && sessionToken.equals(Long.valueOf(toCheck));
     }
 
+    public void throwIfTokenInvalid(HttpSession session, Long toCheck) {
+        if (isTokenValid(session, toCheck) == false) {
+            logger.error("Invalid token: " + toCheck);
+            throw new IllegalStateException("Invalid form, please update form and try again");
+        }
+    }
+
     /**
      * Delete token from specified http session
      *
