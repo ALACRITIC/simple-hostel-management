@@ -3,8 +3,8 @@ package org.remipassmoilesel.bookme;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
-import org.remipassmoilesel.bookme.services.MerchantServicesService;
-import org.remipassmoilesel.bookme.services.BillService;
+import org.remipassmoilesel.bookme.services.MerchantServiceTypesService;
+import org.remipassmoilesel.bookme.services.MerchantServiceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,8 @@ public class MerchantServicesTest {
     private final Logger logger = LoggerFactory.getLogger(ReservationServiceTest.class);
 
     @Autowired
-    private MerchantServicesService merchantServiceTypesService;
-    private BillService merchantServicesService;
+    private MerchantServiceTypesService merchantServiceTypesService;
+    private MerchantServiceService merchantServicesService;
 
     @Test
     public void test() throws IOException {

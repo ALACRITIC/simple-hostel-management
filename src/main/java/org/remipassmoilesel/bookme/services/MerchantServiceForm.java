@@ -1,6 +1,9 @@
 package org.remipassmoilesel.bookme.services;
 
+import org.remipassmoilesel.bookme.utils.Utils;
+
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
@@ -13,21 +16,42 @@ public class MerchantServiceForm {
     private int price;
 
     @NotNull
+    private long billId = -1;
+
+    @NotNull
     @Size(max = 2000)
     private String comment;
 
     @NotNull
-    private String color;
-
-    @NotNull
-    private long id = -1;
+    @Size(min = 2, max = 50)
+    private String customerFirstname;
 
     @NotNull
     @Size(min = 2, max = 50)
-    private String name;
+    private String customerLastname;
 
     @NotNull
-    private Long token;
+    @Size(min = 2, max = 50)
+    @Pattern(regexp = "\\+?[0-9]+")
+    private String customerPhonenumber;
+
+    @NotNull
+    private long customerId = -1;
+
+    @NotNull
+    private String executionDate;
+
+    @NotNull
+    private String purchaseDate;
+
+    @NotNull
+    private long serviceId = -1;
+
+    @NotNull
+    private boolean paid;
+
+    @NotNull
+    private boolean scheduled;
 
     public MerchantServiceForm() {
 
@@ -36,19 +60,37 @@ public class MerchantServiceForm {
     /**
      * Load a service in form
      *
-     * @param serviceType
+     * @param bill
      */
-    public void load(MerchantService serviceType) {
+    public void load(MerchantService bill) {
 
-        if (serviceType == null) {
+        if (bill == null) {
             return;
         }
 
-        setPrice(serviceType.getPrice());
-        setComment(serviceType.getComment());
-        setColor(serviceType.getColor());
-        setId(serviceType.getId());
-        setName(serviceType.getName());
+        setPrice(bill.getPrice());
+        setBillId(bill.getId());
+
+        if (bill.getCustomer() != null) {
+            setCustomerId(bill.getCustomer().getId());
+            setCustomerFirstname(bill.getCustomer().getFirstname());
+            setCustomerLastname(bill.getCustomer().getLastname());
+            setCustomerPhonenumber(bill.getCustomer().getPhonenumber());
+        }
+
+        if (bill.getExecutionDate() != null) {
+            setExecutionDate(Utils.dateToString(bill.getExecutionDate()));
+        }
+
+        if (bill.getPurchaseDate() != null) {
+            setPurchaseDate(Utils.dateToString(bill.getPurchaseDate()));
+        }
+
+        if (bill.getService() != null) {
+            setServiceId(bill.getService().getId());
+        }
+
+        setComment(bill.getComment());
 
     }
 
@@ -60,6 +102,14 @@ public class MerchantServiceForm {
         this.price = price;
     }
 
+    public long getBillId() {
+        return billId;
+    }
+
+    public void setBillId(long billId) {
+        this.billId = billId;
+    }
+
     public String getComment() {
         return comment;
     }
@@ -68,36 +118,76 @@ public class MerchantServiceForm {
         this.comment = comment;
     }
 
-    public String getColor() {
-        return color;
+    public String getCustomerFirstname() {
+        return customerFirstname;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setCustomerFirstname(String customerFirstname) {
+        this.customerFirstname = customerFirstname;
     }
 
-    public long getId() {
-        return id;
+    public String getCustomerLastname() {
+        return customerLastname;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setCustomerLastname(String customerLastname) {
+        this.customerLastname = customerLastname;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomerPhonenumber() {
+        return customerPhonenumber;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerPhonenumber(String customerPhonenumber) {
+        this.customerPhonenumber = customerPhonenumber;
     }
 
-    public Long getToken() {
-        return token;
+    public long getCustomerId() {
+        return customerId;
     }
 
-    public void setToken(Long token) {
-        this.token = token;
+    public void setCustomerId(long customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getExecutionDate() {
+        return executionDate;
+    }
+
+    public void setExecutionDate(String executionDate) {
+        this.executionDate = executionDate;
+    }
+
+    public String getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    public void setPurchaseDate(String purchaseDate) {
+        this.purchaseDate = purchaseDate;
+    }
+
+    public long getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(long serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
+    }
+
+    public boolean isScheduled() {
+        return scheduled;
+    }
+
+    public void setScheduled(boolean scheduled) {
+        this.scheduled = scheduled;
     }
 
     @Override
@@ -106,27 +196,39 @@ public class MerchantServiceForm {
         if (o == null || getClass() != o.getClass()) return false;
         MerchantServiceForm that = (MerchantServiceForm) o;
         return price == that.price &&
-                id == that.id &&
+                billId == that.billId &&
+                customerId == that.customerId &&
+                serviceId == that.serviceId &&
+                paid == that.paid &&
+                scheduled == that.scheduled &&
                 Objects.equals(comment, that.comment) &&
-                Objects.equals(color, that.color) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(token, that.token);
+                Objects.equals(customerFirstname, that.customerFirstname) &&
+                Objects.equals(customerLastname, that.customerLastname) &&
+                Objects.equals(customerPhonenumber, that.customerPhonenumber) &&
+                Objects.equals(executionDate, that.executionDate) &&
+                Objects.equals(purchaseDate, that.purchaseDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(price, comment, color, id, name, token);
+        return Objects.hash(price, billId, comment, customerFirstname, customerLastname, customerPhonenumber, customerId, executionDate, purchaseDate, serviceId, paid, scheduled);
     }
 
     @Override
     public String toString() {
-        return "MerchantServiceTypeForm{" +
+        return "MerchantServiceBillForm{" +
                 "price=" + price +
+                ", billId=" + billId +
                 ", comment='" + comment + '\'' +
-                ", color='" + color + '\'' +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", token=" + token +
+                ", customerFirstname='" + customerFirstname + '\'' +
+                ", customerLastname='" + customerLastname + '\'' +
+                ", customerPhonenumber='" + customerPhonenumber + '\'' +
+                ", customerId=" + customerId +
+                ", executionDate='" + executionDate + '\'' +
+                ", purchaseDate='" + purchaseDate + '\'' +
+                ", serviceId=" + serviceId +
+                ", paid=" + paid +
+                ", scheduled=" + scheduled +
                 '}';
     }
 }

@@ -8,12 +8,10 @@ import org.springframework.stereotype.Service;
  * Created by remipassmoilesel on 19/02/17.
  */
 @Service
-public class BillService extends AbstractDaoService<MerchantServiceBill> {
+public class MerchantServiceService extends AbstractDaoService<MerchantService> {
 
-
-    public BillService(CustomConfiguration configuration) {
-        super(MerchantServiceBill.class, configuration);
+    public MerchantServiceService(CustomConfiguration configuration) {
+        super(MerchantService.class, configuration);
     }
-
 
 }

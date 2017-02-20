@@ -3,29 +3,32 @@ package org.remipassmoilesel.bookme.services;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import org.remipassmoilesel.bookme.utils.Utils;
+import org.remipassmoilesel.bookme.customers.Customer;
 
-import java.awt.*;
+import java.util.Date;
 import java.util.Objects;
 
 /**
  * Created by remipassmoilesel on 30/01/17.
  */
-@DatabaseTable(tableName = "SERVICE_TYPES")
+@DatabaseTable(tableName = "SERVICES")
 public class MerchantService {
 
     public static final String ID_FIELD_NAME = "ID";
-    public static final String SERVICE_NAME_FIELD_NAME = "NAME";
+    public static final String SERVICE_FIELD_NAME = "SERVICE";
     public static final String PRICE_FIELD_NAME = "PRICE";
     public static final String COMMENT_FIELD_NAME = "COMMENT";
-    public static final String COLOR_FIELD_NAME = "COLOR";
-    public static final String DELETED_FIELD_NAME = "DELETED";
+    public static final String PURCHASE_DATE_FIELD_NAME = "PURCHASE_DATE";
+    public static final String IS_SCHEDULED = "IS_SCHEDULED";
+    public static final String EXECUTION_DATE_FIELD_NAME = "EXECUTION_DATE";
+    public static final String CUSTOMER_FIELD_NAME = "CUSTOMER";
+    public static final String PAID_FIELD_NAME = "PAID";
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private long id;
 
-    @DatabaseField(columnName = SERVICE_NAME_FIELD_NAME, unique = true)
-    private String name;
+    @DatabaseField(columnName = SERVICE_FIELD_NAME, foreign = true)
+    private MerchantServiceType service;
 
     @DatabaseField(columnName = PRICE_FIELD_NAME)
     private int price;
@@ -33,42 +36,33 @@ public class MerchantService {
     @DatabaseField(columnName = COMMENT_FIELD_NAME, dataType = DataType.LONG_STRING)
     private String comment;
 
-    @DatabaseField(columnName = COLOR_FIELD_NAME)
-    private String color;
+    @DatabaseField(columnName = PURCHASE_DATE_FIELD_NAME)
+    private Date purchaseDate;
 
-    /**
-     * If set to true, this resource hould not appear in availables resources.
-     * <p>
-     * Resources cannot be deleted, in order to keep database consistency.
-     */
-    @DatabaseField(columnName = DELETED_FIELD_NAME)
-    private boolean deleted;
+    @DatabaseField(columnName = IS_SCHEDULED)
+    private boolean scheduled;
+
+    @DatabaseField(columnName = EXECUTION_DATE_FIELD_NAME)
+    private Date executionDate;
+
+    @DatabaseField(foreign = true, columnName = CUSTOMER_FIELD_NAME)
+    private Customer customer;
+
+    @DatabaseField(columnName = PAID_FIELD_NAME)
+    private boolean paid;
 
     public MerchantService() {
         // ORMLite needs a no-arg constructor
     }
 
-    public MerchantService(String name, int price, String comment, Color color) {
-        this(name, price, comment, Utils.colorToRgbString(color));
-    }
-
-    public MerchantService(String name, int price, String comment, String color) {
-        this.name = name;
-        this.price = price;
+    public MerchantService(MerchantServiceType service, Customer customer, int totalPrice, String comment, Date purchaseDate, boolean scheduled, Date executionDate) {
+        this.service = service;
+        this.price = totalPrice;
         this.comment = comment;
-        this.color = color;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    public String getHexadecimalColor() {
-        return Utils.colorToHex(color);
+        this.purchaseDate = purchaseDate;
+        this.scheduled = scheduled;
+        this.executionDate = executionDate;
+        this.customer = customer;
     }
 
     public long getId() {
@@ -79,12 +73,12 @@ public class MerchantService {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public MerchantServiceType getService() {
+        return service;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setService(MerchantServiceType service) {
+        this.service = service;
     }
 
     public int getPrice() {
@@ -103,12 +97,44 @@ public class MerchantService {
         this.comment = comment;
     }
 
-    public String getColor() {
-        return color;
+    public Date getPurchaseDate() {
+        return purchaseDate;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setPurchaseDate(Date purchaseDate) {
+        this.purchaseDate = purchaseDate;
+    }
+
+    public boolean isScheduled() {
+        return scheduled;
+    }
+
+    public void setScheduled(boolean scheduled) {
+        this.scheduled = scheduled;
+    }
+
+    public Date getExecutionDate() {
+        return executionDate;
+    }
+
+    public void setExecutionDate(Date executionDate) {
+        this.executionDate = executionDate;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
     }
 
     @Override
@@ -118,26 +144,32 @@ public class MerchantService {
         MerchantService that = (MerchantService) o;
         return id == that.id &&
                 price == that.price &&
-                deleted == that.deleted &&
-                Objects.equals(name, that.name) &&
+                scheduled == that.scheduled &&
+                paid == that.paid &&
+                Objects.equals(service, that.service) &&
                 Objects.equals(comment, that.comment) &&
-                Objects.equals(color, that.color);
+                Objects.equals(purchaseDate, that.purchaseDate) &&
+                Objects.equals(executionDate, that.executionDate) &&
+                Objects.equals(customer, that.customer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, comment, color, deleted);
+        return Objects.hash(id, service, price, comment, purchaseDate, scheduled, executionDate, customer, paid);
     }
 
     @Override
     public String toString() {
         return "MerchantService{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", serviceType=" + service +
                 ", price=" + price +
                 ", comment='" + comment + '\'' +
-                ", color='" + color + '\'' +
-                ", deleted=" + deleted +
+                ", purchaseDate=" + purchaseDate +
+                ", scheduled=" + scheduled +
+                ", executionDate=" + executionDate +
+                ", customer=" + customer +
+                ", paid=" + paid +
                 '}';
     }
 }

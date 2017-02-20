@@ -14,7 +14,7 @@ var ServiceForm = {
         var token = $("#serviceToken").val();
 
         deleteButton.click(function(){
-            ServiceUtils.showDeleteServiceDialog(resourceId, token);
+            ServiceUtils.showDeleteServiceTypeDialog(resourceId, token);
         });
 
     }

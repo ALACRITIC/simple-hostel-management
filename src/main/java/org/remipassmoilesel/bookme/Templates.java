@@ -34,9 +34,9 @@ public class Templates {
     public static final String CUSTOMERS_SEARCH = CUSTOMERS_DIR + "customers-search";
     public static final String CUSTOMERS_FORM = CUSTOMERS_DIR + "customers-form";
 
-    public static final String SERVICES_TYPES_DIR = PAGES_DIR + "services/";
-    public static final String SERVICES_FORM = SERVICES_TYPES_DIR + "service-form";
-    public static final String SERVICES_SHOW_ALL = SERVICES_TYPES_DIR + "service-show-all";
+    public static final String SERVICES_DIR = PAGES_DIR + "services/";
+    public static final String SERVICES_TYPE_FORM = SERVICES_DIR + "service-form";
+    public static final String SERVICES_TYPES_SHOW_ALL = SERVICES_DIR + "service-show-all";
 
     public static final String ADMINISTRATION_DIR = PAGES_DIR + "admin/";
     public static final String ADMINISTRATION = ADMINISTRATION_DIR + "admin";

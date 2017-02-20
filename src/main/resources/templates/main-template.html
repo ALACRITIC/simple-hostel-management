@@ -366,15 +366,15 @@
                 </thead>
                 <tbody>
 
-                <tr th:each="service: ${servicesList}">
-                    <td th:text="${service.getName()}"
-                        th:style="${'color:' + service.getHexadecimalColor()}">Pressing
+                <tr th:each="serviceType: ${serviceTypesList}">
+                    <td th:text="${serviceType.getName()}"
+                        th:style="${'color:' + serviceType.getHexadecimalColor()}">Pressing
                     </td>
-                    <td th:text="${service.getPrice()}">15</td>
-                    <td th:text="${service.getComment()}">Comment</td>
+                    <td th:text="${serviceType.getPrice()}">15</td>
+                    <td th:text="${serviceType.getComment()}">Comment</td>
                     <td>
                         <a th:href="${mappings.get('SERVICES_BY_TYPE') + '?id=' + service.getId()}"
-                           data-toggle="tooltip" data-placement="left" title="Show reservations ..."
+                           data-toggle="tooltip" data-placement="left" title="Show services ..."
                            class="glyphicon glyphicon-search"></a>
                         &nbsp;&nbsp;
                         <a th:href="${mappings.get('SERVICES_FORM') + '?id=' + service.getId()}"
@@ -382,7 +382,7 @@
 
                 </tr>
 
-                <tr th:if="${#lists.isEmpty(servicesList)}">
+                <tr th:if="${#lists.isEmpty(serviceTypesList)}">
                     <td colspan="20"><i>No services found</i></td>
                 </tr>
 
@@ -391,23 +391,23 @@
 
             <h2>Service simple</h2>
 
-            <table class="table table-striped" th:fragment="service-simple">
+            <table class="table table-striped" th:fragment="service-type-simple">
 
                 <tr>
                     <td style="width: 20%">Name:</td>
-                    <td th:text="${service.getName()}"
-                        th:style="${'color:' + service.getHexadecimalColor()}">Pressing
+                    <td th:text="${serviceType.getName()}"
+                        th:style="${'color:' + serviceType.getHexadecimalColor()}">Pressing
                     </td>
                 </tr>
 
                 <tr>
                     <td>Price:</td>
-                    <td th:text="${service.getPrice()}">15</td>
+                    <td th:text="${serviceType.getPrice()}">15</td>
                 </tr>
 
                 <tr>
                     <td>Comment:</td>
-                    <td th:text="${service.getComment()}">Comment</td>
+                    <td th:text="${serviceType.getComment()}">Comment</td>
                 </tr>
 
             </table>

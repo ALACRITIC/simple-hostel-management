@@ -1,6 +1,6 @@
 var ServiceUtils = {
     
-    showDeleteServiceDialog: function (serviceId, token) {
+    showDeleteServiceTypeDialog: function (serviceId, token) {
 
         if (!serviceId || !token) {
             throw "This method need an id and a token: id/" + serviceId + " t/" + token;
@@ -17,7 +17,7 @@ var ServiceUtils = {
                 },
                 "Delete": function () {
 
-                    ServiceUtils.deleteService(serviceId, token);
+                    ServiceUtils.deleteServiceType(serviceId, token);
 
                     $(this).dialog("close");
 
@@ -26,7 +26,7 @@ var ServiceUtils = {
         });
     },
     
-    deleteService: function (serviceId, token) {
+    deleteServiceType: function (serviceId, token) {
         window.location = UrlTree.getDeleteServiceUrl() + "?id=" + serviceId + "&token=" + token;
     }
 

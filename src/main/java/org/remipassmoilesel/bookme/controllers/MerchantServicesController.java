@@ -3,10 +3,10 @@ package org.remipassmoilesel.bookme.controllers;
 import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.customers.CustomerService;
-import org.remipassmoilesel.bookme.services.BillService;
-import org.remipassmoilesel.bookme.services.MerchantService;
-import org.remipassmoilesel.bookme.services.MerchantServiceForm;
-import org.remipassmoilesel.bookme.services.MerchantServicesService;
+import org.remipassmoilesel.bookme.services.MerchantServiceService;
+import org.remipassmoilesel.bookme.services.MerchantServiceType;
+import org.remipassmoilesel.bookme.services.MerchantServiceTypeForm;
+import org.remipassmoilesel.bookme.services.MerchantServiceTypesService;
 import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.remipassmoilesel.bookme.utils.colors.DefaultColors;
 import org.slf4j.Logger;
@@ -35,20 +35,20 @@ public class MerchantServicesController {
     private CustomerService customerService;
 
     @Autowired
-    private BillService billService;
+    private MerchantServiceService merchantServiceService;
 
     @Autowired
-    private MerchantServicesService merchantServicesService;
+    private MerchantServiceTypesService merchantServiceTypesService;
 
     @RequestMapping(value = Mappings.SERVICES_SHOW_ALL, method = RequestMethod.GET)
     public String showAll(Model model) throws Exception {
 
-        List<MerchantService> servicesList = merchantServicesService.getAll();
+        List<MerchantServiceType> serviceTypesList = merchantServiceTypesService.getAll();
 
-        model.addAttribute("servicesList", servicesList);
+        model.addAttribute("serviceTypesList", serviceTypesList);
 
         Mappings.includeMappings(model);
-        return Templates.SERVICES_SHOW_ALL;
+        return Templates.SERVICES_TYPES_SHOW_ALL;
     }
 
     /**
@@ -62,14 +62,14 @@ public class MerchantServicesController {
      * @throws Exception
      */
     @GetMapping(Mappings.SERVICES_FORM)
-    public String showCreateServiceForm(
+    public String showCreateServiceTypeForm(
             @RequestParam(value = "id", required = false, defaultValue = "-1") Long serviceTypeId,
             HttpServletRequest request,
-            MerchantServiceForm form,
+            MerchantServiceTypeForm form,
             Model model) throws Exception {
 
         if (serviceTypeId != -1) {
-            MerchantService serType = merchantServicesService.getById(serviceTypeId);
+            MerchantServiceType serType = merchantServiceTypesService.getById(serviceTypeId);
             form.load(serType);
         }
 
@@ -85,12 +85,12 @@ public class MerchantServicesController {
 
         DefaultColors.includeDarkColors(model);
         Mappings.includeMappings(model);
-        return Templates.SERVICES_FORM;
+        return Templates.SERVICES_TYPE_FORM;
     }
 
     @PostMapping(Mappings.SERVICES_FORM)
-    public String submitService(
-            @Valid MerchantServiceForm serviceForm,
+    public String submitServiceType(
+            @Valid MerchantServiceTypeForm serviceForm,
             BindingResult serviceResults,
             Model model,
             HttpServletRequest request) throws Exception {
@@ -102,7 +102,7 @@ public class MerchantServicesController {
 
             DefaultColors.includeDarkColors(model);
             Mappings.includeMappings(model);
-            return Templates.SERVICES_FORM;
+            return Templates.SERVICES_TYPE_FORM;
         }
 
         // checks tokens
@@ -110,7 +110,7 @@ public class MerchantServicesController {
         TokenManager tokenman = new TokenManager(TOKEN_NAME);
 
         String errorMessage = "";
-        MerchantService service = null;
+        MerchantServiceType service = null;
 
         try {
 
@@ -125,15 +125,23 @@ public class MerchantServicesController {
 
             // add reservation if it is a new one
             if (serviceForm.getId() == -1) {
+
+                String name = serviceForm.getName().trim();
+
+                if(merchantServiceTypesService.getByName(name) != null){
+                    throw new Exception("This service already exist, please choose an other name");
+                }
+
                 try {
-                    service = new MerchantService(
-                            serviceForm.getName(),
+
+                    service = new MerchantServiceType(
+                            name,
                             serviceForm.getPrice(),
                             serviceForm.getComment(),
                             serviceForm.getColor()
                     );
 
-                    merchantServicesService.create(service);
+                    merchantServiceTypesService.create(service);
 
                 } catch (Exception e) {
                     logger.error("Error while creating reservation", e);
@@ -144,7 +152,7 @@ public class MerchantServicesController {
             // else update existing reservation
             else {
                 try {
-                    service = merchantServicesService.getById(serviceForm.getId());
+                    service = merchantServiceTypesService.getById(serviceForm.getId());
                 } catch (Exception e) {
                     logger.error("Error while searching searching: " + serviceForm.getId(), e);
                     throw new Exception("Error, please try again later.");
@@ -163,7 +171,7 @@ public class MerchantServicesController {
 
                 try {
                     // update repository
-                    merchantServicesService.update(service);
+                    merchantServiceTypesService.update(service);
 
                 } catch (Exception e) {
                     logger.error("Error while updating reservation", e);
@@ -178,11 +186,11 @@ public class MerchantServicesController {
         }
 
         model.addAttribute("formstate", "completed");
-        model.addAttribute("service", service);
+        model.addAttribute("serviceType", service);
         model.addAttribute("errorMessage", errorMessage);
 
         Mappings.includeMappings(model);
-        return Templates.SERVICES_FORM;
+        return Templates.SERVICES_TYPE_FORM;
     }
 
     /**
@@ -192,7 +200,7 @@ public class MerchantServicesController {
      * @return
      */
     @GetMapping(Mappings.SERVICES_DELETE)
-    public String deleteService(
+    public String deleteServiceType(
             @RequestParam(value = "id", required = true) Long serviceId,
             @RequestParam(value = "token", required = true) String token,
             HttpServletRequest request,
@@ -214,7 +222,7 @@ public class MerchantServicesController {
             // always delete token before leave
             tokenman.deleteTokenFrom(session);
 
-            merchantServicesService.markAsDeleted(serviceId);
+            merchantServiceTypesService.markAsDeleted(serviceId);
 
         }
 
@@ -222,7 +230,7 @@ public class MerchantServicesController {
         model.addAttribute("formstate", "deleted");
 
         Mappings.includeMappings(model);
-        return Templates.SERVICES_FORM;
+        return Templates.SERVICES_TYPE_FORM;
     }
 
 }

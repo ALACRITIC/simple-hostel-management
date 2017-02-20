@@ -2,6 +2,9 @@ package org.remipassmoilesel.bookme.utils;
 
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.Tomcat;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext;
@@ -9,8 +12,6 @@ import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletCon
 
 import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
@@ -21,11 +22,15 @@ public class Utils {
 
     private static final Logger logger = LoggerFactory.getLogger(Utils.class);
 
-    private static DateFormat formatterDDMMYYYY = new SimpleDateFormat("dd/MM/yyyy");
-    private static DateFormat formatterYYYYMMDD = new SimpleDateFormat("yyyy-MM-dd");
+    private final static String DEFAULT_DATE_FORMAT_1 = "dd/MM/yyyy";
+    private final static String DEFAULT_DATE_FORMAT_2 = "yyyy-MM-dd";
 
     public static String dateToString(Date d) {
-        return formatterDDMMYYYY.format(d);
+        return dateToString(d, DEFAULT_DATE_FORMAT_1);
+    }
+
+    public static String dateToString(Date d, String format) {
+        return new DateTime(d).toString(format);
     }
 
     private static Random rand = new Random();
@@ -41,15 +46,27 @@ public class Utils {
      */
     public static Date stringToDate(String str) throws Exception {
         try {
-            return formatterDDMMYYYY.parse(str);
+            return stringToDateTime(str, DEFAULT_DATE_FORMAT_1).toDate();
         } catch (Exception e) {
             logger.debug("Error while parsing date: ", e);
         }
         try {
-            return formatterYYYYMMDD.parse(str);
+            return stringToDateTime(str, DEFAULT_DATE_FORMAT_2).toDate();
         } catch (Exception e2) {
             throw new Exception("Invalid date: " + str);
         }
+    }
+
+    /**
+     * Parse two type of dates: YYYYMMDD or DDMMYYYY
+     *
+     * @param str
+     * @return
+     * @throws Exception
+     */
+    public static DateTime stringToDateTime(String str, String format) throws Exception {
+        DateTimeFormatter fmt = DateTimeFormat.forPattern(format);
+        return DateTime.parse(str, fmt);
     }
 
     /**

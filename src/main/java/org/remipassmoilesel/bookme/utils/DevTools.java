@@ -8,10 +8,10 @@ import org.remipassmoilesel.bookme.messages.Message;
 import org.remipassmoilesel.bookme.messages.MessageService;
 import org.remipassmoilesel.bookme.reservations.Reservation;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
-import org.remipassmoilesel.bookme.services.BillService;
+import org.remipassmoilesel.bookme.services.MerchantServiceService;
+import org.remipassmoilesel.bookme.services.MerchantServiceType;
 import org.remipassmoilesel.bookme.services.MerchantService;
-import org.remipassmoilesel.bookme.services.MerchantServiceBill;
-import org.remipassmoilesel.bookme.services.MerchantServicesService;
+import org.remipassmoilesel.bookme.services.MerchantServiceTypesService;
 import org.remipassmoilesel.bookme.sharedresources.SharedResource;
 import org.remipassmoilesel.bookme.sharedresources.SharedResourceService;
 import org.remipassmoilesel.bookme.sharedresources.Type;
@@ -58,10 +58,10 @@ public class DevTools {
     private SharedResourceService sharedResourceService;
 
     @Autowired
-    private MerchantServicesService merchantServiceTypesService;
+    private MerchantServiceTypesService merchantServiceTypesService;
 
     @Autowired
-    private BillService merchantServicesService;
+    private MerchantServiceService merchantServicesService;
 
     public DevTools() {
         cadetblue = DefaultColors.get("cadetblue").getColor();
@@ -94,11 +94,11 @@ public class DevTools {
         results.addAll(reservations);
 
         // create services
-        ArrayList<MerchantService> serviceTypes = createServiceTypes(7);
+        ArrayList<MerchantServiceType> serviceTypes = createServiceTypes(7);
         results.addAll(serviceTypes);
 
         // create bills
-        ArrayList<MerchantServiceBill> bills = createServiceBills(10, customers, serviceTypes, now.toString("MM/yyyy"));
+        ArrayList<MerchantService> bills = createServiceBills(10, customers, serviceTypes, now.toString("MM/yyyy"));
         bills.addAll(createServiceBills(10, customers, serviceTypes, now.plusMonths(1).toString("MM/yyyy")));
         results.addAll(bills);
 
@@ -166,7 +166,7 @@ public class DevTools {
         return reservations;
     }
 
-    private ArrayList<MerchantService> createServiceTypes(int number) throws IOException {
+    private ArrayList<MerchantServiceType> createServiceTypes(int number) throws IOException {
 
         // create service types
         List<String> names = Arrays.asList(
@@ -185,11 +185,11 @@ public class DevTools {
                 "Mandrin au miel",
                 "Mandrin aux 7 plantes du Massif de la Chartreuse");
 
-        ArrayList<MerchantService> serviceTypes = new ArrayList<>();
+        ArrayList<MerchantServiceType> serviceTypes = new ArrayList<>();
 
         for (int i = 0; i < number; i++) {
             Color color = i % 2 == 0 ? darkslategray : darkviolet;
-            MerchantService st = new MerchantService(names.get(i), 5 + i, Utils.generateLoremIpsum(400), color);
+            MerchantServiceType st = new MerchantServiceType(names.get(i), 5 + i, Utils.generateLoremIpsum(400), color);
             serviceTypes.add(st);
             merchantServiceTypesService.create(st);
         }
@@ -197,16 +197,16 @@ public class DevTools {
         return serviceTypes;
     }
 
-    private ArrayList<MerchantServiceBill> createServiceBills(int number, List<Customer> customers, List<MerchantService> services, String partialDate) throws IOException, ParseException {
+    private ArrayList<MerchantService> createServiceBills(int number, List<Customer> customers, List<MerchantServiceType> services, String partialDate) throws IOException, ParseException {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        ArrayList<MerchantServiceBill> bills = new ArrayList<>();
+        ArrayList<MerchantService> bills = new ArrayList<>();
 
         // create non scheduled services
         for (int i = 0; i < number / 2; i++) {
-            MerchantServiceBill bill = new MerchantServiceBill(
-                    (MerchantService) Utils.randValueFrom(services),
+            MerchantService bill = new MerchantService(
+                    (MerchantServiceType) Utils.randValueFrom(services),
                     (Customer) Utils.randValueFrom(customers),
                     5 + i,
                     "",
@@ -218,8 +218,8 @@ public class DevTools {
 
         // create non scheduled services
         for (int i = number / 2; i < number; i++) {
-            MerchantServiceBill bill = new MerchantServiceBill(
-                    (MerchantService) Utils.randValueFrom(services),
+            MerchantService bill = new MerchantService(
+                    (MerchantServiceType) Utils.randValueFrom(services),
                     (Customer) Utils.randValueFrom(customers),
                     5 + i,
                     "",

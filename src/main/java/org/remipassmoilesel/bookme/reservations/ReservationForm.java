@@ -1,6 +1,7 @@
 package org.remipassmoilesel.bookme.reservations;
 
 import org.joda.time.DateTime;
+import org.remipassmoilesel.bookme.utils.Utils;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -27,6 +28,9 @@ public class ReservationForm {
     private String customerPhonenumber;
 
     @NotNull
+    private long customerId = -1;
+
+    @NotNull
     @Min(1)
     private int places = 1;
 
@@ -43,9 +47,6 @@ public class ReservationForm {
 
     @NotNull
     private long reservationId = -1;
-
-    @NotNull
-    private long customerId = -1;
 
     @Size(max = 2000)
     private String comment;
@@ -80,11 +81,11 @@ public class ReservationForm {
         }
 
         if (reservation.getBegin() != null) {
-            setBegin(new DateTime(reservation.getBegin()).toString("dd/MM/YYYY"));
+            setBegin(Utils.dateToString(reservation.getBegin()));
         }
 
         if (reservation.getEnd() != null) {
-            setEnd(new DateTime(reservation.getEnd()).toString("dd/MM/YYYY"));
+            setEnd(Utils.dateToString(reservation.getEnd()));
         }
 
         if (reservation.getResource() != null) {
