@@ -33,7 +33,7 @@ public class ExportService {
         }
     }
 
-    public File export(Date begin, Date end) throws IOException {
+    public File exportReserationsCsv(Date begin, Date end) throws IOException {
 
         File tempFile = createTempFile();
         try (FileWriter writer = new FileWriter(tempFile);

@@ -3,7 +3,11 @@ package org.remipassmoilesel.bookme.controllers;
 import org.apache.commons.io.IOUtils;
 import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
+import org.remipassmoilesel.bookme.customers.Customer;
+import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.export.ExportService;
+import org.remipassmoilesel.bookme.reservations.Reservation;
+import org.remipassmoilesel.bookme.reservations.ReservationService;
 import org.remipassmoilesel.bookme.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by remipassmoilesel on 17/02/17.
@@ -28,6 +33,12 @@ public class AdministrationController {
     @Autowired
     private ExportService exportService;
 
+    @Autowired
+    private CustomerService customerService;
+
+    @Autowired
+    private ReservationService reservationService;
+
     @RequestMapping(value = Mappings.ADMINISTRATION_ROOT, method = RequestMethod.GET)
     public String searchCustomer(Model model) throws Exception {
 
@@ -36,7 +47,7 @@ public class AdministrationController {
     }
 
     @RequestMapping(value = Mappings.ADMINISTRATION_EXPORT_RESERVATIONS_CSV, method = RequestMethod.GET)
-    public void exportReservations(
+    public void exportReservationsCsv(
             @RequestParam("begin") String begin,
             @RequestParam("end") String end,
             HttpServletResponse response) throws Exception {
@@ -47,7 +58,7 @@ public class AdministrationController {
         response.setContentType("text/csv");
         response.setHeader("Content-disposition", "attachment; filename=\"export.csv\"");
 
-        File tempFile = exportService.export(beginDate, endDate);
+        File tempFile = exportService.exportReserationsCsv(beginDate, endDate);
 
         try (ServletOutputStream out = response.getOutputStream();
              InputStream in = Files.newInputStream(tempFile.toPath())) {
@@ -56,6 +67,25 @@ public class AdministrationController {
 
         Files.delete(tempFile.toPath());
 
+    }
+
+    @RequestMapping(value = Mappings.ADMINISTRATION_PRINT_BILL, method = RequestMethod.GET)
+    public String exportBillHtml(
+            @RequestParam("begin") String begin,
+            @RequestParam("end") String end,
+            @RequestParam("customerId") Long customerId,
+            Model model) throws Exception {
+
+        Date beginDate = Utils.stringToDate(begin);
+        Date endDate = Utils.stringToDate(end);
+
+        Customer customer = customerService.getById(customerId);
+        List<Reservation> reservations = reservationService.getByInterval(beginDate, endDate, true);
+
+        model.addAttribute("customer", customer);
+        model.addAttribute("reservations", reservations);
+
+        return Templates.ADMINISTRATION_BILL;
     }
 
 }

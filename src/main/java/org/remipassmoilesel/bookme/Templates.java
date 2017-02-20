@@ -42,6 +42,8 @@ public class Templates {
 
     public static final String ADMINISTRATION_DIR = PAGES_DIR + "admin/";
     public static final String ADMINISTRATION = ADMINISTRATION_DIR + "admin";
+    public static final String ADMINISTRATION_BILL = ADMINISTRATION_DIR + "bill";
+
 
 
 }

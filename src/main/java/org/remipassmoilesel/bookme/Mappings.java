@@ -74,13 +74,14 @@ public class Mappings {
     public static final String SERVICE_TYPES_DELETE = SERVICES_ROOT + "/type/delete";
     public static final String SERVICES_DELETE = SERVICES_ROOT + "/delete";
     public static final String SERVICES_FORM = SERVICES_ROOT + "/form";
-    public static final String SERVICES_SHOW_ALL = SERVICES_ROOT + "/show/all";
+    public static final String SERVICES_SHOW_LASTS = SERVICES_ROOT + "/show/all";
     public static final String SERVICES_CALENDAR = SERVICES_ROOT + "/calendar";
     public static final String SERVICES_BY_TYPE = SERVICES_ROOT + "/bytype";
 
 
     public static final String ADMINISTRATION_ROOT = APPLICATION_ROOT + "/admin";
-    public static final String ADMINISTRATION_EXPORT_RESERVATIONS_CSV = ADMINISTRATION_ROOT + "/export";
+    public static final String ADMINISTRATION_EXPORT_RESERVATIONS_CSV = ADMINISTRATION_ROOT + "/export/csv";
+    public static final String ADMINISTRATION_PRINT_BILL = ADMINISTRATION_ROOT + "/export/bill";
 
     public static final String POPULATE_TABLES = APPLICATION_ROOT + "/populate-tables";
     public static final String MAIN_TEMPLATE = APPLICATION_ROOT + "/main-template";
