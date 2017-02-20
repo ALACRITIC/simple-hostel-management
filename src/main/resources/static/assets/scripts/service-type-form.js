@@ -1,17 +1,17 @@
 
 $(function () {
-    ServiceForm.init();
+    ServiceTypeForm.init();
 });
 
-var ServiceForm = {
+var ServiceTypeForm = {
 
     init: function () {
 
-        var self = ServiceForm;
+        var self = ServiceTypeForm;
 
-        var deleteButton = $("#serviceDeleteButton");
-        var resourceId = $("#serviceId").val();
-        var token = $("#serviceToken").val();
+        var deleteButton = $("#serviceTypeDeleteButton");
+        var resourceId = $("#serviceTypeId").val();
+        var token = $("#serviceTypeToken").val();
 
         deleteButton.click(function(){
             ServiceUtils.showDeleteServiceTypeDialog(resourceId, token);
