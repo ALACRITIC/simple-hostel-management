@@ -100,3 +100,7 @@ a.fc-day-number {
     padding-left: 1em;
     color: darkblue;
 }
+
+.mainmenu .caption{
+    text-align: center;
+}
