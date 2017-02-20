@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>View bill</title>
+
+    <script th:replace="main-template :: page-headers"></script>
+
+    <script th:replace="fragments/customer-headers"></script>
+    <script th:replace="fragments/reservation-headers"></script>
+
+</head>
+<body>
+
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>View bill</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <table class="formtable">
+
+                <!-- User search -->
+                <tr>
+                    <td>
+                        Customer:
+                    </td>
+
+                    <td>
+                        <input class="form-control" type="text" placeholder="Customer name or first name"
+                               id="clientSeachTextField"/>
+                        <input type="hidden" name="customerId" id="customerId"/>
+                    </td>
+                </tr>
+
+                <!-- Select dates -->
+                <tr>
+
+                    <td>
+                        Select dates:
+                    </td>
+                    <td>
+                        <ul style="list-style: none" id="customerSearchResultDates">
+
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" style="text-align: right">
+                        <button type="button" id="exportValidButton" class="btn btn-primary">Export</button>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+    </div>
+
+    <script src="/assets/scripts/bill-form.js"></script>
+
+    <!-- Footer -->
+    <div th:replace="main-template :: footer"></div>
+
+    <!--<div th:replace="fragments/show-debug :: debug"></div>-->
+
+</div>
+
+
+</body>
+</html>

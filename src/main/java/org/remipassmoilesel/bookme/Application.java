@@ -47,6 +47,10 @@ public class Application {
         mainApp.addListeners((event) -> {
             if (event instanceof ApplicationReadyEvent) {
                 CustomConfiguration config = ((ApplicationReadyEvent) event).getApplicationContext().getBean(CustomConfiguration.class);
+                if (config == null) {
+                    logger.error("Configuration not ready");
+                    return;
+                }
                 if (config.isLaunchBrowserOnStart() == true) {
                     showMainPage();
                 }

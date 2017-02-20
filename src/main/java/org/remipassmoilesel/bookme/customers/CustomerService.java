@@ -77,9 +77,11 @@ public class CustomerService extends AbstractDaoService<Customer> {
 
     }
 
-    public List<Customer> search(String firstname, String lastname, long limit, long offset) throws IOException {
+    public List<Customer> search(String firstname, String lastname, String phonenumber, long limit, long offset) throws IOException {
 
-        if ((firstname == null || firstname.isEmpty()) && (lastname == null || lastname.isEmpty())) {
+        if ((firstname == null || firstname.isEmpty())
+                && (lastname == null || lastname.isEmpty())
+                && (phonenumber == null || phonenumber.isEmpty())) {
             throw new NullPointerException("Name or first name must be not null and not empty: n/" + lastname + ", fn/" + firstname);
         }
 
@@ -89,18 +91,27 @@ public class CustomerService extends AbstractDaoService<Customer> {
         // to lowercase, and replace all special chars by wildcards
         lastname = lastname.trim().toLowerCase().replaceAll("[^a-z0-9]", "_");
         firstname = firstname.trim().toLowerCase().replaceAll("[^a-z0-9]", "_");
+        phonenumber = phonenumber.trim().toLowerCase().replaceAll("[^a-z0-9]", "_");
 
+        // check first name
         if (firstname.matches("^_*$") == false && firstname.isEmpty() == false) {
             rawWhere += "LOWER(" + Customer.FIRSTNAME_FIELD_NAME + ") LIKE '%" + firstname + "%'";
         }
 
+        // check last name
         if (lastname.matches("^_*$") == false && lastname.isEmpty() == false) {
-
             if (rawWhere.isEmpty() == false) {
                 rawWhere += " AND ";
             }
-
             rawWhere += "LOWER(" + Customer.LASTNAME_FIELD_NAME + ") LIKE '%" + lastname + "%'";
+        }
+
+        // check phone number
+        if (phonenumber.matches("^_*$") == false && phonenumber.isEmpty() == false) {
+            if (rawWhere.isEmpty() == false) {
+                rawWhere += " AND ";
+            }
+            rawWhere += "LOWER(" + Customer.PHONENUMBER_FIELD_NAME + ") LIKE '%" + phonenumber + "%'";
         }
 
         // do not query if arguments are not significant

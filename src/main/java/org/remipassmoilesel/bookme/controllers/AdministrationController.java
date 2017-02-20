@@ -69,6 +69,17 @@ public class AdministrationController {
 
     }
 
+    @RequestMapping(value = Mappings.ADMINISTRATION_BILL_FORM, method = RequestMethod.GET)
+    public String showExportBillFom(
+            @RequestParam(value = "begin", required = false) String begin,
+            @RequestParam(value = "end", required = false) String end,
+            @RequestParam(value = "customerId", required = false) Long customerId,
+            Model model) throws Exception {
+
+        Mappings.includeMappings(model);
+        return Templates.ADMINISTRATION_BILL_FORM;
+    }
+
     @RequestMapping(value = Mappings.ADMINISTRATION_PRINT_BILL, method = RequestMethod.GET)
     public String exportBillHtml(
             @RequestParam("begin") String begin,

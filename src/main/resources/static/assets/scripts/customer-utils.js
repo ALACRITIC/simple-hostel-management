@@ -20,8 +20,8 @@ var CustomerUtils = {
         })
             .done(function (response) {
                 if (response) {
-                    var first = response.firstname;
-                    var last = response.lastname;
+                    var first = response[0].firstname;
+                    var last = response[0].lastname;
                     var text = "Somebody already have this phone number: <b>" + first + " " + last + "</b>.&nbsp;";
                     text += "If you validate form, customer entry will be updated with new values.&nbsp;";
                     warnZone.html(text);
@@ -43,6 +43,38 @@ var CustomerUtils = {
                 console.error(error);
                 warnZone.html("Unable to check if phone number already exist");
             });
+    },
+
+    search: function (term) {
+
+        var defer = $.Deferred();
+
+        if (!term) {
+            throw "Invalid terms !";
+           
+        }
+
+        $.ajax({
+            url: UrlTree.getCustomersJsonFeedUrl(),
+            data: {
+                term: term
+            }
+        })
+            .done(function (response) {
+                var result = [];
+                $.each(response, function (index, element) {
+                    result.push(element);
+                });
+
+                defer.resolve(result);
+            })
+
+            .fail(function (error) {
+                console.error(error);
+                defer.reject();
+            });
+
+        return defer.promise();
     }
 
 };

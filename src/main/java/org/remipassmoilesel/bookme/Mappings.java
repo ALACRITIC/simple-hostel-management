@@ -39,6 +39,7 @@ public class Mappings {
     public static final String RESERVATIONS_JSON = RESERVATIONS_ROOT + "/json";
     public static final String RESERVATIONS_JSON_GET = RESERVATIONS_JSON + "/get";
     public static final String RESERVATIONS_JSON_GET_ALL = RESERVATIONS_JSON + "/all";
+    public static final String RESERVATIONS_JSON_SEARCH = RESERVATIONS_JSON + "/search";
     public static final String RESERVATIONS_RESOURCES_AVAILABLE_JSON_GET = RESERVATIONS_JSON + "/availableresources";
 
     public static final String RESERVATIONS_BY_CUSTOMER = RESERVATIONS_ROOT + "/bycustomer";
@@ -66,7 +67,7 @@ public class Mappings {
     public static final String CUSTOMERS_FORM = CUSTOMERS_ROOT + "/form";
 
     public static final String CUSTOMERS_JSON_ROOT = CUSTOMERS_ROOT + "/json";
-    public static final String CUSTOMERS_JSON_BY_PHONENUMBER = CUSTOMERS_JSON_ROOT + "/byphonenumber";
+    public static final String CUSTOMERS_JSON_SEARCH = CUSTOMERS_JSON_ROOT + "/search";
     public static final String CUSTOMERS_JSON_GET_ALL = CUSTOMERS_JSON_ROOT + "/all";
 
     public static final String SERVICES_ROOT = APPLICATION_ROOT + "/services";
@@ -81,6 +82,7 @@ public class Mappings {
 
     public static final String ADMINISTRATION_ROOT = APPLICATION_ROOT + "/admin";
     public static final String ADMINISTRATION_EXPORT_RESERVATIONS_CSV = ADMINISTRATION_ROOT + "/export/csv";
+    public static final String ADMINISTRATION_BILL_FORM = ADMINISTRATION_ROOT + "/bill/form";
     public static final String ADMINISTRATION_PRINT_BILL = ADMINISTRATION_ROOT + "/export/bill";
 
     public static final String POPULATE_TABLES = APPLICATION_ROOT + "/populate-tables";

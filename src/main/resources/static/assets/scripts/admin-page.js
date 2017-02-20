@@ -13,10 +13,7 @@ var AdministrationPage = {
         var beginDate = $("#exportBeginDate");
         var endDate = $("#exportEndDate");
         var validButton = $("#exportValidButton");
-
-        var reservationId = $("#reservationId").val();
-        var token = $("#reservationToken").val();
-
+        
         // transform fields in date picker
         beginDate.datepicker({
             dateFormat: "dd/mm/yy",

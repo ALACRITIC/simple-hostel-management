@@ -345,6 +345,7 @@ public class ReservationController {
 
         reservationService.deleteById(reservationId);
 
+
         model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("formstate", "deleted");
 
@@ -367,6 +368,15 @@ public class ReservationController {
 
         List<Reservation> result = reservationService.getByInterval(startDate, endDate, true);
         return result;
+
+    }
+
+    @RequestMapping(value = Mappings.RESERVATIONS_JSON_SEARCH, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<Reservation> searchReservations(
+            @RequestParam("customerId") long customerId) throws Exception {
+
+        return reservationService.getByCustomerId(customerId, 200, 0);
 
     }
 

@@ -71,6 +71,38 @@ var ReservationUtils = {
      */
     deleteReservation: function (reservationId, token) {
         window.location = UrlTree.getDeleteReservationUrl() + "?id=" + reservationId + "&token=" + token;
+    },
+
+    searchDatesForCustomer: function (customerId) {
+
+        var defer = $.Deferred();
+
+        if (!customerId) {
+            throw "Customer id is null";
+        }
+
+        $.ajax({
+            url: UrlTree.getReservationSearchUrl(),
+            data: {
+                customerId: customerId
+            }
+        })
+            .done(function (response) {
+                var result = [];
+                $.each(response, function (index, element) {
+                    result.push(element);
+                });
+
+                defer.resolve(result);
+            })
+
+            .fail(function (error) {
+                console.error(error);
+                defer.reject();
+            });
+
+        return defer.promise();
+        
     }
 
 };

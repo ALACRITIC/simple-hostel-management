@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,7 +52,7 @@ public class CustomerController {
         String errorMessage = "";
         if (searchForm.getFirstname() != null || searchForm.getLastname() != null) {
             try {
-                List<Customer> results = customerService.search(searchForm.getFirstname(), searchForm.getLastname(), 40, 0);
+                List<Customer> results = customerService.search(searchForm.getFirstname(), searchForm.getLastname(), "", 40, 0);
                 model.addAttribute("results", results);
             } catch (Exception e) {
                 logger.error("Error while searching customers: ", e);
@@ -72,14 +73,32 @@ public class CustomerController {
         return customers;
     }
 
-    @RequestMapping(value = Mappings.CUSTOMERS_JSON_BY_PHONENUMBER, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.CUSTOMERS_JSON_SEARCH, method = RequestMethod.GET)
     @ResponseBody
-    public Customer getJsonByPhonenumber(
-            @RequestParam(value = "phonenumber", required = true) String phonenumber)
+    public List<Customer> getJsonByPhonenumber(
+            @RequestParam(value = "phonenumber", required = false, defaultValue = "") String phonenumber,
+            @RequestParam(value = "firstname", required = false, defaultValue = "") String firstname,
+            @RequestParam(value = "lastname", required = false, defaultValue = "") String lastname,
+            @RequestParam(value = "term", required = false, defaultValue = "") String term)
             throws Exception {
 
-        return customerService.getByPhonenumber(phonenumber);
+        ArrayList<Customer> results = new ArrayList<>();
 
+        if (term.isEmpty() == false) {
+            results.addAll(customerService.search(term, "", "", 50, 0));
+            results.addAll(customerService.search("", term, "", 50, 0));
+            results.addAll(customerService.search("", "", term, 50, 0));
+        }
+
+        if (phonenumber.isEmpty() == false) {
+            results.add(customerService.getByPhonenumber(phonenumber));
+        }
+
+        if (firstname.isEmpty() == false && lastname.isEmpty() == false) {
+            results.addAll(customerService.search(firstname, lastname, "", 50, 0));
+        }
+
+        return results;
     }
 
 

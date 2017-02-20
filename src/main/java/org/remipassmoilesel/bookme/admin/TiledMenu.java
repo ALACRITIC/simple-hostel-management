@@ -26,7 +26,7 @@ public class TiledMenu {
     private static List<TiledMenuItem> row4 = Arrays.asList(
             new TiledMenuItem("Search customers", Mappings.CUSTOMERS_SEARCH, null),
             new TiledMenuItem("Next checkouts", Mappings.RESERVATIONS_NEXT_CHECKOUTS, null),
-            new TiledMenuItem("Export bill", Mappings.ADMINISTRATION_PRINT_BILL, "assets/img/tile_dollar.svg")
+            new TiledMenuItem("Export bill", Mappings.ADMINISTRATION_BILL_FORM, "assets/img/tile_dollar.svg")
     );
 
     private static List<TiledMenuRow> rows = Arrays.asList(

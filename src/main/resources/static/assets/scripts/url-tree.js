@@ -107,6 +107,19 @@ var UrlTree = {
 
     ///////////////////////////////
 
+    reservationSearchUrl: null,
+
+    setReservationSearchUrl: function (url) {
+        UrlTree.reservationSearchUrl = url;
+    },
+
+    getReservationSearchUrl: function () {
+        UrlTree._checkIfDefined(UrlTree.reservationSearchUrl, "reservationSearchUrl");
+        return UrlTree.reservationSearchUrl;
+    },
+
+    ///////////////////////////////
+
     _checkIfDefined: function (field, label) {
         if (!field) {
             throw "URL field not defined ! Please set field before use it: " + label;
