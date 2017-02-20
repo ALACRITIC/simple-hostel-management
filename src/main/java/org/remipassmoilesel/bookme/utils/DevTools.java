@@ -98,8 +98,8 @@ public class DevTools {
         results.addAll(serviceTypes);
 
         // create bills
-        ArrayList<MerchantService> bills = createServiceBills(10, customers, serviceTypes, now.toString("MM/yyyy"));
-        bills.addAll(createServiceBills(10, customers, serviceTypes, now.plusMonths(1).toString("MM/yyyy")));
+        ArrayList<MerchantService> bills = createServices(10, customers, serviceTypes, now.toString("MM/yyyy"));
+        bills.addAll(createServices(10, customers, serviceTypes, now.plusMonths(1).toString("MM/yyyy")));
         results.addAll(bills);
 
         return results;
@@ -197,7 +197,7 @@ public class DevTools {
         return serviceTypes;
     }
 
-    private ArrayList<MerchantService> createServiceBills(int number, List<Customer> customers, List<MerchantServiceType> services, String partialDate) throws IOException, ParseException {
+    private ArrayList<MerchantService> createServices(int number, List<Customer> customers, List<MerchantServiceType> services, String partialDate) throws IOException, ParseException {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -205,7 +205,7 @@ public class DevTools {
 
         // create non scheduled services
         for (int i = 0; i < number / 2; i++) {
-            MerchantService bill = new MerchantService(
+            MerchantService serv = new MerchantService(
                     (MerchantServiceType) Utils.randValueFrom(services),
                     (Customer) Utils.randValueFrom(customers),
                     5 + i,
@@ -214,11 +214,12 @@ public class DevTools {
                     false,
                     null
             );
+            merchantServicesService.create(serv);
         }
 
         // create non scheduled services
         for (int i = number / 2; i < number; i++) {
-            MerchantService bill = new MerchantService(
+            MerchantService serv = new MerchantService(
                     (MerchantServiceType) Utils.randValueFrom(services),
                     (Customer) Utils.randValueFrom(customers),
                     5 + i,
@@ -227,6 +228,7 @@ public class DevTools {
                     true,
                     sdf.parse(i + "/" + partialDate)
             );
+            merchantServicesService.create(serv);
         }
 
         // create scheduled services
