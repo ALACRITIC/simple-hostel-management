@@ -8,9 +8,9 @@ import org.remipassmoilesel.bookme.messages.Message;
 import org.remipassmoilesel.bookme.messages.MessageService;
 import org.remipassmoilesel.bookme.reservations.Reservation;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
+import org.remipassmoilesel.bookme.services.MerchantService;
 import org.remipassmoilesel.bookme.services.MerchantServiceService;
 import org.remipassmoilesel.bookme.services.MerchantServiceType;
-import org.remipassmoilesel.bookme.services.MerchantService;
 import org.remipassmoilesel.bookme.services.MerchantServiceTypesService;
 import org.remipassmoilesel.bookme.sharedresources.SharedResource;
 import org.remipassmoilesel.bookme.sharedresources.SharedResourceService;
@@ -89,17 +89,17 @@ public class DevTools {
 
         // create reservations
         DateTime now = new DateTime();
-        ArrayList<Reservation> reservations = createReservations(20, rooms, customers, now.toString("MM/yyyy"));
-        reservations.addAll(createReservations(20, rooms, customers, now.plusMonths(1).toString("MM/yyyy")));
+        ArrayList<Reservation> reservations = createReservations(20, rooms, customers, now);
+        reservations.addAll(createReservations(20, rooms, customers, now.plusMonths(1)));
         results.addAll(reservations);
 
         // create services
-        ArrayList<MerchantServiceType> serviceTypes = createServiceTypes(7);
+        ArrayList<MerchantServiceType> serviceTypes = createServiceTypes();
         results.addAll(serviceTypes);
 
         // create bills
-        ArrayList<MerchantService> bills = createServices(10, customers, serviceTypes, now.toString("MM/yyyy"));
-        bills.addAll(createServices(10, customers, serviceTypes, now.plusMonths(1).toString("MM/yyyy")));
+        ArrayList<MerchantService> bills = createServices(10, customers, serviceTypes, now);
+        bills.addAll(createServices(10, customers, serviceTypes, now.plusMonths(1)));
         results.addAll(bills);
 
         return results;
@@ -123,7 +123,7 @@ public class DevTools {
         Color color;
         for (int i = 0; i < number; i++) {
             color = i % 2 == 0 ? blueviolet : cadetblue;
-            rooms.add(sharedResourceService.createResource("B " + i, 2, "", Type.ROOM, color));
+            rooms.add(sharedResourceService.createResource("B " + i, 2, 2.5, "", Type.ROOM, color));
         }
 
         return rooms;
@@ -145,13 +145,14 @@ public class DevTools {
      * Partial date example: 02/2017
      *
      * @param rooms
-     * @param partialDate
+     * @param startDate
      * @return
      * @throws Exception
      */
-    private ArrayList<Reservation> createReservations(int number, List<SharedResource> rooms, List<Customer> customers, String partialDate) throws Exception {
+    private ArrayList<Reservation> createReservations(int number, List<SharedResource> rooms, List<Customer> customers,
+                                                      DateTime startDate) throws Exception {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat();
 
         // create customers and reservations
         ArrayList<Reservation> reservations = new ArrayList<>();
@@ -159,35 +160,27 @@ public class DevTools {
             Customer customer = customers.get(i);
             SharedResource resource = rooms.get(Utils.randInt(0, rooms.size() - 1));
             Reservation reservation = reservationService.create(customer, resource, 1,
-                    sdf.parse(i + "/" + partialDate), sdf.parse((i + 1) + "/" + partialDate));
+                    startDate.plusDays(i).toDate(),
+                    startDate.plusDays(i + Utils.randInt(3, 6)).toDate());
             reservations.add(reservation);
         }
 
         return reservations;
     }
 
-    private ArrayList<MerchantServiceType> createServiceTypes(int number) throws IOException {
+    private ArrayList<MerchantServiceType> createServiceTypes() throws IOException {
 
         // create service types
         List<String> names = Arrays.asList(
-                "Une Petite Mousse - La Brasserie, à Comboire",
-                "Pilote 1 - Orange Is The New Black (Bière Ambrée aux écorces d'oranges)",
-                "Pilote 2 - Winter Is Coming (Winter Ale)", "Brasserie du Mont Aiguille de Clelles en Trièves",
-                "La PréamBulle Bière Blonde",
-                "La FunamBulle Bière Ambrée",
-                "La NoctamBulle Bière Brune",
-                "La Mandrin, bière artisanale de Saint-Martin-d'Hères",
-                "Mandrin aux noix",
-                "Mandrin à la réglisse",
-                "La glutte",
-                "La Fax",
-                "Mandrin au sapin",
-                "Mandrin au miel",
-                "Mandrin aux 7 plantes du Massif de la Chartreuse");
+                "Beer",
+                "Coca-cola",
+                "Sandwich",
+                "Guided-tour"
+        );
 
         ArrayList<MerchantServiceType> serviceTypes = new ArrayList<>();
 
-        for (int i = 0; i < number; i++) {
+        for (int i = 0; i < names.size(); i++) {
             Color color = i % 2 == 0 ? darkslategray : darkviolet;
             MerchantServiceType st = new MerchantServiceType(names.get(i), 5 + i, Utils.generateLoremIpsum(400), color);
             serviceTypes.add(st);
@@ -197,9 +190,7 @@ public class DevTools {
         return serviceTypes;
     }
 
-    private ArrayList<MerchantService> createServices(int number, List<Customer> customers, List<MerchantServiceType> services, String partialDate) throws IOException, ParseException {
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private ArrayList<MerchantService> createServices(int number, List<Customer> customers, List<MerchantServiceType> services, DateTime startDate) throws IOException, ParseException {
 
         ArrayList<MerchantService> bills = new ArrayList<>();
 
@@ -210,7 +201,7 @@ public class DevTools {
                     (Customer) Utils.randValueFrom(customers),
                     5 + i,
                     "",
-                    sdf.parse(i + "/" + partialDate),
+                    startDate.plusDays(Utils.randInt(1, 2)).toDate(),
                     false,
                     null
             );
@@ -220,14 +211,15 @@ public class DevTools {
 
         // create scheduled services
         for (int i = number / 2; i < number; i++) {
+            int plus = Utils.randInt(1, 2);
             MerchantService serv = new MerchantService(
                     (MerchantServiceType) Utils.randValueFrom(services),
                     (Customer) Utils.randValueFrom(customers),
                     5 + i,
                     "",
-                    sdf.parse(i + "/" + partialDate),
+                    startDate.plusDays(plus).toDate(),
                     true,
-                    sdf.parse(i + 2 + "/" + partialDate)
+                    startDate.plusDays(plus + 2).toDate()
             );
             merchantServicesService.create(serv);
             bills.add(serv);
