@@ -8,6 +8,8 @@ import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.export.ExportService;
 import org.remipassmoilesel.bookme.reservations.Reservation;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
+import org.remipassmoilesel.bookme.services.MerchantService;
+import org.remipassmoilesel.bookme.services.MerchantServiceService;
 import org.remipassmoilesel.bookme.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +40,9 @@ public class AdministrationController {
 
     @Autowired
     private ReservationService reservationService;
+
+    @Autowired
+    private MerchantServiceService merchantServiceService;
 
     @RequestMapping(value = Mappings.ADMINISTRATION_ROOT, method = RequestMethod.GET)
     public String searchCustomer(Model model) throws Exception {
@@ -89,10 +94,25 @@ public class AdministrationController {
 
         Customer customer = customerService.getById(customerId);
         List<Reservation> reservations = reservationService.getByIds(reservationsId);
-        // TODO: grab services
+        List<MerchantService> services = merchantServiceService.getByIds(servicesId);
 
         model.addAttribute("customer", customer);
         model.addAttribute("reservations", reservations);
+        model.addAttribute("services", services);
+
+        // count reservations
+        int totalPrice = 0;
+        for (Reservation res : reservations) {
+            //TODO
+            totalPrice += 5; // res.getResource().getPrice()
+        }
+
+        // count services
+        for (MerchantService srv : services) {
+            totalPrice += srv.getTotalPrice();
+        }
+
+        model.addAttribute("totalPrice", totalPrice);
 
         return Templates.ADMINISTRATION_BILL;
     }

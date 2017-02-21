@@ -147,6 +147,19 @@ var UrlTree = {
 
     ///////////////////////////////
 
+    serviceSearchUrl: null,
+
+    setServiceSearchUrl: function (url) {
+        UrlTree.serviceSearchUrl = url;
+    },
+
+    getServiceSearchUrl: function () {
+        UrlTree._checkIfDefined(UrlTree.serviceSearchUrl, "serviceSearchUrl");
+        return UrlTree.serviceSearchUrl;
+    },
+
+    ///////////////////////////////
+
     _checkIfDefined: function (field, label) {
         if (!field) {
             throw "URL field not defined ! Please set field before use it: " + label;

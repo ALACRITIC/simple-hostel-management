@@ -4,24 +4,51 @@
 
     <title>Bill</title>
 
+    <link rel="stylesheet" href="/assets/css/bill.css" type="text/css"/>
+
 </head>
 <body>
 
-<table border="1" style="width: 190mm; margin: 10mm">
+<table border="0" style="width: 190mm; margin: 10mm">
     <tr>
         <td><h1>Bill</h1></td>
     </tr>
+
+
+    <!-- Customer -->
     <tr>
-        <td>Customer:</td>
+        <td><h3>Customer</h3></td>
+    </tr>
+    <tr>
+        <td>Nom:</td>
         <td th:text="${customer?.getNameString()}">Jean Paul</td>
     </tr>
+
+    <!-- Reservations -->
     <tr>
-        <td>Reservations:</td>
-        <td>&nbsp;</td>
+        <td><h3>Reservations</h3></td>
     </tr>
     <tr th:each="res : ${reservations}">
-        <td colspan="2" th:text="${res}">res</td>
+        <td colspan="2" th:text="${res}">Reservation</td>
     </tr>
+
+    <!-- Services  -->
+    <tr>
+        <td><h3>Services</h3></td>
+    </tr>
+    <tr th:each="srv : ${services}">
+        <td colspan="2" th:text="${srv}">Service</td>
+    </tr>
+
+    <!-- Total -->
+    <tr>
+        <td><h5>Total</h5></td>
+    </tr>
+    <tr>
+        <td>Total price:</td>
+        <td th:text="${totalPrice}">15</td>
+    </tr>
+
 </table>
 
 <!--<div th:replace="fragments/show-debug :: debug"></div>-->

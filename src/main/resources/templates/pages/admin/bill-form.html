@@ -8,6 +8,7 @@
 
     <script th:replace="fragments/customer-headers"></script>
     <script th:replace="fragments/reservation-headers"></script>
+    <script th:replace="fragments/service-headers"></script>
 
 </head>
 <body>
@@ -44,20 +45,33 @@
 
                     <!-- Select dates -->
                     <tr>
-
                         <td>
                             Select dates:
                         </td>
-                        <td>
-                            <ul style="list-style: none" id="exportHtmlDatesSearchResult">
+                        <td id="exportHtmlCheckboxesArea">
+                            <ul style="list-style: none" id="exportHtmlReservationDatesResult">
+
+                            </ul>
+                            <ul style="list-style: none" id="exportHtmlServiceDatesResult">
 
                             </ul>
                             <div id="exportHtmldatesWarning"></div>
                         </td>
                     </tr>
 
+                    <!-- Select all -->
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+
+                        </td>
+                    </tr>
+
                     <tr>
                         <td colspan="2" style="text-align: right">
+                            <button type="button" id="exportHtmlSelectAllDates" class="btn btn-primary">
+                                Select all
+                            </button>
                             <button type="button" id="exportHtmlValidButton" class="btn btn-primary">Export</button>
                         </td>
                     </tr>

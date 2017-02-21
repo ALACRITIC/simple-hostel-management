@@ -26,14 +26,46 @@ var ServiceUtils = {
         });
     },
 
+    searchForCustomer: function (customerId) {
+
+        var defer = $.Deferred();
+
+        if (!customerId) {
+            throw "Customer id is null";
+        }
+
+        $.ajax({
+            url: UrlTree.getServiceSearchUrl(),
+            data: {
+                customerId: customerId
+            }
+        })
+            .done(function (response) {
+                var result = [];
+                $.each(response, function (index, element) {
+                    result.push(element);
+                });
+
+                defer.resolve(result);
+            })
+
+            .fail(function (error) {
+                console.error(error);
+                defer.reject();
+            });
+
+        return defer.promise();
+
+    },
+
     deleteServiceType: function (serviceId, token) {
         window.location = UrlTree.getDeleteServiceUrl() + "?id=" + serviceId + "&token=" + token;
     },
-    
+
     newService: function (date) {
         window.location = UrlTree.getShowServiceUrl() + "?date=" + date;
     },
-    
+
     showService: function (serviceId) {
         window.location = UrlTree.getShowServiceUrl() + "?id=" + serviceId;
     }

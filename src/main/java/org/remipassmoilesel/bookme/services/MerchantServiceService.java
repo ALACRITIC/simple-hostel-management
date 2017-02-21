@@ -78,4 +78,21 @@ public class MerchantServiceService extends AbstractDaoService<MerchantService> 
         }
     }
 
+    public List<MerchantService> getByCustomerId(Long customerId, boolean orderAscending) throws IOException {
+
+        try {
+            QueryBuilder<MerchantService, String> queryBuilder = dao.queryBuilder();
+            queryBuilder.orderBy(MerchantService.PURCHASE_DATE_FIELD_NAME, orderAscending);
+            Where<MerchantService, String> where = queryBuilder.where();
+
+            where.eq(MerchantService.CUSTOMER_FIELD_NAME, customerId);
+            List<MerchantService> results = queryBuilder.query();
+
+            refresh(results);
+
+            return results;
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
+    }
 }

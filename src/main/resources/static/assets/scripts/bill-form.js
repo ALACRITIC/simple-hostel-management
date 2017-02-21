@@ -58,19 +58,25 @@ var BillForm = {
             self.exportBillHtml();
         });
 
+        $("#exportHtmlSelectAllDates").click(function () {
+            $("#exportHtmlCheckboxesArea input[type=checkbox]").prop('checked', true);
+        });
+
     },
 
     searchDates: function (customerId) {
 
-        var customerDatesResult = $("#exportHtmlDatesSearchResult");
+        var customerReservationDates = $("#exportHtmlReservationDatesResult");
+        var customerServiceDates = $("#exportHtmlServiceDatesResult");
 
-        customerDatesResult.empty();
+        customerReservationDates.empty();
+        customerServiceDates.empty();
 
         // search or reservations
         ReservationUtils.searchForCustomer(customerId)
             .then(function (response) {
 
-                customerDatesResult.append($("<div>").html("Reservations"));
+                customerReservationDates.append($("<div>").html("<div style='font-weight: bolder'>Reservations</div>"));
 
                 $.each(response, function (index, element) {
 
@@ -78,14 +84,43 @@ var BillForm = {
                     var label = $('<label class="form-check-label"></label>')
                         .html("&nbsp;&nbsp;" + moment(element.reservationDate).format('DD/MM/YYYY'));
 
-                    customerDatesResult.append($("<div>").append(label.prepend(input)));
+                    customerReservationDates.append($("<div>").append(label.prepend(input)));
                 });
+
+                if (response.length < 1) {
+                    customerReservationDates.append("<div>No reservations for this customer</div>");
+                }
+
             })
             .fail(function (error) {
-                customerDatesResult.append("<div>Please enter a valid customer name</div>");
+                console.error(error);
+                customerReservationDates.append("<div>Error, please enter a valid customer name</div>");
             });
 
-        // TODO search and add services too
+        // search for services
+        ServiceUtils.searchForCustomer(customerId)
+            .then(function (response) {
+
+                customerServiceDates.append($("<div>").html("<div style='font-weight: bolder'>Services</div>"));
+
+                $.each(response, function (index, element) {
+
+                    var input = $('<input class="form-check-input" type="checkbox" name="servicesToExport" value="' + element.id + '"/>');
+                    var label = $('<label class="form-check-label"></label>')
+                        .html("&nbsp;&nbsp;" + moment(element.purchaseDate).format('DD/MM/YYYY'));
+
+                    customerServiceDates.append($("<div>").append(label.prepend(input)));
+                });
+
+                if (response.length < 1) {
+                    customerServiceDates.append("<div>No services for this customer</div>");
+                }
+
+            })
+            .fail(function (error) {
+                console.error(error);
+                customerServiceDates.append("<div>Error, please enter a valid customer name</div>");
+            });
 
     },
 

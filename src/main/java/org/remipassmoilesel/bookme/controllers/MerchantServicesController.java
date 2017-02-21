@@ -445,5 +445,16 @@ public class MerchantServicesController {
 
     }
 
+    @RequestMapping(value = Mappings.SERVICES_JSON_SEARCH, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<MerchantService> searchServices(
+            @RequestParam(value = "customerId", required = true) Long customerId) throws Exception {
+
+        List<MerchantService> result = merchantServiceService.getByCustomerId(customerId, true);
+
+        return result;
+
+    }
+
 
 }

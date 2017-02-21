@@ -78,6 +78,7 @@ public class Mappings {
     public static final String SERVICES_SHOW_LASTS = SERVICES_ROOT + "/show/all";
     public static final String SERVICES_CALENDAR = SERVICES_ROOT + "/calendar";
     public static final String SERVICES_JSON_GET = SERVICES_ROOT + "/json/get";
+    public static final String SERVICES_JSON_SEARCH = SERVICES_ROOT + "/json/search";
     public static final String SERVICES_BY_TYPE = SERVICES_ROOT + "/bytype";
 
 
