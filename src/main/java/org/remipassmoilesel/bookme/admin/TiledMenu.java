@@ -12,9 +12,9 @@ import java.util.List;
 public class TiledMenu {
 
     private static List<TiledMenuItem> row_reservation = Arrays.asList(
-            new TiledMenuItem("New reservation", Mappings.RESERVATIONS_FORM, null),
-            new TiledMenuItem("Calendar", Mappings.RESERVATIONS_CALENDAR, null),
-            new TiledMenuItem("View reservations", Mappings.RESERVATIONS_LASTS, null)
+            new TiledMenuItem("New reservation", Mappings.RESERVATIONS_FORM, "assets/img/tile_new-reservation.svg"),
+            new TiledMenuItem("Calendar", Mappings.RESERVATIONS_CALENDAR, "assets/img/tile_reservation-calendar.svg"),
+            new TiledMenuItem("Last reservations", Mappings.RESERVATIONS_LASTS, "assets/img/tile_reservation-lasts.svg")
     );
     private static List<TiledMenuItem> row_service = Arrays.asList(
             new TiledMenuItem("New service", Mappings.SERVICES_FORM, null),
