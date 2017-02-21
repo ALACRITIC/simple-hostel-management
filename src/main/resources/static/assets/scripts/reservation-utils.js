@@ -34,6 +34,11 @@ var ReservationUtils = {
         window.location = UrlTree.getShowReservationUrl() + "?id=" + reservationId;
     },
 
+
+    newReservation: function (date) {
+        window.location = UrlTree.getShowReservationUrl() + "?date=" + date;
+    },
+
     /**
      * Show a confirmation dialog and delete specified reservation if needed
      * @param reservationId
@@ -102,7 +107,7 @@ var ReservationUtils = {
             });
 
         return defer.promise();
-        
+
     }
 
 };

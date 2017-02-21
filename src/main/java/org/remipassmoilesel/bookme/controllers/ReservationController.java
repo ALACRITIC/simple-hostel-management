@@ -152,6 +152,7 @@ public class ReservationController {
     @GetMapping(Mappings.RESERVATIONS_FORM)
     public String showForm(
             @RequestParam(value = "id", required = false, defaultValue = "-1") Long reservationId,
+            @RequestParam(value = "date", required = false, defaultValue = "") String beginDate,
             HttpServletRequest request,
             ReservationForm reservationForm,
             Model model) throws Exception {
@@ -159,6 +160,12 @@ public class ReservationController {
         if (reservationId != -1) {
             Reservation res = reservationService.getById(reservationId);
             reservationForm.load(res);
+        }
+
+        if (beginDate.isEmpty() == false) {
+            String format = "dd/MM/yyy";
+            reservationForm.setBegin(beginDate);
+            reservationForm.setEnd(Utils.stringToDateTime(beginDate, format).plusDays(2).toString(format));
         }
 
         // create a token and add it to model

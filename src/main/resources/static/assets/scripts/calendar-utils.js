@@ -35,8 +35,27 @@ var CalendarUtils = {
                         console.error(error)
                     });
             },
+
+            /**
+             * Open reservation on event
+             * @param calEvent
+             * @param jsEvent
+             * @param view
+             */
             eventClick: function (calEvent, jsEvent, view) {
                 ReservationUtils.showReservation(calEvent._reservationId);
+            },
+
+            /**
+             * Create reservation on event
+             * @param date
+             * @param jsEvent
+             * @param view
+             * @param resourceObj
+             */
+            dayClick: function (date, jsEvent, view, resourceObj) {
+                console.log(date);
+                ReservationUtils.newReservation(moment(date).format('DD/MM/YYYY'));
             }
         });
     },
