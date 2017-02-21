@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="150"
+   height="150"
+   viewBox="0 0 39.6875 39.6875"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.0 r15299"
+   sodipodi:docname="tile_search-customer.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="-96.162933"
+     inkscape:cy="0.71917639"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1056"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-257.3125)">
+    <path
+       id="path7664"
+       d="m 34.686694,287.53254 c -1.144641,1.09193 -2.66581,1.63413 -4.563505,1.63413 H 9.5572938 c -1.8976949,0 -3.4188628,-0.54221 -4.5635045,-1.63413 -1.1446418,-1.09192 -1.4684546,-4.24722 -1.3027828,-5.16594 0.1656718,-0.91873 0.3689963,-1.76968 0.6250343,-2.55286 0.248508,-0.78317 0.5873814,-1.55128 1.009092,-2.29681 0.4217097,-0.74552 0.9111951,-1.37809 1.4609238,-1.90522 0.5497295,-0.52714 1.2199473,-0.94885 2.0106533,-1.2576 0.790706,-0.30876 1.6642481,-0.46691 2.6206271,-0.46691 0.143079,0 0.466893,0.16568 0.986499,0.50455 0.519608,0.33888 1.099458,0.71541 1.754616,1.12958 0.655156,0.41418 1.498576,0.79072 2.545321,1.12958 1.046745,0.33888 2.093489,0.50455 3.140234,0.50455 1.046744,0 2.101019,-0.16567 3.140233,-0.50455 1.039214,-0.33886 1.890165,-0.71539 2.545321,-1.12958 0.655158,-0.41417 1.235008,-0.7907 1.754616,-1.12958 0.519606,-0.33887 0.843419,-0.50455 0.9865,-0.50455 0.956378,0 1.829921,0.15815 2.620627,0.46691 0.790706,0.31628 1.460923,0.73046 2.010653,1.2576 0.549729,0.52712 1.039214,1.1597 1.460924,1.90522 0.42171,0.74553 0.760584,1.51364 1.009092,2.29681 0.248508,0.78318 0.459363,1.63413 0.625035,2.55286 0.165672,0.91872 -0.165672,4.07402 -1.310314,5.16594 z m -5.813574,-21.1834 c 0,2.49261 -0.881073,4.62375 -2.650749,6.3859 -1.769676,1.76215 -3.893287,2.65075 -6.385895,2.65075 -2.492607,0 -4.62375,-0.88108 -6.385895,-2.65075 -1.762145,-1.76967 -2.650749,-3.89329 -2.650749,-6.3859 0,-2.49261 0.881073,-4.62374 2.650749,-6.3859 1.769676,-1.76213 3.893288,-2.65074 6.385895,-2.65074 2.492608,0 4.623749,0.88108 6.385895,2.65074 1.762146,1.76969 2.650749,3.89329 2.650749,6.3859 z"
+       inkscape:connector-curvature="0"
+       style="fill:#2c3e50;fill-opacity:1;stroke-width:0.07530537" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:#2c3e50;stroke-width:1.50936496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4857-8"
+       cx="28.377542"
+       cy="288.60306"
+       rx="7.5610747"
+       ry="7.2664781" />
+    <g
+       id="g7743"
+       transform="matrix(-0.67354502,0,0,0.67354502,32.417838,284.42132)"
+       style="fill:#ffffff;stroke:#f39c12;stroke-width:2;fill-opacity:1;stroke-opacity:1">
+      <path
+         id="path7739"
+         d="m 11.29,11.71 -4,-4"
+         inkscape:connector-curvature="0"
+         style="fill:#ffffff;fill-opacity:1;stroke:#f39c12;stroke-opacity:1" />
+      <circle
+         id="circle7741"
+         r="4"
+         cy="5"
+         cx="5"
+         style="fill:#ffffff;fill-opacity:1;stroke:#f39c12;stroke-opacity:1" />
+    </g>
+  </g>
+</svg>
