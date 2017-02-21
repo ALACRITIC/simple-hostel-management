@@ -101,6 +101,10 @@ public abstract class AbstractDaoService<T> {
 
     public List<T> getByIds(long[] objectIds) throws IOException {
 
+        if (objectIds == null || objectIds.length < 0) {
+            return new ArrayList<T>();
+        }
+
         ArrayList<T> results = new ArrayList<>();
         for (long id : objectIds) {
             results.add(getById(id));

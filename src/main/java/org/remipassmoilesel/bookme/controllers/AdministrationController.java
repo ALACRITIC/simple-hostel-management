@@ -106,8 +106,7 @@ public class AdministrationController {
         int totalPrice = 0;
         for (Reservation res : reservations) {
             double pricePerDay = res.getResource().getPricePerDay();
-            Duration duration = new Duration(new DateTime(res.getBegin()), new DateTime(res.getEnd()));
-            totalPrice += duration.getStandardDays() * pricePerDay;
+            totalPrice += res.getDuration().getStandardDays() * pricePerDay;
         }
 
         // count services

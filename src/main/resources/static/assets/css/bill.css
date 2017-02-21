@@ -1,0 +1,14 @@
+
+body {
+    font-family: arial;
+    font-size: 13px;
+}
+
+#mainTable {
+    margin: auto;
+    border: solid gray 2px;
+    width: 190mm;
+    padding: 5mm;
+    margin: 10mm;
+}
+

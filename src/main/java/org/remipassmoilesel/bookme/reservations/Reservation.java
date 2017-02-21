@@ -3,6 +3,8 @@ package org.remipassmoilesel.bookme.reservations;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.sharedresources.SharedResource;
 
@@ -77,6 +79,9 @@ public class Reservation {
         this.reservationDate = reservationDate;
     }
 
+    public Duration getDuration() {
+        return new Duration(new DateTime(getBegin()), new DateTime(getEnd()));
+    }
 
     public long getId() {
         return id;
