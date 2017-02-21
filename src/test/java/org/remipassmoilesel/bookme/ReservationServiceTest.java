@@ -64,7 +64,7 @@ public class ReservationServiceTest {
         ArrayList<SharedResource> resources = new ArrayList<>();
         int resourcesNumber = 10;
         for (int i = 0; i < resourcesNumber; i++) {
-            SharedResource res = new SharedResource("A" + i, 2, "Comment", Type.ROOM, Color.blue);
+            SharedResource res = new SharedResource("A" + i, 2, 2.5, "Comment", Type.ROOM, Color.blue);
             resources.add(res);
             sharedResourceService.create(res);
         }

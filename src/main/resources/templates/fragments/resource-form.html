@@ -40,6 +40,16 @@
             </td>
         </tr>
 
+        <!-- Price per day -->
+        <tr>
+            <td colspan="2">
+                <input type="text" class="form-control" placeholder="Price per day" th:field="*{pricePerDay}"/>
+                <div th:if="${#fields.hasErrors('pricePerDay')}" th:errors="*{pricePerDay}" class="formError">
+                    Price per day error
+                </div>
+            </td>
+        </tr>
+
         <!-- Resource type -->
         <tr>
             <td>

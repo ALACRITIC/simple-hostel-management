@@ -22,6 +22,7 @@ public class SharedResource {
     public static final String TYPE_FIELD_NAME = "TYPE";
     public static final String DELETED_FIELD_NAME = "DELETED";
     public static final String COLOR_FIELD_NAME = "COLOR";
+    public static final String PRICE_PER_DAY_FIELD_NAME = "PRICE_PER_DAY";
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private long id;
@@ -49,18 +50,22 @@ public class SharedResource {
     @DatabaseField(columnName = COLOR_FIELD_NAME)
     private String color;
 
+    @DatabaseField(columnName = PRICE_PER_DAY_FIELD_NAME)
+    private double pricePerDay;
+
     public SharedResource() {
         // ORMLite needs a no-arg constructor
     }
 
 
-    public SharedResource(String name, int places, String comment, Type type, Color color) {
+    public SharedResource(String name, int places, double pricePerDay, String comment, Type type, Color color) {
         this.name = name;
         this.comment = comment;
         this.places = places;
         this.type = type;
         this.deleted = false;
         this.color = Utils.colorToRgbString(color);
+        this.pricePerDay = pricePerDay;
     }
 
     public String getColor() {
@@ -123,6 +128,14 @@ public class SharedResource {
         this.deleted = deleted;
     }
 
+    public double getPricePerDay() {
+        return pricePerDay;
+    }
+
+    public void setPricePerDay(double pricePerDay) {
+        this.pricePerDay = pricePerDay;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -131,6 +144,7 @@ public class SharedResource {
         return id == resource.id &&
                 places == resource.places &&
                 deleted == resource.deleted &&
+                pricePerDay == resource.pricePerDay &&
                 Objects.equals(name, resource.name) &&
                 type == resource.type &&
                 Objects.equals(comment, resource.comment) &&
@@ -139,7 +153,7 @@ public class SharedResource {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, places, type, comment, deleted, color);
+        return Objects.hash(id, name, places, type, comment, deleted, color, pricePerDay);
     }
 
     @Override
@@ -152,6 +166,7 @@ public class SharedResource {
                 ", comment='" + comment + '\'' +
                 ", deleted=" + deleted +
                 ", color='" + color + '\'' +
+                ", pricePerDay=" + pricePerDay +
                 '}';
     }
 }

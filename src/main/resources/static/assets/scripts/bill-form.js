@@ -82,7 +82,8 @@ var BillForm = {
 
                     var input = $('<input class="form-check-input" type="checkbox" name="reservationsToExport" value="' + element.id + '"/>');
                     var label = $('<label class="form-check-label"></label>')
-                        .html("&nbsp;&nbsp;" + moment(element.reservationDate).format('DD/MM/YYYY'));
+                        .html("&nbsp;&nbsp;" + moment(element.begin).format('DD/MM/YYYY')
+                            + "&nbsp;>&nbsp;" + moment(element.end).format('DD/MM/YYYY'));
 
                     customerReservationDates.append($("<div>").append(label.prepend(input)));
                 });

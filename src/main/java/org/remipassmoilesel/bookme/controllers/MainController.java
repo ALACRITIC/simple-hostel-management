@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -93,9 +92,9 @@ public class MainController {
     }
 
 
-        /**
-         * @return
-         */
+    /**
+     * @return
+     */
     @RequestMapping(value = Mappings.MAIN_TEMPLATE, method = RequestMethod.GET)
     public String showLiveTemplate(Model model) throws IOException {
 
@@ -117,7 +116,7 @@ public class MainController {
             Customer customer = new Customer("Jean_" + i, "Paul_" + i, "000000" + i);
             customersList.add(customer);
 
-            SharedResource resource = new SharedResource("Room " + i, 2, "Comment " + i, Type.ROOM, Color.blue);
+            SharedResource resource = new SharedResource("Room " + i, 2, 2.5d, "Comment " + i, Type.ROOM, Color.blue);
             resourcesList.add(resource);
 
             Reservation reservation = new Reservation(customer, resource, 1, new Date(), new Date());

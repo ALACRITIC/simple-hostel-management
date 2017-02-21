@@ -139,6 +139,7 @@ public class SharedResourceController {
                     resource = sharedResourceService.createResource(
                             resourceForm.getName(),
                             resourceForm.getPlaces(),
+                            resourceForm.getPricePerDay(),
                             resourceForm.getComment(),
                             resourceForm.getType(),
                             color
@@ -159,6 +160,7 @@ public class SharedResourceController {
                     resource.setComment(resourceForm.getComment());
                     resource.setType(resourceForm.getType());
                     resource.setColor(resourceForm.getColor());
+                    resource.setPricePerDay(resourceForm.getPricePerDay());
 
                     sharedResourceService.update(resource);
 

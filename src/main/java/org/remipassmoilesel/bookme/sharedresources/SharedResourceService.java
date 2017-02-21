@@ -30,18 +30,18 @@ public class SharedResourceService extends AbstractDaoService<SharedResource> {
             Color cadetblue = DefaultColors.get("cadetblue").getColor();
             Color blueviolet = DefaultColors.get("blueviolet").getColor();
             for (int i = 1; i < 4; i++) {
-                dao.create(new SharedResource("Room " + i, 2, "", Type.ROOM, cadetblue));
+                dao.create(new SharedResource("Room " + i, 2, 2.5d, "", Type.ROOM, cadetblue));
             }
 
             for (int i = 1; i < 4; i++) {
-                dao.create(new SharedResource("Bed " + i, 1, "", Type.BED, blueviolet));
+                dao.create(new SharedResource("Bed " + i, 1, 2.5d, "", Type.BED, blueviolet));
             }
 
         }
     }
 
-    public SharedResource createResource(String roomName, int places, String roomComment, Type type, Color color) throws IOException {
-        return create(new SharedResource(roomName, places, roomComment, type, color));
+    public SharedResource createResource(String roomName, int places, double pricePerDay, String roomComment, Type type, Color color) throws IOException {
+        return create(new SharedResource(roomName, places, pricePerDay, roomComment, type, color));
     }
 
     /**

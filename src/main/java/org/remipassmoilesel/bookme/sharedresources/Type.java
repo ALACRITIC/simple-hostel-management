@@ -21,10 +21,6 @@ public enum Type {
             return "Bed";
         }
         //
-        else if (this == CAR) {
-            return "Car";
-        }
-        //
         else return "Undefined";
     }
 }

@@ -32,6 +32,9 @@ public class ResourceForm {
     private String color;
 
     @NotNull
+    private double pricePerDay;
+
+    @NotNull
     private Long token;
 
     public ResourceForm() {
@@ -113,17 +116,12 @@ public class ResourceForm {
         this.color = color;
     }
 
-    @Override
-    public String toString() {
-        return "ResourceForm{" +
-                "name='" + name + '\'' +
-                ", places=" + places +
-                ", comment='" + comment + '\'' +
-                ", id=" + id +
-                ", type=" + type +
-                ", color='" + color + '\'' +
-                ", token=" + token +
-                '}';
+    public double getPricePerDay() {
+        return pricePerDay;
+    }
+
+    public void setPricePerDay(double pricePerDay) {
+        this.pricePerDay = pricePerDay;
     }
 
     @Override
@@ -133,6 +131,7 @@ public class ResourceForm {
         ResourceForm that = (ResourceForm) o;
         return places == that.places &&
                 id == that.id &&
+                Double.compare(that.pricePerDay, pricePerDay) == 0 &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(comment, that.comment) &&
                 type == that.type &&
@@ -142,6 +141,20 @@ public class ResourceForm {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, places, comment, id, type, color, token);
+        return Objects.hash(name, places, comment, id, type, color, pricePerDay, token);
+    }
+
+    @Override
+    public String toString() {
+        return "ResourceForm{" +
+                "name='" + name + '\'' +
+                ", places=" + places +
+                ", comment='" + comment + '\'' +
+                ", id=" + id +
+                ", type=" + type +
+                ", color='" + color + '\'' +
+                ", pricePerDay=" + pricePerDay +
+                ", token=" + token +
+                '}';
     }
 }

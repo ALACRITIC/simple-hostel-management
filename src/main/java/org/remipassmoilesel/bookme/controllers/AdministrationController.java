@@ -1,6 +1,8 @@
 package org.remipassmoilesel.bookme.controllers;
 
 import org.apache.commons.io.IOUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.customers.Customer;
@@ -103,8 +105,9 @@ public class AdministrationController {
         // count reservations
         int totalPrice = 0;
         for (Reservation res : reservations) {
-            //TODO
-            totalPrice += 5; // res.getResource().getPrice()
+            double pricePerDay = res.getResource().getPricePerDay();
+            Duration duration = new Duration(new DateTime(res.getBegin()), new DateTime(res.getEnd()));
+            totalPrice += duration.getStandardDays() * pricePerDay;
         }
 
         // count services
