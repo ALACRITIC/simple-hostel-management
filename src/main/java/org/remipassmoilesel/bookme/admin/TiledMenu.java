@@ -27,8 +27,8 @@ public class TiledMenu {
             new TiledMenuItem("Export bill", Mappings.ADMINISTRATION_BILL_FORM, "/assets/img/tile_bill.svg")
     );
     private static List<TiledMenuItem> row_messages = Arrays.asList(
-            new TiledMenuItem("New message", Mappings.MESSAGES_FORM, null),
-            new TiledMenuItem("View all", Mappings.MESSAGES_SHOW_ALL, null)
+            new TiledMenuItem("New message", Mappings.MESSAGES_FORM, "/assets/img/tile_message-new.svg"),
+            new TiledMenuItem("View all", Mappings.MESSAGES_SHOW_ALL, "/assets/img/tile_reservation-lasts.svg")
     );
 
     private static List<TiledMenuRow> row_names = Arrays.asList(
