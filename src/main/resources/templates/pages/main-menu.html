@@ -36,9 +36,9 @@
         <!-- Menu elements -->
         <div class="row">
 
-            <div class="col-sm-2 col-md-2"></div>
+            <div class="col-sm-2 col-md-1"></div>
 
-            <div class="col-sm-4 col-md-2 col-md-offset-1" th:each="menu : ${row.getItems()}">
+            <div class="col-sm-4 col-md-2" th:each="menu : ${row.getItems()}">
                 <div class="thumbnail">
                     <a th:href="${menu.getHref()}">
                         <img th:src="${menu.getImage()}" alt="tile"/>

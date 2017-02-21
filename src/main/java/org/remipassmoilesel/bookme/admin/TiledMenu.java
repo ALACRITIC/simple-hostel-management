@@ -11,32 +11,35 @@ import java.util.List;
  */
 public class TiledMenu {
 
-    private static Mappings.MappingMap map = Mappings.getMap();
-
-    private static List<TiledMenuItem> row1 = Arrays.asList(
+    private static List<TiledMenuItem> row_reservation = Arrays.asList(
             new TiledMenuItem("New reservation", Mappings.RESERVATIONS_FORM, null),
             new TiledMenuItem("Calendar", Mappings.RESERVATIONS_CALENDAR, null),
             new TiledMenuItem("View reservations", Mappings.RESERVATIONS_LASTS, null)
     );
-    private static List<TiledMenuItem> row2 = Arrays.asList(
+    private static List<TiledMenuItem> row_service = Arrays.asList(
             new TiledMenuItem("New service", Mappings.SERVICES_FORM, null),
             new TiledMenuItem("Calendar", Mappings.SERVICES_CALENDAR, null),
             new TiledMenuItem("View services", Mappings.SERVICES_SHOW_LASTS, null)
     );
-    private static List<TiledMenuItem> row4 = Arrays.asList(
+    private static List<TiledMenuItem> row_customer = Arrays.asList(
             new TiledMenuItem("Search customers", Mappings.CUSTOMERS_SEARCH, null),
             new TiledMenuItem("Next checkouts", Mappings.RESERVATIONS_NEXT_CHECKOUTS, null),
             new TiledMenuItem("Export bill", Mappings.ADMINISTRATION_BILL_FORM, "assets/img/tile_dollar.svg")
     );
+    private static List<TiledMenuItem> row_messages = Arrays.asList(
+            new TiledMenuItem("New message", Mappings.MESSAGES_FORM, null),
+            new TiledMenuItem("View all", Mappings.MESSAGES_SHOW_ALL, null)
+    );
 
-    private static List<TiledMenuRow> rows = Arrays.asList(
-            new TiledMenuRow("Reservations", null, row1),
-            new TiledMenuRow("Services", null, row2),
-            new TiledMenuRow("Customers", null, row4)
+    private static List<TiledMenuRow> row_names = Arrays.asList(
+            new TiledMenuRow("Reservations", null, row_reservation),
+            new TiledMenuRow("Services", null, row_service),
+            new TiledMenuRow("Customers", null, row_customer),
+            new TiledMenuRow("Messages", null, row_messages)
     );
 
     public static void includeMenus(Model model) {
-        model.addAttribute("menuRows", rows);
+        model.addAttribute("menuRows", row_names);
     }
 
 }
