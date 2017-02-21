@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Reservation calendar</title>
+    <title>Service calendar</title>
 
     <script th:replace="main-template :: page-headers"></script>
 
     <script th:replace="fragments/calendar-headers"></script>
+    <script th:replace="fragments/service-headers"></script>
 
 </head>
 <body>
@@ -17,11 +18,12 @@
 
     <div class="row">
         <div class="col-md-12">
-
-            <h1>Reservation calendar</h1>
-
-            <div id='reservationCalendar' style="margin: auto"></div>
-
+            <h1>Scheduled services calendar</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id='serviceCalendar' style="margin: auto"></div>
         </div>
     </div>
 
@@ -30,7 +32,7 @@
 
     <script>
         $(function () {
-            CalendarUtils.createReservationCalendar("#reservationCalendar");
+            CalendarUtils.createServiceCalendar("#serviceCalendar");
         });
     </script>
 

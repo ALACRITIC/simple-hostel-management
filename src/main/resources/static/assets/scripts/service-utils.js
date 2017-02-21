@@ -1,5 +1,5 @@
 var ServiceUtils = {
-    
+
     showDeleteServiceTypeDialog: function (serviceId, token) {
 
         if (!serviceId || !token) {
@@ -25,9 +25,17 @@ var ServiceUtils = {
             }
         });
     },
-    
+
     deleteServiceType: function (serviceId, token) {
         window.location = UrlTree.getDeleteServiceUrl() + "?id=" + serviceId + "&token=" + token;
+    },
+    
+    newService: function (date) {
+        window.location = UrlTree.getShowServiceUrl() + "?date=" + date;
+    },
+    
+    showService: function (serviceId) {
+        window.location = UrlTree.getShowServiceUrl() + "?id=" + serviceId;
     }
 
 };

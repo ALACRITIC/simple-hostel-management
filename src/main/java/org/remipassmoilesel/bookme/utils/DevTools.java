@@ -215,9 +215,10 @@ public class DevTools {
                     null
             );
             merchantServicesService.create(serv);
+            bills.add(serv);
         }
 
-        // create non scheduled services
+        // create scheduled services
         for (int i = number / 2; i < number; i++) {
             MerchantService serv = new MerchantService(
                     (MerchantServiceType) Utils.randValueFrom(services),
@@ -226,9 +227,10 @@ public class DevTools {
                     "",
                     sdf.parse(i + "/" + partialDate),
                     true,
-                    sdf.parse(i + "/" + partialDate)
+                    sdf.parse(i + 2 + "/" + partialDate)
             );
             merchantServicesService.create(serv);
+            bills.add(serv);
         }
 
         // create scheduled services

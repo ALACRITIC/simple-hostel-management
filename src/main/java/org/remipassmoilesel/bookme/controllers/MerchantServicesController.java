@@ -11,6 +11,7 @@ import org.remipassmoilesel.bookme.utils.colors.DefaultColors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -240,6 +241,7 @@ public class MerchantServicesController {
     @GetMapping(Mappings.SERVICES_FORM)
     public String showServiceForm(
             @RequestParam(value = "id", required = false, defaultValue = "-1") Long serviceId,
+            @RequestParam(value = "date", required = false, defaultValue = "") String executionDate,
             HttpServletRequest request,
             MerchantServiceForm form,
             Model model) throws Exception {
@@ -247,6 +249,10 @@ public class MerchantServicesController {
         if (serviceId != -1) {
             MerchantService serType = merchantServiceService.getById(serviceId);
             form.load(serType);
+        }
+
+        if (executionDate.isEmpty() == false) {
+            form.setExecutionDate(executionDate);
         }
 
         // create a token and add it to model
@@ -414,5 +420,30 @@ public class MerchantServicesController {
         Mappings.includeMappings(model);
         return Templates.SERVICES_FORM;
     }
+
+    @RequestMapping(value = Mappings.SERVICES_CALENDAR, method = RequestMethod.GET)
+    public String getScheduledServices(Model model) throws Exception {
+        Mappings.includeMappings(model);
+        return Templates.SERVICES_CALENDAR;
+    }
+
+    @RequestMapping(value = Mappings.SERVICES_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public List<MerchantService> getScheduledServices(
+            @RequestParam(value = "start", required = true) String startDateStr,
+            @RequestParam(value = "end", required = true) String endDateStr) throws Exception {
+
+        Date startDate = Utils.stringToDate(startDateStr);
+        Date endDate = Utils.stringToDate(endDateStr);
+
+        if (startDate.getTime() > endDate.getTime()) {
+            throw new IllegalArgumentException("Begin date is greater than end date: " + startDateStr + " / " + endDateStr);
+        }
+
+        List<MerchantService> result = merchantServiceService.getScheduledServiceByInterval(startDate, endDate, true);
+        return result;
+
+    }
+
 
 }

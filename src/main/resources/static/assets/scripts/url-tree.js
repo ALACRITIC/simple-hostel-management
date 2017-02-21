@@ -15,15 +15,29 @@ var UrlTree = {
 
     ///////////////////////////////
 
-    calendarFeedUrl: null,
+    reservationCalendarFeedUrl: null,
 
-    setCalendarFeedUrl: function (url) {
-        UrlTree.calendarFeedUrl = url;
+    setReservationCalendarFeedUrl: function (url) {
+        UrlTree.reservationCalendarFeedUrl = url;
     },
 
-    getCalendarFeedUrl: function () {
-        UrlTree._checkIfDefined(UrlTree.calendarFeedUrl, "calendarFeedUrl");
-        return UrlTree.calendarFeedUrl;
+    getReservationCalendarFeedUrl: function () {
+        UrlTree._checkIfDefined(UrlTree.reservationCalendarFeedUrl, "reservationCalendarFeedUrl");
+        return UrlTree.reservationCalendarFeedUrl;
+
+    },
+
+    ///////////////////////////////
+
+    serviceCalendarFeedUrl: null,
+
+    setServiceCalendarFeedUrl: function (url) {
+        UrlTree.serviceCalendarFeedUrl = url;
+    },
+
+    getServiceCalendarFeedUrl: function () {
+        UrlTree._checkIfDefined(UrlTree.serviceCalendarFeedUrl, "serviceCalendarFeedUrl");
+        return UrlTree.serviceCalendarFeedUrl;
 
     },
 
@@ -38,6 +52,19 @@ var UrlTree = {
     getShowReservationUrl: function () {
         UrlTree._checkIfDefined(UrlTree.showReservationUrl, "showReservationUrl");
         return UrlTree.showReservationUrl;
+    },
+
+    ///////////////////////////////
+
+    showServiceUrl: null,
+
+    setShowServiceUrl: function (url) {
+        UrlTree.showServiceUrl = url;
+    },
+
+    getShowServiceUrl: function () {
+        UrlTree._checkIfDefined(UrlTree.showServiceUrl, "showServiceUrl");
+        return UrlTree.showServiceUrl;
     },
 
     ///////////////////////////////

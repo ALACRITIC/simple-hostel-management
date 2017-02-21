@@ -40,8 +40,10 @@
 
     <script th:inline="javascript">
         UrlTree.setResourcesAvailableFeedUrl(/*[[${mappings.get('RESERVATIONS_RESOURCES_AVAILABLE_JSON_GET')}]]*/ "/wrong/json/feed");
-        UrlTree.setCalendarFeedUrl(/*[[${mappings.get('RESERVATIONS_JSON_GET')}]]*/ "/wrong/json/feed");
+        UrlTree.setReservationCalendarFeedUrl(/*[[${mappings.get('RESERVATIONS_JSON_GET')}]]*/ "/wrong/json/feed");
+        UrlTree.setServiceCalendarFeedUrl(/*[[${mappings.get('SERVICES_JSON_GET')}]]*/ "/wrong/json/feed");
         UrlTree.setShowReservationUrl(/*[[${mappings.get('RESERVATIONS_FORM')}]]*/ "/wrong/json/feed");
+        UrlTree.setShowServiceUrl(/*[[${mappings.get('SERVICES_FORM')}]]*/ "/wrong/json/feed");
         UrlTree.setDeleteReservationUrl(/*[[${mappings.get('RESERVATIONS_DELETE')}]]*/ "/wrong/json/feed");
         UrlTree.setDeleteResourceUrl(/*[[${mappings.get('RESOURCES_DELETE')}]]*/ "/wrong/json/feed");
         UrlTree.setCustomersJsonFeedUrl(/*[[${mappings.get('CUSTOMERS_JSON_SEARCH')}]]*/ "/wrong/json/feed");
@@ -98,7 +100,7 @@
                     <ul class="dropdown-menu">
                         <li><a th:href="${mappings.get('SERVICES_SHOW_LASTS')}">Show all</a></li>
                         <li><a th:href="${mappings.get('SERVICES_FORM')}">Bill a service</a></li>
-                        <li><a th:href="${mappings.get('SERVICES_CALENDAR')}">Scheduled services</a></li>
+                        <li><a th:href="${mappings.get('SERVICES_CALENDAR')}">Service calendar</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a th:href="${mappings.get('SERVICES_FORM')}">Create a new service</a></li>
                     </ul>

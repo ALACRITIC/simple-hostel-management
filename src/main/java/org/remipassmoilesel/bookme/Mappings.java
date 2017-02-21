@@ -77,6 +77,7 @@ public class Mappings {
     public static final String SERVICES_FORM = SERVICES_ROOT + "/form";
     public static final String SERVICES_SHOW_LASTS = SERVICES_ROOT + "/show/all";
     public static final String SERVICES_CALENDAR = SERVICES_ROOT + "/calendar";
+    public static final String SERVICES_JSON_GET = SERVICES_ROOT + "/json/get";
     public static final String SERVICES_BY_TYPE = SERVICES_ROOT + "/bytype";
 
 
@@ -87,6 +88,7 @@ public class Mappings {
 
     public static final String POPULATE_TABLES = APPLICATION_ROOT + "/populate-tables";
     public static final String MAIN_TEMPLATE = APPLICATION_ROOT + "/main-template";
+
 
 
     public static MappingMap getMap() {

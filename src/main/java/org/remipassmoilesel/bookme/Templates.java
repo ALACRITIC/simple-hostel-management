@@ -1,5 +1,9 @@
 package org.remipassmoilesel.bookme;
 
+import org.remipassmoilesel.bookme.services.MerchantService;
+
+import java.util.List;
+
 /**
  * Created by remipassmoilesel on 11/02/17.
  */
@@ -39,9 +43,11 @@ public class Templates {
     public static final String SERVICE_TYPES_FORM = SERVICES_DIR + "service-types-form";
     public static final String SERVICE_TYPES_SHOW_ALL = SERVICES_DIR + "service-types-show-all";
     public static final String SERVICES_FORM = SERVICES_DIR + "services-form";
+    public static final String SERVICES_CALENDAR = SERVICES_DIR + "services-calendar";
 
     public static final String ADMINISTRATION_DIR = PAGES_DIR + "admin/";
     public static final String ADMINISTRATION = ADMINISTRATION_DIR + "admin";
     public static final String ADMINISTRATION_BILL = ADMINISTRATION_DIR + "bill";
     public static final String ADMINISTRATION_BILL_FORM = ADMINISTRATION_DIR + "bill-form";
+
 }
