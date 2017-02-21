@@ -83,7 +83,7 @@ public class Mappings {
     public static final String ADMINISTRATION_ROOT = APPLICATION_ROOT + "/admin";
     public static final String ADMINISTRATION_EXPORT_RESERVATIONS_CSV = ADMINISTRATION_ROOT + "/export/csv";
     public static final String ADMINISTRATION_BILL_FORM = ADMINISTRATION_ROOT + "/bill/form";
-    public static final String ADMINISTRATION_PRINT_BILL = ADMINISTRATION_ROOT + "/export/bill";
+    public static final String ADMINISTRATION_EXPORT_BILL = ADMINISTRATION_ROOT + "/export/bill";
 
     public static final String POPULATE_TABLES = APPLICATION_ROOT + "/populate-tables";
     public static final String MAIN_TEMPLATE = APPLICATION_ROOT + "/main-template";

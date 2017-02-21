@@ -7,13 +7,24 @@
 </head>
 <body>
 
-<h1>Customer</h1>
+<table border="1" style="width: 190mm; margin: 10mm">
+    <tr>
+        <td><h1>Bill</h1></td>
+    </tr>
+    <tr>
+        <td>Customer:</td>
+        <td th:text="${customer?.getNameString()}">Jean Paul</td>
+    </tr>
+    <tr>
+        <td>Reservations:</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr th:each="res : ${reservations}">
+        <td colspan="2" th:text="${res}">res</td>
+    </tr>
+</table>
 
-<div th:text="${customer}"></div>
-
-<h1>Reservations</h1>
-
-<div th:text="${reservations}"></div>
+<!--<div th:replace="fragments/show-debug :: debug"></div>-->
 
 <script>
     window.print();

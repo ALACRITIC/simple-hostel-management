@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -96,6 +97,16 @@ public abstract class AbstractDaoService<T> {
         } catch (SQLException e) {
             throw new IOException(e);
         }
+    }
+
+    public List<T> getByIds(long[] objectIds) throws IOException {
+
+        ArrayList<T> results = new ArrayList<>();
+        for (long id : objectIds) {
+            results.add(getById(id));
+        }
+
+        return results;
     }
 
     /**

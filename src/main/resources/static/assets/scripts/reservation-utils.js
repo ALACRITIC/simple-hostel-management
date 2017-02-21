@@ -73,7 +73,7 @@ var ReservationUtils = {
         window.location = UrlTree.getDeleteReservationUrl() + "?id=" + reservationId + "&token=" + token;
     },
 
-    searchDatesForCustomer: function (customerId) {
+    searchForCustomer: function (customerId) {
 
         var defer = $.Deferred();
 

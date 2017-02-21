@@ -26,41 +26,44 @@
     <div class="row">
         <div class="col-md-12">
 
-            <table class="formtable">
+            <form id="exportHtmlForm" th:action="${mappings.get('ADMINISTRATION_EXPORT_BILL')}" method="post">
+                <table class="formtable">
 
-                <!-- User search -->
-                <tr>
-                    <td>
-                        Customer:
-                    </td>
+                    <!-- User search -->
+                    <tr>
+                        <td>
+                            Customer:
+                        </td>
 
-                    <td>
-                        <input class="form-control" type="text" placeholder="Customer name or first name"
-                               id="clientSeachTextField"/>
-                        <input type="hidden" name="customerId" id="customerId"/>
-                    </td>
-                </tr>
+                        <td>
+                            <input class="form-control" type="text" placeholder="Customer name or first name"
+                                   id="exportHtmlClientSeachTextField"/>
+                            <input type="hidden" id="exportHtmlCustomerId" name="customerId"/>
+                        </td>
+                    </tr>
 
-                <!-- Select dates -->
-                <tr>
+                    <!-- Select dates -->
+                    <tr>
 
-                    <td>
-                        Select dates:
-                    </td>
-                    <td>
-                        <ul style="list-style: none" id="customerSearchResultDates">
+                        <td>
+                            Select dates:
+                        </td>
+                        <td>
+                            <ul style="list-style: none" id="exportHtmlDatesSearchResult">
 
-                        </ul>
-                    </td>
-                </tr>
+                            </ul>
+                            <div id="exportHtmldatesWarning"></div>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td colspan="2" style="text-align: right">
-                        <button type="button" id="exportValidButton" class="btn btn-primary">Export</button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: right">
+                            <button type="button" id="exportHtmlValidButton" class="btn btn-primary">Export</button>
+                        </td>
+                    </tr>
 
-            </table>
+                </table>
+            </form>
         </div>
 
     </div>

@@ -80,18 +80,16 @@ public class AdministrationController {
         return Templates.ADMINISTRATION_BILL_FORM;
     }
 
-    @RequestMapping(value = Mappings.ADMINISTRATION_PRINT_BILL, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.ADMINISTRATION_EXPORT_BILL, method = RequestMethod.POST)
     public String exportBillHtml(
-            @RequestParam("begin") String begin,
-            @RequestParam("end") String end,
+            @RequestParam(value = "servicesToExport", required = false) long[] servicesId,
+            @RequestParam(value = "reservationsToExport", required = false) long[] reservationsId,
             @RequestParam("customerId") Long customerId,
             Model model) throws Exception {
 
-        Date beginDate = Utils.stringToDate(begin);
-        Date endDate = Utils.stringToDate(end);
-
         Customer customer = customerService.getById(customerId);
-        List<Reservation> reservations = reservationService.getByInterval(beginDate, endDate, true);
+        List<Reservation> reservations = reservationService.getByIds(reservationsId);
+        // TODO: grab services
 
         model.addAttribute("customer", customer);
         model.addAttribute("reservations", reservations);

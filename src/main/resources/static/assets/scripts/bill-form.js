@@ -10,9 +10,9 @@ var BillForm = {
 
         var self = BillForm;
 
-        var validButton = $("#exportValidButton");
-        var clientSearch = $("#clientSeachTextField");
-        var customerId = $("#customerId");
+        var validButton = $("#exportHtmlValidButton");
+        var clientSearch = $("#exportHtmlClientSeachTextField");
+        var customerId = $("#exportHtmlCustomerId");
 
         clientSearch.autocomplete({
             //source: [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ]
@@ -62,39 +62,62 @@ var BillForm = {
 
     searchDates: function (customerId) {
 
-        var customerDatesResult = $("#customerSearchResultDates");
+        var customerDatesResult = $("#exportHtmlDatesSearchResult");
 
         customerDatesResult.empty();
 
-        ReservationUtils.searchDatesForCustomer(customerId)
+        // search or reservations
+        ReservationUtils.searchForCustomer(customerId)
             .then(function (response) {
 
-                console.log("response");
-                console.log(response);
+                customerDatesResult.append($("<div>").html("Reservations"));
 
                 $.each(response, function (index, element) {
-                    var chk = $("<label>", {"class": "form-check-label"})
-                        .html("&nbsp;&nbsp;" + moment(element.reservationDate).format('DD/MM/YYYY'))
-                        .prepend('<input class="form-check-input" type="checkbox">', {
-                            name: 'chk' + index,
-                            value: element.id
-                        });
 
-                    customerDatesResult.append($("<li>").append(chk));
+                    var input = $('<input class="form-check-input" type="checkbox" name="reservationsToExport" value="' + element.id + '"/>');
+                    var label = $('<label class="form-check-label"></label>')
+                        .html("&nbsp;&nbsp;" + moment(element.reservationDate).format('DD/MM/YYYY'));
+
+                    customerDatesResult.append($("<div>").append(label.prepend(input)));
                 });
             })
             .fail(function (error) {
                 customerDatesResult.append("<div>Please enter a valid customer name</div>");
             });
 
+        // TODO search and add services too
+
     },
 
     exportBillHtml: function () {
 
-        var beginDate = $("#exportBeginDate");
-        var endDate = $("#exportEndDate");
+        var errorMessage = "<div>Please select a customer, and then select dates for billing.</div>";
+        var datesWarning = $("#exportHtmldatesWarning");
+        var days = $("input[name=reservationsToExport]");
 
-        document.location = UrlTree.getExportCsvUrl() + "?begin=" + beginDate.val() + "&end=" + endDate.val();
+        datesWarning.empty();
+
+        // check if dates are selected
+        if (days.length < 1) {
+            datesWarning.append(errorMessage);
+            return;
+        }
+
+        var oneIsChecked = false;
+        $.each(days, function (index, element) {
+            if ($(this).prop("checked")) {
+                oneIsChecked = true;
+                return false;
+            }
+        });
+
+        if (oneIsChecked != true) {
+            datesWarning.append(errorMessage);
+            return;
+        }
+
+        // send form if all is okay
+        $("#exportHtmlForm").submit();
     },
 
     /**
