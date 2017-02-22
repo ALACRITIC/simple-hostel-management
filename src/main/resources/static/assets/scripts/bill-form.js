@@ -154,44 +154,6 @@ var BillForm = {
 
         // send form if all is okay
         $("#exportHtmlForm").submit();
-    },
-
-    /**
-     * Change background of date field
-     * @param error
-     */
-    setDateFieldBackground: function (error) {
-
-        var self = BillForm;
-
-        var beginDate = $("#exportBeginDate");
-        var endDate = $("#exportEndDate");
-
-        var defaultColor = $(beginDate).css('background');
-
-        endDate.css('background', error ? self.errorColor : defaultColor);
-        beginDate.css('background', error ? self.errorColor : defaultColor);
-    },
-
-    /**
-     * Check if selected dates are valid or change background
-     */
-    checkDates: function () {
-
-        var self = BillForm;
-
-        var beginDate = $("#exportBeginDate");
-        var endDate = $("#exportEndDate");
-
-        var bd = moment(beginDate.val(), "DD/MM/YYYY");
-        var ed = moment(endDate.val(), "DD/MM/YYYY");
-
-        // check if dates are in order
-        if (bd._isValid == false || ed._isValid == false || bd.isAfter(ed)) {
-            self.setDateFieldBackground(true);
-            throw "Dates are invalid"
-        }
-
     }
 
 };

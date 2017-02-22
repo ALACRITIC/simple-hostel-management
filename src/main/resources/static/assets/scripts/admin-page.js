@@ -78,7 +78,7 @@ var AdministrationPage = {
         // check if dates are in order
         if (bd._isValid == false || ed._isValid == false || bd.isAfter(ed)) {
             self.setDateFieldBackground(true);
-            throw "Dates are invalid"
+            console.error("Dates are invalid");
         }
 
     }
