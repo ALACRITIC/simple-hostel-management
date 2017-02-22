@@ -10,6 +10,7 @@ import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,7 +35,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @RequestMapping(value = Mappings.CUSTOMERS_SHOW_ALL, method = RequestMethod.GET)
-    public String showAll(Model model) throws Exception {
+    public String showLastCustomers(Model model) throws Exception {
 
         List<Customer> customers = customerService.getAll();
 
@@ -73,7 +74,7 @@ public class CustomerController {
         return customers;
     }
 
-    @RequestMapping(value = Mappings.CUSTOMERS_JSON_SEARCH, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.CUSTOMERS_JSON_SEARCH, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<Customer> getJsonByPhonenumber(
             @RequestParam(value = "phonenumber", required = false, defaultValue = "") String phonenumber,

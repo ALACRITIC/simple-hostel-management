@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class Mappings {
 
     private static final Logger logger = LoggerFactory.getLogger(Mappings.class);
+    public static final String MODEL_ARGUMENT_NAME = "mappings" ;
 
     public static final String ROOT = "/";
     public static final String METRICS = "/metrics";
@@ -91,7 +92,6 @@ public class Mappings {
     public static final String MAIN_TEMPLATE = APPLICATION_ROOT + "/main-template";
 
 
-
     public static MappingMap getMap() {
 
         MappingMap result = new MappingMap();
@@ -125,7 +125,7 @@ public class Mappings {
     }
 
     public static void includeMappings(Model model) {
-        model.addAttribute("mappings", Mappings.getMap());
+        model.addAttribute(Mappings.MODEL_ARGUMENT_NAME, Mappings.getMap());
     }
 
 

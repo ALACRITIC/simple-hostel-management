@@ -55,7 +55,7 @@ public class SystemTrayComponent {
 
         // Check if the SystemTray is supported
         if (GraphicsEnvironment.isHeadless() == true) {
-            throw new AWTException("JVM is headless, abort add system tray. Use: '-Djava.awt.headless=false' if possible to prevent errors");
+            throw new AWTException("JVM is headless, abort add system tray icon. Use: '-Djava.awt.headless=false' if possible to prevent errors");
         }
 
         if (SystemTray.isSupported() == false) {
