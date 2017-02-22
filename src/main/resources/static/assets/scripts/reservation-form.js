@@ -58,9 +58,14 @@ var ReservationForm = {
         // special checkbox
         $("#reservationIsPaid").checkboxradio();
 
+        // check availability on click
+        $("#checkAvailabilityButton").click(function () {
+            self.checkAvailability();
+        });
+
         // first check
         self.checkAvailability();
-
+        
     },
 
     /**
@@ -141,7 +146,17 @@ var ReservationForm = {
                 }
 
                 var pval = roomSelect.attr("data-primary-value");
+                var plab = roomSelect.attr("data-primary-name");
                 if (pval) {
+
+                    // add option if needed
+                    if(roomSelect.children("option[id=" + pval + "]").length < 1){
+                        var elmt = $("<option/>");
+                        elmt.text(plab);
+                        elmt.attr("value", pval);
+                        roomSelect.prepend(elmt);
+                    }
+
                     roomSelect.val(pval);
                 }
 

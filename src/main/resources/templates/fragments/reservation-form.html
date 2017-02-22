@@ -72,7 +72,7 @@
         <!-- Dates check-in / check-out-->
 
         <tr>
-            <td>
+            <td style="width: 50%">
                 <input type="text" th:field="*{begin}" class="form-control" id="reservationBeginDate"
                        placeholder="Check-in" readonly="readonly"/>
             </td>
@@ -89,7 +89,6 @@
                 <fieldset>
                     <input type="checkbox" id="reservationIsPaid" th:field="*{paid}"/>
                     <label for="reservationIsPaid">&nbsp;&nbsp;&nbsp; Reservation is paid</label>
-
                 </fieldset>
             </td>
         </tr>
@@ -101,18 +100,23 @@
                 Resource for rent:
             </td>
             <td>
-                <select id="reservationSharedResourceSelect" class="form-control" th:field="*{sharedResourceId}"
-                        th:attr="data-primary-value=*{sharedResourceId}" required="true">
+                <select class="form-control" id="reservationSharedResourceSelect" th:field="*{sharedResourceId}"
+                        th:attr="data-primary-value=${primaryResourceId}, data-primary-name=${primaryResourceName}" required="true">
                     <option th:each="resource : ${sharedResources}"
                             th:value="${resource.getId()}"
                             th:text="${resource.getName()}">Resource name
                         <span th:text="${resource.getId()}"></span>
                     </option>
-
                 </select>
-
             </td>
-
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+            <td style="text-align: right">
+                <a id="checkAvailabilityButton" class="glyphicon glyphicon-refresh" style="display: inline-block; cursor: pointer"></a>
+            </td>
         </tr>
 
         <!-- Dates errors -->

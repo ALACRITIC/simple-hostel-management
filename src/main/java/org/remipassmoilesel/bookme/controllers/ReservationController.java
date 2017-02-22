@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -160,6 +159,8 @@ public class ReservationController {
         if (reservationId != -1) {
             Reservation res = reservationService.getById(reservationId);
             reservationForm.load(res);
+            model.addAttribute("primaryResourceId", res.getId());
+            model.addAttribute("primaryResourceName", res.getResource().getName());
         }
 
         if (beginDate.isEmpty() == false) {
@@ -172,7 +173,7 @@ public class ReservationController {
         TokenManager tokenman = new TokenManager(TOKEN_NAME);
         tokenman.addToken(model);
 
-        model.addAttribute("sharedResources", new ArrayList<>());
+        model.addAttribute("sharedResources", sharedResourceService.getAll());
 
         // add it to session for check
         HttpSession session = request.getSession();
@@ -193,7 +194,13 @@ public class ReservationController {
 
             //System.out.println(reservationResults.getAllErrors());
             model.addAttribute("token", reservationForm.getToken());
-            model.addAttribute("sharedResources", new ArrayList<>());
+            model.addAttribute("sharedResources", sharedResourceService.getAll());
+
+            if (reservationForm.getSharedResourceId() != -1) {
+                Reservation res = reservationService.getById(reservationForm.getSharedResourceId());
+                model.addAttribute("primaryResourceId", res.getId());
+                model.addAttribute("primaryResourceName", res.getResource().getName());
+            }
 
             Mappings.includeMappings(model);
             return Templates.RESERVATIONS_FORM;
