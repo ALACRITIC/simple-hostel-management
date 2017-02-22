@@ -87,7 +87,7 @@ public class CustomerControllerTest {
     @Test
     public void testJsonSearchCustomer() throws Exception {
 
-        mockMvc.perform(get(Mappings.CUSTOMERS_SEARCH)
+        mockMvc.perform(get(Mappings.CUSTOMERS_JSON_SEARCH)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("firstname", "Jean")
                 .param("lastname", "Paul")
@@ -96,7 +96,7 @@ public class CustomerControllerTest {
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$", Matchers.greaterThanOrEqualTo(0)));
+                .andExpect(jsonPath("$", Matchers.notNullValue()));
 
     }
 }
