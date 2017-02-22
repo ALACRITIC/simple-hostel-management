@@ -76,7 +76,7 @@ public class CustomerController {
 
     @RequestMapping(value = Mappings.CUSTOMERS_JSON_SEARCH, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public List<Customer> getJsonByPhonenumber(
+    public List<Customer> searchJson(
             @RequestParam(value = "phonenumber", required = false, defaultValue = "") String phonenumber,
             @RequestParam(value = "firstname", required = false, defaultValue = "") String firstname,
             @RequestParam(value = "lastname", required = false, defaultValue = "") String lastname,

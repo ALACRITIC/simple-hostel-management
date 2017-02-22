@@ -19,23 +19,29 @@ var CustomerUtils = {
             }
         })
             .done(function (response) {
-                if (response) {
+                if (response && response[0]) {
                     var first = response[0].firstname;
                     var last = response[0].lastname;
-                    var text = "Somebody already have this phone number: <b>" + first + " " + last + "</b>.&nbsp;";
-                    text += "If you validate form, customer entry will be updated with new values.&nbsp;";
-                    warnZone.html(text);
 
-                    var fillLink = $("<a style='cursor: pointer'>Fill fields with existing values.</a>");
-                    fillLink.click(function () {
-                        if (firstNameTextField) {
-                            firstNameTextField.val(first);
-                        }
-                        if (lastNameTextField) {
-                            lastNameTextField.val(last);
-                        }
-                    });
-                    warnZone.append(fillLink);
+                    // check if informations are not the same
+                    if(firstNameTextField.val() !== first || lastNameTextField.val() !== last) {
+
+                        var text = "Somebody already have this phone number: <b>" + first + " " + last + "</b>.&nbsp;";
+                        text += "If you validate form, customer entry will be updated with new values.&nbsp;";
+                        warnZone.html(text);
+
+                        var fillLink = $("<a style='cursor: pointer'>Fill fields with existing values.</a>");
+                        fillLink.click(function () {
+                            if (firstNameTextField) {
+                                firstNameTextField.val(first);
+                            }
+                            if (lastNameTextField) {
+                                lastNameTextField.val(last);
+                            }
+                            warnZone.empty();
+                        });
+                        warnZone.append(fillLink);
+                    }
                 }
             })
 
