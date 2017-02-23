@@ -5,16 +5,19 @@ package org.remipassmoilesel.bookme.sharedresources;
  */
 public enum Type {
 
+    CHALET,
+
     ROOM,
 
-    BED,
-
-    CAR;
+    BED;
 
     public String getReadableName() {
 
         if (this == ROOM) {
             return "Room";
+        }
+        if (this == CHALET) {
+            return "Chalet";
         }
         //
         else if (this == BED) {

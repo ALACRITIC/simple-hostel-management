@@ -26,15 +26,23 @@ public class TiledMenu {
             new TiledMenuItem("Next checkouts", Mappings.RESERVATIONS_NEXT_CHECKOUTS, "/assets/img/tile_next-checkouts.svg"),
             new TiledMenuItem("Export bill", Mappings.ADMINISTRATION_BILL_FORM, "/assets/img/tile_bill.svg")
     );
+
     private static List<TiledMenuItem> row_messages = Arrays.asList(
             new TiledMenuItem("New message", Mappings.MESSAGES_FORM, "/assets/img/tile_message-new.svg"),
             new TiledMenuItem("View all", Mappings.MESSAGES_SHOW_ALL, "/assets/img/tile_reservation-lasts.svg")
+    );
+
+    private static List<TiledMenuItem> row_resources = Arrays.asList(
+            new TiledMenuItem("New accommodation", Mappings.MESSAGES_FORM, "/assets/img/tile_new-resource.svg"),
+            new TiledMenuItem("View free accommodations", Mappings.MESSAGES_SHOW_ALL, null),
+            new TiledMenuItem("View all accommodations", Mappings.MESSAGES_SHOW_ALL, null)
     );
 
     private static List<TiledMenuRow> row_names = Arrays.asList(
             new TiledMenuRow("Reservations", null, row_reservation),
             new TiledMenuRow("Services", null, row_service),
             new TiledMenuRow("Customers", null, row_customer),
+            new TiledMenuRow("Accommodations", null, row_resources),
             new TiledMenuRow("Messages", null, row_messages)
     );
 
