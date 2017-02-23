@@ -17,7 +17,7 @@ public class TokenManager {
     /**
      * Prefix used in session token name
      */
-    private static final String SESSION_TOKEN_NAME_PREFIX = "form-token_";
+    public static final String SESSION_TOKEN_NAME_PREFIX = "token_";
 
     /**
      * Suffix used to distinguish session tokens
@@ -43,7 +43,7 @@ public class TokenManager {
         this.sessionTokenSuffix = tokenSuffix;
         this.modelTokenName = "token";
         generateToken();
-        generateSessionTokenName();
+        this.sessionTokenName = generateSessionTokenName(tokenSuffix);
     }
 
     /**
@@ -56,8 +56,8 @@ public class TokenManager {
     /**
      * Generate a unique name for session token
      */
-    private void generateSessionTokenName() {
-        this.sessionTokenName = (SESSION_TOKEN_NAME_PREFIX + sessionTokenSuffix).trim().toLowerCase();
+    public static String generateSessionTokenName(String sessionTokenSuffix) {
+        return (SESSION_TOKEN_NAME_PREFIX + sessionTokenSuffix).trim().toLowerCase();
     }
 
     /**
@@ -95,7 +95,7 @@ public class TokenManager {
      */
     public long getTokenFrom(HttpSession session) {
         try {
-            return (long) session.getAttribute(sessionTokenName);
+            return Long.valueOf(session.getAttribute(sessionTokenName).toString());
         } catch (Exception e) {
             logger.error("Error while getting token: ", e);
             return -1;

@@ -8,6 +8,7 @@ import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
 import org.remipassmoilesel.bookme.controllers.CustomerController;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
+import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -18,8 +19,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -105,25 +109,114 @@ public class CustomerControllerTest {
     @Test
     public void testCustomerFormGet() throws Exception {
 
-        // empty form
+        // as an empty form
         mockMvc.perform(get(Mappings.CUSTOMERS_FORM)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("token", Matchers.not(Matchers.isEmptyString())));
 
-        // for with wrong id
+
+        // ask a form with a wrong customer id
         mockMvc.perform(get(Mappings.CUSTOMERS_FORM)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "-2"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("errorMessage"))
+                .andExpect(model().attribute("token", Matchers.not(Matchers.isEmptyString())))
                 .andExpect(model().attribute("errorMessage", Matchers.not(Matchers.isEmptyString())));
 
-        // for with correct id
-        mockMvc.perform(get(Mappings.CUSTOMERS_FORM)
+        // update a user
+        String customerId = String.valueOf(customers.get(0).getId());
+        Map<String, Object> validFormModel = mockMvc.perform(get(Mappings.CUSTOMERS_FORM)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("id", String.valueOf(customers.get(0).getId())))
+
+                .param("id", "-2"))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("errorMessage", Matchers.isEmptyOrNullString()));
+                .andExpect(model().attribute("token", Matchers.not(Matchers.isEmptyString())))
+                .andExpect(model().attribute("errorMessage", Matchers.not(Matchers.isEmptyString())))
+                .andReturn().getModelAndView().getModel();
+
+        String formToken = String.valueOf(validFormModel.get("token"));
+        String sessionTokenName = TokenManager.generateSessionTokenName(CustomerController.TOKEN_ATTR_SESSION_NAME);
+        String newPhoneNumber = "+123456789";
+        String newFirstname = "firstname";
+        String newLastname = "lastname";
+
+        mockMvc.perform(post(Mappings.CUSTOMERS_FORM)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .sessionAttr(sessionTokenName, formToken)
+                .param("id", customerId)
+                .param("firstname", newFirstname)
+                .param("lastname", newLastname)
+                .param("phonenumber", newPhoneNumber)
+                .param("token", formToken))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("errorMessage", Matchers.isEmptyString()));
+
+        // test inserted values
+        Customer updatedCustomer = customerService.getByPhonenumber(newPhoneNumber);
+        assertTrue(updatedCustomer != null);
+        assertTrue(updatedCustomer.getFirstname().equals(newFirstname));
+        assertTrue(updatedCustomer.getLastname().equals(newLastname));
+        assertTrue(updatedCustomer.getPhonenumber().equals(newPhoneNumber));
+
+        // try to resend same form, should fail because of lack of token
+        mockMvc.perform(post(Mappings.CUSTOMERS_FORM)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", customerId)
+                .param("firstname", newFirstname)
+                .param("lastname", newLastname)
+                .param("phonenumber", newPhoneNumber)
+                .param("token", formToken))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("errorMessage", Matchers.not(Matchers.isEmptyString())));
+
+        // empty first name
+        mockMvc.perform(post(Mappings.CUSTOMERS_FORM)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .sessionAttr(sessionTokenName, formToken)
+                .param("id", customerId)
+                .param("firstname", "")
+                .param("lastname", newLastname)
+                .param("phonenumber", newPhoneNumber)
+                .param("token", formToken))
+                .andExpect(status().isOk())
+                .andExpect(model().hasErrors());
+
+        // empty last name
+        mockMvc.perform(post(Mappings.CUSTOMERS_FORM)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .sessionAttr(sessionTokenName, formToken)
+                .param("id", customerId)
+                .param("firstname", newFirstname)
+                .param("lastname", "")
+                .param("phonenumber", newPhoneNumber)
+                .param("token", formToken))
+                .andExpect(status().isOk())
+                .andExpect(model().hasErrors());
+
+        // empty and wrong phone number
+        mockMvc.perform(post(Mappings.CUSTOMERS_FORM)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .sessionAttr(sessionTokenName, formToken)
+                .param("id", customerId)
+                .param("firstname", newFirstname)
+                .param("lastname", newLastname)
+                .param("phonenumber", "++++++")
+                .param("token", formToken))
+                .andExpect(status().isOk())
+                .andExpect(model().hasErrors());
+
+        // empty and wrong phone number
+        mockMvc.perform(post(Mappings.CUSTOMERS_FORM)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .sessionAttr(sessionTokenName, formToken)
+                .param("id", customerId)
+                .param("firstname", newFirstname)
+                .param("lastname", newLastname)
+                .param("phonenumber", "")
+                .param("token", formToken))
+                .andExpect(status().isOk())
+                .andExpect(model().hasErrors());
 
     }
 
