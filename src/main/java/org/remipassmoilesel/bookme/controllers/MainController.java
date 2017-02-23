@@ -15,6 +15,8 @@ import org.remipassmoilesel.bookme.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +27,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class MainController {
 
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+
+    @Autowired
+    private ReloadableResourceBundleMessageSource messageSource;
 
     @Autowired
     private ReservationService reservationService;
@@ -56,7 +62,9 @@ public class MainController {
      * @return
      */
     @RequestMapping(value = Mappings.DASHBOARD, method = RequestMethod.GET)
-    public String showIndex(Model model) throws IOException {
+    public String showDashboard(Model model, Locale locale) throws IOException {
+
+        // messageSource.getMessage("welcome.message", new Object[]{"John Doe"}, locale);
 
         // get last messages
         List<Message> lastMessagesList = messageService.getLasts(3, 0);
