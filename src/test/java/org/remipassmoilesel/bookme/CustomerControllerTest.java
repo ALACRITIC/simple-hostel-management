@@ -38,13 +38,15 @@ public class CustomerControllerTest {
     @Autowired
     private CustomerController customerController;
 
+    private ArrayList<Customer> customers;
+
     @Before
     public void setup() throws IOException {
 
         mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
 
         // create fake customers
-        ArrayList<Customer> customers = new ArrayList<>();
+        customers = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             customers.add(new Customer("Jean " + i, "Paul " + i, "+000000" + i));
         }
@@ -99,4 +101,30 @@ public class CustomerControllerTest {
                 .andExpect(jsonPath("$", Matchers.notNullValue()));
 
     }
+
+    @Test
+    public void testCustomerFormGet() throws Exception {
+
+        // empty form
+        mockMvc.perform(get(Mappings.CUSTOMERS_FORM)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                .andExpect(status().isOk());
+
+        // for with wrong id
+        mockMvc.perform(get(Mappings.CUSTOMERS_FORM)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", "-2"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("errorMessage"))
+                .andExpect(model().attribute("errorMessage", Matchers.not(Matchers.isEmptyString())));
+
+        // for with correct id
+        mockMvc.perform(get(Mappings.CUSTOMERS_FORM)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", String.valueOf(customers.get(0).getId())))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("errorMessage", Matchers.isEmptyOrNullString()));
+
+    }
+
 }

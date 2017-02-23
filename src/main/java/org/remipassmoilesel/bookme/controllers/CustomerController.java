@@ -118,9 +118,16 @@ public class CustomerController {
             CustomerForm customerForm,
             Model model) throws Exception {
 
+        String errorMessage = "";
         if (customerId != -1) {
             Customer res = customerService.getById(customerId);
-            customerForm.load(res);
+
+            if (res != null) {
+                customerForm.load(res);
+            } else {
+                errorMessage = "Customer not found, please try again later";
+            }
+
         }
 
         // create a token and add it to model
@@ -131,7 +138,7 @@ public class CustomerController {
         HttpSession session = request.getSession();
         tokenman.addToken(session);
 
-        model.addAttribute("errorMessage", "");
+        model.addAttribute("errorMessage", errorMessage);
 
         Mappings.includeMappings(model);
         return Templates.CUSTOMERS_FORM;

@@ -23,9 +23,18 @@
     </div>
 
     <div class="row" th:if="${#strings.isEmpty(formstate)}">
+
+        <!-- Error happen while searching customer -->
+
+        <div th:if="${not #strings.isEmpty(errorMessage)}">
+            <div th:replace="main-template :: error-block (errorMessage=${errorMessage})"></div>
+        </div>
+
         <div class="col-md-12">
             <div th:replace="fragments/customer-form :: customer-form"></div>
         </div>
+
+
     </div>
 
     <div class="row" th:if="${formstate?.equals('completed')}">
