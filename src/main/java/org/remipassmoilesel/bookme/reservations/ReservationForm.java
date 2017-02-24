@@ -44,20 +44,19 @@ public class ReservationForm {
     private String end;
 
     @NotNull
-    private long sharedResourceId = -1;
+    private Long sharedResourceId = -1l;
 
     @NotNull
-    private long reservationId = -1;
+    private Long reservationId = -1l;
 
     @Size(max = 2000)
     private String comment;
 
     @NotNull
-    private boolean paid;
+    private Boolean paid;
 
     @NotNull
     private Long token;
-
 
     public ReservationForm() {
         begin = new DateTime().toString("dd/MM/yyyy") + " 16:00";

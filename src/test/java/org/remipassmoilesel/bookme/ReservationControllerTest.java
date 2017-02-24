@@ -15,6 +15,7 @@ import org.remipassmoilesel.bookme.sharedresources.SharedResource;
 import org.remipassmoilesel.bookme.sharedresources.SharedResourceService;
 import org.remipassmoilesel.bookme.sharedresources.Type;
 import org.remipassmoilesel.bookme.utils.TokenManager;
+import org.remipassmoilesel.bookme.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -29,11 +30,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -160,4 +160,79 @@ public class ReservationControllerTest {
                 .andExpect(jsonPath("$.*", hasSize(equalTo(1))));
     }
 
+    @Test
+    public void addReservation() throws Exception {
+
+        // ask a form and a token
+        Map<String, Object> validFormModel = mockMvc.perform(get(Mappings.RESERVATIONS_FORM)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", "-1"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute(TokenManager.DEFAULT_MODEL_TOKEN_NAME,
+                        Matchers.not(Matchers.isEmptyString())))
+                .andExpect(model().attribute("errorMessage",
+                        Matchers.not(Matchers.isEmptyString())))
+                .andReturn().getModelAndView().getModel();
+
+        String firstname = "firstname";
+        String lastname = "lastname";
+        String phoneNumber = "+123456789";
+        String phoneNumber2 = "+12345678910";
+        String customerId = String.valueOf(customers.get(0).getId());
+        String places = String.valueOf(2);
+        String datebegin = beginTestPeriod.toString("dd/MM/YYYY HH:mm");
+        String dateend = endTestPeriod.toString("dd/MM/YYYY HH:mm");
+        String sharedResourceId = String.valueOf(sharedResources.get(1).getId());
+        String reservationId = "-1";
+        String comment = Utils.generateLoremIpsum(200);
+        String paid = String.valueOf(false);
+        String sessionTokenName = TokenManager.generateSessionTokenName(ReservationController.TOKEN_ATTR_SESSION_PREFIX);
+        String formToken = String.valueOf(validFormModel.get(TokenManager.DEFAULT_MODEL_TOKEN_NAME));
+
+        // new one
+        mockMvc.perform(post(Mappings.RESERVATIONS_FORM)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .sessionAttr(sessionTokenName, formToken)
+                .param("customerFirstname", firstname)
+                .param("customerLastname", lastname)
+                .param("customerPhonenumber", phoneNumber)
+                .param("customerId", customerId)
+                .param("places", places)
+                .param("begin", datebegin)
+                .param("end", dateend)
+                .param("sharedResourceId", sharedResourceId)
+                .param("reservationId", reservationId)
+                .param("comment", comment)
+                .param("paid", paid)
+                .param("token", formToken))
+                .andExpect(status().isOk())
+                .andExpect(model().hasNoErrors())
+                .andExpect(model().attribute("errorMessage", isEmptyString()));
+
+        // create a reservation
+        Reservation reservation = new Reservation(customers.get(0), sharedResources.get(0), 1, new Date(), new Date());
+        reservationService.create(reservation);
+
+        // update existing
+        mockMvc.perform(post(Mappings.RESERVATIONS_FORM)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .sessionAttr(sessionTokenName, formToken)
+                .param("customerFirstname", firstname)
+                .param("customerLastname", lastname)
+                .param("customerPhonenumber", phoneNumber2)
+                .param("customerId", customerId)
+                .param("places", places)
+                .param("begin", datebegin)
+                .param("end", dateend)
+                .param("sharedResourceId", sharedResourceId)
+                .param("reservationId", String.valueOf(reservation.getId()))
+                .param("comment", Utils.generateLoremIpsum(500))
+                .param("paid", "true")
+                .param("token", formToken))
+                .andExpect(status().isOk())
+                .andExpect(model().hasNoErrors())
+                .andExpect(model().attribute("errorMessage", isEmptyString()));
+
+        assertTrue(reservationService.getById(reservation.getId()).isPaid() == true);
+    }
 }
