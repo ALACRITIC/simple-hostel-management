@@ -14,6 +14,8 @@ public class TokenManager {
 
     private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
 
+    public static final String DEFAULT_MODEL_TOKEN_NAME = "token";
+
     /**
      * Prefix used in session token name
      */
@@ -31,6 +33,8 @@ public class TokenManager {
 
     /**
      * Unique name of token in session
+     *
+     * Several tokens from several actions can be used separately
      */
     private String sessionTokenName;
 
@@ -41,7 +45,7 @@ public class TokenManager {
 
     public TokenManager(String tokenSuffix) {
         this.sessionTokenSuffix = tokenSuffix;
-        this.modelTokenName = "token";
+        this.modelTokenName = DEFAULT_MODEL_TOKEN_NAME;
         generateToken();
         this.sessionTokenName = generateSessionTokenName(tokenSuffix);
     }
@@ -102,16 +106,36 @@ public class TokenManager {
         }
     }
 
+    public long getTokenFrom(Model model) {
+        try {
+            return Long.valueOf(model.asMap().get(modelTokenName).toString());
+        } catch (Exception e) {
+            logger.error("Error while getting token: ", e);
+            return -1;
+        }
+    }
+
     /**
      * Check specified session token against specified value
      *
      * @param session
-     * @param toCheck
+     * @param model
      * @return
      */
+    public boolean isTokenValid(HttpSession session, Model model) {
+        Long sessionToken = getTokenFrom(session);
+        Long modelToken = getTokenFrom(model);
+        return isTokenValid(sessionToken, modelToken);
+    }
+
     public boolean isTokenValid(HttpSession session, Long toCheck) {
         Long sessionToken = getTokenFrom(session);
-        return sessionToken != null && sessionToken.equals(Long.valueOf(toCheck));
+        return isTokenValid(sessionToken, toCheck);
+    }
+
+    public boolean isTokenValid(Long sessionToken, Long toCheckToken) {
+        return sessionToken != null && toCheckToken != null &&
+                sessionToken.equals(toCheckToken);
     }
 
     public void throwIfTokenInvalid(HttpSession session, Long toCheck) {
@@ -129,10 +153,26 @@ public class TokenManager {
     public void deleteTokenFrom(HttpSession session) {
 
         if (session.getAttribute(sessionTokenName) == null) {
-            throw new RuntimeException("Token not found: " + session);
+            logger.error("Token not found: " + session);
+        } else {
+            session.setAttribute(sessionTokenName, null);
         }
 
-        session.setAttribute(sessionTokenName, null);
+    }
+
+    /**
+     * Delete token from specified model
+     *
+     * @param model
+     */
+    public void deleteTokenFrom(Model model) {
+
+        if (model.asMap() == null || model.asMap().get(modelTokenName) == null) {
+            logger.error("Token not found: " + model);
+        } else {
+            model.asMap().put(modelTokenName, null);
+        }
+
     }
 
     public String getModelTokenName() {
@@ -150,4 +190,6 @@ public class TokenManager {
     public void setSessionTokenName(String sessionTokenName) {
         this.sessionTokenName = sessionTokenName;
     }
+
+
 }

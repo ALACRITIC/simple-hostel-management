@@ -91,6 +91,8 @@ public class Mappings {
     public static final String POPULATE_TABLES = APPLICATION_ROOT + "/populate-tables";
     public static final String MAIN_TEMPLATE = APPLICATION_ROOT + "/main-template";
 
+    public static final String TEST_ROOT = APPLICATION_ROOT + "/test/";
+
 
     public static MappingMap getMap() {
 

@@ -11,6 +11,7 @@ import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -21,6 +22,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import static org.hamcrest.Matchers.arrayWithSize;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -102,12 +106,12 @@ public class CustomerControllerTest {
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$", Matchers.notNullValue()));
+                .andExpect(jsonPath("$.*", hasSize(greaterThan(1))));
 
     }
 
     @Test
-    public void testCustomerFormGet() throws Exception {
+    public void testCustomerForm() throws Exception {
 
         // as an empty form
         mockMvc.perform(get(Mappings.CUSTOMERS_FORM)
