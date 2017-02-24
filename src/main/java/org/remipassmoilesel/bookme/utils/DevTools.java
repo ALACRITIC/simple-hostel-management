@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.awt.*;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -98,8 +97,8 @@ public class DevTools {
         results.addAll(serviceTypes);
 
         // create bills
-        ArrayList<MerchantService> bills = createServices(10, customers, serviceTypes, now);
-        bills.addAll(createServices(10, customers, serviceTypes, now.plusMonths(1)));
+        ArrayList<MerchantService> bills = createServices(50, customers, serviceTypes, now);
+        bills.addAll(createServices(50, customers, serviceTypes, now.plusMonths(1)));
         results.addAll(bills);
 
         return results;
@@ -152,7 +151,6 @@ public class DevTools {
     private ArrayList<Reservation> createReservations(int number, List<SharedResource> rooms, List<Customer> customers,
                                                       DateTime startDate) throws Exception {
 
-        SimpleDateFormat sdf = new SimpleDateFormat();
 
         // create customers and reservations
         ArrayList<Reservation> reservations = new ArrayList<>();
@@ -199,9 +197,9 @@ public class DevTools {
             MerchantService serv = new MerchantService(
                     (MerchantServiceType) Utils.randValueFrom(services),
                     (Customer) Utils.randValueFrom(customers),
-                    5 + i,
+                    Utils.randInt(5, 25),
                     "",
-                    startDate.plusDays(Utils.randInt(1, 2)).toDate(),
+                    startDate.plusDays(Utils.randInt(1, 31)).toDate(),
                     false,
                     null
             );
@@ -212,14 +210,15 @@ public class DevTools {
         // create scheduled services
         for (int i = number / 2; i < number; i++) {
             int plus = Utils.randInt(1, 2);
+            DateTime srvDate = startDate.plusDays(Utils.randInt(1, 31));
             MerchantService serv = new MerchantService(
                     (MerchantServiceType) Utils.randValueFrom(services),
                     (Customer) Utils.randValueFrom(customers),
-                    5 + i,
+                    Utils.randInt(5, 25),
                     "",
-                    startDate.plusDays(plus).toDate(),
+                    srvDate.toDate(),
                     true,
-                    startDate.plusDays(plus + 2).toDate()
+                    srvDate.plusDays(Utils.randInt(1, 6)).toDate()
             );
             merchantServicesService.create(serv);
             bills.add(serv);
