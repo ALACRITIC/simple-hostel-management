@@ -31,7 +31,8 @@ import java.util.List;
 public class MerchantServicesController {
 
     private static final Logger logger = LoggerFactory.getLogger(MerchantServicesController.class);
-    private static final String TOKEN_NAME = "merchant-services-form";
+
+    public static final String TOKEN_ATTR_SESSION_PREFIX = "merchant-services-form";
 
     @Autowired
     private CustomerService customerService;
@@ -78,7 +79,7 @@ public class MerchantServicesController {
         }
 
         // create a token and add it to model
-        TokenManager tokenman = new TokenManager(TOKEN_NAME);
+        TokenManager tokenman = new TokenManager(TOKEN_ATTR_SESSION_PREFIX);
         tokenman.addToken(model);
 
         // add it to session for check
@@ -111,7 +112,7 @@ public class MerchantServicesController {
 
         // checks tokens
         HttpSession session = request.getSession();
-        TokenManager tokenman = new TokenManager(TOKEN_NAME);
+        TokenManager tokenman = new TokenManager(TOKEN_ATTR_SESSION_PREFIX);
 
         String errorMessage = "";
         MerchantServiceType serviceType = null;
@@ -208,7 +209,7 @@ public class MerchantServicesController {
             Model model) throws Exception {
 
         HttpSession session = request.getSession();
-        TokenManager tokenman = new TokenManager(TOKEN_NAME);
+        TokenManager tokenman = new TokenManager(TOKEN_ATTR_SESSION_PREFIX);
 
         String errorMessage = "";
 
@@ -256,7 +257,7 @@ public class MerchantServicesController {
         }
 
         // create a token and add it to model
-        TokenManager tokenman = new TokenManager(TOKEN_NAME);
+        TokenManager tokenman = new TokenManager(TOKEN_ATTR_SESSION_PREFIX);
         tokenman.addToken(model);
 
         // add it to session for check
@@ -293,7 +294,7 @@ public class MerchantServicesController {
 
         // checks tokens
         HttpSession session = request.getSession();
-        TokenManager tokenman = new TokenManager(TOKEN_NAME);
+        TokenManager tokenman = new TokenManager(TOKEN_ATTR_SESSION_PREFIX);
 
         String errorMessage = "";
         MerchantService service = null;
@@ -401,7 +402,7 @@ public class MerchantServicesController {
             Model model) throws Exception {
 
         HttpSession session = request.getSession();
-        TokenManager tokenman = new TokenManager(TOKEN_NAME);
+        TokenManager tokenman = new TokenManager(TOKEN_ATTR_SESSION_PREFIX);
 
         String errorMessage = "";
 
@@ -440,7 +441,7 @@ public class MerchantServicesController {
             throw new IllegalArgumentException("Begin date is greater than end date: " + startDateStr + " / " + endDateStr);
         }
 
-        List<MerchantService> result = merchantServiceService.getScheduledServiceByInterval(startDate, endDate, true);
+        List<MerchantService> result = merchantServiceService.getScheduledServicesByInterval(startDate, endDate, true);
         return result;
 
     }

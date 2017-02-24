@@ -5,6 +5,8 @@ import com.j256.ormlite.stmt.Where;
 import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.utils.AbstractDaoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ import java.util.List;
  */
 @Service
 public class MerchantServiceService extends AbstractDaoService<MerchantService> {
+
+    private final Logger logger = LoggerFactory.getLogger(MerchantServiceService.class);
 
     @Autowired
     private CustomerService customerService;
@@ -38,8 +42,15 @@ public class MerchantServiceService extends AbstractDaoService<MerchantService> 
     @Override
     public void refresh(MerchantService service) throws IOException {
         super.refresh(service);
+
+        if (service == null) {
+            logger.error("Cannot refresh null object: " + service, new NullPointerException("Cannot refresh null object: " + service));
+            return;
+        }
+
         customerService.refresh(service.getCustomer());
         merchantServiceTypesService.refresh(service.getServiceType());
+
     }
 
     @Override
@@ -58,15 +69,29 @@ public class MerchantServiceService extends AbstractDaoService<MerchantService> 
      * @return
      * @throws IOException
      */
-    public List<MerchantService> getScheduledServiceByInterval(Date beginDate, Date endDate, boolean orderAscending) throws IOException {
+    public List<MerchantService> getScheduledServicesByInterval(Date beginDate, Date endDate, boolean orderAscending) throws IOException {
+
+        if (beginDate.getTime() >= endDate.getTime()) {
+            throw new IllegalArgumentException("Begin date must be lesser than " +
+                    "end date: b/" + beginDate + " e/" + endDate);
+        }
 
         try {
+
             QueryBuilder<MerchantService, String> queryBuilder = dao.queryBuilder();
             queryBuilder.orderBy(MerchantService.EXECUTION_DATE_FIELD_NAME, orderAscending);
             Where<MerchantService, String> where = queryBuilder.where();
 
-            where.between(MerchantService.EXECUTION_DATE_FIELD_NAME, beginDate, endDate)
-                    .or().between(MerchantService.EXECUTION_DATE_FIELD_NAME, beginDate, endDate);
+            where.and(
+                    where.eq(MerchantService.IS_SCHEDULED_FIELD_NAME, true),
+                    where.between(MerchantService.EXECUTION_DATE_FIELD_NAME, beginDate, endDate)
+                    /*,
+                    where.or(
+
+                            where.eq(MerchantService.EXECUTION_DATE_FIELD_NAME, beginDate),
+                            where.eq(MerchantService.EXECUTION_DATE_FIELD_NAME, endDate)
+                    )*/
+            );
 
             List<MerchantService> results = queryBuilder.query();
 
@@ -95,4 +120,5 @@ public class MerchantServiceService extends AbstractDaoService<MerchantService> 
             throw new IOException(e);
         }
     }
+
 }

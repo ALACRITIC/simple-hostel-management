@@ -19,7 +19,7 @@ public class MerchantService {
     public static final String PRICE_FIELD_NAME = "PRICE";
     public static final String COMMENT_FIELD_NAME = "COMMENT";
     public static final String PURCHASE_DATE_FIELD_NAME = "PURCHASE_DATE";
-    public static final String IS_SCHEDULED = "IS_SCHEDULED";
+    public static final String IS_SCHEDULED_FIELD_NAME = "IS_SCHEDULED";
     public static final String EXECUTION_DATE_FIELD_NAME = "EXECUTION_DATE";
     public static final String CUSTOMER_FIELD_NAME = "CUSTOMER";
     public static final String PAID_FIELD_NAME = "PAID";
@@ -39,7 +39,7 @@ public class MerchantService {
     @DatabaseField(columnName = PURCHASE_DATE_FIELD_NAME)
     private Date purchaseDate;
 
-    @DatabaseField(columnName = IS_SCHEDULED)
+    @DatabaseField(columnName = IS_SCHEDULED_FIELD_NAME)
     private boolean scheduled;
 
     @DatabaseField(columnName = EXECUTION_DATE_FIELD_NAME)
