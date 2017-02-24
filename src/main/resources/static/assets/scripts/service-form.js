@@ -10,15 +10,18 @@ var ServiceForm = {
         var self = ServiceForm;
 
         var deleteButton = $("#serviceDeleteButton");
-        var resourceId = $("#serviceId").val();
+        var serviceType = $("#serviceType");
+        var totalPrice = $("#totalPrice");
+        var serviceId = $("#serviceId");
         var token = $("#serviceToken").val();
         var phoneNumberTxt = $("#serviceCustomerPhonenumber");
         var execDate = $("#serviceExecutionDate");
         var firstNameTxt = $("#serviceCustomerFirstname");
         var lastNameTxt = $("#serviceCustomerLastname");
+        var customerIdField = $("#customerId");
 
         deleteButton.click(function(){
-            ServiceUtils.showDeleteServiceDialog(resourceId, token);
+            ServiceUtils.showDeleteServiceDialog(serviceId.val(), token);
         });
 
         phoneNumberTxt.on('input', function () {
@@ -32,8 +35,8 @@ var ServiceForm = {
 
         execDate.datepicker({
             dateFormat: "dd/mm/yy",
-            onSelect: function () {
-                
+            onSelect: function (date) {
+                execDate.val(date + " 10:00");
             }
         });
         
@@ -78,9 +81,24 @@ var ServiceForm = {
                 var customer = ui.item.__customer;
                 lastNameTxt.val(customer.lastname);
                 phoneNumberTxt.val(customer.phonenumber);
+                customerIdField.val(customer.id);
             }
         });
 
+        serviceType.change(function(){
+            self.updatePrice();
+        });
+
+        self.updatePrice();
+    },
+
+    updatePrice: function(){
+
+        var serviceType = $("#serviceType");
+        var totalPrice = $("#totalPrice");
+
+        totalPrice.val(serviceType.find(":selected").data("servicePrice"));
+        
     }
 
 };

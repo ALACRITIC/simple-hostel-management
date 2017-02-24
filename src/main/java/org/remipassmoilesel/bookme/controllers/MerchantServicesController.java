@@ -306,7 +306,7 @@ public class MerchantServicesController {
             // always delete token before leave
             tokenman.deleteTokenFrom(session);
 
-            MerchantServiceType serviceType = merchantServiceTypesService.getById(serviceForm.getServiceId());
+            MerchantServiceType serviceType = merchantServiceTypesService.getById(serviceForm.getServiceType());
 
             // retrieve customer or create it if needed
             Customer customer = customerService.getById(serviceForm.getCustomerId());
@@ -316,7 +316,7 @@ public class MerchantServicesController {
                 customerService.create(customer);
             }
 
-            Date execDate = Utils.stringToDate(serviceForm.getExecutionDate());
+            Date execDate = Utils.stringToDateTime(serviceForm.getExecutionDate(), "dd/MM/YY HH:mm").toDate();
 
             // add reservation if it is a new one
             if (serviceForm.getId() == -1) {

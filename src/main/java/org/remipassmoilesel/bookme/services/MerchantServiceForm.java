@@ -2,6 +2,7 @@ package org.remipassmoilesel.bookme.services;
 
 import org.remipassmoilesel.bookme.utils.Utils;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -13,6 +14,7 @@ import java.util.Objects;
 public class MerchantServiceForm {
 
     @NotNull
+    @Min(0)
     private int totalPrice;
 
     @NotNull
@@ -36,19 +38,20 @@ public class MerchantServiceForm {
     private String customerPhonenumber;
 
     @NotNull
-    private long customerId = -1;
+    private Long customerId = -1l;
 
     @NotNull
+    @Pattern(regexp = "[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}")
     private String executionDate;
 
     @NotNull
-    private long serviceId = -1;
+    private Long serviceType = -1l;
 
     @NotNull
-    private boolean paid;
+    private Boolean paid = false;
 
     @NotNull
-    private boolean scheduled;
+    private Boolean scheduled = false;
 
     @NotNull
     private Long token;
@@ -83,7 +86,7 @@ public class MerchantServiceForm {
         }
 
         if (bill.getServiceType() != null) {
-            setServiceId(bill.getServiceType().getId());
+            setServiceType(bill.getServiceType().getId());
         }
 
         setComment(bill.getComment());
@@ -155,12 +158,12 @@ public class MerchantServiceForm {
     }
 
 
-    public long getServiceId() {
-        return serviceId;
+    public long getServiceType() {
+        return serviceType;
     }
 
-    public void setServiceId(long serviceId) {
-        this.serviceId = serviceId;
+    public void setServiceType(long serviceType) {
+        this.serviceType = serviceType;
     }
 
     public boolean isPaid() {
@@ -195,7 +198,7 @@ public class MerchantServiceForm {
         return totalPrice == that.totalPrice &&
                 id == that.id &&
                 customerId == that.customerId &&
-                serviceId == that.serviceId &&
+                serviceType == that.serviceType &&
                 paid == that.paid &&
                 scheduled == that.scheduled &&
                 Objects.equals(comment, that.comment) &&
@@ -208,6 +211,6 @@ public class MerchantServiceForm {
 
     @Override
     public int hashCode() {
-        return Objects.hash(totalPrice, id, comment, customerFirstname, customerLastname, customerPhonenumber, customerId, executionDate, serviceId, paid, scheduled, token);
+        return Objects.hash(totalPrice, id, comment, customerFirstname, customerLastname, customerPhonenumber, customerId, executionDate, serviceType, paid, scheduled, token);
     }
 }

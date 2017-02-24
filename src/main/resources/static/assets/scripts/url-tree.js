@@ -121,6 +121,19 @@ var UrlTree = {
 
     ///////////////////////////////
 
+    deleteServiceTypeUrl: null,
+
+    setDeleteServiceTypeUrl: function (url) {
+        UrlTree.deleteServiceTypeUrl = url;
+    },
+
+    getDeleteServiceUrl: function () {
+        UrlTree._checkIfDefined(UrlTree.deleteServiceTypeUrl, "deleteServiceTypeUrl");
+        return UrlTree.deleteServiceTypeUrl;
+    },
+
+    ///////////////////////////////
+
     deleteServiceUrl: null,
 
     setDeleteServiceUrl: function (url) {
