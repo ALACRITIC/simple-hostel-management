@@ -28,7 +28,7 @@ public class ReservationForm {
     private String customerPhonenumber;
 
     @NotNull
-    private long customerId = -1;
+    private Long customerId = -1l;
 
     @NotNull
     @Min(1)
@@ -53,7 +53,7 @@ public class ReservationForm {
     private String comment;
 
     @NotNull
-    private Boolean paid;
+    private Boolean paid = false;
 
     @NotNull
     private Long token;
