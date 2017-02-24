@@ -39,7 +39,7 @@ public class Mappings {
     public static final String RESERVATIONS_DELETE = RESERVATIONS_ROOT + "/delete";
     public static final String RESERVATIONS_JSON = RESERVATIONS_ROOT + "/json";
     public static final String RESERVATIONS_JSON_GET = RESERVATIONS_JSON + "/get";
-    public static final String RESERVATIONS_JSON_GET_ALL = RESERVATIONS_JSON + "/all";
+    public static final String RESERVATIONS_JSON_GET_LASTS = RESERVATIONS_JSON + "/lasts";
     public static final String RESERVATIONS_JSON_SEARCH = RESERVATIONS_JSON + "/search";
     public static final String RESERVATIONS_RESOURCES_AVAILABLE_JSON_GET = RESERVATIONS_JSON + "/availableresources";
 

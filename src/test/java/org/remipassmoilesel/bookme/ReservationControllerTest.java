@@ -28,10 +28,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Created by remipassmoilesel on 22/02/17.
@@ -124,4 +125,5 @@ public class ReservationControllerTest {
         // check for reservation
         assertTrue(reservationService.getById(res.getId()) == null);
     }
+
 }
