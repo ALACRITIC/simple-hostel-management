@@ -2,7 +2,7 @@ package org.remipassmoilesel.bookme.admin;
 
 import java.util.Objects;
 
-public class TiledMenuItem {
+public class MainMenuItem {
 
 
     public static final String PROTOTYPE_IMAGE = "assets/img/tile_prototype.svg";
@@ -11,7 +11,7 @@ public class TiledMenuItem {
     private String name;
     private String image;
 
-    public TiledMenuItem(String name, String href, String image) {
+    public MainMenuItem(String name, String href, String image) {
         this.href = href;
         this.name = name;
         this.image = image;
@@ -48,7 +48,7 @@ public class TiledMenuItem {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TiledMenuItem that = (TiledMenuItem) o;
+        MainMenuItem that = (MainMenuItem) o;
         return Objects.equals(href, that.href) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(image, that.image);

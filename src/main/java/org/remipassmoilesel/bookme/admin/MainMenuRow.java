@@ -3,26 +3,26 @@ package org.remipassmoilesel.bookme.admin;
 import java.util.List;
 import java.util.Objects;
 
-public class TiledMenuRow {
+public class MainMenuRow {
     public String image;
     public String title;
-    public List<TiledMenuItem> items;
+    public List<MainMenuItem> items;
 
-    public TiledMenuRow(String title, String image, List<TiledMenuItem> items) {
+    public MainMenuRow(String title, String image, List<MainMenuItem> items) {
         this.image = image;
         this.title = title;
         this.items = items;
 
         if (image == null) {
-            this.image = TiledMenuItem.PROTOTYPE_IMAGE;
+            this.image = MainMenuItem.PROTOTYPE_IMAGE;
         }
     }
 
-    public List<TiledMenuItem> getItems() {
+    public List<MainMenuItem> getItems() {
         return items;
     }
 
-    public void setItems(List<TiledMenuItem> items) {
+    public void setItems(List<MainMenuItem> items) {
         this.items = items;
     }
 
@@ -46,7 +46,7 @@ public class TiledMenuRow {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TiledMenuRow tiledRow = (TiledMenuRow) o;
+        MainMenuRow tiledRow = (MainMenuRow) o;
         return Objects.equals(image, tiledRow.image) &&
                 Objects.equals(title, tiledRow.title);
     }

@@ -2,7 +2,7 @@ package org.remipassmoilesel.bookme.controllers;
 
 import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
-import org.remipassmoilesel.bookme.admin.TiledMenu;
+import org.remipassmoilesel.bookme.admin.MainManu;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.messages.Message;
@@ -15,7 +15,6 @@ import org.remipassmoilesel.bookme.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -92,7 +91,7 @@ public class MainController {
     @RequestMapping(value = Mappings.APPLICATION_ROOT, method = RequestMethod.GET)
     public String showMainMenu(Model model) throws IOException {
 
-        TiledMenu.includeMenus(model);
+        MainManu.includeMenus(model);
         Mappings.includeMappings(model);
 
         // name of template
