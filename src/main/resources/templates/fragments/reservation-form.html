@@ -82,6 +82,16 @@
             </td>
         </tr>
 
+        <!-- Dates errors -->
+        <tr>
+            <td colspan="2" th:if="${#fields.hasErrors('begin') or #fields.hasErrors('end')}">
+                <div class="formError" th:if="${#fields.hasErrors('begin') or #fields.hasErrors('end')}">
+                    <span th:if="${#fields.hasErrors('begin')}" th:text="'Invalid check-in date.'">Check-in error</span>&nbsp;
+                    <span th:if="${#fields.hasErrors('end')}" th:text="'Invalid check-out date.'">Check-out error</span>&nbsp;
+                </div>
+            </td>
+        </tr>
+
         <!-- Reservation is paid -->
 
         <tr>
@@ -116,17 +126,6 @@
             </td>
             <td style="text-align: right">
                 <a id="checkAvailabilityButton" class="glyphicon glyphicon-refresh" style="display: inline-block; cursor: pointer"></a>
-            </td>
-        </tr>
-
-        <!-- Dates errors -->
-
-        <tr>
-            <td colspan="2" th:if="${#fields.hasErrors('begin') or #fields.hasErrors('end')}">
-                <div class="formError" th:if="${#fields.hasErrors('begin') or #fields.hasErrors('end')}">
-                    <span th:if="${#fields.hasErrors('begin')}" th:text="'Invalid check-in date'">Check-in error</span>&nbsp;
-                    <span th:if="${#fields.hasErrors('end')}" th:text="'Invalid check-out date'">Check-out error</span>&nbsp;
-                </div>
             </td>
         </tr>
 

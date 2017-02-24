@@ -35,11 +35,12 @@ public class ReservationForm {
     private int places = 1;
 
     @NotNull
-    @Size(min = 10, max = 10)
+    // 24/02/2017 16:00
+    @Pattern(regexp = "[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}")
     private String begin;
 
     @NotNull
-    @Size(min = 10, max = 10)
+    @Pattern(regexp = "[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}")
     private String end;
 
     @NotNull
@@ -59,8 +60,8 @@ public class ReservationForm {
 
 
     public ReservationForm() {
-        begin = new DateTime().toString("dd/MM/yyyy");
-        end = new DateTime().plusDays(5).toString("dd/MM/yyyy");
+        begin = new DateTime().toString("dd/MM/yyyy") + " 16:00";
+        end = new DateTime().plusDays(5).toString("dd/MM/yyyy" + " 10:00");
     }
 
     /**
@@ -81,11 +82,11 @@ public class ReservationForm {
         }
 
         if (reservation.getBegin() != null) {
-            setBegin(Utils.dateToString(reservation.getBegin()));
+            setBegin(Utils.dateToString(reservation.getBegin(), "dd/MM/YYYY HH:mm"));
         }
 
         if (reservation.getEnd() != null) {
-            setEnd(Utils.dateToString(reservation.getEnd()));
+            setEnd(Utils.dateToString(reservation.getEnd(), "dd/MM/YYYY HH:mm"));
         }
 
         if (reservation.getResource() != null) {

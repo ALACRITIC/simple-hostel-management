@@ -16,7 +16,7 @@ var CalendarUtils = {
             eventLimit: true, // allow "more" link when too many events
             events: function (start, end, timezone, callback) {
 
-                var expectedFormat = "YYYY-MM-DD";
+                var expectedFormat = "DD/MM/YYYY HH:mm";
 
                 $.ajax({
                     url: UrlTree.getReservationCalendarFeedUrl(),
@@ -76,8 +76,8 @@ var CalendarUtils = {
 
             events.push({
                 title: lastname + " " + firstname,
-                start: moment(startDate).add(12, 'hours'),
-                end: moment(endDate).add(12, 'hours'),
+                start: moment(startDate),
+                end: moment(endDate),
                 color: color,
                 _reservationId: element.id
             });

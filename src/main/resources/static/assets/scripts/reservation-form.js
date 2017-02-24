@@ -22,7 +22,8 @@ var ReservationForm = {
         // transform fields in date picker
         beginDate.datepicker({
             dateFormat: "dd/mm/yy",
-            onSelect: function () {
+            onSelect: function (date) {
+                beginDate.val(date + " 16:00");
                 self.setDateFieldBackground(false);
                 self.checkDates();
                 self.checkAvailability();
@@ -31,7 +32,8 @@ var ReservationForm = {
 
         endDate.datepicker({
             dateFormat: "dd/mm/yy",
-            onSelect: function () {
+            onSelect: function (date) {
+                endDate.val(date + " 10:00");
                 self.setDateFieldBackground(false);
                 self.checkDates();
                 self.checkAvailability();

@@ -14,6 +14,7 @@ import java.awt.*;
 import java.net.URI;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 /**
  * Use option -Djava.awt.headless=false if you want to add a system tray icon

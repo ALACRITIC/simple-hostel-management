@@ -523,11 +523,11 @@
             <table class="table table-striped" th:fragment="reservation-simple">
                 <tr>
                     <td style="width: 20%">Check-in:</td>
-                    <td th:text="${#dates.format(reservation.getBegin(), 'dd/MM/yyyy')}">05/01/2016</td>
+                    <td th:text="${#dates.format(reservation.getBegin(), 'dd/MM/yyyy HH:mm')}">05/01/2016</td>
                 </tr>
                 <tr>
                     <td>Check-out:</td>
-                    <td th:text="${#dates.format(reservation.getEnd(), 'dd/MM/yyyy')}">05/01/2016</td>
+                    <td th:text="${#dates.format(reservation.getEnd(), 'dd/MM/yyyy HH:mm')}">05/01/2016</td>
                 </tr>
                 <tr>
                     <td>Resource:</td>
@@ -611,7 +611,7 @@
 
             <div class="card card-message-small" th:fragment="message-small">
                 <div class="card-block">
-                    <h4 class="card-title" th:text="${#dates.format(message.getDate(), 'dd/MM/yyyy')}">Small message /
+                    <h4 class="card-title" th:text="${#dates.format(message.getDate(), 'dd/MM/yyyy HH:mm')}">Small message /
                         Date / Writer</h4>
                     <p class="card-text"
                        th:text="${message.getMessage().length() > 200} ? ${#strings.substring(message.getMessage(), 0, 200) + '...'} : ${message.getMessage()}">
@@ -634,7 +634,7 @@
             </div>
 
             <div th:fragment="message-simple">
-                <h4 th:text="${#dates.format(message.getDate(), 'dd/MM/yyyy')}">Small message /Date / Writer</h4>
+                <h4 th:text="${#dates.format(message.getDate(), 'dd/MM/yyyy HH:mm')}">Small message /Date / Writer</h4>
                 <p>
                     <b>Message: </b>
 
@@ -665,7 +665,7 @@
                 <tbody>
 
                 <tr th:each="message : ${messagesList}">
-                    <td th:text="${#dates.format(message.getDate(), 'dd/MM/yyyy')}">Date</td>
+                    <td th:text="${#dates.format(message.getDate(), 'dd/MM/yyyy HH:mm')}">Date</td>
                     <td th:text="${#strings.substring(message.getMessage(), 0, 100) + '...'}">Message</td>
                     <td><a th:href="${mappings.get('MESSAGES_SHOW_BY_ID') + '?id=' + message.getId()}"
                            class="glyphicon glyphicon-edit"></a></td>

@@ -164,9 +164,12 @@ public class ReservationController {
         }
 
         if (beginDate.isEmpty() == false) {
-            String format = "dd/MM/yyy";
-            reservationForm.setBegin(beginDate);
-            reservationForm.setEnd(Utils.stringToDateTime(beginDate, format).plusDays(2).toString(format));
+            String inFormat = "dd/MM/YYYY";
+            String outFormat = "dd/MM/YYYY HH:mm";
+            reservationForm.setBegin(Utils.stringToDateTime(beginDate, inFormat).plusHours(16)
+                    .toString(outFormat));
+            reservationForm.setEnd(Utils.stringToDateTime(beginDate, inFormat).plusDays(2)
+                    .plusHours(10).toString(outFormat));
         }
 
         // create a token and add it to model
@@ -225,8 +228,8 @@ public class ReservationController {
             Date beginDate = null;
             Date endDate = null;
             try {
-                beginDate = Utils.stringToDate(reservationForm.getBegin());
-                endDate = Utils.stringToDate(reservationForm.getEnd());
+                beginDate = Utils.stringToDateTime(reservationForm.getBegin(), "dd/MM/YYYY HH:mm").toDate();
+                endDate = Utils.stringToDateTime(reservationForm.getEnd(), "dd/MM/YYYY HH:mm").toDate();
             } catch (Exception e) {
                 logger.error("Invalid date: ", e);
                 throw new IllegalStateException("Invalid dates: " + reservationForm.getBegin() + ", " + reservationForm.getEnd());
@@ -373,8 +376,8 @@ public class ReservationController {
             @RequestParam(value = "start", required = true) String startDateStr,
             @RequestParam(value = "end", required = true) String endDateStr) throws Exception {
 
-        Date startDate = Utils.stringToDate(startDateStr);
-        Date endDate = Utils.stringToDate(endDateStr);
+        Date startDate = Utils.stringToDateTime(startDateStr, "dd/MM/YYYY HH:mm").toDate();
+        Date endDate = Utils.stringToDateTime(endDateStr, "dd/MM/YYYYYY HH:mm").toDate();
 
         if (startDate.getTime() > endDate.getTime()) {
             throw new IllegalArgumentException("Begin date is greater than end date: " + startDateStr + " / " + endDateStr);
@@ -411,8 +414,9 @@ public class ReservationController {
             places = 1;
         }
 
-        Date startDate = Utils.stringToDate(startDateStr);
-        Date endDate = Utils.stringToDate(endDateStr);
+        // 24/02/2017 16:00
+        Date startDate = Utils.stringToDateTime(startDateStr, "dd/MM/YYYY HH:mm").toDate();
+        Date endDate = Utils.stringToDateTime(endDateStr, "dd/MM/YYYY HH:mm").toDate();
 
         List<SharedResource> result = reservationService.getAvailableResources(Type.ROOM, startDate, endDate, places);
 
