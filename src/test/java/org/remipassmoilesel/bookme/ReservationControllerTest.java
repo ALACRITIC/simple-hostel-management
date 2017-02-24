@@ -1,6 +1,7 @@
 package org.remipassmoilesel.bookme;
 
 import org.hamcrest.Matchers;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertTrue;
@@ -58,6 +60,8 @@ public class ReservationControllerTest {
 
     private ArrayList<Customer> customers;
     private ArrayList<SharedResource> sharedResources;
+    private DateTime beginTestPeriod;
+    private DateTime endTestPeriod;
 
     @Before
     public void setup() throws IOException {
@@ -81,16 +85,34 @@ public class ReservationControllerTest {
         sharedResourceService.clearAllEntities();
 
         sharedResources = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            SharedResource resource = new SharedResource("Room " + i, 2, 5.45, "", Type.ROOM, Color.blue);
+            sharedResources.add(resource);
+            sharedResourceService.create(resource);
+        }
         for (int i = 0; i < 3; i++) {
             SharedResource resource = new SharedResource("Bed " + i, 1, 5.45, "", Type.BED, Color.blue);
             sharedResources.add(resource);
             sharedResourceService.create(resource);
         }
-        for (int i = 0; i < 3; i++) {
-            SharedResource resource = new SharedResource("Room " + i, 1, 5.45, "", Type.ROOM, Color.blue);
-            sharedResources.add(resource);
-            sharedResourceService.create(resource);
-        }
+
+        // create fake reservations
+        reservationService.clearAllEntities();
+
+        beginTestPeriod = new DateTime();
+        endTestPeriod = beginTestPeriod.plusDays(30);
+
+        // add special reservations to test against test period (TP)
+        // 1: begin before TP and finish in TP
+        reservationService.create(customers.get(0), sharedResources.get(0), 2, beginTestPeriod.minusDays(2).toDate(), beginTestPeriod.plusDays(2).toDate());
+        // 2: begin in TP and finish after TP
+        reservationService.create(customers.get(0), sharedResources.get(1), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
+        // 3: begin before TP and finish after TP
+        reservationService.create(customers.get(0), sharedResources.get(2), 2, beginTestPeriod.minusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
+        // 4: begin after TP and finish before end of TP
+        reservationService.create(customers.get(0), sharedResources.get(3), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.minusDays(2).toDate());
+        // 5: same period
+        reservationService.create(customers.get(0), sharedResources.get(4), 2, beginTestPeriod.toDate(), endTestPeriod.toDate());
 
     }
 
@@ -124,6 +146,18 @@ public class ReservationControllerTest {
 
         // check for reservation
         assertTrue(reservationService.getById(res.getId()) == null);
+    }
+
+    @Test
+    public void getAvailableRooms() throws Exception {
+        mockMvc.perform(get(Mappings.RESERVATIONS_RESOURCES_AVAILABLE_JSON_GET)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("start", beginTestPeriod.toString("dd/MM/YYYY HH:mm"))
+                .param("end", endTestPeriod.toString("dd/MM/YYYY HH:mm"))
+                .param("places", String.valueOf(2)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.*", hasSize(equalTo(1))));
     }
 
 }
