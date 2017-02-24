@@ -29,7 +29,7 @@ import java.util.List;
 public class CustomerController {
 
     private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
-    public static final String TOKEN_ATTR_SESSION_NAME = "customer-form";
+    public static final String TOKEN_ATTR_SESSION_PREFIX = "customer-form";
 
     @Autowired
     private CustomerService customerService;
@@ -131,7 +131,7 @@ public class CustomerController {
         }
 
         // create a token and add it to model
-        TokenManager tokenman = new TokenManager(TOKEN_ATTR_SESSION_NAME);
+        TokenManager tokenman = new TokenManager(TOKEN_ATTR_SESSION_PREFIX);
         tokenman.addToken(model);
 
         // add it to session for check
@@ -162,7 +162,7 @@ public class CustomerController {
 
         // checks tokens
         HttpSession session = request.getSession();
-        TokenManager tokenman = new TokenManager(TOKEN_ATTR_SESSION_NAME);
+        TokenManager tokenman = new TokenManager(TOKEN_ATTR_SESSION_PREFIX);
 
         String errorMessage = "";
         Customer customer = null;

@@ -33,7 +33,7 @@ public class ReservationController {
 
     private static final Logger logger = LoggerFactory.getLogger(ReservationController.class);
 
-    private static final String TOKEN_NAME = "reservation";
+    public static final String TOKEN_ATTR_SESSION_PREFIX = "reservation-form";
 
     @Autowired
     private CustomerService customerService;
@@ -173,7 +173,7 @@ public class ReservationController {
         }
 
         // create a token and add it to model
-        TokenManager tokenman = new TokenManager(TOKEN_NAME);
+        TokenManager tokenman = new TokenManager(TOKEN_ATTR_SESSION_PREFIX);
         tokenman.addToken(model);
 
         model.addAttribute("sharedResources", sharedResourceService.getAll());
@@ -211,7 +211,7 @@ public class ReservationController {
 
         // checks tokens
         HttpSession session = request.getSession();
-        TokenManager tokenman = new TokenManager(TOKEN_NAME);
+        TokenManager tokenman = new TokenManager(TOKEN_ATTR_SESSION_PREFIX);
 
         String errorMessage = "";
         Reservation reservation = null;
@@ -349,7 +349,7 @@ public class ReservationController {
             Model model) throws Exception {
 
         HttpSession session = request.getSession();
-        TokenManager tokenman = new TokenManager(TOKEN_NAME);
+        TokenManager tokenman = new TokenManager(TOKEN_ATTR_SESSION_PREFIX);
 
         String errorMessage = "";
 

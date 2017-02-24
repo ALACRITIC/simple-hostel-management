@@ -246,6 +246,12 @@ public class ReservationService extends AbstractDaoService<Reservation> {
 
     public void refresh(Reservation res) throws IOException {
         super.refresh(res);
+
+        if(res == null){
+            logger.error("Cannot refresh null object: " + res, new NullPointerException("Cannot refresh null object: " + res));
+            return;
+        }
+
         customerService.refresh(res.getCustomer());
         sharedResourceService.refresh(res.getResource());
     }

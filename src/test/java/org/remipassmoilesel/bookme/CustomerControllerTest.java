@@ -11,7 +11,6 @@ import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -53,6 +52,9 @@ public class CustomerControllerTest {
 
         mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
 
+        // clear old customers
+        customerService.clearAllEntities();
+
         // create fake customers
         customers = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -60,7 +62,6 @@ public class CustomerControllerTest {
         }
 
         // add it
-        customerService.clearAllEntities();
         for (Customer customer : customers) {
             customerService.create(customer);
         }
@@ -140,7 +141,7 @@ public class CustomerControllerTest {
                 .andReturn().getModelAndView().getModel();
 
         String formToken = String.valueOf(validFormModel.get("token"));
-        String sessionTokenName = TokenManager.generateSessionTokenName(CustomerController.TOKEN_ATTR_SESSION_NAME);
+        String sessionTokenName = TokenManager.generateSessionTokenName(CustomerController.TOKEN_ATTR_SESSION_PREFIX);
         String newPhoneNumber = "+123456789";
         String newFirstname = "firstname";
         String newLastname = "lastname";
