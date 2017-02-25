@@ -35,8 +35,18 @@ var ReservationUtils = {
     },
 
 
-    newReservation: function (date) {
-        window.location = UrlTree.getShowReservationUrl() + "?date=" + date;
+    newReservation: function (date, accommodation) {
+
+        if(!date){
+            throw "Date is mandatory"
+        }
+
+        var url = UrlTree.getShowReservationUrl() + "?date=" + date;
+        if(accommodation){
+            url += "&accommodation=" + accommodation;
+        }
+        
+        window.location = url;
     },
 
     /**

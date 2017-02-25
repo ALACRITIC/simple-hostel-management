@@ -152,6 +152,7 @@ public class ReservationController {
     public String showForm(
             @RequestParam(value = "id", required = false, defaultValue = "-1") Long reservationId,
             @RequestParam(value = "date", required = false, defaultValue = "") String beginDate,
+            @RequestParam(value = "accommodation", required = false, defaultValue = "-1") Long accommodationId,
             HttpServletRequest request,
             ReservationForm reservationForm,
             Model model) throws Exception {
@@ -161,6 +162,13 @@ public class ReservationController {
             reservationForm.load(res);
             model.addAttribute("primaryAccommodationId", res.getId());
             model.addAttribute("primaryAccommodationName", res.getAccommodation().getName());
+        }
+
+        if (accommodationId != -1) {
+            Accommodation acc = accommodationService.getById(accommodationId);
+            reservationForm.setAccommodationId(acc.getId());
+            model.addAttribute("primaryAccommodationId", acc.getId());
+            model.addAttribute("primaryAccommodationName", acc.getName());
         }
 
         if (beginDate.isEmpty() == false) {

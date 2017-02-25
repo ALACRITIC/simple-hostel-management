@@ -226,7 +226,7 @@ var CalendarUtils = {
              * @param resourceObj
              */
             dayClick: function (date, jsEvent, view, resourceObj) {
-                ReservationUtils.newReservation(moment(date).format('DD/MM/YYYY'));
+                ReservationUtils.newReservation(moment(date).format('DD/MM/YYYY'), $(accommodationSelect).val());
             }
         });
     }
