@@ -115,7 +115,6 @@
                     <option th:each="resource : ${sharedResources}"
                             th:value="${resource.getId()}"
                             th:text="${resource.getName()}">Resource name
-                        <span th:text="${resource.getId()}"></span>
                     </option>
                 </select>
             </td>

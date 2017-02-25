@@ -28,6 +28,7 @@ public class Templates {
     public static final String RESOURCES_DIR = PAGES_DIR + "resources/";
     public static final String RESOURCES_FORM = RESOURCES_DIR + "resources-form";
     public static final String RESOURCES_SHOW = RESOURCES_DIR + "resources-show-all";
+    public static final String RESOURCES_CALENDAR = RESOURCES_DIR + "resources-calendar";
 
     public static final String MESSAGES_DIR = PAGES_DIR + "messages/";
     public static final String MESSAGES_SHOW_ALL = MESSAGES_DIR + "messages-show-all";
@@ -49,5 +50,6 @@ public class Templates {
     public static final String ADMINISTRATION = ADMINISTRATION_DIR + "admin";
     public static final String ADMINISTRATION_BILL = ADMINISTRATION_DIR + "bill";
     public static final String ADMINISTRATION_BILL_FORM = ADMINISTRATION_DIR + "bill-form";
+
 
 }

@@ -219,4 +219,44 @@ public class SharedResourceController {
         return Templates.RESOURCES_FORM;
     }
 
+    /**
+     * Show a calendar
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping(Mappings.RESOURCES_CALENDAR)
+    public String showResourceCalendar(
+            @RequestParam(value = "id", defaultValue = "-1", required = false) Long resourceId,
+            HttpServletRequest request,
+            Model model) throws Exception {
+
+        String errorMessage = "";
+
+        // list all resources
+        List<SharedResource> resources = sharedResourceService.getAll();
+        model.addAttribute("resourcesList", resources);
+
+        // get active resource
+        SharedResource resource = null;
+        try {
+
+            if (resourceId == -1) {
+                resource = sharedResourceService.getById(resourceId);
+            } else {
+                resource = resources.get(0);
+            }
+
+        } catch (Exception e) {
+            logger.error("Error while retrieving resource: ", e);
+            errorMessage = e.getMessage();
+        }
+
+        model.addAttribute("calendarResourceId", resource);
+        model.addAttribute("errorMessage", errorMessage);
+
+        Mappings.includeMappings(model);
+        return Templates.RESOURCES_CALENDAR;
+    }
+
 }

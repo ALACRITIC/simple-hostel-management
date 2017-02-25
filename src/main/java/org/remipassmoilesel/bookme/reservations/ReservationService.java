@@ -89,14 +89,26 @@ public class ReservationService extends AbstractDaoService<Reservation> {
      * @throws IOException
      */
     public List<Reservation> getByInterval(Date beginDate, Date endDate, boolean orderAscending) throws IOException {
+        return getByInterval(beginDate, endDate, orderAscending, -1l);
+    }
+
+    public List<Reservation> getByInterval(Date beginDate, Date endDate, boolean orderAscending, Long resourceId) throws IOException {
 
         try {
             QueryBuilder<Reservation, String> queryBuilder = dao.queryBuilder();
             queryBuilder.orderBy(Reservation.DATEBEGIN_FIELD_NAME, orderAscending);
             Where<Reservation, String> where = queryBuilder.where();
 
-            where.between(Reservation.DATEBEGIN_FIELD_NAME, beginDate, endDate)
-                    .or().between(Reservation.DATEEND_FIELD_NAME, beginDate, endDate);
+            if (resourceId != -1) {
+                where.and(
+                        where.eq(Reservation.SHARED_RESOURCE_FIELD_NAME, resourceId),
+                        where.between(Reservation.DATEBEGIN_FIELD_NAME, beginDate, endDate)
+                                .or().between(Reservation.DATEEND_FIELD_NAME, beginDate, endDate)
+                );
+            } else {
+                where.between(Reservation.DATEBEGIN_FIELD_NAME, beginDate, endDate)
+                        .or().between(Reservation.DATEEND_FIELD_NAME, beginDate, endDate);
+            }
 
             List<Reservation> results = queryBuilder.query();
 
@@ -247,7 +259,7 @@ public class ReservationService extends AbstractDaoService<Reservation> {
     public void refresh(Reservation res) throws IOException {
         super.refresh(res);
 
-        if(res == null){
+        if (res == null) {
             logger.error("Cannot refresh null object: " + res, new NullPointerException("Cannot refresh null object: " + res));
             return;
         }

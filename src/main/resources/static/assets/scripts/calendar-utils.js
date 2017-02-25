@@ -158,8 +158,8 @@ var CalendarUtils = {
 
             events.push({
                 title: lastname + " " + firstname,
-                start: moment(execDate).add(12, 'hours'),
-                end: moment(execDate).add(16, 'hours'),
+                start: moment(execDate),
+                end: moment(execDate),
                 color: color,
                 _serviceId: element.id
             });
@@ -167,6 +167,68 @@ var CalendarUtils = {
 
         return events;
 
+    },
+
+    createResourcesCalendar: function (selector, resourceSelect) {
+
+        var self = CalendarUtils;
+
+        $(selector).fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,listWeek'
+            },
+            defaultDate: new Date(),
+            navLinks: true, // can click day/week names to navigate views
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: function (start, end, timezone, callback) {
+
+                var expectedFormat = "DD/MM/YYYY HH:mm";
+
+                $.ajax({
+                    url: UrlTree.getReservationCalendarFeedUrl(),
+                    data: {
+                        // our hypothetical feed requires UNIX timestamps
+                        start: start.format(expectedFormat),
+                        end: end.format(expectedFormat),
+
+                        // unique id of resource
+                        resource: $(resourceSelect).val()
+                    }
+                })
+                    .done(function (response) {
+                        var events = self.reservationsToFullcalendarEvents(response);
+                        callback(events);
+                    })
+
+                    .fail(function (error) {
+                        console.error(error)
+                    });
+            },
+
+            /**
+             * Open reservation on event
+             * @param calEvent
+             * @param jsEvent
+             * @param view
+             */
+            eventClick: function (calEvent, jsEvent, view) {
+                ReservationUtils.showReservation(calEvent._reservationId);
+            },
+
+            /**
+             * Create reservation on event
+             * @param date
+             * @param jsEvent
+             * @param view
+             * @param resourceObj
+             */
+            dayClick: function (date, jsEvent, view, resourceObj) {
+                ReservationUtils.newReservation(moment(date).format('DD/MM/YYYY'));
+            }
+        });
     }
 };
 

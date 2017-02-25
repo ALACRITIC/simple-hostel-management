@@ -374,7 +374,9 @@ public class ReservationController {
     @ResponseBody
     public List<Reservation> getReservations(
             @RequestParam(value = "start", required = true) String startDateStr,
-            @RequestParam(value = "end", required = true) String endDateStr) throws Exception {
+            @RequestParam(value = "end", required = true) String endDateStr,
+            @RequestParam(value = "resource", required = false) Long resourceId
+    ) throws Exception {
 
         Date startDate = Utils.stringToDateTime(startDateStr, "dd/MM/YYYY HH:mm").toDate();
         Date endDate = Utils.stringToDateTime(endDateStr, "dd/MM/YYYYYY HH:mm").toDate();
@@ -383,12 +385,17 @@ public class ReservationController {
             throw new IllegalArgumentException("Begin date is greater than end date: " + startDateStr + " / " + endDateStr);
         }
 
-        List<Reservation> result = reservationService.getByInterval(startDate, endDate, true);
+        List<Reservation> result;
+        if (resourceId != -1) {
+            result = reservationService.getByInterval(startDate, endDate, true, resourceId);
+        } else {
+            result = reservationService.getByInterval(startDate, endDate, true);
+        }
         return result;
 
     }
 
-    @RequestMapping(value = Mappings.RESERVATIONS_JSON_SEARCH, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = Mappings.RESERVATIONS_JSON_BY_CUSTOMER, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<Reservation> searchReservations(
             @RequestParam("customerId") long customerId) throws Exception {
@@ -416,6 +423,5 @@ public class ReservationController {
 
         return result;
     }
-
 
 }

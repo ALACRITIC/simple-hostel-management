@@ -34,7 +34,7 @@ public class MainManu {
 
     private static List<MainMenuItem> row_resources = Arrays.asList(
             new MainMenuItem("New accommodation", Mappings.MESSAGES_FORM, "/assets/img/tile_new-resource.svg"),
-            new MainMenuItem("View free accommodations", Mappings.MESSAGES_SHOW_ALL, null),
+            new MainMenuItem("Accommodations calendar", Mappings.RESOURCES_CALENDAR, "/assets/img/tile_resource-calendar.svg"),
             new MainMenuItem("View all accommodations", Mappings.MESSAGES_SHOW_ALL, null)
     );
 

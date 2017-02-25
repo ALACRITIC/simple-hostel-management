@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Accommodation calendar</title>
+
+    <script th:replace="main-template :: page-headers"></script>
+
+    <script th:replace="fragments/calendar-headers"></script>
+
+</head>
+<body>
+
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <h1>Accommodation calendar</h1>
+
+            <div style="margin: 1em;">
+                <select class="form-control" id="calendarSharedResourceSelect">
+                    <option value="-1" th:text="'All'"></option>
+                    <option th:each="resource : ${resourcesList}"
+                            th:value="${resource.getId()}"
+                            th:text="${resource.getName()}">Resource name
+                    </option>
+                </select>
+            </div>
+
+            <div id='resourcesCalendar' style="margin: auto"></div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="main-template :: footer"></div>
+
+    <script type="text/javascript">
+        $(function () {
+
+            CalendarUtils.createResourcesCalendar("#resourcesCalendar", "#calendarSharedResourceSelect");
+
+            // refresh calendar on change
+            $("#calendarSharedResourceSelect").change(function () {
+                $("#resourcesCalendar").fullCalendar('refetchEvents');
+            });
+
+        });
+    </script>
+
+</div>
+
+</body>
+</html>
