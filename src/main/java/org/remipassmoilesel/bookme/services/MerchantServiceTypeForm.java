@@ -10,7 +10,7 @@ import java.util.Objects;
 public class MerchantServiceTypeForm {
 
     @NotNull
-    private int price;
+    private double price;
 
     @NotNull
     @Size(max = 2000)
@@ -52,11 +52,11 @@ public class MerchantServiceTypeForm {
 
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

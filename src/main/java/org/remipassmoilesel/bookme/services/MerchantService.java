@@ -31,7 +31,7 @@ public class MerchantService {
     private MerchantServiceType serviceType;
 
     @DatabaseField(columnName = PRICE_FIELD_NAME)
-    private int totalPrice;
+    private double totalPrice;
 
     @DatabaseField(columnName = COMMENT_FIELD_NAME, dataType = DataType.LONG_STRING)
     private String comment;
@@ -55,7 +55,7 @@ public class MerchantService {
         // ORMLite needs a no-arg constructor
     }
 
-    public MerchantService(MerchantServiceType service, Customer customer, int totalPrice, String comment, Date purchaseDate, boolean scheduled, Date executionDate) {
+    public MerchantService(MerchantServiceType service, Customer customer, double totalPrice, String comment, Date purchaseDate, boolean scheduled, Date executionDate) {
         this.serviceType = service;
         this.totalPrice = totalPrice;
         this.comment = comment;
@@ -81,11 +81,11 @@ public class MerchantService {
         this.serviceType = service;
     }
 
-    public int getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(int totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 

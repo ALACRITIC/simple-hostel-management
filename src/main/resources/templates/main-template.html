@@ -278,7 +278,13 @@
                     <span th:text="${informationMessage}">Information message</span>
                 </h4>
 
-                <!--<p>It's so good when it works !</p>-->
+            </div>
+
+            <div class="adviceBlock" th:fragment="advice-block">
+
+                <span class="glyphicon glyphicon-info-sign"></span>
+                &nbsp;&nbsp;
+                <span th:text="${adviceMessage}">Advice message.</span>
 
             </div>
 
@@ -400,18 +406,18 @@
                 <tr>
                     <td style="width: 20%">Name:</td>
                     <td th:text="${serviceType.getName()}"
-                        th:style="${'color:' + serviceType.getHexadecimalColor()}">Pressing
+                        th:style="${'color:' + serviceType?.getHexadecimalColor()}">Pressing
                     </td>
                 </tr>
 
                 <tr>
                     <td>Price:</td>
-                    <td th:text="${serviceType.getPrice()}">15</td>
+                    <td th:text="${serviceType?.getPrice()}">15</td>
                 </tr>
 
                 <tr>
                     <td>Comment:</td>
-                    <td th:text="${serviceType.getComment()}">Comment</td>
+                    <td th:text="${serviceType?.getComment()}">Comment</td>
                 </tr>
 
             </table>
@@ -422,24 +428,24 @@
 
                 <tr>
                     <td style="width: 20%">Name:</td>
-                    <td th:text="${service.getServiceType().getName()}"
-                        th:style="${'color:' + service.getServiceType().getHexadecimalColor()}">Pressing
+                    <td th:text="${service?.getServiceType().getName()}"
+                        th:style="${'color:' + service?.getServiceType().getHexadecimalColor()}">Pressing
                     </td>
                 </tr>
 
                 <tr>
                     <td>Name:</td>
-                    <td th:text="${service.getCustomer().getNameString()}">Jean Claude</td>
+                    <td th:text="${service?.getCustomer().getNameString()}">Jean Claude</td>
                 </tr>
 
                 <tr>
                     <td>Price:</td>
-                    <td th:text="${service.getTotalPrice()}">15</td>
+                    <td th:text="${service?.getTotalPrice()}">15</td>
                 </tr>
 
                 <tr>
                     <td>Comment:</td>
-                    <td th:text="${service.getComment()}">Comment</td>
+                    <td th:text="${service?.getComment()}">Comment</td>
                 </tr>
 
             </table>
@@ -612,7 +618,8 @@
 
             <div class="card card-message-small" th:fragment="message-small">
                 <div class="card-block">
-                    <h4 class="card-title" th:text="${#dates.format(message.getDate(), 'dd/MM/yyyy HH:mm')}">Small message /
+                    <h4 class="card-title" th:text="${#dates.format(message.getDate(), 'dd/MM/yyyy HH:mm')}">Small
+                        message /
                         Date / Writer</h4>
                     <p class="card-text"
                        th:text="${message.getMessage().length() > 200} ? ${#strings.substring(message.getMessage(), 0, 200) + '...'} : ${message.getMessage()}">

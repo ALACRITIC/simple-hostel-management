@@ -104,3 +104,10 @@ a.fc-day-number {
 .mainmenu .caption{
     text-align: center;
 }
+
+.adviceBlock{
+    margin: 0.5em;
+    padding: 1em;
+    color: #424242;
+    border-left: 1em solid darkgray;
+}

@@ -79,7 +79,7 @@ public class MerchantServicesServiceTest {
         for (int i = 0; i < servicesNumber; i++) {
             MerchantServiceType srvT = (MerchantServiceType) Utils.randValueFrom(serviceTypes);
             Customer customer = (Customer) Utils.randValueFrom(customers);
-            int price = srvT.getPrice() + i;
+            double price = srvT.getPrice() + i;
             String comment = Utils.generateLoremIpsum(100);
             MerchantService srv = new MerchantService(srvT, customer, price, comment,
                     beginTestPeriod.plusDays(i).toDate(),
@@ -91,7 +91,7 @@ public class MerchantServicesServiceTest {
         for (int i = 0; i < servicesNumber; i++) {
             MerchantServiceType srvT = (MerchantServiceType) Utils.randValueFrom(serviceTypes);
             Customer customer = (Customer) Utils.randValueFrom(customers);
-            int price = srvT.getPrice() + i;
+            double price = srvT.getPrice() + i;
             String comment = Utils.generateLoremIpsum(100);
             MerchantService srv = new MerchantService(srvT, customer, price, comment,
                     beginTestPeriod.plusDays(i).toDate(),

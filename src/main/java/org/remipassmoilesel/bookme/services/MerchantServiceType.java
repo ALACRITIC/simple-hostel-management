@@ -28,7 +28,7 @@ public class MerchantServiceType {
     private String name;
 
     @DatabaseField(columnName = PRICE_FIELD_NAME)
-    private int price;
+    private double price;
 
     @DatabaseField(columnName = COMMENT_FIELD_NAME, dataType = DataType.LONG_STRING)
     private String comment;
@@ -48,11 +48,11 @@ public class MerchantServiceType {
         // ORMLite needs a no-arg constructor
     }
 
-    public MerchantServiceType(String name, int price, String comment, Color color) {
+    public MerchantServiceType(String name, double price, String comment, Color color) {
         this(name, price, comment, Utils.colorToRgbString(color));
     }
 
-    public MerchantServiceType(String name, int price, String comment, String color) {
+    public MerchantServiceType(String name, double price, String comment, String color) {
         this.name = name;
         this.price = price;
         this.comment = comment;
@@ -87,11 +87,11 @@ public class MerchantServiceType {
         this.name = name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

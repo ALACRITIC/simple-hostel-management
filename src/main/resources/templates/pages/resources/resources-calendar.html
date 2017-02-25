@@ -20,15 +20,23 @@
 
             <h1>Accommodation calendar</h1>
 
-            <div style="margin: 1em;">
-                <select class="form-control" id="calendarSharedResourceSelect">
-                    <option value="-1" th:text="'All'"></option>
-                    <option th:each="resource : ${resourcesList}"
-                            th:value="${resource.getId()}"
-                            th:text="${resource.getName()}">Resource name
-                    </option>
-                </select>
-            </div>
+            <div th:replace="main-template :: advice-block (adviceMessage=${'Select an accomodation in list
+                below to show which reservations are scheduled.'})"></div>
+
+            <table style="margin: 1em; width: 90%; margin-bottom: 3em;">
+                <tr>
+                    <td style="width: 30%">Select accomodation:</td>
+                    <td>
+                        <select class="form-control" id="calendarSharedResourceSelect">
+                            <option value="-1" th:text="'All'"></option>
+                            <option th:each="resource : ${resourcesList}"
+                                    th:value="${resource.getId()}"
+                                    th:text="${resource.getName()}">Resource name
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
 
             <div id='resourcesCalendar' style="margin: auto"></div>
 

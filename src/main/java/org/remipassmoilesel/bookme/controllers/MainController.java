@@ -1,5 +1,6 @@
 package org.remipassmoilesel.bookme.controllers;
 
+import org.joda.time.DateTime;
 import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.admin.MainManu;
@@ -9,6 +10,10 @@ import org.remipassmoilesel.bookme.messages.Message;
 import org.remipassmoilesel.bookme.messages.MessageService;
 import org.remipassmoilesel.bookme.reservations.Reservation;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
+import org.remipassmoilesel.bookme.services.MerchantService;
+import org.remipassmoilesel.bookme.services.MerchantServiceService;
+import org.remipassmoilesel.bookme.services.MerchantServiceType;
+import org.remipassmoilesel.bookme.services.MerchantServiceTypesService;
 import org.remipassmoilesel.bookme.sharedresources.SharedResource;
 import org.remipassmoilesel.bookme.sharedresources.Type;
 import org.remipassmoilesel.bookme.utils.Utils;
@@ -44,6 +49,13 @@ public class MainController {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private MerchantServiceTypesService merchantServiceTypesService;
+
+    @Autowired
+    private MerchantServiceService merchantServiceService;
+
 
     /**
      * Redirect root queries to reservation
@@ -130,6 +142,11 @@ public class MainController {
             reservationsList.add(reservation);
         }
 
+        MerchantServiceType serviceType = new MerchantServiceType("Service 1", 5.6,
+                Utils.generateLoremIpsum(200), Color.blue);
+        MerchantService service = new MerchantService(serviceType, customersList.get(0), 35.6,
+                Utils.generateLoremIpsum(200), new Date(), true, new DateTime().plusDays(5).toDate());
+
         model.addAttribute("reservationsList", reservationsList);
         model.addAttribute("reservation", reservationsList.get(0));
         model.addAttribute("messagesList", messagesList);
@@ -139,6 +156,9 @@ public class MainController {
         model.addAttribute("resource", resourcesList.get(0));
         model.addAttribute("errorMessage", "Invalid date: 11/11/2555");
         model.addAttribute("informationMessage", "Operation success !");
+        model.addAttribute("serviceType", serviceType);
+        model.addAttribute("service", service);
+        model.addAttribute("adviceMessage", "Advice message");
 
         Mappings.includeMappings(model);
 

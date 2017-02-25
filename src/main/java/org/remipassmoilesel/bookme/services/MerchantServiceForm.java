@@ -15,7 +15,7 @@ public class MerchantServiceForm {
 
     @NotNull
     @Min(0)
-    private int totalPrice;
+    private double totalPrice;
 
     @NotNull
     private long id = -1;
@@ -93,11 +93,11 @@ public class MerchantServiceForm {
 
     }
 
-    public int getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(int totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
