@@ -6,9 +6,9 @@ import org.joda.time.DateTime;
 import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
-import org.remipassmoilesel.bookme.sharedresources.SharedResource;
-import org.remipassmoilesel.bookme.sharedresources.SharedResourceService;
-import org.remipassmoilesel.bookme.sharedresources.Type;
+import org.remipassmoilesel.bookme.accommodations.Accommodation;
+import org.remipassmoilesel.bookme.accommodations.AccommodationService;
+import org.remipassmoilesel.bookme.accommodations.Type;
 import org.remipassmoilesel.bookme.utils.AbstractDaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,7 @@ public class ReservationService extends AbstractDaoService<Reservation> {
     private CustomerService customerService;
 
     @Autowired
-    private SharedResourceService sharedResourceService;
+    private AccommodationService accommodationService;
 
     public ReservationService(CustomConfiguration configuration) {
         super(Reservation.class, configuration);
@@ -75,8 +75,8 @@ public class ReservationService extends AbstractDaoService<Reservation> {
      * @return
      * @throws IOException
      */
-    public Reservation create(Customer customer, SharedResource resource, int places, Date begin, Date end) throws IOException {
-        return create(new Reservation(customer, resource, places, begin, end, null));
+    public Reservation create(Customer customer, Accommodation accommodation, int places, Date begin, Date end) throws IOException {
+        return create(new Reservation(customer, accommodation, places, begin, end, null));
     }
 
     /**
@@ -92,16 +92,16 @@ public class ReservationService extends AbstractDaoService<Reservation> {
         return getByInterval(beginDate, endDate, orderAscending, -1l);
     }
 
-    public List<Reservation> getByInterval(Date beginDate, Date endDate, boolean orderAscending, Long resourceId) throws IOException {
+    public List<Reservation> getByInterval(Date beginDate, Date endDate, boolean orderAscending, Long accommodationId) throws IOException {
 
         try {
             QueryBuilder<Reservation, String> queryBuilder = dao.queryBuilder();
             queryBuilder.orderBy(Reservation.DATEBEGIN_FIELD_NAME, orderAscending);
             Where<Reservation, String> where = queryBuilder.where();
 
-            if (resourceId != -1) {
+            if (accommodationId != -1) {
                 where.and(
-                        where.eq(Reservation.SHARED_RESOURCE_FIELD_NAME, resourceId),
+                        where.eq(Reservation.ACCOMMODATION_FIELD_NAME, accommodationId),
                         where.between(Reservation.DATEBEGIN_FIELD_NAME, beginDate, endDate)
                                 .or().between(Reservation.DATEEND_FIELD_NAME, beginDate, endDate)
                 );
@@ -131,17 +131,17 @@ public class ReservationService extends AbstractDaoService<Reservation> {
      * @return
      * @throws Exception
      */
-    public List<SharedResource> getAvailableResources(Type type, Date begin, Date end, int places) throws IOException {
+    public List<Accommodation> getAvailableAccommodations(Type type, Date begin, Date end, int places) throws IOException {
 
         try {
-            ArrayList<SharedResource> freeRessources = new ArrayList<>();
-            for (SharedResource resource : sharedResourceService.getAll(type)) {
+            ArrayList<Accommodation> freeRessources = new ArrayList<>();
+            for (Accommodation accommodation : accommodationService.getAll(type)) {
 
                 QueryBuilder<Reservation, String> builder = dao.queryBuilder();
 
                 Where<Reservation, String> where = builder.where();
                 where.and(
-                        where.eq(Reservation.SHARED_RESOURCE_FIELD_NAME, resource.getId()),
+                        where.eq(Reservation.ACCOMMODATION_FIELD_NAME, accommodation.getId()),
                         where.or(
                                 // case 1: reservation begin or end in specified interval (SI)
                                 where.or(
@@ -161,8 +161,8 @@ public class ReservationService extends AbstractDaoService<Reservation> {
                 List<Reservation> reservations = builder.query();
 
                 // no reservations, resource is free
-                if (reservations.size() < 1 && places <= resource.getPlaces()) {
-                    freeRessources.add(resource);
+                if (reservations.size() < 1 && places <= accommodation.getPlaces()) {
+                    freeRessources.add(accommodation);
                 }
 
                 // some reservations, count places
@@ -173,8 +173,8 @@ public class ReservationService extends AbstractDaoService<Reservation> {
                         reservedPlaces += reservation.getPlaces();
                     }
 
-                    if (resource.getPlaces() - reservedPlaces >= places) {
-                        freeRessources.add(resource);
+                    if (accommodation.getPlaces() - reservedPlaces >= places) {
+                        freeRessources.add(accommodation);
                     }
                 }
 
@@ -221,11 +221,11 @@ public class ReservationService extends AbstractDaoService<Reservation> {
         }
     }
 
-    public List<Reservation> getByResourceId(Long resourceId, long limit, long offset) throws IOException {
+    public List<Reservation> getByAccommodationId(Long accommodationId, long limit, long offset) throws IOException {
 
         try {
             QueryBuilder queryBuilder = dao.queryBuilder();
-            queryBuilder.where().eq(Reservation.SHARED_RESOURCE_FIELD_NAME, resourceId);
+            queryBuilder.where().eq(Reservation.ACCOMMODATION_FIELD_NAME, accommodationId);
             queryBuilder.orderBy(Reservation.DATEBEGIN_FIELD_NAME, true);
             queryBuilder.limit(limit);
             queryBuilder.offset(offset);
@@ -265,7 +265,7 @@ public class ReservationService extends AbstractDaoService<Reservation> {
         }
 
         customerService.refresh(res.getCustomer());
-        sharedResourceService.refresh(res.getResource());
+        accommodationService.refresh(res.getAccommodation());
     }
 
     @Override

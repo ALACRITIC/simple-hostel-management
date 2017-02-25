@@ -41,20 +41,18 @@ public class Mappings {
     public static final String RESERVATIONS_JSON_GET = RESERVATIONS_JSON + "/get";
     public static final String RESERVATIONS_JSON_GET_LASTS = RESERVATIONS_JSON + "/lasts";
     public static final String RESERVATIONS_JSON_BY_CUSTOMER = RESERVATIONS_JSON + "/bycustomer";
-    public static final String RESERVATIONS_RESOURCES_AVAILABLE_JSON_GET = RESERVATIONS_JSON + "/availableresources";
+    public static final String RESERVATIONS_ACCOMMODATIONS_AVAILABLE_JSON_GET = RESERVATIONS_JSON + "/free-accommodations";
 
     public static final String RESERVATIONS_BY_CUSTOMER = RESERVATIONS_ROOT + "/bycustomer";
-    public static final String RESERVATIONS_BY_RESOURCE = RESERVATIONS_ROOT + "/byresource";
+    public static final String RESERVATIONS_BY_ACCOMMODATION = RESERVATIONS_ROOT + "/byaccommodation";
 
-    public static final String ROOMS_ROOT = APPLICATION_ROOT + "/room";
-    public static final String RESOURCES_SHOW_ALL = ROOMS_ROOT + "/show/all";
-    public static final String ROOMS_JSON = ROOMS_ROOT + "/json";
-    public static final String ROOMS_JSON_GET = ROOMS_JSON + "/all";
-
-    public static final String RESOURCES_ROOT = APPLICATION_ROOT + "/resources";
-    public static final String RESOURCES_FORM = RESOURCES_ROOT + "/form";
-    public static final String RESOURCES_DELETE = RESOURCES_ROOT + "/delete";
-    public static final String RESOURCES_CALENDAR = RESOURCES_ROOT + "/calendar";
+    public static final String ACCOMMODATIONS_ROOT = APPLICATION_ROOT + "/accommodations";
+    public static final String ACCOMMODATIONS_SHOW_ALL = ACCOMMODATIONS_ROOT + "/show/all";
+    public static final String ACCOMMODATIONS_JSON = ACCOMMODATIONS_ROOT + "/json";
+    public static final String ACCOMMODATIONS_JSON_GET = ACCOMMODATIONS_JSON + "/all";
+    public static final String ACCOMMODATIONS_FORM = ACCOMMODATIONS_ROOT + "/form";
+    public static final String ACCOMMODATIONS_DELETE = ACCOMMODATIONS_ROOT + "/delete";
+    public static final String ACCOMMODATIONS_CALENDAR = ACCOMMODATIONS_ROOT + "/calendar";
 
     public static final String MESSAGES_ROOT = APPLICATION_ROOT + "/messages";
     public static final String MESSAGES_FORM = MESSAGES_ROOT + "/form";

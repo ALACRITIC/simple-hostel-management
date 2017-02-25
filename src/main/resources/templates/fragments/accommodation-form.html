@@ -6,14 +6,14 @@
 
 <body>
 
-<form th:object="${resourceForm}" method="post" th:fragment="resource-form">
+<form th:object="${accommodationForm}" method="post" th:fragment="accommodation-form">
 
     <table class="formtable">
 
         <!-- Resource name -->
         <tr>
             <td colspan="2">
-                <input type="text" class="form-control" placeholder="Resource name" th:field="*{name}"/>
+                <input type="text" class="form-control" placeholder="Accommodation name" th:field="*{name}"/>
                 <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="formError">
                     Name error
                 </div>
@@ -57,9 +57,9 @@
             </td>
             <td>
                 <select class="form-control" th:field="*{type}">
-                    <option th:each="type : ${sharedResourceTypes}"
+                    <option th:each="type : ${accommodationTypes}"
                             th:value="${type.toString()}"
-                            th:text="${type.getReadableName()}">Resource name
+                            th:text="${type.getReadableName()}">Accommodation name
                     </option>
                 </select>
             </td>
@@ -83,7 +83,7 @@
                     <option th:each="color : ${defaultDarkColors}"
                             th:style="${'color: ' + color.toHexadecimal()}"
                             th:value="${color.toRgbString()}"
-                            th:text="${color.getName()}">Resource color
+                            th:text="${color.getName()}">Accommodation color
 
                     </option>
                 </select>
@@ -104,14 +104,14 @@
             <td colspan="2" style="text-align: right">
 
                 <!-- Add control token -->
-                <input type="hidden" id="resourceToken" name="token" th:value="${token}"/>
+                <input type="hidden" id="accommodationToken" name="token" th:value="${token}"/>
 
                 <!-- Add resource id -->
-                <input type="hidden" id="resourceId" th:field="*{id}"/>
+                <input type="hidden" id="accommodationId" th:field="*{id}"/>
 
                 <!-- Delete buttons, only if needed -->
                 <button th:if="*{id != -1}"
-                        type="button" id="resourceDeleteButton"
+                        type="button" id="accommodationDeleteButton"
                         class="btn btn-primary glyphicon glyphicon-trash"></button>
 
                 <button type="submit" class="btn btn-primary">Save</button>
@@ -121,7 +121,7 @@
 
     </table>
 
-    <script src="/assets/scripts/resource-form.js"></script>
+    <script src="/assets/scripts/accommodation-form.js"></script>
 
     <!--<div th:replace="fragments/show-debug :: debug"></div>-->
 

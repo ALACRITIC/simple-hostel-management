@@ -3,10 +3,8 @@ package org.remipassmoilesel.bookme.export;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
-import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.reservations.Reservation;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
-import org.remipassmoilesel.bookme.sharedresources.SharedResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +43,7 @@ public class ExportService {
             ArrayList<String> headers = new ArrayList<>();
             headers.add("CHECK-IN");
             headers.add("CHECK-OUT");
-            headers.add("RESOURCE-NAME");
+            headers.add("ACCOMMODATION-NAME");
             headers.add("FIRST-NAME");
             headers.add("LAST-NAME");
             headers.add("PHONE-NUMBER");
@@ -62,7 +60,7 @@ public class ExportService {
 
                 csvFilePrinter.print(entry.getBegin());
                 csvFilePrinter.print(entry.getEnd());
-                csvFilePrinter.print(entry.getResource().getName());
+                csvFilePrinter.print(entry.getAccommodation().getName());
                 csvFilePrinter.print(entry.getCustomer().getFirstname());
                 csvFilePrinter.print(entry.getCustomer().getLastname());
                 csvFilePrinter.print(entry.getCustomer().getPhonenumber());

@@ -71,7 +71,7 @@ var CalendarUtils = {
             var firstname = element.customer.firstname;
             var lastname = element.customer.lastname;
             var startDate = element.begin;
-            var color = element.resource ? "rgb(" + element.resource.color + ")" : "#444444";
+            var color = element.accommodation ? "rgb(" + element.accommodation.color + ")" : "#444444";
             var endDate = element.end;
 
             events.push({
@@ -169,7 +169,7 @@ var CalendarUtils = {
 
     },
 
-    createResourcesCalendar: function (selector, resourceSelect) {
+    createAccommodationCalendar: function (selector, accommodationSelect) {
 
         var self = CalendarUtils;
 
@@ -195,7 +195,7 @@ var CalendarUtils = {
                         end: end.format(expectedFormat),
 
                         // unique id of resource
-                        resource: $(resourceSelect).val()
+                        accommodation: $(accommodationSelect).val()
                     }
                 })
                     .done(function (response) {

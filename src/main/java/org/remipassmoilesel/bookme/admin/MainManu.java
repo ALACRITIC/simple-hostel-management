@@ -32,9 +32,9 @@ public class MainManu {
             new MainMenuItem("View all", Mappings.MESSAGES_SHOW_ALL, "/assets/img/tile_reservation-lasts.svg")
     );
 
-    private static List<MainMenuItem> row_resources = Arrays.asList(
+    private static List<MainMenuItem> row_accommodations = Arrays.asList(
             new MainMenuItem("New accommodation", Mappings.MESSAGES_FORM, "/assets/img/tile_new-resource.svg"),
-            new MainMenuItem("Accommodations calendar", Mappings.RESOURCES_CALENDAR, "/assets/img/tile_resource-calendar.svg"),
+            new MainMenuItem("Accommodations calendar", Mappings.ACCOMMODATIONS_CALENDAR, "/assets/img/tile_resource-calendar.svg"),
             new MainMenuItem("View all accommodations", Mappings.MESSAGES_SHOW_ALL, null)
     );
 
@@ -42,7 +42,7 @@ public class MainManu {
             new MainMenuRow("Reservations", null, row_reservation),
             new MainMenuRow("Services", null, row_service),
             new MainMenuRow("Customers", null, row_customer),
-            new MainMenuRow("Accommodations", null, row_resources),
+            new MainMenuRow("Accommodations", null, row_accommodations),
             new MainMenuRow("Messages", null, row_messages)
     );
 

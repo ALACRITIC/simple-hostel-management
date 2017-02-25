@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
-    <title>Resource form</title>
+    <title>Accommodation form</title>
 
     <script th:replace="main-template :: page-headers"></script>
 
-    <script th:replace="fragments/resource-headers"></script>
+    <script th:replace="fragments/accommodation-headers"></script>
 
 </head>
 <body>
@@ -21,11 +21,9 @@
     <div class="row">
         <div class="col-md-12" th:if="${#strings.isEmpty(formstate)}">
 
-            <h1>Resource form</h1>
+            <h1>Accommodation form</h1>
 
-            <p>Tip: A resource is something you can rent: a room, a bed, a car, ...</p>
-
-            <div th:replace="fragments/resource-form :: resource-form"></div>
+            <div th:replace="fragments/accommodation-form :: accommodation-form"></div>
 
         </div>
     </div>
@@ -35,7 +33,7 @@
     <div class="row">
         <div class="col-md-12" th:if="${formstate?.equals('completed')}">
 
-            <h1>Resource</h1>
+            <h1>Accommodation</h1>
 
             <!-- Error happen when saved -->
 
@@ -46,11 +44,11 @@
             <!-- Resource saved -->
 
             <div th:if="${#strings.isEmpty(errorMessage)}">
-                <div th:replace="main-template :: information-block (informationMessage=${'Resource saved'})"></div>
+                <div th:replace="main-template :: information-block (informationMessage=${'Accommodation saved'})"></div>
             </div>
 
             <div th:if="${#strings.isEmpty(errorMessage)}">
-                <div th:replace="main-template :: resource-simple (resource=${resource})"></div>
+                <div th:replace="main-template :: accommodation-simple (accommodation=${accommodation})"></div>
             </div>
 
         </div>
@@ -62,7 +60,7 @@
     <div class="row" th:if="${formstate?.equals('deleted')}">
         <div class="col-md-12">
 
-            <h1>Resource</h1>
+            <h1>Accommodation</h1>
 
             <!-- Error happen -->
 
@@ -73,7 +71,7 @@
             <!-- No errors -->
 
             <div th:if="${#strings.isEmpty(errorMessage)}">
-                <div th:replace="main-template :: information-block (informationMessage=${'Resource deleted'})"></div>
+                <div th:replace="main-template :: information-block (informationMessage=${'Accommodation deleted'})"></div>
             </div>
 
         </div>

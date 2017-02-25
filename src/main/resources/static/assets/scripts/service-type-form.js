@@ -10,11 +10,11 @@ var ServiceTypeForm = {
         var self = ServiceTypeForm;
 
         var deleteButton = $("#serviceTypeDeleteButton");
-        var resourceId = $("#serviceTypeId").val();
-        var token = $("#serviceTypeToken").val();
+        var serviceId = $("#serviceTypeId");
+        var token = $("#serviceTypeToken");
 
         deleteButton.click(function(){
-            ServiceUtils.showDeleteServiceTypeDialog(resourceId, token);
+            ServiceUtils.showDeleteServiceTypeDialog(serviceId.val(), token.val());
         });
 
     }

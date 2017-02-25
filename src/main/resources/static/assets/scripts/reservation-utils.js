@@ -10,7 +10,7 @@ var ReservationUtils = {
         var result = $.Deferred();
 
         $.ajax({
-            url: UrlTree.getResourcesAvailableFeedUrl(),
+            url: UrlTree.getAccommodationsAvailableFeedUrl(),
             data: {
                 start: start,
                 end: end,

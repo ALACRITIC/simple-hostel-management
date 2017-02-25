@@ -2,15 +2,15 @@ var UrlTree = {
 
     ///////////////////////////////
 
-    roomAvailablesFeedUrl: null,
+    accommodationAvailablesFeedUrl: null,
 
-    setResourcesAvailableFeedUrl: function (url) {
-        UrlTree.roomAvailablesFeedUrl = url;
+    setAccommodationsAvailableFeedUrl: function (url) {
+        UrlTree.accommodationAvailablesFeedUrl = url;
     },
 
-    getResourcesAvailableFeedUrl: function () {
-        UrlTree._checkIfDefined(UrlTree.roomAvailablesFeedUrl, "roomAvailablesFeedUrl");
-        return UrlTree.roomAvailablesFeedUrl;
+    getAccommodationsAvailableFeedUrl: function () {
+        UrlTree._checkIfDefined(UrlTree.accommodationAvailablesFeedUrl, "accommodationAvailablesFeedUrl");
+        return UrlTree.accommodationAvailablesFeedUrl;
     },
 
     ///////////////////////////////
@@ -82,15 +82,15 @@ var UrlTree = {
 
     ///////////////////////////////
 
-    deleteResourceUrl: null,
+    deleteAccommodationUrl: null,
 
-    setDeleteResourceUrl: function (url) {
-        UrlTree.deleteResourceUrl = url;
+    setDeleteAccommodationUrl: function (url) {
+        UrlTree.deleteAccommodationUrl = url;
     },
 
-    getDeleteResourceUrl: function () {
-        UrlTree._checkIfDefined(UrlTree.deleteResourceUrl, "deleteResourceUrl");
-        return UrlTree.deleteResourceUrl;
+    getDeleteAccommodationUrl: function () {
+        UrlTree._checkIfDefined(UrlTree.deleteAccommodationUrl, "deleteAccommodationUrl");
+        return UrlTree.deleteAccommodationUrl;
     },
 
     ///////////////////////////////

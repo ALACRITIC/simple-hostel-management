@@ -2,14 +2,14 @@ package org.remipassmoilesel.bookme.controllers;
 
 import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
+import org.remipassmoilesel.bookme.accommodations.Accommodation;
+import org.remipassmoilesel.bookme.accommodations.AccommodationService;
+import org.remipassmoilesel.bookme.accommodations.Type;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.reservations.Reservation;
 import org.remipassmoilesel.bookme.reservations.ReservationForm;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
-import org.remipassmoilesel.bookme.sharedresources.SharedResource;
-import org.remipassmoilesel.bookme.sharedresources.SharedResourceService;
-import org.remipassmoilesel.bookme.sharedresources.Type;
 import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.remipassmoilesel.bookme.utils.Utils;
 import org.slf4j.Logger;
@@ -42,7 +42,7 @@ public class ReservationController {
     private ReservationService reservationService;
 
     @Autowired
-    private SharedResourceService sharedResourceService;
+    private AccommodationService accommodationService;
 
     /**
      * Display lasts reservation
@@ -72,18 +72,18 @@ public class ReservationController {
      * @param model
      * @return
      */
-    @RequestMapping(value = Mappings.RESERVATIONS_BY_RESOURCE, method = RequestMethod.GET)
-    public String showByResourceId(
-            @RequestParam(value = "id", required = true) Long resourceId,
+    @RequestMapping(value = Mappings.RESERVATIONS_BY_ACCOMMODATION, method = RequestMethod.GET)
+    public String showByAccommodationId(
+            @RequestParam(value = "id", required = true) Long accommodationId,
             Model model) throws IOException {
 
-        List<Reservation> reservationsList = reservationService.getByResourceId(resourceId, 30, 0);
+        List<Reservation> reservationsList = reservationService.getByAccommodationId(accommodationId, 30, 0);
 
-        model.addAttribute("resource", sharedResourceService.getById(resourceId));
+        model.addAttribute("accommodation", accommodationService.getById(accommodationId));
         model.addAttribute("reservationsList", reservationsList);
 
         Mappings.includeMappings(model);
-        return Templates.RESERVATIONS_BY_RESOURCE;
+        return Templates.RESERVATIONS_BY_ACCOMMODATION;
     }
 
     /**
@@ -93,7 +93,7 @@ public class ReservationController {
      * @return
      */
     @RequestMapping(value = Mappings.RESERVATIONS_BY_CUSTOMER, method = RequestMethod.GET)
-    public String showByResourceCustomer(
+    public String showByCustomer(
             @RequestParam(value = "id", required = true) Long customerId,
             Model model) throws IOException {
 
@@ -159,8 +159,8 @@ public class ReservationController {
         if (reservationId != -1) {
             Reservation res = reservationService.getById(reservationId);
             reservationForm.load(res);
-            model.addAttribute("primaryResourceId", res.getId());
-            model.addAttribute("primaryResourceName", res.getResource().getName());
+            model.addAttribute("primaryAccommodationId", res.getId());
+            model.addAttribute("primaryAccommodationName", res.getAccommodation().getName());
         }
 
         if (beginDate.isEmpty() == false) {
@@ -176,7 +176,7 @@ public class ReservationController {
         TokenManager tokenman = new TokenManager(TOKEN_ATTR_SESSION_PREFIX);
         tokenman.addToken(model);
 
-        model.addAttribute("sharedResources", sharedResourceService.getAll());
+        model.addAttribute("accommodationsList", accommodationService.getAll());
 
         // add it to session for check
         HttpSession session = request.getSession();
@@ -197,12 +197,12 @@ public class ReservationController {
 
             //System.out.println(reservationResults.getAllErrors());
             model.addAttribute("token", reservationForm.getToken());
-            model.addAttribute("sharedResources", sharedResourceService.getAll());
+            model.addAttribute("accommodationsList", accommodationService.getAll());
 
-            if (reservationForm.getSharedResourceId() != -1) {
-                Reservation res = reservationService.getById(reservationForm.getSharedResourceId());
-                model.addAttribute("primaryResourceId", res.getId());
-                model.addAttribute("primaryResourceName", res.getResource().getName());
+            if (reservationForm.getAccommodationId() != -1) {
+                Reservation res = reservationService.getById(reservationForm.getAccommodationId());
+                model.addAttribute("primaryAccommodationId", res.getId());
+                model.addAttribute("primaryAccommodationName", res.getAccommodation().getName());
             }
 
             Mappings.includeMappings(model);
@@ -261,10 +261,10 @@ public class ReservationController {
 
                     // get resource
                     int pl = reservationForm.getPlaces();
-                    SharedResource resource = sharedResourceService.getById(reservationForm.getSharedResourceId());
+                    Accommodation accommodation = accommodationService.getById(reservationForm.getAccommodationId());
 
                     // create reservation
-                    reservation = new Reservation(customer, resource, pl, beginDate, endDate);
+                    reservation = new Reservation(customer, accommodation, pl, beginDate, endDate);
                     reservation.setPaid(reservationForm.isPaid());
 
                     reservationService.create(reservation);
@@ -279,18 +279,18 @@ public class ReservationController {
             else {
 
                 Customer customer = null;
-                SharedResource res = null;
+                Accommodation accommodation = null;
                 try {
                     reservation = reservationService.getById(reservationForm.getReservationId());
                     customer = customerService.getById(reservationForm.getCustomerId());
-                    res = sharedResourceService.getById(reservationForm.getSharedResourceId());
+                    accommodation = accommodationService.getById(reservationForm.getAccommodationId());
                 } catch (Exception e) {
                     logger.error("Error while updating reservation", e);
                     throw new Exception("Error while updating, please try again later.");
                 }
 
-                if (res == null || customer == null) {
-                    logger.error("Invalid resource or customer: r/" + res + " c/" + customer);
+                if (accommodation == null || customer == null) {
+                    logger.error("Invalid accommodation or customer: a/" + accommodation + " c/" + customer);
                     throw new IllegalStateException("Error, please try again later.");
                 }
 
@@ -300,11 +300,10 @@ public class ReservationController {
                 customer.setPhonenumber(reservationForm.getCustomerPhonenumber());
 
                 // update reservation
-                reservation.setResource(res);
+                reservation.setAccommodation(accommodation);
                 reservation.setBegin(beginDate);
                 reservation.setEnd(endDate);
                 reservation.setCustomer(customer);
-                reservation.setResource(res);
                 reservation.setComment(reservationForm.getComment());
                 reservation.setPlaces(reservationForm.getPlaces());
                 reservation.setPaid(reservationForm.isPaid());
@@ -375,8 +374,8 @@ public class ReservationController {
     public List<Reservation> getReservations(
             @RequestParam(value = "start", required = true) String startDateStr,
             @RequestParam(value = "end", required = true) String endDateStr,
-            @RequestParam(value = "resource", required = false) Long resourceId
-    ) throws Exception {
+            @RequestParam(value = "accommodation", required = false, defaultValue = "-1")
+                    Long accommodationId) throws Exception {
 
         Date startDate = Utils.stringToDateTime(startDateStr, "dd/MM/YYYY HH:mm").toDate();
         Date endDate = Utils.stringToDateTime(endDateStr, "dd/MM/YYYYYY HH:mm").toDate();
@@ -386,8 +385,8 @@ public class ReservationController {
         }
 
         List<Reservation> result;
-        if (resourceId != -1) {
-            result = reservationService.getByInterval(startDate, endDate, true, resourceId);
+        if (accommodationId != -1) {
+            result = reservationService.getByInterval(startDate, endDate, true, accommodationId);
         } else {
             result = reservationService.getByInterval(startDate, endDate, true);
         }
@@ -404,9 +403,9 @@ public class ReservationController {
 
     }
 
-    @RequestMapping(value = Mappings.RESERVATIONS_RESOURCES_AVAILABLE_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = Mappings.RESERVATIONS_ACCOMMODATIONS_AVAILABLE_JSON_GET, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public List<SharedResource> getAvailableRooms(
+    public List<Accommodation> getAvailableRooms(
             @RequestParam(value = "start", required = true) String startDateStr,
             @RequestParam(value = "end", required = true) String endDateStr,
             @RequestParam(value = "places", required = false) int places) throws Exception {
@@ -419,7 +418,7 @@ public class ReservationController {
         Date startDate = Utils.stringToDateTime(startDateStr, "dd/MM/YYYY HH:mm").toDate();
         Date endDate = Utils.stringToDateTime(endDateStr, "dd/MM/YYYY HH:mm").toDate();
 
-        List<SharedResource> result = reservationService.getAvailableResources(Type.ROOM, startDate, endDate, places);
+        List<Accommodation> result = reservationService.getAvailableAccommodations(Type.ROOM, startDate, endDate, places);
 
         return result;
     }

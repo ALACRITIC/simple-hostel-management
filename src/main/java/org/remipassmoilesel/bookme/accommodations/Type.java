@@ -1,4 +1,4 @@
-package org.remipassmoilesel.bookme.sharedresources;
+package org.remipassmoilesel.bookme.accommodations;
 
 /**
  * Created by remipassmoilesel on 12/02/17.

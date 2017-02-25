@@ -1,4 +1,4 @@
-package org.remipassmoilesel.bookme.sharedresources;
+package org.remipassmoilesel.bookme.accommodations;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Created by remipassmoilesel on 30/01/17.
  */
-public class ResourceForm {
+public class AccommodationForm {
 
     @NotNull
     @Size(min = 2, max = 50)
@@ -37,7 +37,7 @@ public class ResourceForm {
     @NotNull
     private Long token;
 
-    public ResourceForm() {
+    public AccommodationForm() {
 
     }
 
@@ -46,7 +46,7 @@ public class ResourceForm {
      *
      * @param res
      */
-    public void load(SharedResource res) {
+    public void load(Accommodation res) {
 
         if (res == null) {
             return;
@@ -128,7 +128,7 @@ public class ResourceForm {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ResourceForm that = (ResourceForm) o;
+        AccommodationForm that = (AccommodationForm) o;
         return places == that.places &&
                 id == that.id &&
                 Double.compare(that.pricePerDay, pricePerDay) == 0 &&
@@ -146,7 +146,7 @@ public class ResourceForm {
 
     @Override
     public String toString() {
-        return "ResourceForm{" +
+        return "AccommodationForm{" +
                 "name='" + name + '\'' +
                 ", places=" + places +
                 ", comment='" + comment + '\'' +

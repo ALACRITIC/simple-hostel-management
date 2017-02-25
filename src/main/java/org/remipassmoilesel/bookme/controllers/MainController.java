@@ -3,6 +3,8 @@ package org.remipassmoilesel.bookme.controllers;
 import org.joda.time.DateTime;
 import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
+import org.remipassmoilesel.bookme.accommodations.Accommodation;
+import org.remipassmoilesel.bookme.accommodations.Type;
 import org.remipassmoilesel.bookme.admin.MainManu;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
@@ -14,8 +16,6 @@ import org.remipassmoilesel.bookme.services.MerchantService;
 import org.remipassmoilesel.bookme.services.MerchantServiceService;
 import org.remipassmoilesel.bookme.services.MerchantServiceType;
 import org.remipassmoilesel.bookme.services.MerchantServiceTypesService;
-import org.remipassmoilesel.bookme.sharedresources.SharedResource;
-import org.remipassmoilesel.bookme.sharedresources.Type;
 import org.remipassmoilesel.bookme.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -129,35 +129,46 @@ public class MainController {
         int reservationsNumber = 10;
         ArrayList<Reservation> reservationsList = new ArrayList<>();
         ArrayList<Customer> customersList = new ArrayList<>();
-        ArrayList<SharedResource> resourcesList = new ArrayList<>();
+        ArrayList<Accommodation> accommodationsList = new ArrayList<>();
         for (int i = 0; i < reservationsNumber; i++) {
 
             Customer customer = new Customer("Jean_" + i, "Paul_" + i, "000000" + i);
             customersList.add(customer);
 
-            SharedResource resource = new SharedResource("Room " + i, 2, 2.5d, "Comment " + i, Type.ROOM, Color.blue);
-            resourcesList.add(resource);
+            Accommodation acco = new Accommodation("Room " + i, 2, 2.5d, "Comment " + i, Type.ROOM, Color.blue);
+            accommodationsList.add(acco);
 
-            Reservation reservation = new Reservation(customer, resource, 1, new Date(), new Date());
+            Reservation reservation = new Reservation(customer, acco, 1, new Date(), new Date());
             reservationsList.add(reservation);
         }
 
-        MerchantServiceType serviceType = new MerchantServiceType("Service 1", 5.6,
-                Utils.generateLoremIpsum(200), Color.blue);
-        MerchantService service = new MerchantService(serviceType, customersList.get(0), 35.6,
-                Utils.generateLoremIpsum(200), new Date(), true, new DateTime().plusDays(5).toDate());
+        // create fake services
+        ArrayList<MerchantServiceType> serviceTypesList = new ArrayList<>();
+        ArrayList<MerchantService> servicesList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            MerchantServiceType st = new MerchantServiceType("Service 1", 5.6,
+                    Utils.generateLoremIpsum(200), Color.blue);
+            MerchantService sv = new MerchantService(st, customersList.get(0), 35.6,
+                    Utils.generateLoremIpsum(200), new Date(), true, new DateTime().plusDays(5).toDate());
+            serviceTypesList.add(st);
+            servicesList.add(sv);
+        }
 
         model.addAttribute("reservationsList", reservationsList);
         model.addAttribute("reservation", reservationsList.get(0));
         model.addAttribute("messagesList", messagesList);
         model.addAttribute("customersList", customersList);
-        model.addAttribute("resourcesList", resourcesList);
+        model.addAttribute("customer", customersList.get(0));
+        model.addAttribute("accommodationsList", accommodationsList);
         model.addAttribute("message", messagesList.get(0));
-        model.addAttribute("resource", resourcesList.get(0));
+        model.addAttribute("accommodation", accommodationsList.get(0));
         model.addAttribute("errorMessage", "Invalid date: 11/11/2555");
         model.addAttribute("informationMessage", "Operation success !");
-        model.addAttribute("serviceType", serviceType);
-        model.addAttribute("service", service);
+        model.addAttribute("serviceTypesList", serviceTypesList);
+        model.addAttribute("serviceTypesList", serviceTypesList);
+        model.addAttribute("servicesList", servicesList);
+        model.addAttribute("serviceType", serviceTypesList.get(0));
+        model.addAttribute("service", servicesList.get(0));
         model.addAttribute("adviceMessage", "Advice message");
 
         Mappings.includeMappings(model);

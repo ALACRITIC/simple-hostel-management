@@ -12,9 +12,9 @@ import org.remipassmoilesel.bookme.services.MerchantService;
 import org.remipassmoilesel.bookme.services.MerchantServiceService;
 import org.remipassmoilesel.bookme.services.MerchantServiceType;
 import org.remipassmoilesel.bookme.services.MerchantServiceTypesService;
-import org.remipassmoilesel.bookme.sharedresources.SharedResource;
-import org.remipassmoilesel.bookme.sharedresources.SharedResourceService;
-import org.remipassmoilesel.bookme.sharedresources.Type;
+import org.remipassmoilesel.bookme.accommodations.Accommodation;
+import org.remipassmoilesel.bookme.accommodations.AccommodationService;
+import org.remipassmoilesel.bookme.accommodations.Type;
 import org.remipassmoilesel.bookme.utils.colors.DefaultColors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +54,7 @@ public class DevTools {
     private MessageService messageService;
 
     @Autowired
-    private SharedResourceService sharedResourceService;
+    private AccommodationService accommodationService;
 
     @Autowired
     private MerchantServiceTypesService merchantServiceTypesService;
@@ -84,7 +84,7 @@ public class DevTools {
         results.add(customers);
 
         // create rooms
-        ArrayList<SharedResource> rooms = createRooms(20);
+        ArrayList<Accommodation> rooms = createRooms(20);
 
         // create reservations
         DateTime now = new DateTime();
@@ -115,14 +115,14 @@ public class DevTools {
         return messages;
     }
 
-    private ArrayList<SharedResource> createRooms(int number) throws IOException {
+    private ArrayList<Accommodation> createRooms(int number) throws IOException {
 
         // create rooms
-        ArrayList<SharedResource> rooms = new ArrayList<>();
+        ArrayList<Accommodation> rooms = new ArrayList<>();
         Color color;
         for (int i = 0; i < number; i++) {
             color = i % 2 == 0 ? blueviolet : cadetblue;
-            rooms.add(sharedResourceService.createResource("B " + i, 2, 2.5, "", Type.ROOM, color));
+            rooms.add(accommodationService.createAccommodation("B " + i, 2, 2.5, "", Type.ROOM, color));
         }
 
         return rooms;
@@ -148,7 +148,7 @@ public class DevTools {
      * @return
      * @throws Exception
      */
-    private ArrayList<Reservation> createReservations(int number, List<SharedResource> rooms, List<Customer> customers,
+    private ArrayList<Reservation> createReservations(int number, List<Accommodation> rooms, List<Customer> customers,
                                                       DateTime startDate) throws Exception {
 
 
@@ -156,8 +156,8 @@ public class DevTools {
         ArrayList<Reservation> reservations = new ArrayList<>();
         for (int i = 0; i < number; i++) {
             Customer customer = customers.get(i);
-            SharedResource resource = rooms.get(Utils.randInt(0, rooms.size() - 1));
-            Reservation reservation = reservationService.create(customer, resource, 1,
+            Accommodation accommodation = rooms.get(Utils.randInt(0, rooms.size() - 1));
+            Reservation reservation = reservationService.create(customer, accommodation, 1,
                     startDate.plusDays(i).toDate(),
                     startDate.plusDays(i + Utils.randInt(3, 6)).toDate());
             reservations.add(reservation);

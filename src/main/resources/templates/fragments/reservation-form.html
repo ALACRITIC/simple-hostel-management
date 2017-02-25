@@ -107,14 +107,14 @@
 
         <tr>
             <td>
-                Resource for rent:
+                Accommodation:
             </td>
             <td>
-                <select class="form-control" id="reservationSharedResourceSelect" th:field="*{sharedResourceId}"
-                        th:attr="data-primary-value=${primaryResourceId}, data-primary-name=${primaryResourceName}" required="true">
-                    <option th:each="resource : ${sharedResources}"
-                            th:value="${resource.getId()}"
-                            th:text="${resource.getName()}">Resource name
+                <select class="form-control" id="reservationAccommodationSelect" th:field="*{accommodationId}"
+                        th:attr="data-primary-value=${primaryAccommodationId}, data-primary-name=${primaryAccommodationName}" required="true">
+                    <option th:each="accommodation : ${accommodations}"
+                            th:value="${accommodation.getId()}"
+                            th:text="${accommodation.getName()}">Accommodation name
                     </option>
                 </select>
             </td>

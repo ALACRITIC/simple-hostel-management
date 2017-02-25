@@ -37,9 +37,9 @@ public class MerchantServiceType {
     private String color;
 
     /**
-     * If set to true, this resource hould not appear in availables resources.
+     * If set to true, this service should not appear in availables resources.
      * <p>
-     * Resources cannot be deleted, in order to keep database consistency.
+     * Services cannot be deleted, in order to keep database consistency.
      */
     @DatabaseField(columnName = DELETED_FIELD_NAME)
     private boolean deleted;

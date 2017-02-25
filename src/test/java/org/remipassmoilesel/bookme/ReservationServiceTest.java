@@ -8,9 +8,9 @@ import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.reservations.Reservation;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
-import org.remipassmoilesel.bookme.sharedresources.SharedResource;
-import org.remipassmoilesel.bookme.sharedresources.SharedResourceService;
-import org.remipassmoilesel.bookme.sharedresources.Type;
+import org.remipassmoilesel.bookme.accommodations.Accommodation;
+import org.remipassmoilesel.bookme.accommodations.AccommodationService;
+import org.remipassmoilesel.bookme.accommodations.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class ReservationServiceTest {
     private CustomerService customerService;
 
     @Autowired
-    private SharedResourceService sharedResourceService;
+    private AccommodationService accommodationService;
 
     @Autowired
     private ReservationService reservationService;
@@ -50,7 +50,7 @@ public class ReservationServiceTest {
     public void test() throws IOException {
 
         customerService.clearAllEntities();
-        sharedResourceService.clearAllEntities();
+        accommodationService.clearAllEntities();
         reservationService.clearAllEntities();
 
         DateTime baseDate = new DateTime(2017, 02, 15, 12, 50);
@@ -61,18 +61,18 @@ public class ReservationServiceTest {
         customerService.create(customers.get(0));
         customerService.create(customers.get(1));
 
-        ArrayList<SharedResource> resources = new ArrayList<>();
-        int resourcesNumber = 10;
-        for (int i = 0; i < resourcesNumber; i++) {
-            SharedResource res = new SharedResource("A" + i, 2, 2.5, "Comment", Type.ROOM, Color.blue);
-            resources.add(res);
-            sharedResourceService.create(res);
+        ArrayList<Accommodation> accommodations = new ArrayList<>();
+        int accommodationsNumber = 10;
+        for (int i = 0; i < accommodationsNumber; i++) {
+            Accommodation res = new Accommodation("A" + i, 2, 2.5, "Comment", Type.ROOM, Color.blue);
+            accommodations.add(res);
+            accommodationService.create(res);
         }
 
         // test creation with wrong dates, should fail
         Reservation wrongRes = null;
         try {
-            wrongRes = new Reservation(customers.get(0), resources.get(0), 2,
+            wrongRes = new Reservation(customers.get(0), accommodations.get(0), 2,
                     baseDate.plusDays(5).toDate(), baseDate.toDate(), null);
         } catch (Exception e) {
             logger.info("Error while creating reservation: ", e);
@@ -83,7 +83,7 @@ public class ReservationServiceTest {
         int reservationsNumber = 10;
         ArrayList<Reservation> reservations = new ArrayList<>();
         for (int i = 0; i < reservationsNumber; i++) {
-            Reservation res = new Reservation(customers.get(i % 2 == 0 ? 0 : 1), resources.get(i), 2,
+            Reservation res = new Reservation(customers.get(i % 2 == 0 ? 0 : 1), accommodations.get(i), 2,
                     baseDate.toDate(), baseDate.plusDays(5).toDate(), null);
 
             reservationService.create(res);
@@ -92,15 +92,15 @@ public class ReservationServiceTest {
         }
 
         // basic equality test
-        assertTrue("Equality test 1", resources.get(0).equals(resources.get(0)));
-        assertFalse("Equality test 2", resources.get(0).equals(resources.get(1)));
+        assertTrue("Equality test 1", accommodations.get(0).equals(accommodations.get(0)));
+        assertFalse("Equality test 2", accommodations.get(0).equals(accommodations.get(1)));
 
         // retrieving test
         for (Reservation resA : reservations) {
             Reservation resB = reservationService.getById(resA.getId());
             assertTrue("Database retrieving test: " + resA + " / " + resB, resA.equals(resB));
             assertTrue("Database retrieving test: " + resA + " / " + resB, resA.getCustomer().getFirstname() != null);
-            assertTrue("Database retrieving test: " + resA + " / " + resB, resA.getResource().getName() != null);
+            assertTrue("Database retrieving test: " + resA + " / " + resB, resA.getAccommodation().getName() != null);
         }
 
         // Free resources test
@@ -110,27 +110,27 @@ public class ReservationServiceTest {
 
         // add special reservations to test against test period (TP)
         // 1: begin before TP and finish in TP
-        reservationService.create(customers.get(0), resources.get(0), 2, beginTestPeriod.minusDays(2).toDate(), beginTestPeriod.plusDays(2).toDate());
+        reservationService.create(customers.get(0), accommodations.get(0), 2, beginTestPeriod.minusDays(2).toDate(), beginTestPeriod.plusDays(2).toDate());
         // 2: begin in TP and finish after TP
-        reservationService.create(customers.get(0), resources.get(1), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
+        reservationService.create(customers.get(0), accommodations.get(1), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
         // 3: begin before TP and finish after TP
-        reservationService.create(customers.get(0), resources.get(2), 2, beginTestPeriod.minusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
+        reservationService.create(customers.get(0), accommodations.get(2), 2, beginTestPeriod.minusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
         // 4: begin after TP and finish before end of TP
-        reservationService.create(customers.get(0), resources.get(3), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.minusDays(2).toDate());
+        reservationService.create(customers.get(0), accommodations.get(3), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.minusDays(2).toDate());
         // 5: same period
-        reservationService.create(customers.get(0), resources.get(4), 2, beginTestPeriod.toDate(), endTestPeriod.toDate());
+        reservationService.create(customers.get(0), accommodations.get(4), 2, beginTestPeriod.toDate(), endTestPeriod.toDate());
 
-        List<SharedResource> freeResources = reservationService.getAvailableResources(Type.ROOM, beginTestPeriod.toDate(), endTestPeriod.toDate(), 1);
-        assertTrue("Free resources test 1", resources.size() > 1);
+        List<Accommodation> freeAccomodations = reservationService.getAvailableAccommodations(Type.ROOM, beginTestPeriod.toDate(), endTestPeriod.toDate(), 1);
+        assertTrue("Free resources test 1", accommodations.size() > 1);
 
-        for (SharedResource resource : freeResources) {
+        for (Accommodation accomodations : freeAccomodations) {
             // all ressources under 4 should be not free
-            assertTrue("Free resources test: " + resources.indexOf(resource), resources.indexOf(resource) > 4);
+            assertTrue("Free resources test: " + accommodations.indexOf(accomodations), accommodations.indexOf(accomodations) > 4);
         }
 
         // check if we ask too much places
-        freeResources = reservationService.getAvailableResources(Type.ROOM, beginTestPeriod.toDate(), endTestPeriod.toDate(), 100);
-        assertTrue("Free resources test: " + freeResources.size(), freeResources.size() == 0);
+        freeAccomodations = reservationService.getAvailableAccommodations(Type.ROOM, beginTestPeriod.toDate(), endTestPeriod.toDate(), 100);
+        assertTrue("Free resources test: " + freeAccomodations.size(), freeAccomodations.size() == 0);
     }
 
 }

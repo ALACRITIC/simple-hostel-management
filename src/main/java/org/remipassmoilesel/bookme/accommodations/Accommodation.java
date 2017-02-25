@@ -1,4 +1,4 @@
-package org.remipassmoilesel.bookme.sharedresources;
+package org.remipassmoilesel.bookme.accommodations;
 
 
 import com.j256.ormlite.field.DataType;
@@ -12,8 +12,8 @@ import java.util.Objects;
 /**
  * Created by remipassmoilesel on 30/01/17.
  */
-@DatabaseTable(tableName = "SHARED_RESOURCES")
-public class SharedResource {
+@DatabaseTable(tableName = "ACCOMMODATIONS")
+public class Accommodation {
 
     public static final String ID_FIELD_NAME = "ID";
     public static final String NAME_FIELD_NAME = "NAME";
@@ -53,12 +53,12 @@ public class SharedResource {
     @DatabaseField(columnName = PRICE_PER_DAY_FIELD_NAME)
     private double pricePerDay;
 
-    public SharedResource() {
+    public Accommodation() {
         // ORMLite needs a no-arg constructor
     }
 
 
-    public SharedResource(String name, int places, double pricePerDay, String comment, Type type, Color color) {
+    public Accommodation(String name, int places, double pricePerDay, String comment, Type type, Color color) {
         this.name = name;
         this.comment = comment;
         this.places = places;
@@ -140,15 +140,15 @@ public class SharedResource {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SharedResource resource = (SharedResource) o;
-        return id == resource.id &&
-                places == resource.places &&
-                deleted == resource.deleted &&
-                pricePerDay == resource.pricePerDay &&
-                Objects.equals(name, resource.name) &&
-                type == resource.type &&
-                Objects.equals(comment, resource.comment) &&
-                Objects.equals(color, resource.color);
+        Accommodation accommodation = (Accommodation) o;
+        return id == accommodation.id &&
+                places == accommodation.places &&
+                deleted == accommodation.deleted &&
+                pricePerDay == accommodation.pricePerDay &&
+                Objects.equals(name, accommodation.name) &&
+                type == accommodation.type &&
+                Objects.equals(comment, accommodation.comment) &&
+                Objects.equals(color, accommodation.color);
     }
 
     @Override
@@ -158,7 +158,7 @@ public class SharedResource {
 
     @Override
     public String toString() {
-        return "SharedResource{" +
+        return "Accommodation{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", places=" + places +

@@ -117,7 +117,7 @@ var ReservationForm = {
 
         var beginDate = $("#reservationBeginDate");
         var endDate = $("#reservationEndDate");
-        var roomSelect = $("#reservationSharedResourceSelect");
+        var roomSelect = $("#reservationAccommodationSelect");
         var placesTxt = $("#reservationPlaces");
 
         var checkin = beginDate.val();

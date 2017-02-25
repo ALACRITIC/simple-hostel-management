@@ -27,18 +27,18 @@
                 <tr>
                     <td style="width: 30%">Select accomodation:</td>
                     <td>
-                        <select class="form-control" id="calendarSharedResourceSelect">
+                        <select class="form-control" id="calendarAccommodationSelect">
                             <option value="-1" th:text="'All'"></option>
-                            <option th:each="resource : ${resourcesList}"
-                                    th:value="${resource.getId()}"
-                                    th:text="${resource.getName()}">Resource name
+                            <option th:each="accommodation : ${accommodationsList}"
+                                    th:value="${accommodation.getId()}"
+                                    th:text="${accommodation.getName()}">Accommodation name
                             </option>
                         </select>
                     </td>
                 </tr>
             </table>
 
-            <div id='resourcesCalendar' style="margin: auto"></div>
+            <div id='accommodationsCalendar' style="margin: auto"></div>
 
         </div>
     </div>
@@ -49,11 +49,11 @@
     <script type="text/javascript">
         $(function () {
 
-            CalendarUtils.createResourcesCalendar("#resourcesCalendar", "#calendarSharedResourceSelect");
+            CalendarUtils.createAccommodationCalendar("#accommodationsCalendar", "#calendarAccommodationSelect");
 
             // refresh calendar on change
-            $("#calendarSharedResourceSelect").change(function () {
-                $("#resourcesCalendar").fullCalendar('refetchEvents');
+            $("#calendarAccommodationSelect").change(function () {
+                $("#accommodationsCalendar").fullCalendar('refetchEvents');
             });
 
         });

@@ -44,7 +44,7 @@ public class ReservationForm {
     private String end;
 
     @NotNull
-    private Long sharedResourceId = -1l;
+    private Long accommodationId = -1l;
 
     @NotNull
     private Long reservationId = -1l;
@@ -88,8 +88,8 @@ public class ReservationForm {
             setEnd(Utils.dateToString(reservation.getEnd(), "dd/MM/YYYY HH:mm"));
         }
 
-        if (reservation.getResource() != null) {
-            setSharedResourceId(reservation.getResource().getId());
+        if (reservation.getAccommodation() != null) {
+            setAccommodationId(reservation.getAccommodation().getId());
         }
 
         setReservationId(reservation.getId());
@@ -161,12 +161,12 @@ public class ReservationForm {
         this.token = token;
     }
 
-    public long getSharedResourceId() {
-        return sharedResourceId;
+    public long getAccommodationId() {
+        return accommodationId;
     }
 
-    public void setSharedResourceId(long sharedResourceId) {
-        this.sharedResourceId = sharedResourceId;
+    public void setAccommodationId(long accommodationId) {
+        this.accommodationId = accommodationId;
     }
 
     public int getPlaces() {
@@ -203,7 +203,7 @@ public class ReservationForm {
         if (o == null || getClass() != o.getClass()) return false;
         ReservationForm that = (ReservationForm) o;
         return places == that.places &&
-                sharedResourceId == that.sharedResourceId &&
+                accommodationId == that.accommodationId &&
                 reservationId == that.reservationId &&
                 customerId == that.customerId &&
                 paid == that.paid &&
@@ -218,7 +218,7 @@ public class ReservationForm {
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerFirstname, customerLastname, customerPhonenumber, places, begin, end, sharedResourceId, reservationId, customerId, comment, paid, token);
+        return Objects.hash(customerFirstname, customerLastname, customerPhonenumber, places, begin, end, accommodationId, reservationId, customerId, comment, paid, token);
     }
 
     @Override
@@ -230,7 +230,7 @@ public class ReservationForm {
                 ", places=" + places +
                 ", begin='" + begin + '\'' +
                 ", end='" + end + '\'' +
-                ", sharedResourceId=" + sharedResourceId +
+                ", accommodationId=" + accommodationId +
                 ", reservationId=" + reservationId +
                 ", customerId=" + customerId +
                 ", comment='" + comment + '\'' +

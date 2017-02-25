@@ -11,9 +11,9 @@ import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.reservations.Reservation;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
-import org.remipassmoilesel.bookme.sharedresources.SharedResource;
-import org.remipassmoilesel.bookme.sharedresources.SharedResourceService;
-import org.remipassmoilesel.bookme.sharedresources.Type;
+import org.remipassmoilesel.bookme.accommodations.Accommodation;
+import org.remipassmoilesel.bookme.accommodations.AccommodationService;
+import org.remipassmoilesel.bookme.accommodations.Type;
 import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.remipassmoilesel.bookme.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class ReservationControllerTest {
     private CustomerService customerService;
 
     @Autowired
-    private SharedResourceService sharedResourceService;
+    private AccommodationService accommodationsService;
 
     @Autowired
     private ReservationService reservationService;
@@ -59,7 +59,7 @@ public class ReservationControllerTest {
     private ReservationController reservationController;
 
     private ArrayList<Customer> customers;
-    private ArrayList<SharedResource> sharedResources;
+    private ArrayList<Accommodation> accommodations;
     private DateTime beginTestPeriod;
     private DateTime endTestPeriod;
 
@@ -82,18 +82,18 @@ public class ReservationControllerTest {
             customerService.create(customer);
         }
 
-        sharedResourceService.clearAllEntities();
+        accommodationsService.clearAllEntities();
 
-        sharedResources = new ArrayList<>();
+        accommodations = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
-            SharedResource resource = new SharedResource("Room " + i, 2, 5.45, "", Type.ROOM, Color.blue);
-            sharedResources.add(resource);
-            sharedResourceService.create(resource);
+            Accommodation accommodation = new Accommodation("Room " + i, 2, 5.45, "", Type.ROOM, Color.blue);
+            accommodations.add(accommodation);
+            accommodationsService.create(accommodation);
         }
         for (int i = 0; i < 3; i++) {
-            SharedResource resource = new SharedResource("Bed " + i, 1, 5.45, "", Type.BED, Color.blue);
-            sharedResources.add(resource);
-            sharedResourceService.create(resource);
+            Accommodation accommodation = new Accommodation("Bed " + i, 1, 5.45, "", Type.BED, Color.blue);
+            accommodations.add(accommodation);
+            accommodationsService.create(accommodation);
         }
 
         // create fake reservations
@@ -104,15 +104,15 @@ public class ReservationControllerTest {
 
         // add special reservations to test against test period (TP)
         // 1: begin before TP and finish in TP
-        reservationService.create(customers.get(0), sharedResources.get(0), 2, beginTestPeriod.minusDays(2).toDate(), beginTestPeriod.plusDays(2).toDate());
+        reservationService.create(customers.get(0), accommodations.get(0), 2, beginTestPeriod.minusDays(2).toDate(), beginTestPeriod.plusDays(2).toDate());
         // 2: begin in TP and finish after TP
-        reservationService.create(customers.get(0), sharedResources.get(1), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
+        reservationService.create(customers.get(0), accommodations.get(1), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
         // 3: begin before TP and finish after TP
-        reservationService.create(customers.get(0), sharedResources.get(2), 2, beginTestPeriod.minusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
+        reservationService.create(customers.get(0), accommodations.get(2), 2, beginTestPeriod.minusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
         // 4: begin after TP and finish before end of TP
-        reservationService.create(customers.get(0), sharedResources.get(3), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.minusDays(2).toDate());
+        reservationService.create(customers.get(0), accommodations.get(3), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.minusDays(2).toDate());
         // 5: same period
-        reservationService.create(customers.get(0), sharedResources.get(4), 2, beginTestPeriod.toDate(), endTestPeriod.toDate());
+        reservationService.create(customers.get(0), accommodations.get(4), 2, beginTestPeriod.toDate(), endTestPeriod.toDate());
 
     }
 
@@ -120,7 +120,7 @@ public class ReservationControllerTest {
     public void deleteReservation() throws Exception {
 
         // create a reservation
-        Reservation res = new Reservation(customers.get(0), sharedResources.get(0), 1, new Date(), new Date());
+        Reservation res = new Reservation(customers.get(0), accommodations.get(0), 1, new Date(), new Date());
         reservationService.create(res);
 
         // ask a token
@@ -150,7 +150,7 @@ public class ReservationControllerTest {
 
     @Test
     public void getAvailableRooms() throws Exception {
-        mockMvc.perform(get(Mappings.RESERVATIONS_RESOURCES_AVAILABLE_JSON_GET)
+        mockMvc.perform(get(Mappings.RESERVATIONS_ACCOMMODATIONS_AVAILABLE_JSON_GET)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("start", beginTestPeriod.toString("dd/MM/YYYY HH:mm"))
                 .param("end", endTestPeriod.toString("dd/MM/YYYY HH:mm"))
@@ -182,7 +182,7 @@ public class ReservationControllerTest {
         String places = String.valueOf(2);
         String datebegin = beginTestPeriod.toString("dd/MM/YYYY HH:mm");
         String dateend = endTestPeriod.toString("dd/MM/YYYY HH:mm");
-        String sharedResourceId = String.valueOf(sharedResources.get(1).getId());
+        String accomId = String.valueOf(accommodations.get(1).getId());
         String reservationId = "-1";
         String comment = Utils.generateLoremIpsum(200);
         String paid = String.valueOf(false);
@@ -200,7 +200,7 @@ public class ReservationControllerTest {
                 .param("places", places)
                 .param("begin", datebegin)
                 .param("end", dateend)
-                .param("sharedResourceId", sharedResourceId)
+                .param("accommodationId", accomId)
                 .param("reservationId", reservationId)
                 .param("comment", comment)
                 .param("paid", paid)
@@ -210,7 +210,7 @@ public class ReservationControllerTest {
                 .andExpect(model().attribute("errorMessage", isEmptyString()));
 
         // create a reservation
-        Reservation reservation = new Reservation(customers.get(0), sharedResources.get(0), 1, new Date(), new Date());
+        Reservation reservation = new Reservation(customers.get(0), accommodations.get(0), 1, new Date(), new Date());
         reservationService.create(reservation);
 
         // update existing
@@ -224,7 +224,7 @@ public class ReservationControllerTest {
                 .param("places", places)
                 .param("begin", datebegin)
                 .param("end", dateend)
-                .param("sharedResourceId", sharedResourceId)
+                .param("accommodationId", accomId)
                 .param("reservationId", String.valueOf(reservation.getId()))
                 .param("comment", Utils.generateLoremIpsum(500))
                 .param("paid", "true")

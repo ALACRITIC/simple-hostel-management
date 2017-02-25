@@ -1,4 +1,4 @@
-package org.remipassmoilesel.bookme.sharedresources;
+package org.remipassmoilesel.bookme.accommodations;
 
 import com.j256.ormlite.stmt.QueryBuilder;
 import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
@@ -17,12 +17,12 @@ import java.util.List;
  * Created by remipassmoilesel on 11/02/17.
  */
 @Service
-public class SharedResourceService extends AbstractDaoService<SharedResource> {
+public class AccommodationService extends AbstractDaoService<Accommodation> {
 
-    private static final Logger logger = LoggerFactory.getLogger(SharedResourceService.class);
+    private static final Logger logger = LoggerFactory.getLogger(AccommodationService.class);
 
-    public SharedResourceService(CustomConfiguration configuration) throws SQLException {
-        super(SharedResource.class, configuration);
+    public AccommodationService(CustomConfiguration configuration) throws SQLException {
+        super(Accommodation.class, configuration);
 
         // create resources if resource table is empty
         if (dao.queryForAll().size() < 1) {
@@ -30,18 +30,18 @@ public class SharedResourceService extends AbstractDaoService<SharedResource> {
             Color cadetblue = DefaultColors.get("cadetblue").getColor();
             Color blueviolet = DefaultColors.get("blueviolet").getColor();
             for (int i = 1; i < 4; i++) {
-                dao.create(new SharedResource("Room " + i, 2, 2.5d, "", Type.ROOM, cadetblue));
+                dao.create(new Accommodation("Room " + i, 2, 2.5d, "", Type.ROOM, cadetblue));
             }
 
             for (int i = 1; i < 4; i++) {
-                dao.create(new SharedResource("Bed " + i, 1, 2.5d, "", Type.BED, blueviolet));
+                dao.create(new Accommodation("Bed " + i, 1, 2.5d, "", Type.BED, blueviolet));
             }
 
         }
     }
 
-    public SharedResource createResource(String roomName, int places, double pricePerDay, String roomComment, Type type, Color color) throws IOException {
-        return create(new SharedResource(roomName, places, pricePerDay, roomComment, type, color));
+    public Accommodation createAccommodation(String roomName, int places, double pricePerDay, String roomComment, Type type, Color color) throws IOException {
+        return create(new Accommodation(roomName, places, pricePerDay, roomComment, type, color));
     }
 
     /**
@@ -51,7 +51,7 @@ public class SharedResourceService extends AbstractDaoService<SharedResource> {
      * @return
      * @throws IOException
      */
-    public List<SharedResource> getAll(Type type) throws IOException {
+    public List<Accommodation> getAll(Type type) throws IOException {
 
         if (type == null) {
             throw new NullPointerException("Type is null");
@@ -59,8 +59,8 @@ public class SharedResourceService extends AbstractDaoService<SharedResource> {
 
         try {
             QueryBuilder builder = dao.queryBuilder();
-            builder.where().eq(SharedResource.TYPE_FIELD_NAME, type);
-            builder.where().eq(SharedResource.DELETED_FIELD_NAME, false);
+            builder.where().eq(Accommodation.TYPE_FIELD_NAME, type);
+            builder.where().eq(Accommodation.DELETED_FIELD_NAME, false);
             return builder.query();
         } catch (SQLException e) {
             throw new IOException(e);
@@ -68,11 +68,11 @@ public class SharedResourceService extends AbstractDaoService<SharedResource> {
     }
 
     @Override
-    public List<SharedResource> getAll() throws IOException {
+    public List<Accommodation> getAll() throws IOException {
         return getAll(false);
     }
 
-    public List<SharedResource> getAll(boolean withDeletedEntities) throws IOException {
+    public List<Accommodation> getAll(boolean withDeletedEntities) throws IOException {
 
         // return all with deleted
         if (withDeletedEntities) {
@@ -83,7 +83,7 @@ public class SharedResourceService extends AbstractDaoService<SharedResource> {
         else {
             try {
                 QueryBuilder builder = dao.queryBuilder();
-                builder.where().eq(SharedResource.DELETED_FIELD_NAME, false);
+                builder.where().eq(Accommodation.DELETED_FIELD_NAME, false);
                 return builder.query();
             } catch (SQLException e) {
                 throw new IOException(e);
@@ -97,7 +97,7 @@ public class SharedResourceService extends AbstractDaoService<SharedResource> {
      * @param res
      * @throws IOException
      */
-    public void markAsDeleted(SharedResource res) throws IOException {
+    public void markAsDeleted(Accommodation res) throws IOException {
         res.setDeleted(true);
         markAsDeleted(res.getId());
     }
@@ -110,10 +110,10 @@ public class SharedResourceService extends AbstractDaoService<SharedResource> {
      */
     public void markAsDeleted(Long id) throws IOException {
         try {
-            SharedResource res = (SharedResource) dao.queryForId(id);
+            Accommodation res = (Accommodation) dao.queryForId(id);
 
             if (res == null) {
-                logger.warn("No resource found: " + id);
+                logger.warn("No accommodation found: " + id);
             }
 
             res.setDeleted(true);

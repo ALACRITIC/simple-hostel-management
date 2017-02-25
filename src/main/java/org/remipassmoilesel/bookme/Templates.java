@@ -1,9 +1,5 @@
 package org.remipassmoilesel.bookme;
 
-import org.remipassmoilesel.bookme.services.MerchantService;
-
-import java.util.List;
-
 /**
  * Created by remipassmoilesel on 11/02/17.
  */
@@ -22,13 +18,13 @@ public class Templates {
     public static final String RESERVATIONS_FORM = RESERVATIONS_DIR + "reservations-form";
     public static final String RESERVATIONS_LAST = RESERVATIONS_DIR + "reservations-show-lasts";
     public static final String RESERVATIONS_NEXT_CHECKOUTS = RESERVATIONS_DIR + "reservations-next-checkouts";
-    public static final String RESERVATIONS_BY_RESOURCE = RESERVATIONS_DIR + "reservations-by-resource";
+    public static final String RESERVATIONS_BY_ACCOMMODATION = RESERVATIONS_DIR + "reservations-by-accommodation";
     public static final String RESERVATIONS_BY_CUSTOMER = RESERVATIONS_DIR + "reservations-by-customer";
 
-    public static final String RESOURCES_DIR = PAGES_DIR + "resources/";
-    public static final String RESOURCES_FORM = RESOURCES_DIR + "resources-form";
-    public static final String RESOURCES_SHOW = RESOURCES_DIR + "resources-show-all";
-    public static final String RESOURCES_CALENDAR = RESOURCES_DIR + "resources-calendar";
+    public static final String ACCOMMODATIONS_DIR = PAGES_DIR + "accommodations/";
+    public static final String ACCOMMODATIONS_FORM = ACCOMMODATIONS_DIR + "accommodations-form";
+    public static final String ACCOMMODATIONS_SHOW = ACCOMMODATIONS_DIR + "accommodations-show-all";
+    public static final String ACCOMMODATIONS_CALENDAR = ACCOMMODATIONS_DIR + "accommodations-calendar";
 
     public static final String MESSAGES_DIR = PAGES_DIR + "messages/";
     public static final String MESSAGES_SHOW_ALL = MESSAGES_DIR + "messages-show-all";

@@ -2,7 +2,7 @@ package org.remipassmoilesel.bookme.services;
 
 import com.j256.ormlite.stmt.QueryBuilder;
 import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
-import org.remipassmoilesel.bookme.sharedresources.SharedResource;
+import org.remipassmoilesel.bookme.accommodations.Accommodation;
 import org.remipassmoilesel.bookme.utils.AbstractDaoService;
 import org.remipassmoilesel.bookme.utils.colors.DefaultColors;
 import org.slf4j.Logger;
@@ -76,7 +76,7 @@ public class MerchantServiceTypesService extends AbstractDaoService<MerchantServ
      * @param res
      * @throws IOException
      */
-    public void markAsDeleted(SharedResource res) throws IOException {
+    public void markAsDeleted(Accommodation res) throws IOException {
         res.setDeleted(true);
         markAsDeleted(res.getId());
     }
@@ -92,7 +92,7 @@ public class MerchantServiceTypesService extends AbstractDaoService<MerchantServ
             MerchantServiceType res = (MerchantServiceType) dao.queryForId(id);
 
             if (res == null) {
-                logger.warn("No resource found: " + id);
+                logger.warn("No accommodation found: " + id);
             }
 
             res.setDeleted(true);

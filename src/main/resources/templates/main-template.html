@@ -39,13 +39,13 @@
     <script src="/assets/scripts/url-tree.js"></script>
 
     <script th:inline="javascript">
-        UrlTree.setResourcesAvailableFeedUrl(/*[[${mappings.get('RESERVATIONS_RESOURCES_AVAILABLE_JSON_GET')}]]*/ "/wrong/json/feed");
+        UrlTree.setAccommodationsAvailableFeedUrl(/*[[${mappings.get('RESERVATIONS_ACCOMMODATIONS_AVAILABLE_JSON_GET')}]]*/ "/wrong/json/feed");
         UrlTree.setReservationCalendarFeedUrl(/*[[${mappings.get('RESERVATIONS_JSON_GET')}]]*/ "/wrong/json/feed");
         UrlTree.setServiceCalendarFeedUrl(/*[[${mappings.get('SERVICES_JSON_GET')}]]*/ "/wrong/json/feed");
         UrlTree.setShowReservationUrl(/*[[${mappings.get('RESERVATIONS_FORM')}]]*/ "/wrong/json/feed");
         UrlTree.setShowServiceUrl(/*[[${mappings.get('SERVICES_FORM')}]]*/ "/wrong/json/feed");
         UrlTree.setDeleteReservationUrl(/*[[${mappings.get('RESERVATIONS_DELETE')}]]*/ "/wrong/json/feed");
-        UrlTree.setDeleteResourceUrl(/*[[${mappings.get('RESOURCES_DELETE')}]]*/ "/wrong/json/feed");
+        UrlTree.setDeleteAccommodationUrl(/*[[${mappings.get('ACCOMMODATIONS_DELETE')}]]*/ "/wrong/json/feed");
         UrlTree.setCustomersJsonFeedUrl(/*[[${mappings.get('CUSTOMERS_JSON_SEARCH')}]]*/ "/wrong/json/feed");
         UrlTree.setExportCsvUrl(/*[[${mappings.get('ADMINISTRATION_EXPORT_RESERVATIONS_CSV')}]]*/ "/wrong/json/feed");
         UrlTree.setDeleteServiceUrl(/*[[${mappings.get('SERVICES_DELETE')}]]*/ "/wrong/json/feed");
@@ -84,15 +84,17 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
 
+                <li><a th:href="${mappings.get('DASHBOARD')}">Dashboard</a></li>
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Reservations <span class="caret"></span></a>
                     <ul class="dropdown-menu">
+                        <li><a th:href="${mappings.get('RESERVATIONS_FORM')}">New reservation</a></li>
+                        <li role="separator" class="divider"></li>
                         <li><a th:href="${mappings.get('RESERVATIONS_CALENDAR')}">Calendar</a></li>
                         <li><a th:href="${mappings.get('RESERVATIONS_NEXT_CHECKOUTS')}">Next check-outs</a></li>
                         <li><a th:href="${mappings.get('RESERVATIONS_LASTS')}">Lasts reservations</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a th:href="${mappings.get('RESERVATIONS_FORM')}">New reservation</a></li>
                     </ul>
                 </li>
 
@@ -100,20 +102,21 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Services <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="${mappings.get('SERVICES_SHOW_LASTS')}">Show all</a></li>
                         <li><a th:href="${mappings.get('SERVICES_FORM')}">Bill a service</a></li>
-                        <li><a th:href="${mappings.get('SERVICES_CALENDAR')}">Service calendar</a></li>
-                        <li role="separator" class="divider"></li>
                         <li><a th:href="${mappings.get('SERVICES_FORM')}">Create a new service</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a th:href="${mappings.get('SERVICES_SHOW_LASTS')}">Show lasts</a></li>
+                        <li><a th:href="${mappings.get('SERVICES_CALENDAR')}">Scheduled services calendar</a></li>
                     </ul>
                 </li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Resources <span class="caret"></span></a>
+                       aria-expanded="false">Accommodations <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="${mappings.get('RESOURCES_SHOW_ALL')}">Show all</a></li>
-                        <li><a th:href="${mappings.get('RESOURCES_FORM')}">Add a resource</a></li>
+                        <li><a th:href="${mappings.get('ACCOMMODATIONS_FORM')}">New accommodation</a></li>
+                        <li><a th:href="${mappings.get('ACCOMMODATIONS_SHOW_ALL')}">Show all</a></li>
+                        <li><a th:href="${mappings.get('ACCOMMODATIONS_CALENDAR')}">Accommodation calendar</a></li>
                     </ul>
                 </li>
 
@@ -121,8 +124,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Customers <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="${mappings.get('CUSTOMERS_SHOW_ALL')}">Show all</a></li>
                         <li><a th:href="${mappings.get('CUSTOMERS_SEARCH')}">Search</a></li>
+                        <li><a th:href="${mappings.get('CUSTOMERS_SHOW_ALL')}">Show lasts</a></li>
                     </ul>
                 </li>
 
@@ -130,8 +133,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Messages <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="${mappings.get('MESSAGES_SHOW_ALL')}">Show all</a></li>
                         <li><a th:href="${mappings.get('MESSAGES_FORM')}">New message</a></li>
+                        <li><a th:href="${mappings.get('MESSAGES_SHOW_ALL')}">Show all</a></li>
                     </ul>
                 </li>
 
@@ -183,9 +186,9 @@
     <div class="row top-buffer">
         <div class="col-md-12">
 
-            <h2>Resources list</h2>
+            <h2>Accommodations list</h2>
 
-            <table class="table table-striped" th:fragment="resources-list">
+            <table class="table table-striped" th:fragment="accommodations-list">
                 <thead>
                 <tr>
                     <th style="width: 15%">Name</th>
@@ -196,49 +199,51 @@
                 </thead>
                 <tbody>
 
-                <tr th:each="resource : ${resourcesList}">
-                    <td th:text="${resource.getName()}"
-                        th:style="${'color:' + resource.getHexadecimalColor()}">Room name
+                <tr th:each="accommodation : ${accommodationsList}">
+                    <td th:text="${accommodation.getName()}"
+                        th:style="${'color:' + accommodation.getHexadecimalColor()}">Room name
                     </td>
-                    <td th:text="${resource.getType().getReadableName()}" style="width: 5em">Room</td>
-                    <td th:text="${resource.getComment()}">Comment</td>
+                    <td th:text="${accommodation.getType().getReadableName()}" style="width: 5em">Room</td>
+                    <td th:text="${accommodation.getComment()}">Comment</td>
 
                     <td>
-                        <a th:href="${mappings.get('RESERVATIONS_BY_RESOURCE') + '?id=' + resource.getId()}"
+                        <a th:href="${mappings.get('RESERVATIONS_BY_ACCOMMODATION') + '?id=' + accommodation.getId()}"
                            data-toggle="tooltip" data-placement="left" title="Show reservations ..."
                            class="glyphicon glyphicon-search"></a>
                         &nbsp;&nbsp;
-                        <a th:href="${mappings.get('RESOURCES_FORM') + '?id=' + resource.getId()}"
+                        <a th:href="${mappings.get('ACCOMMODATIONS_FORM') + '?id=' + accommodation.getId()}"
                            data-toggle="tooltip" title="Edit ..."
                            class="glyphicon glyphicon-edit"></a></td>
                 </tr>
 
-                <tr th:if="${#lists.isEmpty(resourcesList)}">
-                    <td colspan="20"><i>No resources found</i></td>
+                <tr th:if="${#lists.isEmpty(accommodationsList)}">
+                    <td colspan="20"><i>No accommodations found</i></td>
                 </tr>
 
                 </tbody>
             </table>
 
-            <h2>Resources simple</h2>
+            <h2>Accommodation simple</h2>
 
-            <table class="table table-striped" th:fragment="resource-simple">
+            <table class="table table-striped" th:fragment="accommodation-simple">
 
                 <tr>
                     <td style="width: 20%">Name:</td>
-                    <td th:text="${resource?.getName()}"
-                        th:style="${'color:' + resource?.getHexadecimalColor()}">Room name
+                    <td th:text="${accommodation?.getName()}"
+                        th:style="${'color:' + accommodation?.getHexadecimalColor()}">Accommodation name
                     </td>
                 </tr>
 
                 <tr>
                     <td>Type:</td>
-                    <td th:text="${resource?.getType().getReadableName()}" style="width: 5em">Room type</td>
+                    <td th:text="${accommodation?.getType().getReadableName()}" style="width: 5em">
+                        Accommodation type
+                    </td>
                 </tr>
 
                 <tr>
                     <td>Comment:</td>
-                    <td th:text="${resource?.getComment()}">Comment</td>
+                    <td th:text="${accommodation?.getComment()}">Comment</td>
                 </tr>
 
             </table>
@@ -263,7 +268,7 @@
 
                 <p>If you are using a form, verify that the values are consistent, an try to resend it.</p>
 
-                <p> If nothing goes better, try returning to the <a th:href="${mappings.get('APPLICATION_ROOT')}">dashboard</a>
+                <p> If nothing goes better, try returning to the <a th:href="${mappings.get('APPLICATION_ROOT')}">main menu</a>
                     and repeating your operation. If this error persists, report it to the developer of this software:
                     <a href="https://github.com/remipassmoilesel" target="_blank">@Remipassmoilesel</a></p>
 
@@ -378,7 +383,7 @@
 
                 <tr th:each="serviceType: ${serviceTypesList}">
                     <td th:text="${serviceType.getName()}"
-                        th:style="${'color:' + serviceType.getHexadecimalColor()}">Pressing
+                        th:style="${'width: 15%; color:' + serviceType.getHexadecimalColor()}">Pressing
                     </td>
                     <td th:text="${serviceType.getPrice()}">15</td>
                     <td th:text="${serviceType.getComment()}">Comment</td>
@@ -502,7 +507,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Phone number</th>
-                    <th>Resource</th>
+                    <th>Accommodation</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -513,7 +518,7 @@
                     <td th:text="${reservation.getCustomer().getFirstname()}">Jean</td>
                     <td th:text="${reservation.getCustomer().getLastname()}">Claude</td>
                     <td th:text="${reservation.getCustomer().getPhonenumber()}">+000002</td>
-                    <td th:text="${reservation.getResource().getName()}">A2</td>
+                    <td th:text="${reservation.getAccommodation().getName()}">A2</td>
                     <td><a th:href="${mappings.get('RESERVATIONS_FORM') + '?id=' + reservation.getId()}"
                            class="glyphicon glyphicon-edit"></a></td>
                 </tr>
@@ -537,8 +542,8 @@
                     <td th:text="${#dates.format(reservation.getEnd(), 'dd/MM/yyyy HH:mm')}">05/01/2016</td>
                 </tr>
                 <tr>
-                    <td>Resource:</td>
-                    <td th:text="${reservation.getResource().getName()}">A2</td>
+                    <td>Accommodation:</td>
+                    <td th:text="${reservation.getAccommodation().getName()}">A2</td>
                 </tr>
                 <tr>
                     <td>First name:</td>
@@ -572,7 +577,7 @@
             <table class="table table-striped" th:fragment="checkouts-list">
                 <thead>
                 <tr>
-                    <th>Resource</th>
+                    <th>Accommodation</th>
                     <th>Check-out</th>
                     <th>First Name</th>
                     <th>Last Name</th>
@@ -583,7 +588,7 @@
                 <tbody>
 
                 <tr th:each="reservation : ${reservationsList}">
-                    <td th:text="${reservation.getResource().getName()}">A2</td>
+                    <td th:text="${reservation.getAccommodation().getName()}">A2</td>
                     <td th:text="${#dates.format(reservation.getEnd(), 'dd/MM/yyyy')}">05/01/2016</td>
                     <td th:text="${reservation.getCustomer().getFirstname()}">Jean</td>
                     <td th:text="${reservation.getCustomer().getLastname()}">Claude</td>

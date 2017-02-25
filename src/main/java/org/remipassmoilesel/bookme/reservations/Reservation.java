@@ -6,7 +6,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.remipassmoilesel.bookme.customers.Customer;
-import org.remipassmoilesel.bookme.sharedresources.SharedResource;
+import org.remipassmoilesel.bookme.accommodations.Accommodation;
 
 import java.util.Date;
 import java.util.Objects;
@@ -20,7 +20,7 @@ public class Reservation {
     public static final String ID_FIELD_NAME = "ID";
     public static final String CUSTOMER_FIELD_NAME = "CUSTOMER";
     public static final String RESERVATION_DATE = "RESERVATIONDATE";
-    public static final String SHARED_RESOURCE_FIELD_NAME = "SHARED_RESOURCE";
+    public static final String ACCOMMODATION_FIELD_NAME = "ACCOMMODATION";
     public static final String PLACES_FIELD_NAME = "PLACES";
     public static final String DATEBEGIN_FIELD_NAME = "BEGIN";
     public static final String DATEEND_FIELD_NAME = "END";
@@ -33,8 +33,8 @@ public class Reservation {
     @DatabaseField(foreign = true, columnName = CUSTOMER_FIELD_NAME)
     private Customer customer;
 
-    @DatabaseField(foreign = true, columnName = SHARED_RESOURCE_FIELD_NAME)
-    private SharedResource resource;
+    @DatabaseField(foreign = true, columnName = ACCOMMODATION_FIELD_NAME)
+    private Accommodation accommodation;
 
     @DatabaseField(columnName = PLACES_FIELD_NAME)
     private int places;
@@ -58,15 +58,15 @@ public class Reservation {
         // ORMLite needs a no-arg constructor
     }
 
-    public Reservation(Customer customer, SharedResource resource, int places, Date begin, Date end) {
-        this(customer, resource, places, begin, end, null);
+    public Reservation(Customer customer, Accommodation accommodation, int places, Date begin, Date end) {
+        this(customer, accommodation, places, begin, end, null);
     }
 
-    public Reservation(Customer customer, SharedResource resource, int places, Date begin, Date end, Date reservationDate) {
+    public Reservation(Customer customer, Accommodation accommodation, int places, Date begin, Date end, Date reservationDate) {
         this.customer = customer;
         this.begin = begin;
         this.end = end;
-        this.resource = resource;
+        this.accommodation = accommodation;
         this.places = places;
 
         if (end.getTime() < begin.getTime()) {
@@ -123,12 +123,12 @@ public class Reservation {
         this.reservationDate = reservationDate;
     }
 
-    public SharedResource getResource() {
-        return resource;
+    public Accommodation getAccommodation() {
+        return accommodation;
     }
 
-    public void setResource(SharedResource resource) {
-        this.resource = resource;
+    public void setAccommodation(Accommodation accommodation) {
+        this.accommodation = accommodation;
     }
 
     public int getPlaces() {
@@ -164,7 +164,7 @@ public class Reservation {
                 places == that.places &&
                 paid == that.paid &&
                 Objects.equals(customer, that.customer) &&
-                Objects.equals(resource, that.resource) &&
+                Objects.equals(accommodation, that.accommodation) &&
                 Objects.equals(reservationDate, that.reservationDate) &&
                 Objects.equals(begin, that.begin) &&
                 Objects.equals(end, that.end) &&
@@ -173,7 +173,7 @@ public class Reservation {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customer, resource, places, reservationDate, begin, end, comment, paid);
+        return Objects.hash(id, customer, accommodation, places, reservationDate, begin, end, comment, paid);
     }
 
     @Override
@@ -181,7 +181,7 @@ public class Reservation {
         return "Reservation{" +
                 "id=" + id +
                 ", customer=" + customer +
-                ", resource=" + resource +
+                ", accommodation=" + accommodation +
                 ", places=" + places +
                 ", reservationDate=" + reservationDate +
                 ", begin=" + begin +
