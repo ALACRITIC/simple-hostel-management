@@ -110,6 +110,11 @@ public class Reservation {
     }
 
     public void setEnd(Date end) {
+
+        if (end.getTime() <= begin.getTime()) {
+            throw new IllegalStateException("Invalid dates: b/" + begin + " e/" + end);
+        }
+
         this.end = end;
     }
 
@@ -171,8 +176,14 @@ public class Reservation {
 
     @JsonIgnore
     public void computeStandardTotalPrice() {
-        Duration duration = new Duration(getBegin().getTime(), getEnd().getTime());
-        double price = getAccommodation().getPricePerDay() * (duration.getStandardHours() / 18);
+
+        DateTime dtBegin = new DateTime(begin);
+        DateTime dtEnd = new DateTime(end);
+        DateTime dayBegin = new DateTime(dtBegin.getYear(), dtBegin.getMonthOfYear(), dtBegin.getDayOfMonth(), 0, 0, 0);
+        DateTime dayEnd = new DateTime(dtEnd.getYear(), dtEnd.getMonthOfYear(), dtEnd.getDayOfMonth(), 0, 0, 0);
+
+        Duration duration = new Duration(dayBegin, dayEnd);
+        double price = getAccommodation().getPricePerDay() * duration.getStandardDays();
         totalPrice = Math.round(price * 100) / 100;
     }
 
