@@ -8,6 +8,7 @@ import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
 import org.remipassmoilesel.bookme.controllers.CustomerController;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
+import org.remipassmoilesel.bookme.utils.testdata.TestDataFactory;
 import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -56,16 +57,7 @@ public class CustomerControllerTest {
         customerService.clearAllEntities();
 
         // create fake customers
-        customers = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            customers.add(new Customer("Jean " + i, "Paul " + i, "+000000" + i));
-        }
-
-        // add it
-        for (Customer customer : customers) {
-            customerService.create(customer);
-        }
-
+        customers = TestDataFactory.createCustomers(20, customerService);
     }
 
     @Test
