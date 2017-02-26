@@ -86,7 +86,7 @@ public class ReservationControllerTest {
 
         accommodations = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
-            Accommodation accommodation = new Accommodation("Room " + i, 2, 5.45, "", Type.ROOM, Color.blue);
+            Accommodation accommodation = new Accommodation("Room " + i, 2, 2.45, "", Type.ROOM, Color.blue);
             accommodations.add(accommodation);
             accommodationsService.create(accommodation);
         }
@@ -186,6 +186,7 @@ public class ReservationControllerTest {
         String reservationId = "-1";
         String comment = Utils.generateLoremIpsum(200);
         String paid = String.valueOf(false);
+        String totalPrice = "48.5";
         String sessionTokenName = TokenManager.generateSessionTokenName(ReservationController.TOKEN_ATTR_SESSION_PREFIX);
         String formToken = String.valueOf(validFormModel.get(TokenManager.DEFAULT_MODEL_TOKEN_NAME));
 
@@ -204,6 +205,7 @@ public class ReservationControllerTest {
                 .param("reservationId", reservationId)
                 .param("comment", comment)
                 .param("paid", paid)
+                .param("totalPrice", totalPrice)
                 .param("token", formToken))
                 .andExpect(status().isOk())
                 .andExpect(model().hasNoErrors())
@@ -228,6 +230,7 @@ public class ReservationControllerTest {
                 .param("reservationId", String.valueOf(reservation.getId()))
                 .param("comment", Utils.generateLoremIpsum(500))
                 .param("paid", "true")
+                .param("totalPrice", totalPrice)
                 .param("token", formToken))
                 .andExpect(status().isOk())
                 .andExpect(model().hasNoErrors())

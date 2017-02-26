@@ -203,6 +203,8 @@ public class ReservationController {
             Model model,
             HttpServletRequest request) throws Exception {
 
+        String errorMessage = "";
+
         if (reservationResults.hasErrors()) {
 
             //System.out.println(reservationResults.getAllErrors());
@@ -211,9 +213,16 @@ public class ReservationController {
 
             if (reservationForm.getAccommodationId() != -1) {
                 Reservation res = reservationService.getById(reservationForm.getAccommodationId());
-                model.addAttribute("primaryAccommodationId", res.getId());
-                model.addAttribute("primaryAccommodationName", res.getAccommodation().getName());
+                if (res == null) {
+                    logger.error("Unknown accommodation: " + reservationForm.getAccommodationId());
+                    errorMessage = "Invalid accommodation, please try again later.";
+                } else {
+                    model.addAttribute("primaryAccommodationId", res.getId());
+                    model.addAttribute("primaryAccommodationName", res.getAccommodation().getName());
+                }
             }
+
+            model.addAttribute("errorMessage", errorMessage);
 
             Mappings.includeMappings(model);
             return Templates.RESERVATIONS_FORM;
@@ -222,8 +231,6 @@ public class ReservationController {
         // checks tokens
         HttpSession session = request.getSession();
         TokenManager tokenman = new TokenManager(TOKEN_ATTR_SESSION_PREFIX);
-
-        String errorMessage = "";
         Reservation reservation = null;
 
         try {
