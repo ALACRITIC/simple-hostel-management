@@ -15,9 +15,10 @@ var ReservationForm = {
         var placesTxt = $("#reservationPlaces");
         var phoneNumberTxt = $("#reservationCustomerPhonenumber");
         var deleteButton = $("#reservationDeleteButton");
-
         var reservationId = $("#reservationId").val();
         var token = $("#reservationToken").val();
+        var selectAccommodation = $("#reservationAccommodationSelect");
+        var checkPriceButton = $("#reservationCheckTotalPriceButton");
 
         // transform fields in date picker
         beginDate.datepicker({
@@ -26,7 +27,10 @@ var ReservationForm = {
                 beginDate.val(date + " 16:00");
                 self.setDateFieldBackground(false);
                 self.checkDates();
-                self.checkAvailability();
+                self.checkAvailability(function () {
+                    self.computeTotalPrice();
+                });
+
             }
         });
 
@@ -36,7 +40,9 @@ var ReservationForm = {
                 endDate.val(date + " 10:00");
                 self.setDateFieldBackground(false);
                 self.checkDates();
-                self.checkAvailability();
+                self.checkAvailability(function () {
+                    self.computeTotalPrice();
+                });
             }
         });
 
@@ -57,17 +63,56 @@ var ReservationForm = {
             ReservationUtils.showDeleteReservationDialog(reservationId, token);
         });
 
+        checkPriceButton.click(function () {
+            self.computeTotalPrice();
+        });
+
         // special checkbox
         $("#reservationIsPaid").checkboxradio();
 
         // check availability on click
         $("#checkAvailabilityButton").click(function () {
             self.checkAvailability();
+            self.computeTotalPrice();
+        });
+
+        selectAccommodation.change(function () {
+            self.computeTotalPrice();
         });
 
         // first check
-        self.checkAvailability();
-        
+        self.checkAvailability(function(){
+            // Do not compute price here
+            //self.computeTotalPrice();
+        });
+
+    },
+
+    computeTotalPrice: function () {
+
+        var totalPriceTxt = $("#reservationTotalPriceTxt");
+        var totalPriceLabel = $("#reservationTotalPriceLabel");
+        var beginDate = $("#reservationBeginDate");
+        var endDate = $("#reservationEndDate");
+        var selectAccommodation = $("#reservationAccommodationSelect");
+
+        totalPriceTxt.val("");
+        totalPriceLabel.html("");
+
+        // here we divide be 18 instead of 24 because checkin is at 1600 and checkout at 1000
+        var nights = Math.floor(moment(endDate.val(), "DD/MM/YYYY hh:mm")
+                .diff(moment(beginDate.val(), "DD/MM/YYYY hh:mm"), 'hours') / 18);
+        var pricePerDay = selectAccommodation.find(":selected").attr("data-price");
+
+        if (!pricePerDay) {
+            throw "Invalid price";
+        }
+
+        var totalPrice = nights * pricePerDay;
+        var roundedPrice = Math.round(totalPrice * 100) / 100;
+        totalPriceTxt.val(roundedPrice);
+        totalPriceLabel.html(nights + " nights, " + pricePerDay + " per night");
+
     },
 
     /**
@@ -97,8 +142,8 @@ var ReservationForm = {
         var beginDate = $("#reservationBeginDate");
         var endDate = $("#reservationEndDate");
 
-        var bd = moment(beginDate.val(), "DD/MM/YYYY");
-        var ed = moment(endDate.val(), "DD/MM/YYYY");
+        var bd = moment(beginDate.val(), "DD/MM/YYYY HH:mm");
+        var ed = moment(endDate.val(), "DD/MM/YYYY HH:mm");
 
         // check if dates are in order
         if (bd._isValid == false || ed._isValid == false || bd.isAfter(ed)) {
@@ -111,13 +156,13 @@ var ReservationForm = {
     /**
      * Check room available for specified period and change select list content
      */
-    checkAvailability: function () {
+    checkAvailability: function (onSuccess) {
 
         var self = ReservationForm;
 
         var beginDate = $("#reservationBeginDate");
         var endDate = $("#reservationEndDate");
-        var roomSelect = $("#reservationAccommodationSelect");
+        var accommSelect = $("#reservationAccommodationSelect");
         var placesTxt = $("#reservationPlaces");
 
         var checkin = beginDate.val();
@@ -129,7 +174,7 @@ var ReservationForm = {
             return;
         }
 
-        roomSelect.empty();
+        accommSelect.empty();
 
         ReservationUtils.getRoomsAvailable(checkin, checkout, places)
             .then(function (result) {
@@ -138,34 +183,43 @@ var ReservationForm = {
 
                     var elmt = $("<option/>");
                     elmt.text(element.name);
+                    elmt.attr("data-price", element.pricePerDay);
                     elmt.attr("value", element.id);
 
-                    roomSelect.append(elmt);
+                    accommSelect.append(elmt);
                 });
 
                 if (!result || result.length == 0) {
-                    roomSelect.append("<option>No room available</option>");
+                    accommSelect.append("<option>No accommodation available</option>");
                 }
 
-                var pval = roomSelect.attr("data-primary-value");
-                var plab = roomSelect.attr("data-primary-name");
+                // add primary selected option if needed
+                var pval = accommSelect.attr("data-primary-value");
+                var plab = accommSelect.attr("data-primary-name");
+                var pprice = accommSelect.attr("data-primary-price");
                 if (pval) {
-
-                    // add option if needed
-                    if(roomSelect.children("option[id=" + pval + "]").length < 1){
+                    if (accommSelect.children("option[id=" + pval + "]").length < 1) {
                         var elmt = $("<option/>");
                         elmt.text(plab);
                         elmt.attr("value", pval);
-                        roomSelect.prepend(elmt);
+                        elmt.attr("data-price", pprice);
+                        accommSelect.prepend(elmt);
                     }
+                    accommSelect.val(pval);
+                }
 
-                    roomSelect.val(pval);
+                if (onSuccess) {
+                    try {
+                        onSuccess();
+                    } catch (e) {
+                        console.error(e);
+                    }
                 }
 
             })
             .fail(function () {
                 console.error("Fail !");
-                roomSelect.append("<option>Error</option>");
+                accommSelect.append("<option>Error</option>");
             });
     }
 

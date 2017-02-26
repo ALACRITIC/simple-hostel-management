@@ -24,7 +24,7 @@
 
         <!-- First name -->
         <tr>
-            <td colspan="2">
+            <td colspan="3">
                 <input type="text" id="customerFirstname" class="form-control" placeholder="First name"
                        th:field="*{customerFirstname}"/>
                 <div th:if="${#fields.hasErrors('customerFirstname')}" th:errors="*{customerFirstname}"
@@ -36,7 +36,7 @@
 
         <!-- Last name -->
         <tr>
-            <td colspan="2">
+            <td colspan="3">
                 <input type="text" id="customerLastname" class="form-control" placeholder="Last name"
                        th:field="*{customerLastname}"/>
                 <div th:if="${#fields.hasErrors('customerLastname')}" th:errors="*{customerLastname}" class="formError">
@@ -46,8 +46,9 @@
         </tr>
 
         <!-- Phone number -->
+
         <tr>
-            <td colspan="2">
+            <td colspan="3">
                 <input type="text" id="reservationCustomerPhonenumber" class="form-control" placeholder="Phone number"
                        th:field="*{customerPhonenumber}"/>
                 <div th:if="${#fields.hasErrors('customerPhonenumber')}" th:errors="*{customerPhonenumber}"
@@ -58,17 +59,6 @@
             </td>
         </tr>
 
-        <!-- Places -->
-        <tr>
-            <td colspan="2">
-                <input type="text" class="form-control" placeholder="Number of places" th:field="*{places}"
-                       id="reservationPlaces"/>
-                <div th:if="${#fields.hasErrors('places')}" th:errors="*{places}" class="formError">
-                    Places errors
-                </div>
-            </td>
-        </tr>
-
         <!-- Dates check-in / check-out-->
 
         <tr>
@@ -76,15 +66,16 @@
                 <input type="text" th:field="*{begin}" class="form-control" id="reservationBeginDate"
                        placeholder="Check-in" readonly="readonly"/>
             </td>
-            <td>
+            <td colspan="2">
                 <input type="text" th:field="*{end}" class="form-control" id="reservationEndDate"
                        placeholder="Check-out" readonly="readonly"/>
             </td>
         </tr>
 
         <!-- Dates errors -->
+
         <tr>
-            <td colspan="2" th:if="${#fields.hasErrors('begin') or #fields.hasErrors('end')}">
+            <td colspan="3" th:if="${#fields.hasErrors('begin') or #fields.hasErrors('end')}">
                 <div class="formError" th:if="${#fields.hasErrors('begin') or #fields.hasErrors('end')}">
                     <span th:if="${#fields.hasErrors('begin')}" th:text="'Invalid check-in date.'">Check-in error</span>&nbsp;
                     <span th:if="${#fields.hasErrors('end')}" th:text="'Invalid check-out date.'">Check-out error</span>&nbsp;
@@ -92,14 +83,17 @@
             </td>
         </tr>
 
-        <!-- Reservation is paid -->
+
+        <!-- Places -->
 
         <tr>
+            <td>Places:</td>
             <td colspan="2">
-                <fieldset>
-                    <input type="checkbox" id="reservationIsPaid" th:field="*{paid}"/>
-                    <label for="reservationIsPaid">&nbsp;&nbsp;&nbsp; Reservation is paid</label>
-                </fieldset>
+                <input type="text" class="form-control" placeholder="Number of places" th:field="*{places}"
+                       id="reservationPlaces"/>
+                <div th:if="${#fields.hasErrors('places')}" th:errors="*{places}" class="formError">
+                    Places errors
+                </div>
             </td>
         </tr>
 
@@ -111,27 +105,57 @@
             </td>
             <td>
                 <select class="form-control" id="reservationAccommodationSelect" th:field="*{accommodationId}"
-                        th:attr="data-primary-value=${primaryAccommodationId}, data-primary-name=${primaryAccommodationName}" required="true">
+                        th:attr="data-primary-value=${primaryAccommodationId},
+                                    data-primary-name=${primaryAccommodationName},
+                                    data-primary-price=${primaryAccommodationPrice}" required="true">
+                    <!--
                     <option th:each="accommodation : ${accommodations}"
                             th:value="${accommodation.getId()}"
+                            th:attr="data-price=${accommodation.getPricePerDay()}"
                             th:text="${accommodation.getName()}">Accommodation name
                     </option>
+                    -->
                 </select>
             </td>
+            <td style="text-align: right">
+                <a id="checkAvailabilityButton" class="glyphicon glyphicon-refresh"
+                   style="display: inline-block; cursor: pointer"></a>
+            </td>
         </tr>
+
+        <!-- Total price -->
+
         <tr>
             <td>
-                &nbsp;
+                Total price:
+            </td>
+            <td>
+                <input class="form-control" type="text" id="reservationTotalPriceTxt" th:field="*{totalPrice}"
+                       required="true"/>
+                <div id="reservationTotalPriceLabel"
+                     style="text-align: right; font-style: italic;"></div>
             </td>
             <td style="text-align: right">
-                <a id="checkAvailabilityButton" class="glyphicon glyphicon-refresh" style="display: inline-block; cursor: pointer"></a>
+                <a id="reservationCheckTotalPriceButton"
+                   class="fa fa-calculator" style="display: inline-block; cursor: pointer"></a>
+            </td>
+        </tr>
+
+        <!-- Reservation is paid -->
+
+        <tr>
+            <td colspan="3">
+                <fieldset>
+                    <input type="checkbox" id="reservationIsPaid" th:field="*{paid}"/>
+                    <label for="reservationIsPaid">&nbsp;&nbsp;&nbsp; Reservation is paid</label>
+                </fieldset>
             </td>
         </tr>
 
         <!-- Comment-->
 
         <tr>
-            <td colspan="2">
+            <td colspan="3">
                 <textarea class="form-control" placeholder="Comment" th:field="*{comment}"></textarea>
                 <div th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" class="formError">
                     Comment error
@@ -142,7 +166,7 @@
         <!-- Token and submit button -->
 
         <tr>
-            <td colspan="2" style="text-align: right">
+            <td colspan="3" style="text-align: right">
 
                 <!-- Add control token -->
                 <input type="hidden" id="reservationToken" name="token" th:value="${token}"/>

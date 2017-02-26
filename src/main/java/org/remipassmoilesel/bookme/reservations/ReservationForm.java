@@ -58,6 +58,10 @@ public class ReservationForm {
     @NotNull
     private Long token;
 
+    @NotNull
+    @Min(0)
+    private Double totalPrice;
+
     public ReservationForm() {
         begin = new DateTime().toString("dd/MM/yyyy") + " 16:00";
         end = new DateTime().plusDays(5).toString("dd/MM/yyyy" + " 10:00");
@@ -95,6 +99,32 @@ public class ReservationForm {
         setReservationId(reservation.getId());
         setCustomerId(reservation.getCustomer().getId());
         setPaid(reservation.isPaid());
+        setTotalPrice(reservation.getTotalPrice());
+
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public void setAccommodationId(Long accommodationId) {
+        this.accommodationId = accommodationId;
+    }
+
+    public Boolean getPaid() {
+        return paid;
+    }
+
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public Long getReservationId() {
@@ -203,22 +233,23 @@ public class ReservationForm {
         if (o == null || getClass() != o.getClass()) return false;
         ReservationForm that = (ReservationForm) o;
         return places == that.places &&
-                accommodationId == that.accommodationId &&
-                reservationId == that.reservationId &&
-                customerId == that.customerId &&
-                paid == that.paid &&
                 Objects.equals(customerFirstname, that.customerFirstname) &&
                 Objects.equals(customerLastname, that.customerLastname) &&
                 Objects.equals(customerPhonenumber, that.customerPhonenumber) &&
+                Objects.equals(customerId, that.customerId) &&
                 Objects.equals(begin, that.begin) &&
                 Objects.equals(end, that.end) &&
+                Objects.equals(accommodationId, that.accommodationId) &&
+                Objects.equals(reservationId, that.reservationId) &&
                 Objects.equals(comment, that.comment) &&
-                Objects.equals(token, that.token);
+                Objects.equals(paid, that.paid) &&
+                Objects.equals(token, that.token) &&
+                Objects.equals(totalPrice, that.totalPrice);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerFirstname, customerLastname, customerPhonenumber, places, begin, end, accommodationId, reservationId, customerId, comment, paid, token);
+        return Objects.hash(customerFirstname, customerLastname, customerPhonenumber, customerId, places, begin, end, accommodationId, reservationId, comment, paid, token, totalPrice);
     }
 
     @Override
@@ -227,15 +258,16 @@ public class ReservationForm {
                 "customerFirstname='" + customerFirstname + '\'' +
                 ", customerLastname='" + customerLastname + '\'' +
                 ", customerPhonenumber='" + customerPhonenumber + '\'' +
+                ", customerId=" + customerId +
                 ", places=" + places +
                 ", begin='" + begin + '\'' +
                 ", end='" + end + '\'' +
                 ", accommodationId=" + accommodationId +
                 ", reservationId=" + reservationId +
-                ", customerId=" + customerId +
                 ", comment='" + comment + '\'' +
                 ", paid=" + paid +
                 ", token=" + token +
+                ", totalPrice=" + totalPrice +
                 '}';
     }
 }

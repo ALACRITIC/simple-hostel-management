@@ -2,6 +2,9 @@ package org.remipassmoilesel.bookme.utils;
 
 import org.joda.time.DateTime;
 import org.remipassmoilesel.bookme.Mappings;
+import org.remipassmoilesel.bookme.accommodations.Accommodation;
+import org.remipassmoilesel.bookme.accommodations.AccommodationService;
+import org.remipassmoilesel.bookme.accommodations.Type;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.messages.Message;
@@ -12,9 +15,6 @@ import org.remipassmoilesel.bookme.services.MerchantService;
 import org.remipassmoilesel.bookme.services.MerchantServiceService;
 import org.remipassmoilesel.bookme.services.MerchantServiceType;
 import org.remipassmoilesel.bookme.services.MerchantServiceTypesService;
-import org.remipassmoilesel.bookme.accommodations.Accommodation;
-import org.remipassmoilesel.bookme.accommodations.AccommodationService;
-import org.remipassmoilesel.bookme.accommodations.Type;
 import org.remipassmoilesel.bookme.utils.colors.DefaultColors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +84,7 @@ public class DevTools {
         results.add(customers);
 
         // create rooms
-        ArrayList<Accommodation> rooms = createRooms(20);
+        ArrayList<Accommodation> rooms = createAccommodations(20);
 
         // create reservations
         DateTime now = new DateTime();
@@ -115,14 +115,16 @@ public class DevTools {
         return messages;
     }
 
-    private ArrayList<Accommodation> createRooms(int number) throws IOException {
+    private ArrayList<Accommodation> createAccommodations(int number) throws IOException {
+
+        List<Double> prices = Arrays.asList(2.5, 8d, 4.9, 3.2, 2.1);
 
         // create rooms
         ArrayList<Accommodation> rooms = new ArrayList<>();
         Color color;
         for (int i = 0; i < number; i++) {
             color = i % 2 == 0 ? blueviolet : cadetblue;
-            rooms.add(accommodationService.createAccommodation("B " + i, 2, 2.5, "", Type.ROOM, color));
+            rooms.add(accommodationService.createAccommodation("B " + i, 2, (Double) Utils.randValueFrom(prices), "", Type.ROOM, color));
         }
 
         return rooms;
@@ -131,9 +133,19 @@ public class DevTools {
 
     public ArrayList<Customer> createCustomers(int number) throws IOException {
 
+        List<String> firstnames = Arrays.asList("Jean", "Paul",
+                "Claude", "Evelyne", "Marion", "Alice");
+        List<String> lastnames = Arrays.asList("Paluatus", "Claduatos", "Pinel",
+                "Montant", "Descendant", "Huaraz");
+
         ArrayList<Customer> customers = new ArrayList<>();
         for (int i = 0; i < number; i++) {
-            Customer customer = customerService.create("Jean " + i, "Paul " + i, "+" + System.currentTimeMillis() + i);
+
+            Customer customer = customerService.create(
+                    (String) Utils.randValueFrom(firstnames),
+                    Utils.randValueFrom(lastnames) + " " + i,
+                    "+" + System.currentTimeMillis() + i);
+
             customers.add(customer);
         }
 
@@ -160,6 +172,7 @@ public class DevTools {
             Reservation reservation = reservationService.create(customer, accommodation, 1,
                     startDate.plusDays(i).toDate(),
                     startDate.plusDays(i + Utils.randInt(3, 6)).toDate());
+            reservation.computeStandardTotalPrice();
             reservations.add(reservation);
         }
 

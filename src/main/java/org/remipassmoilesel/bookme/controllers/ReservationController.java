@@ -162,6 +162,7 @@ public class ReservationController {
             reservationForm.load(res);
             model.addAttribute("primaryAccommodationId", res.getId());
             model.addAttribute("primaryAccommodationName", res.getAccommodation().getName());
+            model.addAttribute("primaryAccommodationPrice", res.getAccommodation().getPricePerDay());
         }
 
         if (accommodationId != -1) {
@@ -169,6 +170,7 @@ public class ReservationController {
             reservationForm.setAccommodationId(acc.getId());
             model.addAttribute("primaryAccommodationId", acc.getId());
             model.addAttribute("primaryAccommodationName", acc.getName());
+            model.addAttribute("primaryAccommodationPrice", acc.getPricePerDay());
         }
 
         if (beginDate.isEmpty() == false) {
@@ -274,6 +276,7 @@ public class ReservationController {
                     // create reservation
                     reservation = new Reservation(customer, accommodation, pl, beginDate, endDate);
                     reservation.setPaid(reservationForm.isPaid());
+                    reservation.setTotalPrice(reservationForm.getTotalPrice());
 
                     reservationService.create(reservation);
 
@@ -315,6 +318,7 @@ public class ReservationController {
                 reservation.setComment(reservationForm.getComment());
                 reservation.setPlaces(reservationForm.getPlaces());
                 reservation.setPaid(reservationForm.isPaid());
+                reservation.setTotalPrice(reservationForm.getTotalPrice());
 
                 try {
 

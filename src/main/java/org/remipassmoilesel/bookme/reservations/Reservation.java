@@ -5,8 +5,8 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
-import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.accommodations.Accommodation;
+import org.remipassmoilesel.bookme.customers.Customer;
 
 import java.util.Date;
 import java.util.Objects;
@@ -26,6 +26,7 @@ public class Reservation {
     public static final String DATEEND_FIELD_NAME = "END";
     public static final String COMMENT_FIELD_NAME = "COMMENT";
     public static final String PAID_FIELD_NAME = "PAID";
+    public static final String TOTAL_PRICE_FIELD_NAME = "TOTAL_PRICE";
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private long id;
@@ -53,6 +54,9 @@ public class Reservation {
 
     @DatabaseField(columnName = PAID_FIELD_NAME)
     private boolean paid;
+
+    @DatabaseField(columnName = TOTAL_PRICE_FIELD_NAME)
+    private double totalPrice;
 
     public Reservation() {
         // ORMLite needs a no-arg constructor
@@ -155,6 +159,19 @@ public class Reservation {
         this.paid = paid;
     }
 
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void computeStandardTotalPrice() {
+        Duration duration = new Duration(getBegin().getTime(), getEnd().getTime());
+        totalPrice = getAccommodation().getPricePerDay() * duration.getStandardDays();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -163,6 +180,7 @@ public class Reservation {
         return id == that.id &&
                 places == that.places &&
                 paid == that.paid &&
+                Double.compare(that.totalPrice, totalPrice) == 0 &&
                 Objects.equals(customer, that.customer) &&
                 Objects.equals(accommodation, that.accommodation) &&
                 Objects.equals(reservationDate, that.reservationDate) &&
@@ -173,7 +191,7 @@ public class Reservation {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customer, accommodation, places, reservationDate, begin, end, comment, paid);
+        return Objects.hash(id, customer, accommodation, places, reservationDate, begin, end, comment, paid, totalPrice);
     }
 
     @Override
@@ -188,6 +206,8 @@ public class Reservation {
                 ", end=" + end +
                 ", comment='" + comment + '\'' +
                 ", paid=" + paid +
+                ", totalPrice=" + totalPrice +
                 '}';
     }
+
 }

@@ -29,6 +29,7 @@
     <link rel='stylesheet' href='/bower_components/fullcalendar/dist/fullcalendar.min.css'/>
     <link rel="stylesheet" type="text/css" href="/assets/bootstrap.themed/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/bower_components/jquery-ui/themes/base/jquery-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/bower_components/components-font-awesome/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="/assets/css/main.css"/>
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -268,7 +269,8 @@
 
                 <p>If you are using a form, verify that the values are consistent, an try to resend it.</p>
 
-                <p> If nothing goes better, try returning to the <a th:href="${mappings.get('APPLICATION_ROOT')}">main menu</a>
+                <p> If nothing goes better, try returning to the <a th:href="${mappings.get('APPLICATION_ROOT')}">main
+                    menu</a>
                     and repeating your operation. If this error persists, report it to the developer of this software:
                     <a href="https://github.com/remipassmoilesel" target="_blank">@Remipassmoilesel</a></p>
 
@@ -556,6 +558,10 @@
                 <tr>
                     <td>Phone number:</td>
                     <td th:text="${reservation.getCustomer().getPhonenumber()}">+00000222</td>
+                </tr>
+                <tr>
+                    <td>Total price:</td>
+                    <td th:text="${reservation.getTotalPrice()}">5.2</td>
                 </tr>
             </table>
 

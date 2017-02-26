@@ -127,6 +127,11 @@ public class Utils {
      * @return
      */
     public static Object randValueFrom(List list) {
+
+        if (list.size() < 1) {
+            throw new IllegalStateException("Invalid list: " + list + " / " + list.size());
+        }
+
         int randIndex = randInt(0, list.size() - 1);
         return list.get(randIndex);
     }
