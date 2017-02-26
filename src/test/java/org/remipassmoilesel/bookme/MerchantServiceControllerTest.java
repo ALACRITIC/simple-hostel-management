@@ -67,20 +67,16 @@ public class MerchantServiceControllerTest {
 
         beginTestPeriod = new DateTime();
 
-        // clear old customers
+        // clear old values
         customerService.clearAllEntities();
+        merchantServiceService.clearAllEntities();
+        merchantServiceTypesService.clearAllEntities();
 
         // create fake customers
         customers = TestDataFactory.createCustomers(10, customerService);
 
-        // clear old service types
-        merchantServiceTypesService.clearAllEntities();
-
         // create fake service types
         serviceTypes = TestDataFactory.createServiceTypes(merchantServiceTypesService);
-
-        // clear old services
-        merchantServiceService.clearAllEntities();
 
         // create fake services
         services = TestDataFactory.createServices(20, customers, serviceTypes,

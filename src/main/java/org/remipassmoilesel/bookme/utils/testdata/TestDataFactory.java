@@ -134,8 +134,7 @@ public class TestDataFactory {
     public static ArrayList<MerchantService> createServices(int number, List<Customer> customers,
                                                             List<MerchantServiceType> services,
                                                             DateTime startDate,
-                                                            MerchantServiceService merchantServiceService)
-            throws IOException{
+                                                            MerchantServiceService merchantServiceService) throws IOException{
 
         ArrayList<MerchantService> bills = new ArrayList<>();
 
@@ -145,7 +144,7 @@ public class TestDataFactory {
                     (MerchantServiceType) Utils.randValueFrom(services),
                     (Customer) Utils.randValueFrom(customers),
                     Utils.randInt(5, 25),
-                    "",
+                    Utils.generateLoremIpsum(200),
                     startDate.plusDays(Utils.randInt(1, 31)).toDate(),
                     false,
                     null

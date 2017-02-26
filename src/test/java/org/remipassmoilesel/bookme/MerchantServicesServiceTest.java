@@ -11,6 +11,7 @@ import org.remipassmoilesel.bookme.services.MerchantServiceService;
 import org.remipassmoilesel.bookme.services.MerchantServiceType;
 import org.remipassmoilesel.bookme.services.MerchantServiceTypesService;
 import org.remipassmoilesel.bookme.utils.Utils;
+import org.remipassmoilesel.bookme.utils.testdata.TestDataFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,66 +55,30 @@ public class MerchantServicesServiceTest {
         merchantServiceTypesService.clearAllEntities();
         customerService.clearAllEntities();
 
-        // clear old customers
-        customerService.clearAllEntities();
-
         // create fake customers
-        ArrayList<Object> customers = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            customers.add(new Customer("Jean " + i, "Paul " + i, "+0015513131" + i));
-        }
+        ArrayList<Customer> customers = TestDataFactory.createCustomers(10, customerService);
 
         // create fake service types
-        int serviceTypesNumber = 5;
-        ArrayList<MerchantServiceType> serviceTypes = new ArrayList<>();
-        for (int i = 0; i < serviceTypesNumber; i++) {
-            MerchantServiceType srvType = new MerchantServiceType("Service " + i, 5 + i,
-                    Utils.generateLoremIpsum(100), Color.blue);
-            merchantServiceTypesService.create(srvType);
-            serviceTypes.add(srvType);
-        }
+        ArrayList<MerchantServiceType> serviceTypes = TestDataFactory.createServiceTypes(merchantServiceTypesService);
 
         // create fake services
-        int servicesNumber = 20;
-        ArrayList<MerchantService> services = new ArrayList<>();
-        for (int i = 0; i < servicesNumber; i++) {
-            MerchantServiceType srvT = (MerchantServiceType) Utils.randValueFrom(serviceTypes);
-            Customer customer = (Customer) Utils.randValueFrom(customers);
-            double price = srvT.getPrice() + i;
-            String comment = Utils.generateLoremIpsum(100);
-            MerchantService srv = new MerchantService(srvT, customer, price, comment,
-                    beginTestPeriod.plusDays(i).toDate(),
-                    false, null);
-            merchantServicesService.create(srv);
-            services.add(srv);
-        }
+        ArrayList<MerchantService> services = TestDataFactory.createServices(20, customers, serviceTypes,
+                beginTestPeriod, merchantServicesService);
 
-        for (int i = 0; i < servicesNumber; i++) {
-            MerchantServiceType srvT = (MerchantServiceType) Utils.randValueFrom(serviceTypes);
-            Customer customer = (Customer) Utils.randValueFrom(customers);
-            double price = srvT.getPrice() + i;
-            String comment = Utils.generateLoremIpsum(100);
-            MerchantService srv = new MerchantService(srvT, customer, price, comment,
-                    beginTestPeriod.plusDays(i).toDate(),
-                    true, beginTestPeriod.plusDays(i).toDate());
-            merchantServicesService.create(srv);
-            services.add(srv);
-        }
-
-        assertTrue("Creation test", merchantServicesService.getAll().size() == servicesNumber * 2);
-        assertTrue("Creation test", merchantServiceTypesService.getAll().size() == serviceTypesNumber);
+        assertTrue("Creation test", merchantServicesService.getAll().size() == services.size());
+        assertTrue("Creation test", merchantServiceTypesService.getAll().size() == serviceTypes.size());
 
         merchantServicesService.deleteById(services.get(0).getId());
         merchantServiceTypesService.deleteById(serviceTypes.get(0).getId());
 
-        assertTrue("Suppression test", merchantServicesService.getAll().size() == servicesNumber * 2 - 1);
-        assertTrue("Suppression test", merchantServiceTypesService.getAll().size() == serviceTypesNumber - 1);
+        assertTrue("Suppression test", merchantServicesService.getAll().size() == services.size() - 1);
+        assertTrue("Suppression test", merchantServiceTypesService.getAll().size() == serviceTypes.size() - 1);
 
         // get by interval
         List<MerchantService> scheduledServices = merchantServicesService.getScheduledServicesByInterval(
-                beginTestPeriod.toDate(), beginTestPeriod.plusDays(10).toDate(), true);
+                beginTestPeriod.toDate(), beginTestPeriod.plusDays(60).toDate(), true);
 
-        assertTrue(scheduledServices.size() == 11);
+        assertTrue(scheduledServices.size() == services.size() / 2);
 
         // check that result are refreshed
         assertTrue(scheduledServices.get(0).getCustomer() != null);
