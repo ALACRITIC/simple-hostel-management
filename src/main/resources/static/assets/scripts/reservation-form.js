@@ -103,19 +103,20 @@ var ReservationForm = {
         totalPriceTxt.val("");
         totalPriceLabel.html("");
 
-        // here we divide be 18 instead of 24 because checkin is at 1600 and checkout at 1000
-        var nights = Math.floor(moment(endDate.val(), "DD/MM/YYYY hh:mm")
-                .diff(moment(beginDate.val(), "DD/MM/YYYY hh:mm"), 'hours') / 18);
+        var beginDay = moment(beginDate.val(), "DD/MM/YYYY");
+        var endDay = moment(endDate.val(), "DD/MM/YYYY");
+
+        var nightsNumber = Math.floor(endDay.diff(beginDay, "days"));
         var pricePerDay = selectAccommodation.find(":selected").attr("data-price");
 
         if (!pricePerDay) {
             throw "Invalid price";
         }
 
-        var totalPrice = nights * pricePerDay;
+        var totalPrice = nightsNumber * pricePerDay;
         var roundedPrice = Math.round(totalPrice * 100) / 100;
         totalPriceTxt.val(roundedPrice);
-        totalPriceLabel.html(nights + " nights, " + pricePerDay + " per night");
+        totalPriceLabel.html(nightsNumber + " nights, " + pricePerDay + " per night");
 
     },
 
