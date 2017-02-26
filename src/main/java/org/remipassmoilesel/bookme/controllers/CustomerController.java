@@ -244,11 +244,7 @@ public class CustomerController {
     }
 
     @RequestMapping(value = Mappings.CUSTOMERS_BILL_FORM, method = RequestMethod.GET)
-    public String showExportBillFom(
-            @RequestParam(value = "begin", required = false) String begin,
-            @RequestParam(value = "end", required = false) String end,
-            @RequestParam(value = "customerId", required = false) Long customerId,
-            Model model) throws Exception {
+    public String showExportBillFom(Model model) throws Exception {
 
         Mappings.includeMappings(model);
         return Templates.CUSTOMERS_BILL_FORM;
@@ -256,8 +252,8 @@ public class CustomerController {
 
     @RequestMapping(value = Mappings.CUSTOMERS_BILL_PRINT, method = RequestMethod.POST)
     public String exportBillHtml(
-            @RequestParam(value = "servicesToExport", required = false) long[] servicesId,
-            @RequestParam(value = "reservationsToExport", required = false) long[] reservationsId,
+            @RequestParam(value = "servicesToBill", required = false) long[] servicesId,
+            @RequestParam(value = "reservationsToBill", required = false) long[] reservationsId,
             @RequestParam("customerId") Long customerId,
             Model model) throws Exception {
 

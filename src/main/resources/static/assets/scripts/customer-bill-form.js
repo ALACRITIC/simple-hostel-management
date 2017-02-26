@@ -153,7 +153,7 @@ var CustomerBillForm = {
 
             var tr = $("<tr>");
             tr.append('<td><input class="form-check-input" type="checkbox" '
-                + 'name="reservationsToExport" value="' + element.id + '"/></td>');
+                + 'name="reservationsToBill" value="' + element.id + '"/></td>');
             tr.append('<td>' + moment(element.begin).format('DD/MM/YYYY') + '</td>');
             tr.append('<td>' + moment(element.end).format('DD/MM/YYYY') + '</td>');
             tr.append('<td>' + element.accommodation.name + '</td>');
@@ -189,7 +189,7 @@ var CustomerBillForm = {
 
             var tr = $("<tr>");
             tr.append('<td><input class="form-check-input" type="checkbox" '
-                + 'name="servicesToExport" value="' + element.id + '"/></td>');
+                + 'name="servicesToBill" value="' + element.id + '"/></td>');
             tr.append('<td>' + moment(element.purchaseDate).format('DD/MM/YYYY') + '</td>');
             tr.append('<td>' + element.serviceType.name + '</td>');
             tr.append('<td>' + element.totalPrice + '</td>');
@@ -207,20 +207,20 @@ var CustomerBillForm = {
 
     exportBillHtml: function () {
 
-        var errorMessage = "<div>Please select a customer, and then select dates for billing.</div>";
+        var errorMessage = "<div>Please select a customer, and then select items to bill.</div>";
         var datesWarning = $("#exportHtmlDatesWarning");
-        var days = $("input[name=reservationsToExport]");
+        var selectedItems = $("input[name=reservationsToBill], input[name=servicesToBill]");
 
         datesWarning.empty();
 
         // check if dates are selected
-        if (days.length < 1) {
+        if (selectedItems.length < 1) {
             datesWarning.append(errorMessage);
             return;
         }
 
         var oneIsChecked = false;
-        $.each(days, function (index, element) {
+        $.each(selectedItems, function (index, element) {
             if ($(this).prop("checked")) {
                 oneIsChecked = true;
                 return false;
