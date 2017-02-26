@@ -19,7 +19,8 @@ var ReservationForm = {
         var token = $("#reservationToken").val();
         var selectAccommodation = $("#reservationAccommodationSelect");
         var checkPriceButton = $("#reservationCheckTotalPriceButton");
-
+        var cancelButton = $("#reservationCancelButton");
+        
         // transform fields in date picker
         beginDate.datepicker({
             dateFormat: "dd/mm/yy",
@@ -86,6 +87,9 @@ var ReservationForm = {
             //self.computeTotalPrice();
         });
 
+        cancelButton.click(function(){
+            window.location = UrlTree.getMainMenuUrl(); 
+        });
     },
 
     computeTotalPrice: function () {

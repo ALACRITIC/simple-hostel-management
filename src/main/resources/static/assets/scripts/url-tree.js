@@ -169,6 +169,19 @@ var UrlTree = {
     getServiceSearchUrl: function () {
         UrlTree._checkIfDefined(UrlTree.serviceSearchUrl, "serviceSearchUrl");
         return UrlTree.serviceSearchUrl;
+    }, 
+    
+    ///////////////////////////////
+
+    mainMenuUrl: null,
+
+    setMainMenuUrl: function (url) {
+        UrlTree.mainMenuUrl = url;
+    },
+
+    getMainMenuUrl: function () {
+        UrlTree._checkIfDefined(UrlTree.mainMenuUrl, "mainMenuUrl");
+        return UrlTree.mainMenuUrl;
     },
 
     ///////////////////////////////
