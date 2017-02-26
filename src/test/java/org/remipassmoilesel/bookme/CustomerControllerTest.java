@@ -308,7 +308,7 @@ public class CustomerControllerTest {
                         reservationPrice * (reservations.size() - 1);
         double expectedTotal = expectedTotalReservations + expectedTotalServices;
 
-        // ask for bill
+        // ask for bill, complete
         MockHttpServletRequestBuilder req = post(Mappings.CUSTOMERS_BILL_PRINT)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED);
 
@@ -327,6 +327,26 @@ public class CustomerControllerTest {
                 .andExpect(model().attribute("totalServices", equalTo(Utils.roundPrice(expectedTotalServices))))
                 .andExpect(model().attribute("totalReservations", equalTo(Utils.roundPrice(expectedTotalReservations))))
                 .andExpect(model().attribute("totalPrice", equalTo(Utils.roundPrice(expectedTotal))));
+
+        // ask for bill, just with reservations
+        req = post(Mappings.CUSTOMERS_BILL_PRINT)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        req.param("customerId", String.valueOf(customer.getId()));
+        for (Reservation res : reservations) {
+            req.param("reservationsToBill", String.valueOf(res.getId()));
+        }
+        mockMvc.perform(req).andExpect(status().isOk());
+
+        // ask for bill, just with services
+        req = post(Mappings.CUSTOMERS_BILL_PRINT)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        req.param("customerId", String.valueOf(customer.getId()));
+        for (MerchantService srv : specialServices) {
+            req.param("servicesToBill", String.valueOf(srv.getId()));
+        }
+        mockMvc.perform(req).andExpect(status().isOk());
 
     }
 
