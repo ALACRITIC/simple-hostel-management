@@ -14,7 +14,7 @@ import org.remipassmoilesel.bookme.services.MerchantServiceService;
 import org.remipassmoilesel.bookme.services.MerchantServiceType;
 import org.remipassmoilesel.bookme.services.MerchantServiceTypesService;
 import org.remipassmoilesel.bookme.utils.TokenManager;
-import org.remipassmoilesel.bookme.utils.Utils;
+import org.remipassmoilesel.bookme.utils.testdata.TestDataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -23,7 +23,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -72,58 +71,20 @@ public class MerchantServiceControllerTest {
         customerService.clearAllEntities();
 
         // create fake customers
-        customers = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            customers.add(new Customer("Jean " + i, "Paul " + i, "+0015513131" + i));
-        }
-
-        // add it
-        for (Customer customer : customers) {
-            customerService.create(customer);
-        }
+        customers = TestDataFactory.createCustomers(10, customerService);
 
         // clear old service types
         merchantServiceTypesService.clearAllEntities();
 
         // create fake service types
-        int serviceTypesNumber = 5;
-        serviceTypes = new ArrayList<>();
-        for (int i = 0; i < serviceTypesNumber; i++) {
-            MerchantServiceType srvType = new MerchantServiceType("Service " + i, 5 + i,
-                    Utils.generateLoremIpsum(100), Color.blue);
-            merchantServiceTypesService.create(srvType);
-            serviceTypes.add(srvType);
-        }
+        serviceTypes = TestDataFactory.createServiceTypes(merchantServiceTypesService);
 
         // clear old services
         merchantServiceService.clearAllEntities();
 
         // create fake services
-        int servicesNumber = 20;
-        services = new ArrayList<>();
-        for (int i = 0; i < servicesNumber; i++) {
-            MerchantServiceType srvT = (MerchantServiceType) Utils.randValueFrom(serviceTypes);
-            Customer customer = (Customer) Utils.randValueFrom(customers);
-            double price = srvT.getPrice() + i;
-            String comment = Utils.generateLoremIpsum(100);
-            MerchantService srv = new MerchantService(srvT, customer, price, comment,
-                    beginTestPeriod.plusDays(i).toDate(),
-                    false, null);
-            merchantServiceService.create(srv);
-            services.add(srv);
-        }
-
-        for (int i = 0; i < servicesNumber; i++) {
-            MerchantServiceType srvT = (MerchantServiceType) Utils.randValueFrom(serviceTypes);
-            Customer customer = (Customer) Utils.randValueFrom(customers);
-            double price = srvT.getPrice() + i;
-            String comment = Utils.generateLoremIpsum(100);
-            MerchantService srv = new MerchantService(srvT, customer, price, comment,
-                    beginTestPeriod.plusDays(i).toDate(),
-                    true, beginTestPeriod.plusDays(i).toDate());
-            merchantServiceService.create(srv);
-            services.add(srv);
-        }
+        services = TestDataFactory.createServices(20, customers, serviceTypes,
+                new DateTime(), merchantServiceService);
 
     }
 

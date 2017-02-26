@@ -134,7 +134,8 @@ public class TestDataFactory {
     public static ArrayList<MerchantService> createServices(int number, List<Customer> customers,
                                                             List<MerchantServiceType> services,
                                                             DateTime startDate,
-                                                            MerchantServiceService merchantServiceService) throws Exception{
+                                                            MerchantServiceService merchantServiceService)
+            throws IOException{
 
         ArrayList<MerchantService> bills = new ArrayList<>();
 
