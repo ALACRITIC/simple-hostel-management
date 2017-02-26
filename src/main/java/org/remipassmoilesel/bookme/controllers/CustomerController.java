@@ -6,6 +6,10 @@ import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerForm;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.customers.SearchCustomerForm;
+import org.remipassmoilesel.bookme.reservations.Reservation;
+import org.remipassmoilesel.bookme.reservations.ReservationService;
+import org.remipassmoilesel.bookme.services.MerchantService;
+import org.remipassmoilesel.bookme.services.MerchantServiceService;
 import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +37,12 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private ReservationService reservationService;
+
+    @Autowired
+    private MerchantServiceService merchantServiceService;
 
     @RequestMapping(value = Mappings.CUSTOMERS_SHOW_ALL, method = RequestMethod.GET)
     public String showLastCustomers(Model model) throws Exception {
@@ -233,5 +243,47 @@ public class CustomerController {
         return Templates.CUSTOMERS_FORM;
     }
 
+    @RequestMapping(value = Mappings.CUSTOMERS_BILL_FORM, method = RequestMethod.GET)
+    public String showExportBillFom(
+            @RequestParam(value = "begin", required = false) String begin,
+            @RequestParam(value = "end", required = false) String end,
+            @RequestParam(value = "customerId", required = false) Long customerId,
+            Model model) throws Exception {
+
+        Mappings.includeMappings(model);
+        return Templates.CUSTOMERS_BILL_FORM;
+    }
+
+    @RequestMapping(value = Mappings.CUSTOMERS_BILL_PRINT, method = RequestMethod.POST)
+    public String exportBillHtml(
+            @RequestParam(value = "servicesToExport", required = false) long[] servicesId,
+            @RequestParam(value = "reservationsToExport", required = false) long[] reservationsId,
+            @RequestParam("customerId") Long customerId,
+            Model model) throws Exception {
+
+        Customer customer = customerService.getById(customerId);
+        List<Reservation> reservations = reservationService.getByIds(reservationsId);
+        List<MerchantService> services = merchantServiceService.getByIds(servicesId);
+
+        model.addAttribute("customer", customer);
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("services", services);
+
+        // count reservations
+        int totalPrice = 0;
+        for (Reservation res : reservations) {
+            double pricePerDay = res.getAccommodation().getPricePerDay();
+            totalPrice += res.getDuration().getStandardDays() * pricePerDay;
+        }
+
+        // count services
+        for (MerchantService srv : services) {
+            totalPrice += srv.getTotalPrice();
+        }
+
+        model.addAttribute("totalPrice", totalPrice);
+
+        return Templates.CUSTOMERS_PRINT_BILL;
+    }
 
 }

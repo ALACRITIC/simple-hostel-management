@@ -65,7 +65,8 @@ public class Mappings {
     public static final String CUSTOMERS_SHOW_ALL = CUSTOMERS_ROOT + "/show";
     public static final String CUSTOMERS_SEARCH = CUSTOMERS_ROOT + "/search";
     public static final String CUSTOMERS_FORM = CUSTOMERS_ROOT + "/form";
-
+    public static final String CUSTOMERS_BILL_FORM = CUSTOMERS_ROOT + "/bill/form";
+    public static final String CUSTOMERS_BILL_PRINT = CUSTOMERS_ROOT + "/bill/print";
     public static final String CUSTOMERS_JSON_ROOT = CUSTOMERS_ROOT + "/json";
     public static final String CUSTOMERS_JSON_SEARCH = CUSTOMERS_JSON_ROOT + "/search";
     public static final String CUSTOMERS_JSON_GET_ALL = CUSTOMERS_JSON_ROOT + "/all";
@@ -82,11 +83,9 @@ public class Mappings {
     public static final String SERVICES_JSON_SEARCH = SERVICES_ROOT + "/json/search";
     public static final String SERVICES_BY_TYPE = SERVICES_ROOT + "/bytype";
 
-
     public static final String ADMINISTRATION_ROOT = APPLICATION_ROOT + "/admin";
     public static final String ADMINISTRATION_EXPORT_RESERVATIONS_CSV = ADMINISTRATION_ROOT + "/export/csv";
-    public static final String ADMINISTRATION_BILL_FORM = ADMINISTRATION_ROOT + "/bill/form";
-    public static final String ADMINISTRATION_EXPORT_BILL = ADMINISTRATION_ROOT + "/export/bill";
+
 
     public static final String POPULATE_TABLES = APPLICATION_ROOT + "/populate-tables";
     public static final String MAIN_TEMPLATE = APPLICATION_ROOT + "/main-template";

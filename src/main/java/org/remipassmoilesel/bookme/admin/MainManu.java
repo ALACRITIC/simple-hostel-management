@@ -24,7 +24,7 @@ public class MainManu {
     private static List<MainMenuItem> row_customer = Arrays.asList(
             new MainMenuItem("Search customers", Mappings.CUSTOMERS_SEARCH, "/assets/img/tile_search-customer.svg"),
             new MainMenuItem("Next checkouts", Mappings.RESERVATIONS_NEXT_CHECKOUTS, "/assets/img/tile_next-checkouts.svg"),
-            new MainMenuItem("Export bill", Mappings.ADMINISTRATION_BILL_FORM, "/assets/img/tile_bill.svg")
+            new MainMenuItem("Export bill", Mappings.CUSTOMERS_BILL_FORM, "/assets/img/tile_bill.svg")
     );
 
     private static List<MainMenuItem> row_messages = Arrays.asList(

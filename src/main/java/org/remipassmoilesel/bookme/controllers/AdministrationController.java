@@ -74,47 +74,5 @@ public class AdministrationController {
 
     }
 
-    @RequestMapping(value = Mappings.ADMINISTRATION_BILL_FORM, method = RequestMethod.GET)
-    public String showExportBillFom(
-            @RequestParam(value = "begin", required = false) String begin,
-            @RequestParam(value = "end", required = false) String end,
-            @RequestParam(value = "customerId", required = false) Long customerId,
-            Model model) throws Exception {
-
-        Mappings.includeMappings(model);
-        return Templates.ADMINISTRATION_BILL_FORM;
-    }
-
-    @RequestMapping(value = Mappings.ADMINISTRATION_EXPORT_BILL, method = RequestMethod.POST)
-    public String exportBillHtml(
-            @RequestParam(value = "servicesToExport", required = false) long[] servicesId,
-            @RequestParam(value = "reservationsToExport", required = false) long[] reservationsId,
-            @RequestParam("customerId") Long customerId,
-            Model model) throws Exception {
-
-        Customer customer = customerService.getById(customerId);
-        List<Reservation> reservations = reservationService.getByIds(reservationsId);
-        List<MerchantService> services = merchantServiceService.getByIds(servicesId);
-
-        model.addAttribute("customer", customer);
-        model.addAttribute("reservations", reservations);
-        model.addAttribute("services", services);
-
-        // count reservations
-        int totalPrice = 0;
-        for (Reservation res : reservations) {
-            double pricePerDay = res.getAccommodation().getPricePerDay();
-            totalPrice += res.getDuration().getStandardDays() * pricePerDay;
-        }
-
-        // count services
-        for (MerchantService srv : services) {
-            totalPrice += srv.getTotalPrice();
-        }
-
-        model.addAttribute("totalPrice", totalPrice);
-
-        return Templates.ADMINISTRATION_BILL;
-    }
 
 }

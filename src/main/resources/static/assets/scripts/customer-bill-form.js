@@ -1,14 +1,14 @@
 $(function () {
-    BillForm.init();
+    CustomerBillForm.init();
 });
 
-var BillForm = {
+var CustomerBillForm = {
 
     errorColor: "rgb(255, 191, 191)",
 
     init: function () {
 
-        var self = BillForm;
+        var self = CustomerBillForm;
 
         var validButton = $("#exportHtmlValidButton");
         var clientSearch = $("#exportHtmlClientSeachTextField");
