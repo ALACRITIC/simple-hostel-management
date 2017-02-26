@@ -74,6 +74,7 @@ public class Mappings {
     public static final String SERVICE_TYPES_FORM = SERVICES_ROOT + "/type/form";
     public static final String SERVICE_TYPES_DELETE = SERVICES_ROOT + "/type/delete";
     public static final String SERVICES_DELETE = SERVICES_ROOT + "/delete";
+    public static final String SERVICES_BY_CUSTOMER = SERVICES_ROOT + "/bycustomer";
     public static final String SERVICES_FORM = SERVICES_ROOT + "/form";
     public static final String SERVICES_SHOW_LASTS = SERVICES_ROOT + "/show/all";
     public static final String SERVICES_CALENDAR = SERVICES_ROOT + "/calendar";

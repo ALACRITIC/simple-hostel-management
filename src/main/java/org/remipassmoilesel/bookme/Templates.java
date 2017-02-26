@@ -41,11 +41,13 @@ public class Templates {
     public static final String SERVICE_TYPES_SHOW_ALL = SERVICES_DIR + "service-types-show-all";
     public static final String SERVICES_FORM = SERVICES_DIR + "services-form";
     public static final String SERVICES_CALENDAR = SERVICES_DIR + "services-calendar";
+    public static final String SERVICES_BY_CUSTOMER = SERVICES_DIR + "services-by-customer";
 
     public static final String ADMINISTRATION_DIR = PAGES_DIR + "admin/";
     public static final String ADMINISTRATION = ADMINISTRATION_DIR + "admin";
     public static final String ADMINISTRATION_BILL = ADMINISTRATION_DIR + "bill";
     public static final String ADMINISTRATION_BILL_FORM = ADMINISTRATION_DIR + "bill-form";
+
 
 
 }

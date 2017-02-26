@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Services</title>
+
+    <script th:replace="main-template :: page-headers"></script>
+
+</head>
+<body>
+
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Services by customer</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <!-- error happen -->
+
+            <div th:if="${not #strings.isEmpty(errorMessage)}">
+                <div th:replace="main-template :: error-block (errorMessage=${errorMessage})"></div>
+            </div>
+
+            <!-- no error -->
+
+            <div th:if="${#strings.isEmpty(errorMessage)}">
+                <div th:replace="main-template :: customer-simple (customer=${customer})"></div>
+
+                <div th:replace="main-template :: services-list (servicesList=${servicesList})"></div>
+
+                <div th:replace="main-template :: button-view-more-services"></div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

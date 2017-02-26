@@ -313,7 +313,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Phone number</th>
-                    <th style="width: 5em"></th>
+                    <th style="width: 8em"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -323,9 +323,13 @@
                     <td th:text="${customer.getLastname()}">Claude</td>
                     <td th:text="${customer.getPhonenumber()}">+000002</td>
                     <td>
+                        <a th:href="${mappings.get('SERVICES_BY_CUSTOMER') + '?id=' + customer.getId()}"
+                           data-toggle="tooltip" data-placement="left" title="Show services ..."
+                           class="fa fa-coffee"></a>
+                        &nbsp;&nbsp;
                         <a th:href="${mappings.get('RESERVATIONS_BY_CUSTOMER') + '?id=' + customer.getId()}"
                            data-toggle="tooltip" data-placement="left" title="Show reservations ..."
-                           class="glyphicon glyphicon-search"></a>
+                           class="fa fa-home"></a>
                         &nbsp;&nbsp;
                         <a th:href="${mappings.get('CUSTOMERS_FORM') + '?id=' + customer.getId()}"
                            class="glyphicon glyphicon-edit"></a></td>
@@ -447,7 +451,7 @@
                 </tr>
 
                 <tr>
-                    <td>Price:</td>
+                    <td>Total price:</td>
                     <td th:text="${service?.getTotalPrice()}">15</td>
                 </tr>
 
@@ -466,6 +470,7 @@
                     <th>Name</th>
                     <th>Customer</th>
                     <th>Price</th>
+                    <th>Paid</th>
                     <th>Comment</th>
                     <th style="width: 5em"></th>
                 </tr>
@@ -478,6 +483,7 @@
                     </td>
                     <td th:text="${service.getCustomer().getNameString()}">Jean Claude</td>
                     <td th:text="${service.getTotalPrice()}">15</td>
+                    <td class="fa" th:classappend="${service.isPaid()} ? 'fa-check' : 'fa-times'" th:text="''">X</td>
                     <td th:text="${service.getComment()}">Comment</td>
                     <td>
                         <a th:href="${mappings.get('SERVICES_FORM') + '?id=' + service.getId()}"
@@ -485,7 +491,7 @@
 
                 </tr>
 
-                <tr th:if="${#lists.isEmpty(serviceList)}">
+                <tr th:if="${#lists.isEmpty(servicesList)}">
                     <td colspan="20"><i>No services found</i></td>
                 </tr>
 

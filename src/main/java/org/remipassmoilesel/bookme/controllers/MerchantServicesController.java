@@ -422,6 +422,39 @@ public class MerchantServicesController {
         return Templates.SERVICES_FORM;
     }
 
+    /**
+     * Delete a service
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping(Mappings.SERVICES_BY_CUSTOMER)
+    public String byCustomer(
+            @RequestParam(value = "id", required = true) Long customerId,
+            Model model) throws Exception {
+
+        String errorMessage = "";
+        Customer customer = null;
+        List<MerchantService> servicesList = null;
+        try {
+            customer = customerService.getById(customerId);
+            if (customer == null) {
+                throw new NullPointerException("Invalid customer: " + customerId);
+            }
+            servicesList = merchantServiceService.getByCustomerId(customerId, true);
+        } catch (Exception e) {
+            logger.error("Error while retrieving services: ", e);
+            errorMessage = "Error while processing services, please try again later.";
+        }
+
+        model.addAttribute("customer", customer);
+        model.addAttribute("servicesList", servicesList);
+        model.addAttribute("errorMessage", errorMessage);
+
+        Mappings.includeMappings(model);
+        return Templates.SERVICES_BY_CUSTOMER;
+    }
+
     @RequestMapping(value = Mappings.SERVICES_CALENDAR, method = RequestMethod.GET)
     public String getScheduledServices(Model model) throws Exception {
         Mappings.includeMappings(model);
