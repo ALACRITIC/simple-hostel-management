@@ -134,7 +134,7 @@ public class TestDataFactory {
     public static ArrayList<MerchantService> createServices(int number, List<Customer> customers,
                                                             List<MerchantServiceType> services,
                                                             DateTime startDate,
-                                                            MerchantServiceService merchantServiceService) throws IOException{
+                                                            MerchantServiceService merchantServiceService) throws IOException {
 
         ArrayList<MerchantService> bills = new ArrayList<>();
 
@@ -186,6 +186,26 @@ public class TestDataFactory {
         return messages;
     }
 
+    public static void createReservationsForIntervalTest(ReservationService reservationService,
+                                                         List<Customer> customers,
+                                                         List<Accommodation> accommodations,
+                                                         DateTime beginTestPeriod,
+                                                         DateTime endTestPeriod)
+            throws IOException {
+
+        // add special reservations to test against test period (TP)
+        // 1: begin before TP and finish in TP
+        reservationService.create(customers.get(0), accommodations.get(0), 2, beginTestPeriod.minusDays(2).toDate(), beginTestPeriod.plusDays(2).toDate());
+        // 2: begin in TP and finish after TP
+        reservationService.create(customers.get(0), accommodations.get(1), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
+        // 3: begin before TP and finish after TP
+        reservationService.create(customers.get(0), accommodations.get(2), 2, beginTestPeriod.minusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
+        // 4: begin after TP and finish before end of TP
+        reservationService.create(customers.get(0), accommodations.get(3), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.minusDays(2).toDate());
+        // 5: same period
+        reservationService.create(customers.get(0), accommodations.get(4), 2, beginTestPeriod.toDate(), endTestPeriod.toDate());
+
+    }
 
 
 }

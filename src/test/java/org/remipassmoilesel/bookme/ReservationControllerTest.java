@@ -5,17 +5,17 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.remipassmoilesel.bookme.accommodations.Accommodation;
+import org.remipassmoilesel.bookme.accommodations.AccommodationService;
 import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
 import org.remipassmoilesel.bookme.controllers.ReservationController;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.reservations.Reservation;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
-import org.remipassmoilesel.bookme.accommodations.Accommodation;
-import org.remipassmoilesel.bookme.accommodations.AccommodationService;
-import org.remipassmoilesel.bookme.accommodations.Type;
 import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.remipassmoilesel.bookme.utils.Utils;
+import org.remipassmoilesel.bookme.utils.testdata.TestDataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -24,7 +24,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,52 +67,21 @@ public class ReservationControllerTest {
 
         mockMvc = MockMvcBuilders.standaloneSetup(reservationController).build();
 
-        // clear old customers
+        // clear entities
         customerService.clearAllEntities();
-
-        // create fake customers
-        customers = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            customers.add(new Customer("Jean " + i, "Paul " + i, "+0015513131" + i));
-        }
-
-        // add it
-        for (Customer customer : customers) {
-            customerService.create(customer);
-        }
-
         accommodationsService.clearAllEntities();
-
-        accommodations = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            Accommodation accommodation = new Accommodation("Room " + i, 2, 2.45, "", Type.ROOM, Color.blue);
-            accommodations.add(accommodation);
-            accommodationsService.create(accommodation);
-        }
-        for (int i = 0; i < 3; i++) {
-            Accommodation accommodation = new Accommodation("Bed " + i, 1, 5.45, "", Type.BED, Color.blue);
-            accommodations.add(accommodation);
-            accommodationsService.create(accommodation);
-        }
-
-        // create fake reservations
         reservationService.clearAllEntities();
 
+        // create fake customers
+        customers = TestDataFactory.createCustomers(10, customerService);
+        accommodations = TestDataFactory.createAccommodations(10, accommodationsService);
+
+        // create fake reservations
         beginTestPeriod = new DateTime();
         endTestPeriod = beginTestPeriod.plusDays(30);
 
-        // add special reservations to test against test period (TP)
-        // 1: begin before TP and finish in TP
-        reservationService.create(customers.get(0), accommodations.get(0), 2, beginTestPeriod.minusDays(2).toDate(), beginTestPeriod.plusDays(2).toDate());
-        // 2: begin in TP and finish after TP
-        reservationService.create(customers.get(0), accommodations.get(1), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
-        // 3: begin before TP and finish after TP
-        reservationService.create(customers.get(0), accommodations.get(2), 2, beginTestPeriod.minusDays(2).toDate(), endTestPeriod.plusDays(2).toDate());
-        // 4: begin after TP and finish before end of TP
-        reservationService.create(customers.get(0), accommodations.get(3), 2, beginTestPeriod.plusDays(2).toDate(), endTestPeriod.minusDays(2).toDate());
-        // 5: same period
-        reservationService.create(customers.get(0), accommodations.get(4), 2, beginTestPeriod.toDate(), endTestPeriod.toDate());
-
+        TestDataFactory.createReservationsForIntervalTest(reservationService, customers,
+                accommodations, beginTestPeriod, endTestPeriod);
     }
 
     @Test
@@ -157,7 +125,7 @@ public class ReservationControllerTest {
                 .param("places", String.valueOf(2)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.*", hasSize(equalTo(1))));
+                .andExpect(jsonPath("$.*", hasSize(equalTo(5))));
     }
 
     @Test
