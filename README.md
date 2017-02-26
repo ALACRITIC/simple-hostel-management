@@ -6,7 +6,7 @@ Based on Spring Boot, work in progress.
 
 ### Pre-alpha release, just for fun
 
-You can download a pre-alpha version [here](https://raw.githubusercontent.com/remipassmoilesel/simple-hostel-management/master/releases/book-me-latest_pre-alpha.zip).
+You can download a pre-alpha version [here](https://github.com/remipassmoilesel/simple-hostel-management/releases/tag/0.1.0)
 
     ⚠⚠⚠ Not ready to use for now, please be patient :)
 
