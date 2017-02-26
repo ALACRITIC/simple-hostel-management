@@ -1,6 +1,7 @@
 target/*
 database/*
 database-test
+releases
 tmp
 
 .idea
@@ -9,4 +10,4 @@ tomcat-logs
 *.swp
 *.7z
 *.zip
-!releases/*.zip
+
