@@ -11,6 +11,7 @@ import org.remipassmoilesel.bookme.reservations.ReservationService;
 import org.remipassmoilesel.bookme.services.MerchantService;
 import org.remipassmoilesel.bookme.services.MerchantServiceService;
 import org.remipassmoilesel.bookme.utils.TokenManager;
+import org.remipassmoilesel.bookme.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -262,22 +263,29 @@ public class CustomerController {
         List<MerchantService> services = merchantServiceService.getByIds(servicesId);
 
         // count reservations and mark them as paid
-        int totalPrice = 0;
+        double totalReservations = 0;
         for (Reservation res : reservations) {
-            double pricePerDay = res.getAccommodation().getPricePerDay();
-            totalPrice += res.getDuration().getStandardDays() * pricePerDay;
+            if(res.getTotalPrice() == 0){
+                res.computeStandardTotalPrice();
+            }
+            totalReservations += res.getTotalPrice();
             res.setPaid(true);
         }
         reservationService.update(reservations);
 
         // count services
+        double totalServices = 0;
         for (MerchantService srv : services) {
-            totalPrice += srv.getTotalPrice();
+            totalServices += srv.getTotalPrice();
             srv.setPaid(true);
         }
         merchantServiceService.update(services);
 
-        model.addAttribute("totalPrice", totalPrice);
+        double totalPrice = totalServices + totalReservations;
+
+        model.addAttribute("totalPrice", Utils.roundPrice(totalPrice));
+        model.addAttribute("totalServices", Utils.roundPrice(totalServices));
+        model.addAttribute("totalReservations", Utils.roundPrice(totalReservations));
         model.addAttribute("customer", customer);
         model.addAttribute("reservations", reservations);
         model.addAttribute("services", services);

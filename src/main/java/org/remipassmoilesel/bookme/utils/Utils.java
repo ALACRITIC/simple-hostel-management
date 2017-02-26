@@ -225,5 +225,7 @@ public class Utils {
         return Color.decode(hexStr);
     }
 
-
+    public static double roundPrice(double price) {
+        return Math.round(price * 100) / 100;
+    }
 }
