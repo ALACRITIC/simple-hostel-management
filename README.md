@@ -4,9 +4,13 @@
 
 Based on Spring Boot, work in progress. 
 
+### Running demonstration
+
+Available [here](http://vps303506.ovh.net:20070/). Can be stopped when I'm working on my server.
+
 ### Pre-alpha release, just for fun
 
-You can download a pre-alpha version [here](https://github.com/remipassmoilesel/simple-hostel-management/releases/tag/0.1.0)
+You can download a pre-alpha version [here](https://github.com/remipassmoilesel/simple-hostel-management/releases/tag/0.1.0).
 
     ⚠⚠⚠ Not ready to use for now, please be patient :)
 
