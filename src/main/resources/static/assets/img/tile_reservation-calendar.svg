@@ -25,17 +25,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.70000001"
-     inkscape:cx="-72.677042"
-     inkscape:cy="92.833898"
+     inkscape:zoom="1.979899"
+     inkscape:cx="74.566856"
+     inkscape:cy="22.106706"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
      inkscape:window-width="1366"
      inkscape:window-height="715"
-     inkscape:window-x="1920"
-     inkscape:window-y="312"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata5">
@@ -55,62 +55,62 @@
      id="layer1"
      transform="translate(0,-257.3125)">
     <g
-       id="g4855-3"
-       transform="matrix(0.06366504,0,0,0.06366504,3.5454998,257.43676)"
+       id="g4855"
+       transform="matrix(0.06366504,0,0,0.06366504,1.1606353,257.43676)"
        style="fill:#2c3e50;fill-opacity:1">
       <g
-         id="g4799-6"
+         id="g4799"
          style="fill:#2c3e50;fill-opacity:1">
         <path
-           id="path4797-7"
+           id="path4797"
            d="M 160,256 H 96 v -64 h 64 z m 128,-64 h -64 v 64 h 64 z m 128,0 h -64 v 64 h 64 z M 160,288 H 96 v 64 h 64 z m 128,0 h -64 v 64 h 64 z m 128,0 h -64 v 64 h 64 z M 160,384 H 96 v 64 h 64 z m 128,0 h -64 v 64 h 64 z M 128,96 c 17.672,0 32,-14.313 32,-32 V 32 C 160,14.312 145.672,0 128,0 110.328,0 96,14.313 96,32 v 32 c 0,17.688 14.328,32 32,32 z M 512,64 V 512 H 0 V 64 h 80 c 0,26.469 21.531,48 48,48 26.469,0 48,-21.531 48,-48 h 160 c 0,26.469 21.531,48 48,48 26.469,0 48,-21.531 48,-48 z m -32,96 H 32 V 480 H 480 Z M 384,96 c 17.688,0 32,-14.313 32,-32 V 32 C 416,14.312 401.688,0 384,0 366.312,0 352,14.313 352,32 v 32 c 0,17.688 14.312,32 32,32 z"
            inkscape:connector-curvature="0"
            style="fill:#2c3e50;fill-opacity:1" />
       </g>
       <g
-         id="g4801-5"
+         id="g4801"
          style="fill:#2c3e50;fill-opacity:1" />
       <g
-         id="g4803-3"
+         id="g4803"
          style="fill:#2c3e50;fill-opacity:1" />
       <g
-         id="g4805-5"
+         id="g4805"
          style="fill:#2c3e50;fill-opacity:1" />
       <g
-         id="g4807-6"
+         id="g4807"
          style="fill:#2c3e50;fill-opacity:1" />
       <g
-         id="g4809-2"
+         id="g4809"
          style="fill:#2c3e50;fill-opacity:1" />
       <g
-         id="g4811-9"
+         id="g4811"
          style="fill:#2c3e50;fill-opacity:1" />
       <g
-         id="g4813-1"
+         id="g4813"
          style="fill:#2c3e50;fill-opacity:1" />
       <g
-         id="g4815-2"
+         id="g4815"
          style="fill:#2c3e50;fill-opacity:1" />
       <g
-         id="g4817-7"
+         id="g4817"
          style="fill:#2c3e50;fill-opacity:1" />
       <g
-         id="g4819-0"
+         id="g4819"
          style="fill:#2c3e50;fill-opacity:1" />
       <g
-         id="g4821-9"
+         id="g4821"
          style="fill:#2c3e50;fill-opacity:1" />
       <g
-         id="g4823-3"
+         id="g4823"
          style="fill:#2c3e50;fill-opacity:1" />
       <g
-         id="g4825-6"
+         id="g4825"
          style="fill:#2c3e50;fill-opacity:1" />
       <g
-         id="g4827-0"
+         id="g4827"
          style="fill:#2c3e50;fill-opacity:1" />
       <g
-         id="g4829-6"
+         id="g4829"
          style="fill:#2c3e50;fill-opacity:1" />
     </g>
   </g>
