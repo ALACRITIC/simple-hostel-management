@@ -121,6 +121,11 @@ public class Utils {
         return randomNum;
     }
 
+    public static double randDouble(double min, double max) {
+        double randomValue = min + (max - min) * rand.nextDouble();
+        return randomValue;
+    }
+
     /**
      * Return a random value from list
      *
@@ -219,4 +224,6 @@ public class Utils {
     public static Color hexToColor(String hexStr) {
         return Color.decode(hexStr);
     }
+
+
 }

@@ -1,0 +1,191 @@
+package org.remipassmoilesel.bookme.utils.testdata;
+
+import org.joda.time.DateTime;
+import org.remipassmoilesel.bookme.accommodations.Accommodation;
+import org.remipassmoilesel.bookme.accommodations.AccommodationService;
+import org.remipassmoilesel.bookme.accommodations.Type;
+import org.remipassmoilesel.bookme.customers.Customer;
+import org.remipassmoilesel.bookme.customers.CustomerService;
+import org.remipassmoilesel.bookme.messages.Message;
+import org.remipassmoilesel.bookme.messages.MessageService;
+import org.remipassmoilesel.bookme.reservations.Reservation;
+import org.remipassmoilesel.bookme.reservations.ReservationService;
+import org.remipassmoilesel.bookme.services.MerchantService;
+import org.remipassmoilesel.bookme.services.MerchantServiceService;
+import org.remipassmoilesel.bookme.services.MerchantServiceType;
+import org.remipassmoilesel.bookme.services.MerchantServiceTypesService;
+import org.remipassmoilesel.bookme.utils.Utils;
+
+import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * Created by remipassmoilesel on 26/02/17.
+ */
+public class TestDataFactory {
+
+    private final static List<Color> colors = Arrays.asList(Color.blue,
+            Color.red,
+            Color.green,
+            Color.gray,
+            Color.darkGray,
+            Color.pink,
+            Color.orange);
+
+    private final static List<String> firstnames = Arrays.asList(
+            "Jean", "Paul",
+            "Claude", "Evelyne",
+            "Marion", "Alice");
+
+    private final static List<String> lastnames = Arrays.asList(
+            "Paluatus", "Claduatos",
+            "Pinel", "Montant",
+            "Descendant", "Huaraz");
+
+    // create service types
+    private static List<String> serviceTypeNames = Arrays.asList(
+            "Beer",
+            "Coca-cola",
+            "Sandwich",
+            "Guided-tour"
+    );
+
+    public static Color getRandomColor() {
+        return (Color) Utils.randValueFrom(colors);
+    }
+
+    public static String getRandomFirstName() {
+        return (String) Utils.randValueFrom(firstnames);
+    }
+
+    public static String getRandomLastName() {
+        return (String) Utils.randValueFrom(lastnames);
+    }
+
+    public static ArrayList<Accommodation> createAccommodations(int number, AccommodationService accommodationService) throws IOException {
+
+        ArrayList<Accommodation> accommodations = new ArrayList<>();
+        for (int i = 0; i < number; i++) {
+            Accommodation accomm = new Accommodation("A" + i, 2, Utils.randDouble(5, 15),
+                    Utils.generateLoremIpsum(300), Type.ROOM, getRandomColor());
+
+            accommodationService.create(accomm);
+            accommodations.add(accomm);
+        }
+
+        return accommodations;
+    }
+
+    public static ArrayList<Customer> createCustomers(int number, CustomerService customerService) throws IOException {
+
+        // create fake customers
+        ArrayList<Customer> customers = new ArrayList<>();
+        for (int i = 0; i < number; i++) {
+            Customer customer = new Customer((String) getRandomFirstName(), getRandomLastName() + " " + i, "+" + System.currentTimeMillis() + i);
+
+            customers.add(customer);
+            customerService.create(customer);
+        }
+
+        return customers;
+    }
+
+
+    public static ArrayList<Reservation> createReservations(int number, List<Accommodation> rooms,
+                                                            List<Customer> customers,
+                                                            DateTime startDate,
+                                                            ReservationService reservationService) throws Exception {
+
+        // create customers and reservations
+        ArrayList<Reservation> reservations = new ArrayList<>();
+        for (int i = 0; i < number; i++) {
+            Customer customer = customers.get(i);
+            Accommodation accommodation = rooms.get(Utils.randInt(0, rooms.size() - 1));
+            Reservation reservation = new Reservation(customer, accommodation, 1,
+                    startDate.plusDays(i).toDate(),
+                    startDate.plusDays(i + Utils.randInt(3, 6)).toDate());
+            reservation.computeStandardTotalPrice();
+
+            reservationService.create(reservation);
+            reservations.add(reservation);
+        }
+
+        return reservations;
+    }
+
+    public static ArrayList<MerchantServiceType> createServiceTypes(MerchantServiceTypesService merchantServiceTypesService) throws IOException {
+
+        ArrayList<MerchantServiceType> serviceTypes = new ArrayList<>();
+        for (int i = 0; i < serviceTypeNames.size(); i++) {
+            Color color = getRandomColor();
+            MerchantServiceType st = new MerchantServiceType(serviceTypeNames.get(i), 5 + i,
+                    Utils.generateLoremIpsum(400), color);
+
+            serviceTypes.add(st);
+            merchantServiceTypesService.create(st);
+        }
+
+        return serviceTypes;
+    }
+
+    public static ArrayList<MerchantService> createServices(int number, List<Customer> customers,
+                                                            List<MerchantServiceType> services,
+                                                            DateTime startDate,
+                                                            MerchantServiceService merchantServiceService) throws Exception{
+
+        ArrayList<MerchantService> bills = new ArrayList<>();
+
+        // create non scheduled services
+        for (int i = 0; i < number / 2; i++) {
+            MerchantService serv = new MerchantService(
+                    (MerchantServiceType) Utils.randValueFrom(services),
+                    (Customer) Utils.randValueFrom(customers),
+                    Utils.randInt(5, 25),
+                    "",
+                    startDate.plusDays(Utils.randInt(1, 31)).toDate(),
+                    false,
+                    null
+            );
+
+            merchantServiceService.create(serv);
+            bills.add(serv);
+        }
+
+        // create scheduled services
+        for (int i = number / 2; i < number; i++) {
+            DateTime srvDate = startDate.plusDays(Utils.randInt(1, 31));
+            MerchantService serv = new MerchantService(
+                    (MerchantServiceType) Utils.randValueFrom(services),
+                    (Customer) Utils.randValueFrom(customers),
+                    Utils.randInt(5, 25),
+                    Utils.generateLoremIpsum(400),
+                    srvDate.toDate(),
+                    true,
+                    srvDate.plusDays(Utils.randInt(1, 6)).toDate()
+            );
+            merchantServiceService.create(serv);
+            bills.add(serv);
+        }
+
+        // create scheduled services
+        return bills;
+    }
+
+    public static ArrayList<Message> createMessages(int number, MessageService messageService) throws IOException {
+
+        ArrayList<Message> messages = new ArrayList<>();
+        for (int i = 0; i < number; i++) {
+            Message msg = new Message(null, Utils.generateLoremIpsum(2000));
+            messageService.create(msg);
+            messages.add(msg);
+        }
+
+        return messages;
+    }
+
+
+
+}
