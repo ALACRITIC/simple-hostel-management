@@ -5,7 +5,7 @@ import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.accommodations.Accommodation;
 import org.remipassmoilesel.bookme.accommodations.Type;
-import org.remipassmoilesel.bookme.admin.MainManu;
+import org.remipassmoilesel.bookme.admin.MainMenu;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.messages.Message;
@@ -103,7 +103,7 @@ public class MainController {
     @RequestMapping(value = Mappings.APPLICATION_ROOT, method = RequestMethod.GET)
     public String showMainMenu(Model model) throws IOException {
 
-        MainManu.includeMenus(model);
+        MainMenu.includeMenus(model);
         Mappings.includeMappings(model);
 
         // name of template

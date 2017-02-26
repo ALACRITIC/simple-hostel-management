@@ -34,10 +34,6 @@ import java.util.ArrayList;
 public class PopulateTables {
 
     private static final Logger logger = LoggerFactory.getLogger(PopulateTables.class);
-    private final Color cadetblue;
-    private final Color blueviolet;
-    private final Color darkviolet;
-    private final Color darkslategray;
 
     @Autowired
     private ReservationService reservationService;
@@ -58,10 +54,7 @@ public class PopulateTables {
     private MerchantServiceService merchantServicesService;
 
     public PopulateTables() {
-        cadetblue = DefaultColors.get("cadetblue").getColor();
-        blueviolet = DefaultColors.get("blueviolet").getColor();
-        darkslategray = DefaultColors.get("darkslategray").getColor();
-        darkviolet = DefaultColors.get("darkviolet").getColor();
+
     }
 
     @RequestMapping(value = Mappings.POPULATE_TABLES, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
