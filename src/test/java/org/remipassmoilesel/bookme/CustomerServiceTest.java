@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
+import org.remipassmoilesel.bookme.utils.testdata.TestDataFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +36,9 @@ public class CustomerServiceTest {
     @Test
     public void test() throws IOException {
 
-        int customerNumber = 10;
-        ArrayList<Customer> customers = new ArrayList<>();
-        for (int i = 0; i < customerNumber; i++) {
-            Customer customer = new Customer("Jean_" + i, "Paul_" + i, "+00000" + i);
-            customerService.create(customer);
+        customerService.clearAllEntities();
 
-            customers.add(customer);
-        }
+        ArrayList<Customer> customers = TestDataFactory.createCustomers(10, customerService);
 
         // basic equality test
         assertTrue("Equality test 1", customers.get(0).equals(customers.get(0)));
