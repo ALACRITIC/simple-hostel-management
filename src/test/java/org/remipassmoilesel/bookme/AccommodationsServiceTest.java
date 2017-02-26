@@ -2,10 +2,10 @@ package org.remipassmoilesel.bookme;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
+import org.remipassmoilesel.bookme.utils.testdata.TestDataFactory;
 import org.remipassmoilesel.bookme.accommodations.Accommodation;
 import org.remipassmoilesel.bookme.accommodations.AccommodationService;
-import org.remipassmoilesel.bookme.accommodations.Type;
+import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -38,15 +37,7 @@ public class AccommodationsServiceTest {
     public void test() throws IOException {
 
         accommodationService.clearAllEntities();
-
-        int accommodationsNumber = 10;
-        ArrayList<Accommodation> accommodations = new ArrayList<>();
-        for (int i = 0; i < accommodationsNumber; i++) {
-            Accommodation accomm = new Accommodation("A" + i, 2, 2.5, "Comment " + i, Type.ROOM, Color.blue);
-            accommodationService.create(accomm);
-
-            accommodations.add(accomm);
-        }
+        ArrayList<Accommodation> accommodations = TestDataFactory.createAccommodations(10, accommodationService);
 
         // basic equality test
         assertTrue("Equality test 1", accommodations.get(0).equals(accommodations.get(0)));
