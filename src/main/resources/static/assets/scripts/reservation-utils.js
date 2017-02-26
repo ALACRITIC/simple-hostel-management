@@ -37,15 +37,15 @@ var ReservationUtils = {
 
     newReservation: function (date, accommodation) {
 
-        if(!date){
+        if (!date) {
             throw "Date is mandatory"
         }
 
         var url = UrlTree.getShowReservationUrl() + "?date=" + date;
-        if(accommodation){
+        if (accommodation) {
             url += "&accommodation=" + accommodation;
         }
-        
+
         window.location = url;
     },
 
@@ -88,7 +88,7 @@ var ReservationUtils = {
         window.location = UrlTree.getDeleteReservationUrl() + "?id=" + reservationId + "&token=" + token;
     },
 
-    searchForCustomer: function (customerId) {
+    searchForCustomer: function (customerId, paid) {
 
         var defer = $.Deferred();
 
@@ -96,11 +96,14 @@ var ReservationUtils = {
             throw "Customer id is null";
         }
 
+        var data = {customerId: customerId};
+        if (typeof paid !== "undefined") {
+            data.paid = paid;
+        }
+
         $.ajax({
             url: UrlTree.getReservationSearchUrl(),
-            data: {
-                customerId: customerId
-            }
+            data: data
         })
             .done(function (response) {
                 var result = [];

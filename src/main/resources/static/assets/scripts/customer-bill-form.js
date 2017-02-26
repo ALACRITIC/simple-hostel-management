@@ -14,8 +14,8 @@ var CustomerBillForm = {
         var clientSearch = $("#exportHtmlClientSeachTextField");
         var customerId = $("#exportHtmlCustomerId");
 
+        // enable auto complete on search field
         clientSearch.autocomplete({
-            //source: [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ]
             source: function (request, response) {
 
                 CustomerUtils.search(request.term)
@@ -48,87 +48,167 @@ var CustomerBillForm = {
                         response(["Error !"]);
                     });
             },
+
+            /**
+             * Search for items to bill on select
+             * @param event
+             * @param ui
+             */
             select: function (event, ui) {
                 customerId.val(ui.item.__customer_id);
-                self.searchDates(ui.item.__customer_id);
+                self.searchItems(ui.item.__customer_id);
             }
         });
 
+        // export on valid button click
         validButton.click(function () {
             self.exportBillHtml();
         });
 
+        // select all non-billed items on button click
         $("#exportHtmlSelectAllDates").click(function () {
             $("#exportHtmlCheckboxesArea input[type=checkbox]").prop('checked', true);
         });
 
     },
 
-    searchDates: function (customerId) {
+    /**
+     * Search for items to bill
+     * @param customerId
+     */
+    searchItems: function (customerId) {
 
-        var customerReservationDates = $("#exportHtmlReservationDatesResult");
-        var customerServiceDates = $("#exportHtmlServiceDatesResult");
+        var self = CustomerBillForm;
 
-        customerReservationDates.empty();
-        customerServiceDates.empty();
+        var customerReservationsResult = $("#exportHtmlReservationsResult");
+        var customerOldReservationsResult = $("#exportHtmlOldReservationsResult");
+        var customerServicesResult = $("#exportHtmlServicesResult");
+        var customerOldServicesResult = $("#exportHtmlOldServicesResult");
 
-        // search or reservations
-        ReservationUtils.searchForCustomer(customerId)
+        customerReservationsResult.empty();
+        customerOldReservationsResult.empty();
+
+        customerServicesResult.empty();
+        customerOldServicesResult.empty();
+
+        // search for non-billed reservations
+        ReservationUtils.searchForCustomer(customerId, false)
             .then(function (response) {
-
-                customerReservationDates.append($("<div>").html("<div style='font-weight: bolder'>Reservations</div>"));
-
-                $.each(response, function (index, element) {
-
-                    var input = $('<input class="form-check-input" type="checkbox" name="reservationsToExport" value="' + element.id + '"/>');
-                    var label = $('<label class="form-check-label"></label>')
-                        .html("&nbsp;&nbsp;" + moment(element.begin).format('DD/MM/YYYY')
-                            + "&nbsp;>&nbsp;" + moment(element.end).format('DD/MM/YYYY'));
-
-                    customerReservationDates.append($("<div>").append(label.prepend(input)));
-                });
-
-                if (response.length < 1) {
-                    customerReservationDates.append("<div>No reservations for this customer</div>");
-                }
-
+                self.displayReservationResults(response, customerReservationsResult);
             })
             .fail(function (error) {
                 console.error(error);
-                customerReservationDates.append("<div>Error, please enter a valid customer name</div>");
+                customerReservationsResult.append("<div>Error, please enter a valid customer name</div>");
+            });
+
+        // search for billed reservations
+        ReservationUtils.searchForCustomer(customerId, true)
+            .then(function (response) {
+                self.displayReservationResults(response, customerOldReservationsResult);
+            })
+            .fail(function (error) {
+                console.error(error);
+                customerReservationsResult.append("<div>Error, please enter a valid customer name</div>");
             });
 
         // search for services
-        ServiceUtils.searchForCustomer(customerId)
+        ServiceUtils.searchForCustomer(customerId, false)
             .then(function (response) {
-
-                customerServiceDates.append($("<div>").html("<div style='font-weight: bolder'>Services</div>"));
-
-                $.each(response, function (index, element) {
-
-                    var input = $('<input class="form-check-input" type="checkbox" name="servicesToExport" value="' + element.id + '"/>');
-                    var label = $('<label class="form-check-label"></label>')
-                        .html("&nbsp;&nbsp;" + moment(element.purchaseDate).format('DD/MM/YYYY'));
-
-                    customerServiceDates.append($("<div>").append(label.prepend(input)));
-                });
-
-                if (response.length < 1) {
-                    customerServiceDates.append("<div>No services for this customer</div>");
-                }
-
+                self.displayServicesResults(response, customerServicesResult);
             })
             .fail(function (error) {
                 console.error(error);
-                customerServiceDates.append("<div>Error, please enter a valid customer name</div>");
+                customerServicesResult.append("<div>Error, please enter a valid customer name</div>");
             });
 
+        // search for services
+        ServiceUtils.searchForCustomer(customerId, true)
+            .then(function (response) {
+                self.displayServicesResults(response, customerOldServicesResult);
+            })
+            .fail(function (error) {
+                console.error(error);
+                customerServicesResult.append("<div>Error, please enter a valid customer name</div>");
+            });
+
+    },
+
+    displayReservationResults: function (results, target) {
+
+        var table = $("<table class='table table-striped'>");
+
+        var thead = $("<thead>");
+        thead.append("<tr><td colspan='10' style='font-weight: bolder'>Reservations</td></tr>");
+        thead.append("<tr>"
+            + "<th></th>"
+            + "<th>Begin</th>"
+            + "<th>End</th>"
+            + "<th>Accommodation</th>"
+            + "<th>Price</th>"
+            + "</tr>");
+        table.append(thead);
+
+        var tbody = $('<tbody>');
+        $.each(results, function (index, element) {
+
+            var tr = $("<tr>");
+            tr.append('<td><input class="form-check-input" type="checkbox" '
+                + 'name="reservationsToExport" value="' + element.id + '"/></td>');
+            tr.append('<td>' + moment(element.begin).format('DD/MM/YYYY') + '</td>');
+            tr.append('<td>' + moment(element.end).format('DD/MM/YYYY') + '</td>');
+            tr.append('<td>' + element.accommodation.name + '</td>');
+            tr.append('<td>' + element.totalPrice + '</td>');
+
+            tbody.append(tr);
+        });
+
+        if (results.length < 1) {
+            tbody.append("<tr><td colspan='10'>No reservations found</td></tr>")
+        }
+
+        table.append(tbody);
+        target.append(table);
+    },
+
+    displayServicesResults: function (results, target) {
+
+        var table = $("<table class='table table-striped'>");
+
+        var thead = $("<thead>");
+        thead.append("<tr><td colspan='10' style='font-weight: bolder'>Services</td></tr>");
+        thead.append("<tr>"
+            + "<th></th>"
+            + "<th>Purchase date</th>"
+            + "<th>Name</th>"
+            + "<th>Price</th>"
+            + "</tr>");
+        table.append(thead);
+
+        var tbody = $('<tbody>');
+        $.each(results, function (index, element) {
+
+            var tr = $("<tr>");
+            tr.append('<td><input class="form-check-input" type="checkbox" '
+                + 'name="servicesToExport" value="' + element.id + '"/></td>');
+            tr.append('<td>' + moment(element.purchaseDate).format('DD/MM/YYYY') + '</td>');
+            tr.append('<td>' + element.serviceType.name + '</td>');
+            tr.append('<td>' + element.totalPrice + '</td>');
+
+            tbody.append(tr);
+        });
+
+        if (results.length < 1) {
+            tbody.append("<tr><td colspan='10'>No services found</td></tr>")
+        }
+
+        table.append(tbody);
+        target.append(table);
     },
 
     exportBillHtml: function () {
 
         var errorMessage = "<div>Please select a customer, and then select dates for billing.</div>";
-        var datesWarning = $("#exportHtmldatesWarning");
+        var datesWarning = $("#exportHtmlDatesWarning");
         var days = $("input[name=reservationsToExport]");
 
         datesWarning.empty();

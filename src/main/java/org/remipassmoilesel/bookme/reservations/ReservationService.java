@@ -3,12 +3,12 @@ package org.remipassmoilesel.bookme.reservations;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import org.joda.time.DateTime;
-import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
-import org.remipassmoilesel.bookme.customers.Customer;
-import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.accommodations.Accommodation;
 import org.remipassmoilesel.bookme.accommodations.AccommodationService;
 import org.remipassmoilesel.bookme.accommodations.Type;
+import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
+import org.remipassmoilesel.bookme.customers.Customer;
+import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.utils.AbstractDaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -239,10 +239,24 @@ public class ReservationService extends AbstractDaoService<Reservation> {
         }
     }
 
-    public List<Reservation> getByCustomerId(Long customerId, long limit, long offset) throws IOException {
+    public List<Reservation> getByCustomerId(Long customerId, Boolean paid, long limit, long offset) throws IOException {
         try {
             QueryBuilder queryBuilder = dao.queryBuilder();
-            queryBuilder.where().eq(Reservation.CUSTOMER_FIELD_NAME, customerId);
+            Where where = queryBuilder.where();
+
+            // search for paid or non-paid only
+            if (paid != null) {
+                where.and(
+                        where.eq(Reservation.CUSTOMER_FIELD_NAME, customerId),
+                        where.eq(Reservation.PAID_FIELD_NAME, paid)
+                );
+            }
+
+            // search by customer id
+            else {
+                where.eq(Reservation.CUSTOMER_FIELD_NAME, customerId);
+            }
+
             queryBuilder.orderBy(Reservation.DATEBEGIN_FIELD_NAME, true);
             queryBuilder.limit(limit);
             queryBuilder.offset(offset);

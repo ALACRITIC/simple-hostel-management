@@ -97,7 +97,7 @@ public class ReservationController {
             @RequestParam(value = "id", required = true) Long customerId,
             Model model) throws IOException {
 
-        List<Reservation> reservationsList = reservationService.getByCustomerId(customerId, 30, 0);
+        List<Reservation> reservationsList = reservationService.getByCustomerId(customerId, null, 30, 0);
 
         model.addAttribute("customer", customerService.getById(customerId));
         model.addAttribute("reservationsList", reservationsList);
@@ -413,12 +413,13 @@ public class ReservationController {
 
     }
 
-    @RequestMapping(value = Mappings.RESERVATIONS_JSON_BY_CUSTOMER, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = Mappings.RESERVATIONS_JSON_SEARCH, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<Reservation> searchReservations(
-            @RequestParam("customerId") long customerId) throws Exception {
+            @RequestParam("customerId") Long customerId,
+            @RequestParam(value = "paid", defaultValue = "null") Boolean paid) throws Exception {
 
-        return reservationService.getByCustomerId(customerId, 200, 0);
+        return reservationService.getByCustomerId(customerId, paid, 200, 0);
 
     }
 

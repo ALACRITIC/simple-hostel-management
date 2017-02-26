@@ -7,8 +7,13 @@ body {
 #mainTable {
     margin: auto;
     border: solid gray 2px;
+
+    /* A4 min */
     width: 190mm;
+    min-height: 270mm;
+
     padding: 5mm;
     margin: 10mm;
+
 }
 

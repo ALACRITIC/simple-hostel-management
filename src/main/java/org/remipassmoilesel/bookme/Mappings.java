@@ -31,7 +31,7 @@ public class Mappings {
     public static final String LOGOUT_URL = APPLICATION_ROOT + "/logout";
     public static final String LOGOUT_SUCCESS_URL = APPLICATION_ROOT + "/login?logout";
 
-    public static final String RESERVATIONS_ROOT = APPLICATION_ROOT + "/reservation";
+    public static final String RESERVATIONS_ROOT = APPLICATION_ROOT + "/reservations";
     public static final String RESERVATIONS_LASTS = RESERVATIONS_ROOT + "/lasts";
     public static final String RESERVATIONS_NEXT_CHECKOUTS = RESERVATIONS_ROOT + "/nextcheckouts";
     public static final String RESERVATIONS_CALENDAR = RESERVATIONS_ROOT + "/calendar";
@@ -40,7 +40,7 @@ public class Mappings {
     public static final String RESERVATIONS_JSON = RESERVATIONS_ROOT + "/json";
     public static final String RESERVATIONS_JSON_GET = RESERVATIONS_JSON + "/get";
     public static final String RESERVATIONS_JSON_GET_LASTS = RESERVATIONS_JSON + "/lasts";
-    public static final String RESERVATIONS_JSON_BY_CUSTOMER = RESERVATIONS_JSON + "/bycustomer";
+    public static final String RESERVATIONS_JSON_SEARCH = RESERVATIONS_JSON + "/search";
     public static final String RESERVATIONS_ACCOMMODATIONS_AVAILABLE_JSON_GET = RESERVATIONS_JSON + "/free-accommodations";
 
     public static final String RESERVATIONS_BY_CUSTOMER = RESERVATIONS_ROOT + "/bycustomer";

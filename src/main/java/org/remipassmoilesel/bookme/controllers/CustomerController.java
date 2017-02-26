@@ -265,24 +265,26 @@ public class CustomerController {
         List<Reservation> reservations = reservationService.getByIds(reservationsId);
         List<MerchantService> services = merchantServiceService.getByIds(servicesId);
 
-        model.addAttribute("customer", customer);
-        model.addAttribute("reservations", reservations);
-        model.addAttribute("services", services);
-
-        // count reservations
+        // count reservations and mark them as paid
         int totalPrice = 0;
         for (Reservation res : reservations) {
             double pricePerDay = res.getAccommodation().getPricePerDay();
             totalPrice += res.getDuration().getStandardDays() * pricePerDay;
+            res.setPaid(true);
         }
+        reservationService.update(reservations);
 
         // count services
         for (MerchantService srv : services) {
             totalPrice += srv.getTotalPrice();
+            srv.setPaid(true);
         }
+        merchantServiceService.update(services);
 
         model.addAttribute("totalPrice", totalPrice);
-
+        model.addAttribute("customer", customer);
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("services", services);
         return Templates.CUSTOMERS_PRINT_BILL;
     }
 

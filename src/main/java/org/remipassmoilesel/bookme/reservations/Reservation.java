@@ -1,5 +1,6 @@
 package org.remipassmoilesel.bookme.reservations;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -83,6 +84,7 @@ public class Reservation {
         this.reservationDate = reservationDate;
     }
 
+    @JsonIgnore
     public Duration getDuration() {
         return new Duration(new DateTime(getBegin()), new DateTime(getEnd()));
     }
@@ -167,9 +169,11 @@ public class Reservation {
         this.totalPrice = totalPrice;
     }
 
+    @JsonIgnore
     public void computeStandardTotalPrice() {
         Duration duration = new Duration(getBegin().getTime(), getEnd().getTime());
-        totalPrice = getAccommodation().getPricePerDay() * duration.getStandardDays();
+        double price = getAccommodation().getPricePerDay() * (duration.getStandardHours() / 18);
+        totalPrice = Math.round(price * 100) / 100;
     }
 
     @Override

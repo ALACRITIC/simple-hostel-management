@@ -441,7 +441,7 @@ public class MerchantServicesController {
             if (customer == null) {
                 throw new NullPointerException("Invalid customer: " + customerId);
             }
-            servicesList = merchantServiceService.getByCustomerId(customerId, true);
+            servicesList = merchantServiceService.getByCustomerId(customerId, null, true);
         } catch (Exception e) {
             logger.error("Error while retrieving services: ", e);
             errorMessage = "Error while processing services, please try again later.";
@@ -482,9 +482,10 @@ public class MerchantServicesController {
     @RequestMapping(value = Mappings.SERVICES_JSON_SEARCH, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<MerchantService> searchServices(
-            @RequestParam(value = "customerId", required = true) Long customerId) throws Exception {
+            @RequestParam(value = "customerId", required = true) Long customerId,
+            @RequestParam(value = "paid", required = false) Boolean paid) throws Exception {
 
-        List<MerchantService> result = merchantServiceService.getByCustomerId(customerId, true);
+        List<MerchantService> result = merchantServiceService.getByCustomerId(customerId, paid, true);
 
         return result;
 

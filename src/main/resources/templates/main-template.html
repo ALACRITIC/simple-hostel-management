@@ -51,7 +51,7 @@
         UrlTree.setExportCsvUrl(/*[[${mappings.get('ADMINISTRATION_EXPORT_RESERVATIONS_CSV')}]]*/ "/wrong/json/feed");
         UrlTree.setDeleteServiceUrl(/*[[${mappings.get('SERVICES_DELETE')}]]*/ "/wrong/json/feed");
         UrlTree.setDeleteServiceTypeUrl(/*[[${mappings.get('SERVICE_TYPES_DELETE')}]]*/ "/wrong/json/feed");
-        UrlTree.setReservationSearchUrl(/*[[${mappings.get('RESERVATIONS_JSON_BY_CUSTOMER')}]]*/ "/wrong/json/feed");
+        UrlTree.setReservationSearchUrl(/*[[${mappings.get('RESERVATIONS_JSON_SEARCH')}]]*/ "/wrong/json/feed");
         UrlTree.setServiceSearchUrl(/*[[${mappings.get('SERVICES_JSON_SEARCH')}]]*/ "/wrong/json/feed");
         UrlTree.setMainMenuUrl(/*[[${mappings.get('APPLICATION_ROOT')}]]*/ "/wrong/json/feed");
 
@@ -129,7 +129,7 @@
                         <li><a th:href="${mappings.get('CUSTOMERS_SEARCH')}">Search</a></li>
                         <li><a th:href="${mappings.get('CUSTOMERS_SHOW_ALL')}">Show lasts</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a th:href="${mappings.get('CUSTOMERS_BILL_FORM')}">Billing a customer</a></li>
+                        <li><a th:href="${mappings.get('CUSTOMERS_BILL_FORM')}">Bill a customer</a></li>
                     </ul>
                 </li>
 

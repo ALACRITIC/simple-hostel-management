@@ -196,4 +196,23 @@ public abstract class AbstractDaoService<T> {
         }
     }
 
+    /**
+     * Update specified entities in database
+     *
+     * @param list
+     * @return
+     * @throws IOException
+     */
+    public int update(List<T> list) throws IOException {
+        int result = 0;
+        try {
+            for (T obj : list) {
+                result += dao.update(obj);
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+
 }

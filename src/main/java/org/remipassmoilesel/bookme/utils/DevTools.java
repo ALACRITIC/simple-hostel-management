@@ -163,16 +163,17 @@ public class DevTools {
     private ArrayList<Reservation> createReservations(int number, List<Accommodation> rooms, List<Customer> customers,
                                                       DateTime startDate) throws Exception {
 
-
         // create customers and reservations
         ArrayList<Reservation> reservations = new ArrayList<>();
         for (int i = 0; i < number; i++) {
             Customer customer = customers.get(i);
             Accommodation accommodation = rooms.get(Utils.randInt(0, rooms.size() - 1));
-            Reservation reservation = reservationService.create(customer, accommodation, 1,
+            Reservation reservation = new Reservation(customer, accommodation, 1,
                     startDate.plusDays(i).toDate(),
                     startDate.plusDays(i + Utils.randInt(3, 6)).toDate());
             reservation.computeStandardTotalPrice();
+
+            reservationService.create(reservation);
             reservations.add(reservation);
         }
 

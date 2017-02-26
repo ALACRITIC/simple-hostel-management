@@ -10,18 +10,22 @@
 <body>
 
 <table id="mainTable">
-    <tr>
-        <td><h1>Recapitulative invoice</h1></td>
-    </tr>
 
+    <tr>
+        <td colspan="10"><h1>Recapitulative invoice</h1></td>
+    </tr>
 
     <!-- Customer -->
     <tr>
         <td><h3>Customer</h3></td>
     </tr>
     <tr>
-        <td>Name:</td>
+        <td style="width: 20%">Name:</td>
         <td th:text="${customer?.getNameString()}">Jean Paul</td>
+    </tr>
+    <tr>
+        <td>Phone number:</td>
+        <td th:text="${customer?.getPhonenumber()}">+055505050050</td>
     </tr>
 
     <!-- Reservations -->
@@ -29,7 +33,7 @@
         <td><h3>Reservations</h3></td>
     </tr>
     <tr th:each="res : ${reservations}">
-        <td colspan="2">
+        <td colspan="10">
             <table style="width: 100%">
                 <tr>
                     <td style="width: 25%">Begin:</td>
@@ -64,7 +68,7 @@
         <td><h3>Services</h3></td>
     </tr>
     <tr>
-        <td colspan="2">
+        <td colspan="10">
             <table style="width: 100%" th:if="${#lists.isEmpty(services) == false}">
                 <tr>
                     <td>Name</td>
@@ -86,7 +90,7 @@
 
     <!-- Total -->
     <tr>
-        <td><h4>Total</h4></td>
+        <td><h3>Total</h3></td>
     </tr>
     <tr>
         <td>Total price:</td>

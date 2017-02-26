@@ -52,19 +52,22 @@ var ServiceUtils = {
         });
     },
 
-    searchForCustomer: function (customerId) {
-
+    searchForCustomer: function (customerId, paid) {
+        
         var defer = $.Deferred();
 
         if (!customerId) {
             throw "Customer id is null";
         }
+        
+        var data = {customerId: customerId};
+        if (typeof paid !== "undefined") {
+            data.paid = paid;
+        }
 
         $.ajax({
             url: UrlTree.getServiceSearchUrl(),
-            data: {
-                customerId: customerId
-            }
+            data: data
         })
             .done(function (response) {
                 var result = [];

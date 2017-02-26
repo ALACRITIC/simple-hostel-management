@@ -4,6 +4,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
 import org.remipassmoilesel.bookme.customers.CustomerService;
+import org.remipassmoilesel.bookme.reservations.Reservation;
 import org.remipassmoilesel.bookme.utils.AbstractDaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,16 +104,28 @@ public class MerchantServiceService extends AbstractDaoService<MerchantService> 
         }
     }
 
-    public List<MerchantService> getByCustomerId(Long customerId, boolean orderAscending) throws IOException {
+    public List<MerchantService> getByCustomerId(Long customerId, Boolean paid, boolean orderAscending) throws IOException {
 
         try {
+
             QueryBuilder<MerchantService, String> queryBuilder = dao.queryBuilder();
             queryBuilder.orderBy(MerchantService.PURCHASE_DATE_FIELD_NAME, orderAscending);
             Where<MerchantService, String> where = queryBuilder.where();
 
-            where.eq(MerchantService.CUSTOMER_FIELD_NAME, customerId);
-            List<MerchantService> results = queryBuilder.query();
+            // search for paid or non-paid only
+            if (paid != null) {
+                where.and(
+                        where.eq(MerchantService.CUSTOMER_FIELD_NAME, customerId),
+                        where.eq(MerchantService.PAID_FIELD_NAME, paid)
+                );
+            }
 
+            // search by customer id
+            else {
+                where.eq(MerchantService.CUSTOMER_FIELD_NAME, customerId);
+            }
+
+            List<MerchantService> results = queryBuilder.query();
             refresh(results);
 
             return results;
