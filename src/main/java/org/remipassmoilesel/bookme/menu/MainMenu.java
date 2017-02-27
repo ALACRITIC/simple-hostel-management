@@ -1,4 +1,4 @@
-package org.remipassmoilesel.bookme.admin;
+package org.remipassmoilesel.bookme.menu;
 
 import org.remipassmoilesel.bookme.Mappings;
 import org.springframework.ui.Model;

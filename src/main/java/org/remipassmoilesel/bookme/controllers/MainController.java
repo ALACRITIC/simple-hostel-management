@@ -5,7 +5,7 @@ import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.accommodations.Accommodation;
 import org.remipassmoilesel.bookme.accommodations.Type;
-import org.remipassmoilesel.bookme.admin.MainMenu;
+import org.remipassmoilesel.bookme.menu.MainMenu;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.messages.Message;

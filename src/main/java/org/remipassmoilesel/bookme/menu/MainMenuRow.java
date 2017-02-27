@@ -1,4 +1,4 @@
-package org.remipassmoilesel.bookme.admin;
+package org.remipassmoilesel.bookme.menu;
 
 import java.util.List;
 import java.util.Objects;
