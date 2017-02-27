@@ -19,12 +19,18 @@ table.formtable td {
 }
 
 .footer {
-    margin-top: 2em;
+    margin-top: 3em;
     margin-bottom: 4em;
 }
 
 .footer div {
-    text-align: right;
+    text-align: center;
+    font-size: 0.8em;
+    color: darkgray;
+}
+
+.footer a {
+    color: #147f6b;
 }
 
 .top-buffer {
@@ -137,7 +143,7 @@ a.fc-day-number {
     border-left: 1em solid darkgray;
 }
 
-.light-warning{
+.light-warning {
     margin: 0.5em;
     padding: 1em;
     color: #424242;
