@@ -2,7 +2,7 @@ package org.remipassmoilesel.bookme.export;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
+import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.remipassmoilesel.bookme.reservations.Reservation;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
 import org.remipassmoilesel.bookme.services.MerchantService;
@@ -31,8 +31,8 @@ public class ExportService {
     private MerchantServiceService merchantServiceService;
 
     public ExportService() throws IOException {
-        if (Files.isDirectory(CustomConfiguration.TEMP_DIRECTORY) == false) {
-            Files.createDirectories(CustomConfiguration.TEMP_DIRECTORY);
+        if (Files.isDirectory(SpringConfiguration.TEMP_DIRECTORY) == false) {
+            Files.createDirectories(SpringConfiguration.TEMP_DIRECTORY);
         }
     }
 
@@ -139,7 +139,7 @@ public class ExportService {
     }
 
     private File createTempFile() throws IOException {
-        return File.createTempFile("export", ".tmp", CustomConfiguration.TEMP_DIRECTORY.toFile());
+        return File.createTempFile("export", ".tmp", SpringConfiguration.TEMP_DIRECTORY.toFile());
     }
 
 

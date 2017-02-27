@@ -1,7 +1,7 @@
 package org.remipassmoilesel.bookme.services;
 
 import com.j256.ormlite.stmt.QueryBuilder;
-import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
+import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.remipassmoilesel.bookme.accommodations.Accommodation;
 import org.remipassmoilesel.bookme.utils.AbstractDaoService;
 import org.remipassmoilesel.bookme.utils.colors.DefaultColors;
@@ -23,7 +23,7 @@ public class MerchantServiceTypesService extends AbstractDaoService<MerchantServ
 
     private static final Logger logger = LoggerFactory.getLogger(MerchantServiceTypesService.class);
 
-    public MerchantServiceTypesService(CustomConfiguration configuration) throws SQLException {
+    public MerchantServiceTypesService(SpringConfiguration configuration) throws SQLException {
         super(MerchantServiceType.class, configuration);
 
         // create resources if resource table is empty

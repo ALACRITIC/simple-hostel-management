@@ -21,7 +21,7 @@ import java.util.Locale;
  * Created by remipassmoilesel on 12/12/16.
  */
 @Configuration
-public class CustomConfiguration extends WebMvcConfigurerAdapter {
+public class SpringConfiguration extends WebMvcConfigurerAdapter {
 
     public static final String TEST_PROFILE = "TEST_PROFILE";
     public static final String DEV_PROFILE = "DEV_PROFILE";

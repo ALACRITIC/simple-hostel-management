@@ -2,7 +2,7 @@ package org.remipassmoilesel.bookme.services;
 
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
-import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
+import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.utils.AbstractDaoService;
 import org.slf4j.Logger;
@@ -28,7 +28,7 @@ public class MerchantServiceService extends AbstractDaoService<MerchantService> 
     @Autowired
     private MerchantServiceTypesService merchantServiceTypesService;
 
-    public MerchantServiceService(CustomConfiguration configuration) {
+    public MerchantServiceService(SpringConfiguration configuration) {
         super(MerchantService.class, configuration);
     }
 

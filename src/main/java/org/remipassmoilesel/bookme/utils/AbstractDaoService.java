@@ -4,7 +4,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
+import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +25,7 @@ public abstract class AbstractDaoService<T> {
     protected Dao dao;
     protected JdbcPooledConnectionSource connection;
 
-    public AbstractDaoService(Class clazz, CustomConfiguration configuration) {
+    public AbstractDaoService(Class clazz, SpringConfiguration configuration) {
 
         try {
             this.clazz = clazz;
@@ -33,7 +33,7 @@ public abstract class AbstractDaoService<T> {
             // TODO: let user create it's own database
             connection = DatabaseUtils.getH2OrmliteConnectionPool(configuration.getDatabasePath(),
                     // please do not laugh :)
-                    CustomConfiguration.DB_LOGIN, CustomConfiguration.DB_PASSWORD);
+                    SpringConfiguration.DB_LOGIN, SpringConfiguration.DB_PASSWORD);
 
             TableUtils.createTableIfNotExists(connection, clazz);
 

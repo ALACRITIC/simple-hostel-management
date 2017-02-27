@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.remipassmoilesel.bookme.accommodations.Accommodation;
 import org.remipassmoilesel.bookme.accommodations.AccommodationService;
-import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
+import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.remipassmoilesel.bookme.controllers.ReservationController;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@ActiveProfiles(CustomConfiguration.TEST_PROFILE)
+@ActiveProfiles(SpringConfiguration.TEST_PROFILE)
 public class ReservationControllerTest {
 
     private MockMvc mockMvc;

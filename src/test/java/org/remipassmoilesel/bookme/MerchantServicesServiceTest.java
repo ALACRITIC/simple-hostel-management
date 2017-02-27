@@ -3,14 +3,13 @@ package org.remipassmoilesel.bookme;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
+import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.services.MerchantService;
 import org.remipassmoilesel.bookme.services.MerchantServiceService;
 import org.remipassmoilesel.bookme.services.MerchantServiceType;
 import org.remipassmoilesel.bookme.services.MerchantServiceTypesService;
-import org.remipassmoilesel.bookme.utils.Utils;
 import org.remipassmoilesel.bookme.utils.testdata.TestDataFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +29,7 @@ import static junit.framework.TestCase.assertTrue;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@ActiveProfiles(CustomConfiguration.TEST_PROFILE)
+@ActiveProfiles(SpringConfiguration.TEST_PROFILE)
 public class MerchantServicesServiceTest {
 
     private final Logger logger = LoggerFactory.getLogger(ReservationServiceTest.class);

@@ -1,7 +1,7 @@
 package org.remipassmoilesel.bookme.credentials;
 
 import com.j256.ormlite.stmt.QueryBuilder;
-import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
+import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.remipassmoilesel.bookme.utils.AbstractDaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,12 +21,12 @@ public class UserService extends AbstractDaoService<User> {
 
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    public UserService(CustomConfiguration configuration) throws Exception {
+    public UserService(SpringConfiguration configuration) throws Exception {
         super(User.class, configuration);
 
         // create default user if needed
         if (dao.queryForAll().size() < 1) {
-            create(CustomConfiguration.DEFAULT_USER, CustomConfiguration.DEFAULT_PASSWORD, Role.ADMIN);
+            create(SpringConfiguration.DEFAULT_USER, SpringConfiguration.DEFAULT_PASSWORD, Role.ADMIN);
         }
 
     }

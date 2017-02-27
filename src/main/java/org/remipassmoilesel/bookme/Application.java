@@ -6,7 +6,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
+import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.remipassmoilesel.bookme.utils.UpdateFilesListener;
 import org.remipassmoilesel.bookme.utils.Utils;
 import org.remipassmoilesel.bookme.utils.thread.ThreadManager;
@@ -47,8 +47,8 @@ public class Application {
 
         logger.warn("Specified arguments: " + Arrays.asList(args));
 
-        if (Arrays.asList(args).contains(CustomConfiguration.DEV_PROFILE)) {
-            mainApp.setAdditionalProfiles(CustomConfiguration.DEV_PROFILE);
+        if (Arrays.asList(args).contains(SpringConfiguration.DEV_PROFILE)) {
+            mainApp.setAdditionalProfiles(SpringConfiguration.DEV_PROFILE);
         }
 
         // listen application to update files
@@ -61,7 +61,7 @@ public class Application {
         // open browser on launch if needed
         mainApp.addListeners((event) -> {
             if (event instanceof ApplicationReadyEvent) {
-                CustomConfiguration config = ((ApplicationReadyEvent) event).getApplicationContext().getBean(CustomConfiguration.class);
+                SpringConfiguration config = ((ApplicationReadyEvent) event).getApplicationContext().getBean(SpringConfiguration.class);
                 if (config == null) {
                     logger.error("Configuration not ready");
                     return;
@@ -106,7 +106,7 @@ public class Application {
 
     private static void askForUpdate() {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(CustomConfiguration.UPDATE_SERVER_ADDRESS);
+        HttpGet httpGet = new HttpGet(SpringConfiguration.UPDATE_SERVER_ADDRESS);
         try (CloseableHttpResponse response1 = httpclient.execute(httpGet)) {
 
             //System.out.println(Arrays.asList(response1.getAllHeaders()));

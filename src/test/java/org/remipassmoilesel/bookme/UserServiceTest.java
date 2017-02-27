@@ -2,7 +2,7 @@ package org.remipassmoilesel.bookme;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
+import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.remipassmoilesel.bookme.credentials.Role;
 import org.remipassmoilesel.bookme.credentials.User;
 import org.remipassmoilesel.bookme.credentials.UserService;
@@ -25,7 +25,7 @@ import static junit.framework.TestCase.assertTrue;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@ActiveProfiles(CustomConfiguration.TEST_PROFILE)
+@ActiveProfiles(SpringConfiguration.TEST_PROFILE)
 public class UserServiceTest {
 
     private final Logger logger = LoggerFactory.getLogger(CustomerServiceTest.class);

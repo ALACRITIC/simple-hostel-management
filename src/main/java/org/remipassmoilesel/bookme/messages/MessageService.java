@@ -1,7 +1,7 @@
 package org.remipassmoilesel.bookme.messages;
 
 import com.j256.ormlite.stmt.QueryBuilder;
-import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
+import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.remipassmoilesel.bookme.utils.AbstractDaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ public class MessageService extends AbstractDaoService<Message> {
 
     private static final Logger logger = LoggerFactory.getLogger(MessageService.class);
 
-    public MessageService(CustomConfiguration configuration) {
+    public MessageService(SpringConfiguration configuration) {
         super(Message.class, configuration);
     }
 

@@ -3,7 +3,7 @@ package org.remipassmoilesel.bookme;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
+import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@ActiveProfiles(CustomConfiguration.TEST_PROFILE)
+@ActiveProfiles(SpringConfiguration.TEST_PROFILE)
 public class TokenManagerTest {
 
     public static final String TEST_MAPPING = Mappings.TEST_ROOT + "token";

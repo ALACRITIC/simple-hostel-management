@@ -6,7 +6,7 @@ import org.joda.time.DateTime;
 import org.remipassmoilesel.bookme.accommodations.Accommodation;
 import org.remipassmoilesel.bookme.accommodations.AccommodationService;
 import org.remipassmoilesel.bookme.accommodations.Type;
-import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
+import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.utils.AbstractDaoService;
@@ -36,7 +36,7 @@ public class ReservationService extends AbstractDaoService<Reservation> {
     @Autowired
     private AccommodationService accommodationService;
 
-    public ReservationService(CustomConfiguration configuration) {
+    public ReservationService(SpringConfiguration configuration) {
         super(Reservation.class, configuration);
     }
 

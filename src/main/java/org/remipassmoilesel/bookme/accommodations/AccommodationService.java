@@ -1,7 +1,7 @@
 package org.remipassmoilesel.bookme.accommodations;
 
 import com.j256.ormlite.stmt.QueryBuilder;
-import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
+import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.remipassmoilesel.bookme.utils.AbstractDaoService;
 import org.remipassmoilesel.bookme.utils.colors.DefaultColors;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ public class AccommodationService extends AbstractDaoService<Accommodation> {
 
     private static final Logger logger = LoggerFactory.getLogger(AccommodationService.class);
 
-    public AccommodationService(CustomConfiguration configuration) throws SQLException {
+    public AccommodationService(SpringConfiguration configuration) throws SQLException {
         super(Accommodation.class, configuration);
 
         // create resources if resource table is empty
