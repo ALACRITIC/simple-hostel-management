@@ -20,7 +20,7 @@ public class Mappings {
 
     public static final String APPLICATION_ROOT = "/app";
 
-    public static final String MAIN_MENU = APPLICATION_ROOT + "/menu";
+    public static final String MAIN_MENU = APPLICATION_ROOT;
     public static final String DASHBOARD = APPLICATION_ROOT + "/dashboard";
 
     // no ending slash here

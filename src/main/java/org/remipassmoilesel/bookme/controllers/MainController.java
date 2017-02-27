@@ -5,6 +5,7 @@ import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.accommodations.Accommodation;
 import org.remipassmoilesel.bookme.accommodations.Type;
+import org.remipassmoilesel.bookme.configuration.UserSettingsService;
 import org.remipassmoilesel.bookme.menu.MainMenu;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
@@ -56,6 +57,9 @@ public class MainController {
     @Autowired
     private MerchantServiceService merchantServiceService;
 
+    @Autowired
+    private UserSettingsService userSettingsService;
+
 
     /**
      * Redirect root queries to reservation
@@ -104,11 +108,12 @@ public class MainController {
         return Templates.DASHBOARD;
     }
 
-    @RequestMapping(value = Mappings.APPLICATION_ROOT, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.MAIN_MENU, method = RequestMethod.GET)
     public String showMainMenu(Model model) throws IOException {
 
         MainMenu.includeMenus(model);
         Mappings.includeMappings(model);
+        userSettingsService.includeTrackingCode(model);
 
         // name of template
         return Templates.MAIN_MENU;

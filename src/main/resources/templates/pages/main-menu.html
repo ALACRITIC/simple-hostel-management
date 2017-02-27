@@ -46,6 +46,8 @@
     <!-- Footer -->
     <div th:replace="main-template :: footer"></div>
 
+    <div th:remove="tag" th:utext="${trackingCode}"></div>
+
     <!--<div th:replace="fragments/show-debug :: debug"></div>-->
 
 </div>
