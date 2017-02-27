@@ -23,3 +23,10 @@ Default user:
 ![Screenshot](screenshots/screenshot_1.png)
 
 ![Screenshot](screenshots/screenshot_2.png)
+
+![Screenshot](screenshots/screenshot_3.png)
+
+![Screenshot](screenshots/screenshot_4.png)
+
+![Screenshot](screenshots/screenshot_5.png)
+
