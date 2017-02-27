@@ -21,7 +21,7 @@ public class UserSettingsService extends AbstractDaoService<UserSettings> {
         super(UserSettings.class, configuration);
 
         // set default values
-        if (getAll().size() < 1) {
+        if (getAll(-1l, -1l).size() < 1) {
             create(new UserSettings(UserSettings.HOSTEL_NAME, "Great oak's hostel"));
             create(new UserSettings(UserSettings.TRACKING_CODE, "\n" +
                     "\n" +

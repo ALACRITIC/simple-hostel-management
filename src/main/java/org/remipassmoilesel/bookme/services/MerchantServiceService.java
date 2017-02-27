@@ -54,8 +54,8 @@ public class MerchantServiceService extends AbstractDaoService<MerchantService> 
     }
 
     @Override
-    public List<MerchantService> getAll() throws IOException {
-        List<MerchantService> result = super.getAll();
+    public List<MerchantService> getAll(Long limit, Long offset) throws IOException {
+        List<MerchantService> result = super.getAll(limit, offset);
         refresh(result);
         return result;
     }

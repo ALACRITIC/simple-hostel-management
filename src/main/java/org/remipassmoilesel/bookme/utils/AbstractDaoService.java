@@ -3,6 +3,7 @@ package org.remipassmoilesel.bookme.utils;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
+import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.table.TableUtils;
 import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.slf4j.Logger;
@@ -173,9 +174,16 @@ public abstract class AbstractDaoService<T> {
      * @return
      * @throws IOException
      */
-    public List<T> getAll() throws IOException {
+    public List<T> getAll(Long limit, Long offset) throws IOException {
         try {
-            return dao.queryForAll();
+            QueryBuilder builder = dao.queryBuilder();
+            if (limit != -1l) {
+                builder.limit(limit);
+            }
+            if (offset != -1l) {
+                builder.offset(offset);
+            }
+            return builder.query();
         } catch (SQLException e) {
             throw new IOException(e);
         }

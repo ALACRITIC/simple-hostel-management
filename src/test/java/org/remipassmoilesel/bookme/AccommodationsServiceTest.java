@@ -2,10 +2,10 @@ package org.remipassmoilesel.bookme;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.remipassmoilesel.bookme.utils.testdata.TestDataFactory;
 import org.remipassmoilesel.bookme.accommodations.Accommodation;
 import org.remipassmoilesel.bookme.accommodations.AccommodationService;
 import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
+import org.remipassmoilesel.bookme.utils.testdata.TestDataFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +62,7 @@ public class AccommodationsServiceTest {
         }
 
         assertTrue("Delete resources test", accommodationService.getAll().size() == 0);
-        assertTrue("Delete resources test", accommodationService.getAll(true).size() == 10);
+        assertTrue("Delete resources test", accommodationService.getAll(-1l, -1l, true).size() == 10);
 
     }
 

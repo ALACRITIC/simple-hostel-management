@@ -1,8 +1,8 @@
 package org.remipassmoilesel.bookme.services;
 
 import com.j256.ormlite.stmt.QueryBuilder;
-import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.remipassmoilesel.bookme.accommodations.Accommodation;
+import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.remipassmoilesel.bookme.utils.AbstractDaoService;
 import org.remipassmoilesel.bookme.utils.colors.DefaultColors;
 import org.slf4j.Logger;
@@ -46,22 +46,32 @@ public class MerchantServiceTypesService extends AbstractDaoService<MerchantServ
 
     }
 
-    @Override
     public List<MerchantServiceType> getAll() throws IOException {
-        return getAll(false);
+        return getAll(-1l, -1l, false);
     }
 
-    public List<MerchantServiceType> getAll(boolean withDeletedEntities) throws IOException {
+    @Override
+    public List<MerchantServiceType> getAll(Long limit, Long offset) throws IOException {
+        return getAll(limit, offset, false);
+    }
+
+    public List<MerchantServiceType> getAll(Long limit, Long offset, boolean withDeletedEntities) throws IOException {
 
         // return all with deleted
         if (withDeletedEntities) {
-            return super.getAll();
+            return super.getAll(limit, offset);
         }
 
         // return all but deleted
         else {
             try {
                 QueryBuilder builder = dao.queryBuilder();
+                if (limit != -1l) {
+                    builder.limit(limit);
+                }
+                if (offset != -1l) {
+                    builder.offset(offset);
+                }
                 builder.where().eq(MerchantServiceType.DELETED_FIELD_NAME, false);
                 return builder.query();
             } catch (SQLException e) {

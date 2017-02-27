@@ -67,22 +67,32 @@ public class AccommodationService extends AbstractDaoService<Accommodation> {
         }
     }
 
-    @Override
     public List<Accommodation> getAll() throws IOException {
-        return getAll(false);
+        return getAll(-1l, -1l, false);
     }
 
-    public List<Accommodation> getAll(boolean withDeletedEntities) throws IOException {
+    @Override
+    public List<Accommodation> getAll(Long limit, Long offset) throws IOException {
+        return getAll(limit, offset, false);
+    }
+
+    public List<Accommodation> getAll(Long limit, Long offset, boolean withDeletedEntities) throws IOException {
 
         // return all with deleted
         if (withDeletedEntities) {
-            return super.getAll();
+            return super.getAll(limit, offset);
         }
 
         // return all but deleted
         else {
             try {
                 QueryBuilder builder = dao.queryBuilder();
+                if (limit != -1l) {
+                    builder.limit(limit);
+                }
+                if (offset != -1l) {
+                    builder.offset(offset);
+                }
                 builder.where().eq(Accommodation.DELETED_FIELD_NAME, false);
                 return builder.query();
             } catch (SQLException e) {

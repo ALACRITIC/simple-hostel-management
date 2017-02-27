@@ -63,13 +63,13 @@ public class MerchantServicesServiceTest {
         ArrayList<MerchantService> services = TestDataFactory.createServices(20, customers, serviceTypes,
                 beginTestPeriod, merchantServicesService);
 
-        assertTrue("Creation test", merchantServicesService.getAll().size() == services.size());
+        assertTrue("Creation test", merchantServicesService.getAll(-1l, -1l).size() == services.size());
         assertTrue("Creation test", merchantServiceTypesService.getAll().size() == serviceTypes.size());
 
         merchantServicesService.deleteById(services.get(0).getId());
         merchantServiceTypesService.deleteById(serviceTypes.get(0).getId());
 
-        assertTrue("Suppression test", merchantServicesService.getAll().size() == services.size() - 1);
+        assertTrue("Suppression test", merchantServicesService.getAll(-1l, -1l).size() == services.size() - 1);
         assertTrue("Suppression test", merchantServiceTypesService.getAll().size() == serviceTypes.size() - 1);
 
         // get by interval

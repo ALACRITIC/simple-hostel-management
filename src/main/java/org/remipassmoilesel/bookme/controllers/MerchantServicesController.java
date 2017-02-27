@@ -47,10 +47,10 @@ public class MerchantServicesController {
     public String showAll(Model model) throws Exception {
 
         List<MerchantServiceType> serviceTypesList = merchantServiceTypesService.getAll();
-        List<MerchantService> servicesList = merchantServiceService.getAll();
+        List<MerchantService> servicesList = merchantServiceService.getAll(30l, 0l);
 
-        model.addAttribute("serviceTypesList", serviceTypesList);
         model.addAttribute("servicesList", servicesList);
+        includeServiceTypes(model);
 
         Mappings.includeMappings(model);
         return Templates.SERVICE_TYPES_SHOW_ALL;

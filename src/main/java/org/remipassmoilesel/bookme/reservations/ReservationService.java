@@ -290,8 +290,8 @@ public class ReservationService extends AbstractDaoService<Reservation> {
     }
 
     @Override
-    public List<Reservation> getAll() throws IOException {
-        List<Reservation> result = super.getAll();
+    public List<Reservation> getAll(Long limit, Long offset) throws IOException {
+        List<Reservation> result = super.getAll(limit, offset);
         refresh(result);
         return result;
     }

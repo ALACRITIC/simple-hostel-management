@@ -2,8 +2,8 @@ package org.remipassmoilesel.bookme.controllers;
 
 import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
-import org.remipassmoilesel.bookme.messages.MessageForm;
 import org.remipassmoilesel.bookme.messages.Message;
+import org.remipassmoilesel.bookme.messages.MessageForm;
 import org.remipassmoilesel.bookme.messages.MessageService;
 import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.slf4j.Logger;
@@ -49,7 +49,7 @@ public class MessageController {
     @RequestMapping(value = Mappings.MESSAGES_SHOW_ALL, method = RequestMethod.GET)
     public String showAll(Model model) throws Exception {
 
-        List<Message> messagesList = messageService.getAll();
+        List<Message> messagesList = messageService.getAll(20l, 0l);
 
         model.addAttribute("messagesList", messagesList);
 
@@ -62,7 +62,7 @@ public class MessageController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Message> getMessagesAsJson() throws Exception {
 
-        List<Message> messagesList = messageService.getAll();
+        List<Message> messagesList = messageService.getAll(20l, 0l);
         return messagesList;
 
     }

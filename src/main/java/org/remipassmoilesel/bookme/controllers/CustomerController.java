@@ -48,7 +48,7 @@ public class CustomerController {
     @RequestMapping(value = Mappings.CUSTOMERS_SHOW_ALL, method = RequestMethod.GET)
     public String showLastCustomers(Model model) throws Exception {
 
-        List<Customer> customers = customerService.getAll();
+        List<Customer> customers = customerService.getAll(30l, 0l);
 
         model.addAttribute("customers", customers);
 
@@ -81,7 +81,7 @@ public class CustomerController {
     @RequestMapping(value = Mappings.CUSTOMERS_JSON_GET_ALL, method = RequestMethod.GET)
     @ResponseBody
     public List<Customer> getJsonAll() throws Exception {
-        List<Customer> customers = customerService.getAll();
+        List<Customer> customers = customerService.getAll(30l, 0l);
         return customers;
     }
 
@@ -277,7 +277,7 @@ public class CustomerController {
         // count reservations and mark them as paid
         double totalReservations = 0;
         for (Reservation res : reservations) {
-            if(res.getTotalPrice() == 0){
+            if (res.getTotalPrice() == 0) {
                 res.computeStandardTotalPrice();
             }
             totalReservations += res.getTotalPrice();
