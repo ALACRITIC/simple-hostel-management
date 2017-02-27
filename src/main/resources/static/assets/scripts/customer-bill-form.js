@@ -69,7 +69,20 @@ var CustomerBillForm = {
         $("#exportHtmlSelectAllDates").click(function () {
             $("#exportHtmlCheckboxesArea input[type=checkbox]").prop('checked', true);
         });
-
+        
+        // display a first customer if asked in url params
+        var firstCustomer = $("input[name=firstCustomerId]");
+        if(firstCustomer.length > 0 && firstCustomer.val()){
+            
+            var id = firstCustomer.val();
+            var firstname = firstCustomer.attr("data-firstname");
+            var lastname = firstCustomer.attr("data-lastname");
+            var phonenumber = firstCustomer.attr("data-phonenumber");
+            var label = firstname + " " + lastname + " (" + phonenumber + ")";
+            
+            clientSearch.val(label);
+            self.searchItems(id);    
+        }
     },
 
     /**

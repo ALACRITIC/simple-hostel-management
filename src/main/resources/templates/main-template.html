@@ -314,7 +314,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Phone number</th>
-                    <th style="width: 8em"></th>
+                    <th style="width: 10em"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -331,6 +331,10 @@
                         <a th:href="${mappings.get('RESERVATIONS_BY_CUSTOMER') + '?id=' + customer.getId()}"
                            data-toggle="tooltip" data-placement="left" title="Show reservations ..."
                            class="fa fa-home"></a>
+                        &nbsp;&nbsp;
+                        <a th:href="${mappings.get('CUSTOMERS_BILL_FORM') + '?id=' + customer.getId()}"
+                           data-toggle="tooltip" data-placement="left" title="Bill customer ..."
+                           class="fa fa-usd"></a>
                         &nbsp;&nbsp;
                         <a th:href="${mappings.get('CUSTOMERS_FORM') + '?id=' + customer.getId()}"
                            class="glyphicon glyphicon-edit"></a></td>

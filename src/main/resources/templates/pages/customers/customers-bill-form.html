@@ -20,7 +20,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h1>View bill</h1>
+            <h1>Bill a customer</h1>
         </div>
     </div>
 
@@ -85,9 +85,19 @@
                     <!-- Buttons -->
                     <tr>
                         <td colspan="2" style="text-align: right">
+
+                            <!-- Customer id, used to display on page loading if asked in url params -->
+                            <input type="hidden" name="firstCustomerId" th:value="${firstCustomerId}"
+                                   th:attr="data-firstname=${firstCustomerFirstname},
+                                            data-lastname=${firstCustomerLastname},
+                                            data-phonenumber=${firstCustomerPhonenumber}" />
+
+                            <!-- Select all items -->
                             <button type="button" id="exportHtmlSelectAllDates" class="btn btn-primary">
                                 Select all non-billed items
                             </button>
+
+                            <!-- Export button -->
                             <button type="button" id="exportHtmlValidButton" class="btn btn-primary">
                                 Mark as paid and export
                             </button>

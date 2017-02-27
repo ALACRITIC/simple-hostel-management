@@ -245,7 +245,26 @@ public class CustomerController {
     }
 
     @RequestMapping(value = Mappings.CUSTOMERS_BILL_FORM, method = RequestMethod.GET)
-    public String showExportBillFom(Model model) throws Exception {
+    public String showExportBillFom(
+            @RequestParam(value = "id", required = false) Long customerId,
+            Model model) throws Exception {
+
+
+        System.out.println(customerId);
+        System.out.println(customerId);
+        System.out.println(customerId);
+        System.out.println(customerId);
+        System.out.println(customerId);
+
+        if (customerId != null) {
+
+            Customer customer = customerService.getById(customerId);
+
+            model.addAttribute("firstCustomerId", customer.getId());
+            model.addAttribute("firstCustomerFirstname", customer.getFirstname());
+            model.addAttribute("firstCustomerLastname", customer.getLastname());
+            model.addAttribute("firstCustomerPhonenumber", customer.getPhonenumber());
+        }
 
         Mappings.includeMappings(model);
         return Templates.CUSTOMERS_BILL_FORM;

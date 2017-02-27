@@ -3,6 +3,7 @@ package org.remipassmoilesel.bookme.controllers;
 import org.apache.commons.io.IOUtils;
 import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
+import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.export.ExportService;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
@@ -41,7 +42,7 @@ public class AdministrationController {
     private MerchantServiceService merchantServiceService;
 
     @RequestMapping(value = Mappings.ADMINISTRATION_ROOT, method = RequestMethod.GET)
-    public String searchCustomer(Model model) throws Exception {
+    public String showAdminPage(Model model) throws Exception {
 
         Mappings.includeMappings(model);
         return Templates.ADMINISTRATION;
