@@ -1,5 +1,6 @@
 package org.remipassmoilesel.bookme.reservations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -41,12 +42,15 @@ public class Reservation {
     @DatabaseField(columnName = PLACES_FIELD_NAME)
     private int places;
 
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     @DatabaseField(columnName = RESERVATION_DATE)
     private Date reservationDate;
 
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     @DatabaseField(columnName = DATEBEGIN_FIELD_NAME)
     private Date begin;
 
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     @DatabaseField(columnName = DATEEND_FIELD_NAME)
     private Date end;
 

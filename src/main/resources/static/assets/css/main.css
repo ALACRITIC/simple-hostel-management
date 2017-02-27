@@ -149,3 +149,7 @@ a.fc-day-number {
     color: #424242;
     border-left: 1em solid #8e8e00;
 }
+
+.hide-fc-time .fc-time{
+    display: none;
+}

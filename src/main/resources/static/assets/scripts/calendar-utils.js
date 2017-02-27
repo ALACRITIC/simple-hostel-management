@@ -4,6 +4,7 @@ var CalendarUtils = {
 
         var self = CalendarUtils;
 
+        $(selector).addClass("hide-fc-time");
         $(selector).fullCalendar({
             header: {
                 left: 'prev,next today',
@@ -72,12 +73,13 @@ var CalendarUtils = {
             var lastname = element.customer.lastname;
             var startDate = element.begin;
             var color = element.accommodation ? "rgb(" + element.accommodation.color + ")" : "#444444";
+            var accommodationName = element.accommodation ? element.accommodation.name : "";
             var endDate = element.end;
 
             events.push({
-                title: lastname + " " + firstname,
-                start: moment(startDate),
-                end: moment(endDate),
+                title: firstname + " " + lastname + " (" + accommodationName + ")",
+                start: moment(startDate, "DD/MM/YYYY"),
+                end: moment(endDate, "DD/MM/YYYY"),
                 color: color,
                 _reservationId: element.id
             });
@@ -97,6 +99,7 @@ var CalendarUtils = {
                 center: 'title',
                 right: 'month,listWeek'
             },
+            timeFormat: 'H:mm',
             defaultDate: new Date(),
             navLinks: true, // can click day/week names to navigate views
             editable: true,
@@ -157,9 +160,9 @@ var CalendarUtils = {
             var color = element.serviceType ? "rgb(" + element.serviceType.color + ")" : "#444444";
 
             events.push({
-                title: lastname + " " + firstname,
-                start: moment(execDate),
-                end: moment(execDate),
+                title: firstname + " " + lastname,
+                start: moment(execDate, "DD/MM/YYYY HH:mm"),
+                end: moment(execDate, "DD/MM/YYYY HH:mm"),
                 color: color,
                 _serviceId: element.id
             });
@@ -172,7 +175,8 @@ var CalendarUtils = {
     createAccommodationCalendar: function (selector, accommodationSelect) {
 
         var self = CalendarUtils;
-
+        
+        $(selector).addClass("hide-fc-time");
         $(selector).fullCalendar({
             header: {
                 left: 'prev,next today',
