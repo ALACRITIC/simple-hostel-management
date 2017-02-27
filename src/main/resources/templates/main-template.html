@@ -314,7 +314,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Phone number</th>
-                    <th style="width: 10em"></th>
+                    <th style="width: 10em;"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -323,7 +323,7 @@
                     <td th:text="${customer.getFirstname()}">Jean</td>
                     <td th:text="${customer.getLastname()}">Claude</td>
                     <td th:text="${customer.getPhonenumber()}">+000002</td>
-                    <td>
+                    <td style="text-align: right;">
                         <a th:href="${mappings.get('SERVICES_BY_CUSTOMER') + '?id=' + customer.getId()}"
                            data-toggle="tooltip" data-placement="left" title="Show services ..."
                            class="fa fa-coffee"></a>
@@ -525,7 +525,7 @@
                     <th>Price</th>
                     <th>Paid</th>
                     <th style="width: 40%">Comment</th>
-                    <th style="width: 5em"></th>
+                    <th style="width: 5em;"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -541,10 +541,10 @@
                     <td th:text="${service.getComment().length() > 200} ? ${#strings.substring(service.getComment(), 0, 200) + '...'} : ${service.getComment()}">
                         Comment
                     </td>
-                    <td>
+                    <td style="text-align: right;">
                         <a th:href="${mappings.get('SERVICES_FORM') + '?id=' + service.getId()}"
-                           class="glyphicon glyphicon-edit"></a></td>
-
+                           class="glyphicon glyphicon-edit"></a>
+                    </td>
                 </tr>
 
                 <tr th:if="${#lists.isEmpty(servicesList)}">

@@ -175,7 +175,7 @@ var CalendarUtils = {
     createAccommodationCalendar: function (selector, accommodationSelect) {
 
         var self = CalendarUtils;
-        
+
         $(selector).addClass("hide-fc-time");
         $(selector).fullCalendar({
             header: {
