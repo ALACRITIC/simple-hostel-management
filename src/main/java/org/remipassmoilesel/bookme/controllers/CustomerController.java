@@ -249,13 +249,6 @@ public class CustomerController {
             @RequestParam(value = "id", required = false) Long customerId,
             Model model) throws Exception {
 
-
-        System.out.println(customerId);
-        System.out.println(customerId);
-        System.out.println(customerId);
-        System.out.println(customerId);
-        System.out.println(customerId);
-
         if (customerId != null) {
 
             Customer customer = customerService.getById(customerId);
