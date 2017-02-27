@@ -211,7 +211,7 @@
 
                     <td>
                         <a th:href="${mappings.get('RESERVATIONS_BY_ACCOMMODATION') + '?id=' + accommodation.getId()}"
-                           data-toggle="tooltip" data-placement="left" title="Show reservations ..."
+                           data-toggle="tooltip" title="Show reservations ..."
                            class="glyphicon glyphicon-search"></a>
                         &nbsp;&nbsp;
                         <a th:href="${mappings.get('ACCOMMODATIONS_FORM') + '?id=' + accommodation.getId()}"
@@ -486,7 +486,7 @@
                     <th>Customer</th>
                     <th>Price</th>
                     <th>Paid</th>
-                    <th style="width: 50%">Comment</th>
+                    <th style="width: 40%">Comment</th>
                     <th style="width: 5em"></th>
                 </tr>
                 </thead>
@@ -499,7 +499,48 @@
                     <td th:text="${service.getCustomer().getNameString()}">Jean Claude</td>
                     <td th:text="${service.getTotalPrice()}">15</td>
                     <td class="fa" th:classappend="${service.isPaid()} ? 'fa-check' : 'fa-times'" th:text="''">X</td>
-                    <td th:text="${service.getComment().length() > 200} ? ${#strings.substring(service.getComment(), 0, 200) + '...'} : ${service.getComment()}">Comment</td>
+                    <td th:text="${service.getComment().length() > 200} ? ${#strings.substring(service.getComment(), 0, 200) + '...'} : ${service.getComment()}">
+                        Comment
+                    </td>
+                    <td style="text-align: right">
+                        <a th:href="${mappings.get('SERVICES_FORM') + '?id=' + service.getId()}"
+                           class="glyphicon glyphicon-edit" data-toggle="tooltip" title="Edit service ..."></a>
+                    </td>
+
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(servicesList)}">
+                    <td colspan="20"><i>No services found</i></td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <table class="table table-striped" th:fragment="scheduled-services-list">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Customer</th>
+                    <th>Price</th>
+                    <th>Paid</th>
+                    <th style="width: 40%">Comment</th>
+                    <th style="width: 5em"></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="service: ${servicesList}">
+                    <td th:text="${service.getServiceType().getName()}"
+                        th:style="${'color:' + service.getServiceType().getHexadecimalColor()}">Pressing
+                    </td>
+                    <td th:text="${#dates.format(service.getExecutionDate(), 'dd/MM/yyyy HH:mm')}">14/01/2018 16:00</td>
+                    <td th:text="${service.getCustomer().getNameString()}">Jean Claude</td>
+                    <td th:text="${service.getTotalPrice()}">15</td>
+                    <td class="fa" th:classappend="${service.isPaid()} ? 'fa-check' : 'fa-times'" th:text="''">X</td>
+                    <td th:text="${service.getComment().length() > 200} ? ${#strings.substring(service.getComment(), 0, 200) + '...'} : ${service.getComment()}">
+                        Comment
+                    </td>
                     <td>
                         <a th:href="${mappings.get('SERVICES_FORM') + '?id=' + service.getId()}"
                            class="glyphicon glyphicon-edit"></a></td>
@@ -610,7 +651,6 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Phone number</th>
-                    <th>Check-in</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -621,9 +661,18 @@
                     <td th:text="${reservation.getCustomer().getFirstname()}">Jean</td>
                     <td th:text="${reservation.getCustomer().getLastname()}">Claude</td>
                     <td th:text="${reservation.getCustomer().getPhonenumber()}">+000002</td>
-                    <td th:text="${#dates.format(reservation.getBegin(), 'dd/MM/yyyy')}">01/01/2016</td>
-                    <td><a th:href="${mappings.get('RESERVATIONS_FORM') + '?id=' + reservation.getId()}"
-                           class="glyphicon glyphicon-edit"></a></td>
+                    <td style="text-align: right">
+                        <a th:href="${mappings.get('SERVICES_BY_CUSTOMER') + '?id='
+                            + reservation.getCustomer().getId()}" data-toggle="tooltip"
+                           title="Show services ..." class="fa fa-coffee"></a>
+                        &nbsp;&nbsp;
+                        <a th:href="${mappings.get('RESERVATIONS_BY_CUSTOMER') + '?id='
+                            + reservation.getCustomer().getId()}"
+                           data-toggle="tooltip" title="Show reservations ..." class="fa fa-home"></a>
+                        &nbsp;&nbsp;
+                        <a th:href="${mappings.get('RESERVATIONS_FORM') + '?id=' + reservation.getId()}"
+                           class="glyphicon glyphicon-edit" data-toggle="tooltip" title="Edit reservation ..."></a>
+                    </td>
                 </tr>
 
                 <tr th:if="${#lists.isEmpty(reservationsList)}">
