@@ -6,9 +6,9 @@ import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.accommodations.Accommodation;
 import org.remipassmoilesel.bookme.accommodations.Type;
 import org.remipassmoilesel.bookme.configuration.UserSettingsService;
-import org.remipassmoilesel.bookme.menu.MainMenu;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
+import org.remipassmoilesel.bookme.menu.MainMenu;
 import org.remipassmoilesel.bookme.messages.Message;
 import org.remipassmoilesel.bookme.messages.MessageService;
 import org.remipassmoilesel.bookme.reservations.Reservation;
@@ -17,6 +17,7 @@ import org.remipassmoilesel.bookme.services.MerchantService;
 import org.remipassmoilesel.bookme.services.MerchantServiceService;
 import org.remipassmoilesel.bookme.services.MerchantServiceType;
 import org.remipassmoilesel.bookme.services.MerchantServiceTypesService;
+import org.remipassmoilesel.bookme.utils.PaginationUtil;
 import org.remipassmoilesel.bookme.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.awt.*;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -101,6 +103,10 @@ public class MainController {
         model.addAttribute("nextScheduledServicesList", nextScheduledServicesList);
         model.addAttribute("lastReservationsList", lastReservationsList);
         model.addAttribute("lastCustomersList", lastCustomersList);
+
+        PaginationUtil pu = new PaginationUtil(Mappings.DASHBOARD, 0l, 15l);
+        pu.addPreviousLink(model);
+        pu.addNextLink(model);
 
         Mappings.includeMappings(model);
 

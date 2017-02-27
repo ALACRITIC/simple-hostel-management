@@ -27,7 +27,7 @@ public class Templates {
     public static final String ACCOMMODATIONS_CALENDAR = ACCOMMODATIONS_DIR + "accommodations-calendar";
 
     public static final String MESSAGES_DIR = PAGES_DIR + "messages/";
-    public static final String MESSAGES_SHOW_ALL = MESSAGES_DIR + "messages-show-all";
+    public static final String MESSAGES_SHOW_LATEST = MESSAGES_DIR + "messages-show-latest";
     public static final String MESSAGES_FORM = MESSAGES_DIR + "messages-form";
     public static final String MESSAGES_SHOW_ONE = MESSAGES_DIR + "messages-show-one";
 

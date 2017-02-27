@@ -154,3 +154,7 @@ a.fc-day-number {
 .hide-fc-time .fc-time{
     display: none;
 }
+
+.pagination-bottom-bar a{
+    text-decoration: none;
+}

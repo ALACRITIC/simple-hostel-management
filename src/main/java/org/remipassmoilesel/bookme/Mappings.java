@@ -58,8 +58,8 @@ public class Mappings {
     public static final String MESSAGES_FORM = MESSAGES_ROOT + "/form";
     public static final String MESSAGES_SHOW = MESSAGES_ROOT + "/show";
     public static final String MESSAGES_SHOW_BY_ID = MESSAGES_ROOT + "/byid";
-    public static final String MESSAGES_JSON_GET_LATEST = APPLICATION_ROOT + "/json/latest";
     public static final String MESSAGES_SHOW_LATEST = MESSAGES_SHOW + "/latest";
+    public static final String MESSAGES_JSON_GET_LATEST = APPLICATION_ROOT + "/json/latest";
 
     public static final String CUSTOMERS_ROOT = APPLICATION_ROOT + "/customers";
     public static final String CUSTOMERS_SHOW_LATEST = CUSTOMERS_ROOT + "/show/latest";

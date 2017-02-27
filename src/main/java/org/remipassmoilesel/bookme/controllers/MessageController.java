@@ -5,6 +5,7 @@ import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.messages.Message;
 import org.remipassmoilesel.bookme.messages.MessageForm;
 import org.remipassmoilesel.bookme.messages.MessageService;
+import org.remipassmoilesel.bookme.utils.PaginationUtil;
 import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,14 +48,21 @@ public class MessageController {
     }
 
     @RequestMapping(value = Mappings.MESSAGES_SHOW_LATEST, method = RequestMethod.GET)
-    public String showAll(Model model) throws Exception {
+    public String showAll(
+            @RequestParam(value = "limit", required = false, defaultValue = "5") Long limit,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") Long offset,
+            Model model) throws Exception {
 
-        List<Message> messagesList = messageService.getAll(20l, 0l);
+        List<Message> messagesList = messageService.getAll(limit, offset);
 
         model.addAttribute("messagesList", messagesList);
 
+        PaginationUtil pu = new PaginationUtil(Mappings.MESSAGES_SHOW_LATEST, limit, offset);
+        pu.addNextLink(model);
+        pu.addPreviousLink(model);
+
         Mappings.includeMappings(model);
-        return Templates.MESSAGES_SHOW_ALL;
+        return Templates.MESSAGES_SHOW_LATEST;
     }
 
     @ResponseBody
