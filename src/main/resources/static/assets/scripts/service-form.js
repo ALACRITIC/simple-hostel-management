@@ -1,4 +1,3 @@
-
 $(function () {
     ServiceForm.init();
 });
@@ -19,8 +18,13 @@ var ServiceForm = {
         var firstNameTxt = $("#serviceCustomerFirstname");
         var lastNameTxt = $("#serviceCustomerLastname");
         var customerIdField = $("#customerId");
+        var cancelButton = $("#serviceCancelButton");
 
-        deleteButton.click(function(){
+        cancelButton.click(function () {
+            window.location = UrlTree.getMainMenuUrl();
+        });
+
+        deleteButton.click(function () {
             ServiceUtils.showDeleteServiceDialog(serviceId.val(), token);
         });
 
@@ -39,7 +43,7 @@ var ServiceForm = {
                 execDate.val(date + " 10:00");
             }
         });
-        
+
         // special checkbox
         $("#serviceIsPaid").checkboxradio();
         $("#serviceIsScheduled").checkboxradio();
@@ -85,20 +89,20 @@ var ServiceForm = {
             }
         });
 
-        serviceType.change(function(){
+        serviceType.change(function () {
             self.updatePrice();
         });
 
         self.updatePrice();
     },
 
-    updatePrice: function(){
+    updatePrice: function () {
 
         var serviceType = $("#serviceType");
         var totalPrice = $("#totalPrice");
 
         totalPrice.val(serviceType.find(":selected").data("servicePrice"));
-        
+
     }
 
 };
