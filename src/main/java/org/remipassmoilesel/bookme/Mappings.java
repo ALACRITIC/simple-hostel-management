@@ -32,14 +32,14 @@ public class Mappings {
     public static final String LOGOUT_SUCCESS_URL = APPLICATION_ROOT + "/login?logout";
 
     public static final String RESERVATIONS_ROOT = APPLICATION_ROOT + "/reservations";
-    public static final String RESERVATIONS_LASTS = RESERVATIONS_ROOT + "/lasts";
+    public static final String RESERVATIONS_SHOW_LATEST = RESERVATIONS_ROOT + "/latest";
     public static final String RESERVATIONS_NEXT_CHECKOUTS = RESERVATIONS_ROOT + "/nextcheckouts";
     public static final String RESERVATIONS_CALENDAR = RESERVATIONS_ROOT + "/calendar";
     public static final String RESERVATIONS_FORM = RESERVATIONS_ROOT + "/form";
     public static final String RESERVATIONS_DELETE = RESERVATIONS_ROOT + "/delete";
     public static final String RESERVATIONS_JSON = RESERVATIONS_ROOT + "/json";
     public static final String RESERVATIONS_JSON_GET = RESERVATIONS_JSON + "/get";
-    public static final String RESERVATIONS_JSON_GET_LASTS = RESERVATIONS_JSON + "/lasts";
+    public static final String RESERVATIONS_JSON_GET_LATEST = RESERVATIONS_JSON + "/latest";
     public static final String RESERVATIONS_JSON_SEARCH = RESERVATIONS_JSON + "/search";
     public static final String RESERVATIONS_ACCOMMODATIONS_AVAILABLE_JSON_GET = RESERVATIONS_JSON + "/free-accommodations";
 
@@ -58,18 +58,18 @@ public class Mappings {
     public static final String MESSAGES_FORM = MESSAGES_ROOT + "/form";
     public static final String MESSAGES_SHOW = MESSAGES_ROOT + "/show";
     public static final String MESSAGES_SHOW_BY_ID = MESSAGES_ROOT + "/byid";
-    public static final String MESSAGES_GET_AS_JSON = APPLICATION_ROOT + "/json/all";
-    public static final String MESSAGES_SHOW_ALL = MESSAGES_SHOW + "/all";
+    public static final String MESSAGES_JSON_GET_LATEST = APPLICATION_ROOT + "/json/latest";
+    public static final String MESSAGES_SHOW_LATEST = MESSAGES_SHOW + "/latest";
 
     public static final String CUSTOMERS_ROOT = APPLICATION_ROOT + "/customers";
-    public static final String CUSTOMERS_SHOW_ALL = CUSTOMERS_ROOT + "/show";
+    public static final String CUSTOMERS_SHOW_LATEST = CUSTOMERS_ROOT + "/show/latest";
     public static final String CUSTOMERS_SEARCH = CUSTOMERS_ROOT + "/search";
     public static final String CUSTOMERS_FORM = CUSTOMERS_ROOT + "/form";
     public static final String CUSTOMERS_BILL_FORM = CUSTOMERS_ROOT + "/bill/form";
     public static final String CUSTOMERS_BILL_PRINT = CUSTOMERS_ROOT + "/bill/print";
     public static final String CUSTOMERS_JSON_ROOT = CUSTOMERS_ROOT + "/json";
     public static final String CUSTOMERS_JSON_SEARCH = CUSTOMERS_JSON_ROOT + "/search";
-    public static final String CUSTOMERS_JSON_GET_ALL = CUSTOMERS_JSON_ROOT + "/all";
+    public static final String CUSTOMERS_JSON_GET_LATEST = CUSTOMERS_JSON_ROOT + "/latest";
 
     public static final String SERVICES_ROOT = APPLICATION_ROOT + "/services";
     public static final String SERVICE_TYPES_FORM = SERVICES_ROOT + "/type/form";
@@ -77,7 +77,7 @@ public class Mappings {
     public static final String SERVICES_DELETE = SERVICES_ROOT + "/delete";
     public static final String SERVICES_BY_CUSTOMER = SERVICES_ROOT + "/bycustomer";
     public static final String SERVICES_FORM = SERVICES_ROOT + "/form";
-    public static final String SERVICES_SHOW_LASTS = SERVICES_ROOT + "/show/all";
+    public static final String SERVICES_SHOW_LATEST = SERVICES_ROOT + "/show/lastest";
     public static final String SERVICES_CALENDAR = SERVICES_ROOT + "/calendar";
     public static final String SERVICES_JSON_GET = SERVICES_ROOT + "/json/get";
     public static final String SERVICES_JSON_SEARCH = SERVICES_ROOT + "/json/search";

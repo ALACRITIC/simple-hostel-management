@@ -45,7 +45,7 @@ public class CustomerController {
     @Autowired
     private MerchantServiceService merchantServiceService;
 
-    @RequestMapping(value = Mappings.CUSTOMERS_SHOW_ALL, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.CUSTOMERS_SHOW_LATEST, method = RequestMethod.GET)
     public String showLastCustomers(Model model) throws Exception {
 
         List<Customer> customers = customerService.getAll(30l, 0l);
@@ -78,7 +78,7 @@ public class CustomerController {
         return Templates.CUSTOMERS_SEARCH;
     }
 
-    @RequestMapping(value = Mappings.CUSTOMERS_JSON_GET_ALL, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.CUSTOMERS_JSON_GET_LATEST, method = RequestMethod.GET)
     @ResponseBody
     public List<Customer> getJsonAll() throws Exception {
         List<Customer> customers = customerService.getAll(30l, 0l);

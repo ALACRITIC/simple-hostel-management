@@ -14,12 +14,12 @@ public class MainMenu {
     private static List<MainMenuItem> row_reservation = Arrays.asList(
             new MainMenuItem("New reservation", Mappings.RESERVATIONS_FORM, "/assets/img/tile_new-reservation.svg"),
             new MainMenuItem("Calendar", Mappings.RESERVATIONS_CALENDAR, "/assets/img/tile_reservation-calendar.svg"),
-            new MainMenuItem("Last reservations", Mappings.RESERVATIONS_LASTS, "/assets/img/tile_reservation-lasts.svg")
+            new MainMenuItem("Last reservations", Mappings.RESERVATIONS_SHOW_LATEST, "/assets/img/tile_reservation-lasts.svg")
     );
     private static List<MainMenuItem> row_service = Arrays.asList(
             new MainMenuItem("Bill a service", Mappings.SERVICES_FORM, "/assets/img/tile_new-service.svg"),
             new MainMenuItem("Scheduled services", Mappings.SERVICES_CALENDAR, "/assets/img/tile_service-calendar.svg"),
-            new MainMenuItem("Last services", Mappings.SERVICES_SHOW_LASTS, "/assets/img/tile_reservation-lasts.svg")
+            new MainMenuItem("Last services", Mappings.SERVICES_SHOW_LATEST, "/assets/img/tile_reservation-lasts.svg")
     );
     private static List<MainMenuItem> row_customer = Arrays.asList(
             new MainMenuItem("Search customers", Mappings.CUSTOMERS_SEARCH, "/assets/img/tile_search-customer.svg"),
@@ -29,7 +29,7 @@ public class MainMenu {
 
     private static List<MainMenuItem> row_messages = Arrays.asList(
             new MainMenuItem("New message", Mappings.MESSAGES_FORM, "/assets/img/tile_message-new.svg"),
-            new MainMenuItem("View all", Mappings.MESSAGES_SHOW_ALL, "/assets/img/tile_reservation-lasts.svg")
+            new MainMenuItem("View all", Mappings.MESSAGES_SHOW_LATEST, "/assets/img/tile_reservation-lasts.svg")
     );
 
     private static List<MainMenuItem> row_accommodations = Arrays.asList(

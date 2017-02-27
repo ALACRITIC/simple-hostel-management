@@ -43,7 +43,7 @@ public class MerchantServicesController {
     @Autowired
     private MerchantServiceTypesService merchantServiceTypesService;
 
-    @RequestMapping(value = Mappings.SERVICES_SHOW_LASTS, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.SERVICES_SHOW_LATEST, method = RequestMethod.GET)
     public String showAll(Model model) throws Exception {
 
         List<MerchantServiceType> serviceTypesList = merchantServiceTypesService.getAll();

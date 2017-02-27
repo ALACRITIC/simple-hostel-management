@@ -50,7 +50,7 @@ public class ReservationController {
      * @param model
      * @return
      */
-    @RequestMapping(value = Mappings.RESERVATIONS_LASTS, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.RESERVATIONS_SHOW_LATEST, method = RequestMethod.GET)
     public String showLastsReservation(Model model) {
 
         try {

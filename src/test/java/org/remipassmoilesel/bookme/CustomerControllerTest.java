@@ -95,7 +95,7 @@ public class CustomerControllerTest {
 
     @Test
     public void testShowAll() throws Exception {
-        mockMvc.perform(get(Mappings.CUSTOMERS_SHOW_ALL))
+        mockMvc.perform(get(Mappings.CUSTOMERS_SHOW_LATEST))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("customers"))
                 .andExpect(model().attributeExists(Mappings.MODEL_ARGUMENT_NAME));
@@ -117,7 +117,7 @@ public class CustomerControllerTest {
 
     @Test
     public void testJsonGetAll() throws Exception {
-        this.mockMvc.perform(get(Mappings.CUSTOMERS_JSON_GET_ALL)).andExpect(status().isOk());
+        this.mockMvc.perform(get(Mappings.CUSTOMERS_JSON_GET_LATEST)).andExpect(status().isOk());
     }
 
     @Test

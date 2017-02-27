@@ -46,7 +46,7 @@ public class MessageController {
         return Templates.MESSAGES_SHOW_ONE;
     }
 
-    @RequestMapping(value = Mappings.MESSAGES_SHOW_ALL, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.MESSAGES_SHOW_LATEST, method = RequestMethod.GET)
     public String showAll(Model model) throws Exception {
 
         List<Message> messagesList = messageService.getAll(20l, 0l);
@@ -58,7 +58,7 @@ public class MessageController {
     }
 
     @ResponseBody
-    @RequestMapping(value = Mappings.MESSAGES_GET_AS_JSON, method = RequestMethod.GET,
+    @RequestMapping(value = Mappings.MESSAGES_JSON_GET_LATEST, method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Message> getMessagesAsJson() throws Exception {
 
