@@ -74,5 +74,28 @@ public class AdministrationController {
 
     }
 
+    @RequestMapping(value = Mappings.ADMINISTRATION_EXPORT_SERVICES_CSV, method = RequestMethod.GET)
+    public void exportServicesCsv(
+            @RequestParam("begin") String begin,
+            @RequestParam("end") String end,
+            HttpServletResponse response) throws Exception {
+
+        Date beginDate = Utils.stringToDate(begin);
+        Date endDate = Utils.stringToDate(end);
+
+        response.setContentType("text/csv");
+        response.setHeader("Content-disposition", "attachment; filename=\"export.csv\"");
+
+        File tempFile = exportService.exportServicesCsv(beginDate, endDate);
+
+        try (ServletOutputStream out = response.getOutputStream();
+             InputStream in = Files.newInputStream(tempFile.toPath())) {
+            IOUtils.copy(in, out);
+        }
+
+        Files.delete(tempFile.toPath());
+
+    }
+
 
 }

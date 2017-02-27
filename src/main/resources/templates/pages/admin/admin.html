@@ -21,26 +21,46 @@
 
         <div class="col-md-12">
 
-            <h2>Export</h2>
+            <h3>Export reservations</h3>
 
             <table class="formtable">
-
                 <!-- Begin and end date-->
-
                 <tr>
                     <td>
-                        <input class="form-control" id="exportBeginDate" placeholder="Begin date" readonly="true"/>
+                        <input class="form-control" id="exportReservationBeginDate" placeholder="Begin date" readonly="true"/>
                     </td>
 
                     <td>
-                        <input class="form-control" id="exportEndDate" placeholder="End date" readonly="true"/>
+                        <input class="form-control" id="exportReservationEndDate" placeholder="End date" readonly="true"/>
                     </td>
 
                     <td style="text-align: right">
-                        <button type="button" id="exportValidButton" class="btn btn-primary">Export</button>
+                        <button type="button" id="exportReservationValidButton" class="btn btn-primary">Export reservations</button>
                     </td>
                 </tr>
+            </table>
 
+        </div>
+
+        <div class="col-md-12">
+
+            <h3>Export services</h3>
+
+            <table class="formtable">
+                <!-- Begin and end date-->
+                <tr>
+                    <td>
+                        <input class="form-control" id="exportServiceBeginDate" placeholder="Begin date" readonly="true"/>
+                    </td>
+
+                    <td>
+                        <input class="form-control" id="exportServiceEndDate" placeholder="End date" readonly="true"/>
+                    </td>
+
+                    <td style="text-align: right">
+                        <button type="button" id="exportServiceValidButton" class="btn btn-primary">Export services</button>
+                    </td>
+                </tr>
             </table>
 
         </div>

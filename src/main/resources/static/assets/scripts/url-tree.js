@@ -108,15 +108,28 @@ var UrlTree = {
 
     ///////////////////////////////
 
-    exportCsvUrl: null,
+    exportReservationCsvUrl: null,
 
-    setExportCsvUrl: function (url) {
-        UrlTree.exportCsvUrl = url;
+    setExportReservationCsvUrl: function (url) {
+        UrlTree.exportReservationCsvUrl = url;
     },
 
-    getExportCsvUrl: function () {
-        UrlTree._checkIfDefined(UrlTree.exportCsvUrl, "exportCsvUrl");
-        return UrlTree.exportCsvUrl;
+    getExportReservationCsvUrl: function () {
+        UrlTree._checkIfDefined(UrlTree.exportReservationCsvUrl, "exportReservationCsvUrl");
+        return UrlTree.exportReservationCsvUrl;
+    },  
+    
+    ///////////////////////////////
+
+    exportServiceCsvUrl: null,
+
+    setExportServiceCsvUrl: function (url) {
+        UrlTree.exportServiceCsvUrl = url;
+    },
+
+    getExportServiceCsvUrl: function () {
+        UrlTree._checkIfDefined(UrlTree.exportServiceCsvUrl, "exportServiceCsvUrl");
+        return UrlTree.exportServiceCsvUrl;
     },
 
     ///////////////////////////////

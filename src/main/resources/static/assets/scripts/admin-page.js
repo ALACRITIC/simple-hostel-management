@@ -10,51 +10,81 @@ var AdministrationPage = {
 
         var self = AdministrationPage;
 
-        var beginDate = $("#exportBeginDate");
-        var endDate = $("#exportEndDate");
-        var validButton = $("#exportValidButton");
-        
+        var reservationBeginDate = $("#exportReservationBeginDate");
+        var reservationEndDate = $("#exportReservationEndDate");
+        var reservationValidButton = $("#exportReservationValidButton");
+
         // transform fields in date picker
-        beginDate.datepicker({
+        reservationBeginDate.datepicker({
             dateFormat: "dd/mm/yy",
             onSelect: function () {
-                self.setDateFieldBackground(false);
-                self.checkDates();
+                self.setDateFieldBackground(false, reservationBeginDate, reservationEndDate);
+                self.checkDates(reservationBeginDate, reservationEndDate);
             }
         });
 
-        endDate.datepicker({
+        reservationEndDate.datepicker({
             dateFormat: "dd/mm/yy",
             onSelect: function () {
-                self.setDateFieldBackground(false);
-                self.checkDates();
+                self.setDateFieldBackground(false, reservationBeginDate, reservationEndDate);
+                self.checkDates(reservationBeginDate, reservationEndDate);
             }
         });
 
-        validButton.click(function () {
-            self.exportCsv();
+        reservationValidButton.click(function () {
+            self.exportReservationsCsv();
+        });
+
+        var serviceBeginDate = $("#exportServiceBeginDate");
+        var serviceEndDate = $("#exportServiceEndDate");
+        var serviceValidButton = $("#exportServiceValidButton");
+
+        // transform fields in date picker
+        serviceBeginDate.datepicker({
+            dateFormat: "dd/mm/yy",
+            onSelect: function () {
+                self.setDateFieldBackground(false, serviceBeginDate, serviceEndDate);
+                self.checkDates(serviceBeginDate, serviceEndDate);
+            }
+        });
+
+        serviceEndDate.datepicker({
+            dateFormat: "dd/mm/yy",
+            onSelect: function () {
+                self.setDateFieldBackground(false, serviceBeginDate, serviceEndDate);
+                self.checkDates(serviceBeginDate, serviceEndDate);
+            }
+        });
+
+        serviceValidButton.click(function () {
+            self.exportServicesCsv();
         });
 
     },
 
-    exportCsv: function () {
+    exportReservationsCsv: function () {
 
-        var beginDate = $("#exportBeginDate");
-        var endDate = $("#exportEndDate");
+        var beginDate = $("#exportReservationBeginDate");
+        var endDate = $("#exportReservationEndDate");
 
-        document.location = UrlTree.getExportCsvUrl() + "?begin=" + beginDate.val() + "&end=" + endDate.val();
+        document.location = UrlTree.getExportReservationCsvUrl() + "?begin=" + beginDate.val() + "&end=" + endDate.val();
+    },
+
+    exportServicesCsv: function () {
+
+        var beginDate = $("#exportServiceBeginDate");
+        var endDate = $("#exportServiceEndDate");
+
+        document.location = UrlTree.getExportServiceCsvUrl() + "?begin=" + beginDate.val() + "&end=" + endDate.val();
     },
 
     /**
      * Change background of date field
      * @param error
      */
-    setDateFieldBackground: function (error) {
+    setDateFieldBackground: function (error, beginDate, endDate) {
 
         var self = AdministrationPage;
-
-        var beginDate = $("#exportBeginDate");
-        var endDate = $("#exportEndDate");
 
         var defaultColor = $(beginDate).css('background');
 
@@ -65,19 +95,16 @@ var AdministrationPage = {
     /**
      * Check if selected dates are valid or change background
      */
-    checkDates: function () {
+    checkDates: function (beginDate, endDate) {
 
         var self = AdministrationPage;
-
-        var beginDate = $("#exportBeginDate");
-        var endDate = $("#exportEndDate");
 
         var bd = moment(beginDate.val(), "DD/MM/YYYY");
         var ed = moment(endDate.val(), "DD/MM/YYYY");
 
         // check if dates are in order
         if (bd._isValid == false || ed._isValid == false || bd.isAfter(ed)) {
-            self.setDateFieldBackground(true);
+            self.setDateFieldBackground(true, beginDate, endDate);
             console.error("Dates are invalid");
         }
 

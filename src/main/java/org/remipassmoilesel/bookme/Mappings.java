@@ -84,14 +84,13 @@ public class Mappings {
     public static final String SERVICES_BY_TYPE = SERVICES_ROOT + "/bytype";
 
     public static final String ADMINISTRATION_ROOT = APPLICATION_ROOT + "/admin";
-    public static final String ADMINISTRATION_EXPORT_RESERVATIONS_CSV = ADMINISTRATION_ROOT + "/export/csv";
-
+    public static final String ADMINISTRATION_EXPORT_RESERVATIONS_CSV = ADMINISTRATION_ROOT + "/export/csv/reservations";
+    public static final String ADMINISTRATION_EXPORT_SERVICES_CSV = ADMINISTRATION_ROOT + "/export/csv/services";
 
     public static final String POPULATE_TABLES = APPLICATION_ROOT + "/populate-tables";
     public static final String MAIN_TEMPLATE = APPLICATION_ROOT + "/main-template";
 
     public static final String TEST_ROOT = APPLICATION_ROOT + "/test/";
-
 
     public static MappingMap getMap() {
 

@@ -4,7 +4,6 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import org.remipassmoilesel.bookme.configuration.CustomConfiguration;
 import org.remipassmoilesel.bookme.customers.CustomerService;
-import org.remipassmoilesel.bookme.reservations.Reservation;
 import org.remipassmoilesel.bookme.utils.AbstractDaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -134,4 +133,23 @@ public class MerchantServiceService extends AbstractDaoService<MerchantService> 
         }
     }
 
+    public List<MerchantService> getByInterval(Date begin, Date end, boolean orderAscending) throws IOException {
+
+        try {
+            QueryBuilder<MerchantService, String> queryBuilder = dao.queryBuilder();
+            queryBuilder.orderBy(MerchantService.PURCHASE_DATE_FIELD_NAME, orderAscending);
+            Where<MerchantService, String> where = queryBuilder.where();
+            where.between(MerchantService.PURCHASE_DATE_FIELD_NAME, begin, end);
+
+            List<MerchantService> results = queryBuilder.query();
+
+            for (MerchantService r : results) {
+                refresh(r);
+            }
+
+            return results;
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
+    }
 }
