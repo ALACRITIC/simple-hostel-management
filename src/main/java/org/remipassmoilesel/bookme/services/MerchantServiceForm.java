@@ -63,33 +63,35 @@ public class MerchantServiceForm {
     /**
      * Load a service in form
      *
-     * @param bill
+     * @param service
      */
-    public void load(MerchantService bill) {
+    public void load(MerchantService service) {
 
-        if (bill == null) {
+        if (service == null) {
             return;
         }
 
-        setTotalPrice(bill.getTotalPrice());
-        setId(bill.getId());
+        setTotalPrice(service.getTotalPrice());
+        setId(service.getId());
 
-        if (bill.getCustomer() != null) {
-            setCustomerId(bill.getCustomer().getId());
-            setCustomerFirstname(bill.getCustomer().getFirstname());
-            setCustomerLastname(bill.getCustomer().getLastname());
-            setCustomerPhonenumber(bill.getCustomer().getPhonenumber());
+        if (service.getCustomer() != null) {
+            setCustomerId(service.getCustomer().getId());
+            setCustomerFirstname(service.getCustomer().getFirstname());
+            setCustomerLastname(service.getCustomer().getLastname());
+            setCustomerPhonenumber(service.getCustomer().getPhonenumber());
         }
 
-        if (bill.getExecutionDate() != null) {
-            setExecutionDate(Utils.dateToString(bill.getExecutionDate()));
+        if (service.getExecutionDate() != null) {
+            setExecutionDate(Utils.dateToString(service.getExecutionDate(), "dd/MM/YYYY HH:mm"));
         }
 
-        if (bill.getServiceType() != null) {
-            setServiceType(bill.getServiceType().getId());
+        if (service.getServiceType() != null) {
+            setServiceType(service.getServiceType().getId());
         }
 
-        setComment(bill.getComment());
+        setComment(service.getComment());
+        setPaid(service.isPaid());
+        setScheduled(service.isScheduled());
 
     }
 

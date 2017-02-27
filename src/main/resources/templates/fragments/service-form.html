@@ -67,7 +67,10 @@
         <!-- Total price  -->
 
         <tr>
-            <td colspan="2">
+            <td>
+                Total price:
+            </td>
+            <td>
                 <input type="text" class="form-control" id="totalPrice" placeholder="Service price"
                        th:field="*{totalPrice}"/>
                 <div th:if="${#fields.hasErrors('totalPrice')}" th:errors="*{totalPrice}" class="formError">
