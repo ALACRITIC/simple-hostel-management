@@ -472,7 +472,7 @@
                     <th>Customer</th>
                     <th>Price</th>
                     <th>Paid</th>
-                    <th>Comment</th>
+                    <th style="width: 50%">Comment</th>
                     <th style="width: 5em"></th>
                 </tr>
                 </thead>
@@ -485,7 +485,7 @@
                     <td th:text="${service.getCustomer().getNameString()}">Jean Claude</td>
                     <td th:text="${service.getTotalPrice()}">15</td>
                     <td class="fa" th:classappend="${service.isPaid()} ? 'fa-check' : 'fa-times'" th:text="''">X</td>
-                    <td th:text="${service.getComment()}">Comment</td>
+                    <td th:text="${service.getComment().length() > 200} ? ${#strings.substring(service.getComment(), 0, 200) + '...'} : ${service.getComment()}">Comment</td>
                     <td>
                         <a th:href="${mappings.get('SERVICES_FORM') + '?id=' + service.getId()}"
                            class="glyphicon glyphicon-edit"></a></td>

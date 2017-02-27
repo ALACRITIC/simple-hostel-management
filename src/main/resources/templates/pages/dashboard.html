@@ -21,6 +21,7 @@
     </div>
 
     <div class="row">
+
         <!-- Next checkouts -->
 
         <div class="col-md-12">
@@ -30,6 +31,18 @@
             <div th:replace="main-template :: checkouts-list (reservationsList=${nextCheckoutsList})"></div>
 
             <div th:replace="main-template :: button-view-more-checkouts"></div>
+
+        </div>
+
+        <!-- Next scheduled services -->
+
+        <div class="col-md-12">
+
+            <h2>Next scheduled services</h2>
+
+            <div th:replace="main-template :: services-list (servicesList=${nextScheduledServicesList})"></div>
+
+            <div th:replace="main-template :: button-view-more-services"></div>
 
         </div>
 

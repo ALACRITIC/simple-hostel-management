@@ -152,4 +152,22 @@ public class MerchantServiceService extends AbstractDaoService<MerchantService> 
             throw new IOException(e);
         }
     }
+
+    public List<MerchantService> getLastScheduledServices(long limit, long offset) throws IOException {
+
+        try {
+            QueryBuilder<MerchantService, String> statement = dao.queryBuilder();
+
+            statement.orderBy(MerchantService.EXECUTION_DATE_FIELD_NAME, false)
+                    .limit(limit).offset(offset);
+            statement.where().eq(MerchantService.IS_SCHEDULED_FIELD_NAME, true);
+
+            List<MerchantService> results = statement.query();
+            refresh(results);
+
+            return results;
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
+    }
 }
