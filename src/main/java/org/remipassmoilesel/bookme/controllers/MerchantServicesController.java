@@ -253,6 +253,7 @@ public class MerchantServicesController {
         }
 
         if (executionDate.isEmpty() == false) {
+            form.setScheduled(true);
             form.setExecutionDate(executionDate);
         }
 
