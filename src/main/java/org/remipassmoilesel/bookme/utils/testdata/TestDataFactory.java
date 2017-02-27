@@ -102,7 +102,7 @@ public class TestDataFactory {
         // create customers and reservations
         ArrayList<Reservation> reservations = new ArrayList<>();
         for (int i = 0; i < number; i++) {
-            Customer customer = customers.get(i);
+            Customer customer = (Customer) Utils.randValueFrom(customers);
             Accommodation accommodation = rooms.get(Utils.randInt(0, rooms.size() - 1));
             Reservation reservation = new Reservation(customer, accommodation, 1,
                     startDate.plusDays(i).toDate(),
