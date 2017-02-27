@@ -87,25 +87,50 @@ a.fc-day-number {
     margin: 0.4em;
 }
 
-.formError{
+.formError {
     margin: 1em 1em 1em 0.3em;
     border-left: 0.5em solid darkred;
     padding-left: 1em;
     color: darkred;
 }
 
-.formInformation{
+.formInformation {
     margin: 1em 1em 1em 0.3em;
     border-left: 0.5em solid darkblue;
     padding-left: 1em;
     color: darkblue;
 }
 
-.mainmenu .caption{
+.main-menu-item .caption {
     text-align: center;
 }
 
-.adviceBlock{
+.main-menu-item {
+    text-align: center;
+}
+
+.mainmenu a {
+    color: navy;
+    text-decoration: none;
+}
+
+.mainmenu a:hover {
+    color: #0000bd;
+    text-decoration: underline;
+}
+
+.mainmenu img {
+    border: none;
+    margin: 1em;
+}
+
+.menu-row-title {
+    text-align: left;
+    padding: 1em;
+    padding-bottom: 0.6em;
+}
+
+.adviceBlock {
     margin: 0.5em;
     padding: 1em;
     color: #424242;

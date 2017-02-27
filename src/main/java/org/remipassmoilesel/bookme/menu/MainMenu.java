@@ -18,7 +18,7 @@ public class MainMenu {
     );
     private static List<MainMenuItem> row_service = Arrays.asList(
             new MainMenuItem("New service", Mappings.SERVICES_FORM, "/assets/img/tile_new-service.svg"),
-            new MainMenuItem("Calendar", Mappings.SERVICES_CALENDAR, "/assets/img/tile_service-calendar.svg"),
+            new MainMenuItem("Scheduled services", Mappings.SERVICES_CALENDAR, "/assets/img/tile_service-calendar.svg"),
             new MainMenuItem("Last services", Mappings.SERVICES_SHOW_LASTS, "/assets/img/tile_reservation-lasts.svg")
     );
     private static List<MainMenuItem> row_customer = Arrays.asList(

@@ -20,7 +20,7 @@
         <!-- Row header -->
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
-                <div class="caption h3" style="text-align: left; padding-left: 1em;">
+                <div class="caption h3 menu-row-title">
                     <span th:text="${row.getTitle()}"></span>
                 </div>
             </div>
@@ -29,11 +29,11 @@
         <!-- Menu elements -->
         <div class="row">
 
-            <div class="col-md-3">&nbsp;</div>
+            <div class="hidden-xs hidden-sm col-md-3">&nbsp;</div>
 
-            <div th:each="menu : ${row.getItems()}" class="thumbnail col-md-2">
+            <div th:each="menu : ${row.getItems()}" class="col-sm-3 col-md-2 main-menu-item">
                 <a th:href="${menu.getHref()}">
-                    <img th:src="${menu.getImage()}" alt="tile"/>
+                    <img th:src="${menu.getImage()}" th:alt="${menu.getName()}"/>
                     <div class="caption">
                         <span text-align="center" th:text="${menu.getName()}"></span>
                     </div>
