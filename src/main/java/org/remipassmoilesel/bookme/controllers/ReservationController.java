@@ -160,9 +160,10 @@ public class ReservationController {
         if (reservationId != -1) {
             Reservation res = reservationService.getById(reservationId);
             reservationForm.load(res);
-            model.addAttribute("primaryAccommodationId", res.getId());
-            model.addAttribute("primaryAccommodationName", res.getAccommodation().getName());
-            model.addAttribute("primaryAccommodationPrice", res.getAccommodation().getPricePerDay());
+            Accommodation acc = res.getAccommodation();
+            model.addAttribute("primaryAccommodationId", acc.getId());
+            model.addAttribute("primaryAccommodationName", acc.getName());
+            model.addAttribute("primaryAccommodationPrice", acc.getPricePerDay());
         }
 
         if (accommodationId != -1) {

@@ -203,7 +203,7 @@ var ReservationForm = {
                 var plab = accommSelect.attr("data-primary-name");
                 var pprice = accommSelect.attr("data-primary-price");
                 if (pval) {
-                    if (accommSelect.children("option[id=" + pval + "]").length < 1) {
+                    if (accommSelect.children("option[value=" + pval + "]").length < 1) {
                         var elmt = $("<option/>");
                         elmt.text(plab);
                         elmt.attr("value", pval);
