@@ -15,6 +15,7 @@ import org.remipassmoilesel.bookme.services.MerchantServiceService;
 import org.remipassmoilesel.bookme.services.MerchantServiceType;
 import org.remipassmoilesel.bookme.services.MerchantServiceTypesService;
 import org.remipassmoilesel.bookme.utils.Utils;
+import org.remipassmoilesel.bookme.utils.colors.DefaultColors;
 
 import java.awt.*;
 import java.io.IOException;
@@ -27,13 +28,14 @@ import java.util.List;
  */
 public class TestDataFactory {
 
-    private final static List<Color> colors = Arrays.asList(Color.blue,
-            Color.red,
-            Color.green,
-            Color.gray,
-            Color.darkGray,
-            Color.pink,
-            Color.orange);
+    private final static List<Color> colors = Arrays.asList(
+            DefaultColors.get("CadetBlue").getColor(),
+            DefaultColors.get("DarkCyan").getColor(),
+            DefaultColors.get("DarkSlateBlue").getColor(),
+            DefaultColors.get("Grey").getColor(),
+            DefaultColors.get("OliveDrab").getColor(),
+            DefaultColors.get("RebeccaPurple").getColor(),
+            DefaultColors.get("YellowGreen").getColor());
 
     private final static List<String> firstnames = Arrays.asList(
             "Jean", "Paul",
