@@ -136,3 +136,10 @@ a.fc-day-number {
     color: #424242;
     border-left: 1em solid darkgray;
 }
+
+.light-warning{
+    margin: 0.5em;
+    padding: 1em;
+    color: #424242;
+    border-left: 1em solid #8e8e00;
+}
