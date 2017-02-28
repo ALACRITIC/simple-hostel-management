@@ -283,6 +283,14 @@ public class MerchantServicesController {
             Model model,
             HttpServletRequest request) throws Exception {
 
+        // reject form if service is cheduled but date is not specified
+        if (serviceForm.isScheduled()) {
+            if (serviceForm.getExecutionDate() == null || serviceForm.getExecutionDate().isEmpty()) {
+                serviceResults.rejectValue("executionDate",
+                        "Empty date not allowed when service is cheduled");
+            }
+        }
+
         if (serviceResults.hasErrors()) {
 
             model.addAttribute("token", serviceForm.getToken());
@@ -318,7 +326,10 @@ public class MerchantServicesController {
                 customerService.create(customer);
             }
 
-            Date execDate = Utils.stringToDateTime(serviceForm.getExecutionDate(), "dd/MM/YY HH:mm").toDate();
+            Date execDate = null;
+            if (serviceForm.getExecutionDate() != null && serviceForm.getExecutionDate().isEmpty() == false) {
+                execDate = Utils.stringToDateTime(serviceForm.getExecutionDate(), "dd/MM/YY HH:mm").toDate();
+            }
 
             // add reservation if it is a new one
             if (serviceForm.getId() == -1) {

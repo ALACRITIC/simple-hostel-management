@@ -41,7 +41,7 @@ public class MerchantServiceForm {
     private Long customerId = -1l;
 
     @NotNull
-    @Pattern(regexp = "[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}")
+    @Pattern(regexp = "([0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2})?")
     private String executionDate;
 
     @NotNull

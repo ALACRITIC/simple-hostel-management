@@ -32,9 +32,8 @@
         <tr>
             <td colspan="2">
                 <input type="text" id="serviceCustomerFirstname" class="form-control" placeholder="First name"
-                       th:field="*{customerFirstname}"/>
-                <div th:if="${#fields.hasErrors('customerFirstname')}" th:errors="*{customerFirstname}"
-                     class="formError">
+                       th:field="*{customerFirstname}" required="true"/>
+                <div th:if="${#fields.hasErrors('customerFirstname')}" th:text="'Incorrect input'" class="formError">
                     First name error
                 </div>
             </td>
@@ -44,8 +43,8 @@
         <tr>
             <td colspan="2">
                 <input type="text" id="serviceCustomerLastname" class="form-control" placeholder="Last name"
-                       th:field="*{customerLastname}"/>
-                <div th:if="${#fields.hasErrors('customerLastname')}" th:errors="*{customerLastname}" class="formError">
+                       th:field="*{customerLastname}" required="true"/>
+                <div th:if="${#fields.hasErrors('customerLastname')}" th:text="'Incorrect input'" class="formError">
                     Last name error
                 </div>
             </td>
@@ -55,9 +54,8 @@
         <tr>
             <td colspan="2">
                 <input type="text" id="serviceCustomerPhonenumber" class="form-control" placeholder="Phone number"
-                       th:field="*{customerPhonenumber}"/>
-                <div th:if="${#fields.hasErrors('customerPhonenumber')}" th:errors="*{customerPhonenumber}"
-                     class="formError">
+                       th:field="*{customerPhonenumber}" required="true"/>
+                <div th:if="${#fields.hasErrors('customerPhonenumber')}" th:text="'Incorrect input'" class="formError">
                     Phone number error
                 </div>
                 <div class="formInformation" id="serviceCustomerPhonenumberWarning"></div>
@@ -72,8 +70,8 @@
             </td>
             <td>
                 <input type="text" class="form-control" id="totalPrice" placeholder="Service price"
-                       th:field="*{totalPrice}"/>
-                <div th:if="${#fields.hasErrors('totalPrice')}" th:errors="*{totalPrice}" class="formError">
+                       th:field="*{totalPrice}" required="true"/>
+                <div th:if="${#fields.hasErrors('totalPrice')}" th:text="'Incorrect input'" class="formError">
                     Price error
                 </div>
             </td>
@@ -84,7 +82,7 @@
         <tr>
             <td colspan="2">
                 <textarea class="form-control" placeholder="Comment" th:field="*{comment}"></textarea>
-                <div th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" class="formError">
+                <div th:if="${#fields.hasErrors('comment')}" th:text="'Incorrect input'" class="formError">
                     Comment error
                 </div>
             </td>
@@ -101,14 +99,15 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2">
-                <input type="text" th:field="*{executionDate}" class="form-control" id="serviceExecutionDate"
-                       placeholder="ExecutionDate"/>
+            <td>
+                Expected execution date:
             </td>
-        </tr>
-        <tr>
-            <td colspan="2" th:if="${#fields.hasErrors('executionDate') or #fields.hasErrors('executionDate')}">
-                <div class="formError" th:if="${#fields.hasErrors('executionDate')}" th:text="'Invalid date'"></div>
+            <td>
+                <input type="text" th:field="*{executionDate}" class="form-control" id="serviceExecutionDate"
+                       placeholder="Expected execution date"/>
+                <div th:if="${#fields.hasErrors('executionDate')}"  th:text="'Incorrect input'" class="formError">
+                    Date error
+                </div>
             </td>
         </tr>
 
@@ -155,7 +154,7 @@
 
     <script src="/assets/scripts/service-form.js"></script>
 
-    <!--<div th:replace="fragments/show-debug :: debug"></div>-->
+    <div th:replace="fragments/show-debug :: debug"></div>
 
 </form>
 

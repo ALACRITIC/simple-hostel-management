@@ -483,7 +483,9 @@
 
                 <tr>
                     <td>Execution date:</td>
-                    <td th:text="${#dates.format(service?.getExecutionDate(), 'dd/MM/yyyy HH:mm')}">True</td>
+                    <td th:text="${service?.getExecutionDate() != null ? #dates.format(service?.getExecutionDate(), 'dd/MM/yyyy HH:mm'): '-'}">
+                        11/12/2017 21:00
+                    </td>
                 </tr>
 
             </table>
