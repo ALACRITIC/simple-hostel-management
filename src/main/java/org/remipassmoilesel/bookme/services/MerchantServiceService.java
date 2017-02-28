@@ -60,6 +60,25 @@ public class MerchantServiceService extends AbstractDaoService<MerchantService> 
         return result;
     }
 
+    public List<MerchantService> getLatest(Long limit, Long offset) throws IOException {
+
+        try {
+
+            QueryBuilder<MerchantService, String> queryBuilder = dao.queryBuilder();
+            queryBuilder.orderBy(MerchantService.PURCHASE_DATE_FIELD_NAME, false);
+            queryBuilder.limit(limit);
+            queryBuilder.offset(offset);
+
+            List<MerchantService> results = queryBuilder.query();
+            refresh(results);
+
+            return results;
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
+
+    }
+
     /**
      * Return a list of reservation wbetween specified
      *
@@ -153,7 +172,7 @@ public class MerchantServiceService extends AbstractDaoService<MerchantService> 
         }
     }
 
-    public List<MerchantService> getLastScheduledServices(long limit, long offset) throws IOException {
+    public List<MerchantService> getLatestScheduledServices(long limit, long offset) throws IOException {
 
         try {
             QueryBuilder<MerchantService, String> statement = dao.queryBuilder();

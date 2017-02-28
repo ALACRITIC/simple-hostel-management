@@ -5,6 +5,7 @@ import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.services.*;
+import org.remipassmoilesel.bookme.utils.PaginationUtil;
 import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.remipassmoilesel.bookme.utils.Utils;
 import org.remipassmoilesel.bookme.utils.colors.DefaultColors;
@@ -44,12 +45,18 @@ public class MerchantServicesController {
     private MerchantServiceTypesService merchantServiceTypesService;
 
     @RequestMapping(value = Mappings.SERVICES_SHOW_LATEST, method = RequestMethod.GET)
-    public String showLatestServices(Model model) throws Exception {
+    public String showLatestServices(
+            @RequestParam(value = "limit", required = false, defaultValue = "20") Long limit,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") Long offset,
+            Model model) throws Exception {
 
-        List<MerchantService> servicesList = merchantServiceService.getAll(30l, 0l);
+        List<MerchantService> servicesList = merchantServiceService.getLatest(limit, offset);
 
         model.addAttribute("servicesList", servicesList);
         includeServiceTypes(model);
+
+        PaginationUtil pu = new PaginationUtil(Mappings.SERVICES_SHOW_LATEST, limit, offset);
+        pu.addLinks(model);
 
         Mappings.includeMappings(model);
         return Templates.SERVICES_SHOW_LATEST;

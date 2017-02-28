@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.awt.*;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -93,7 +92,7 @@ public class MainController {
         List<Reservation> lastReservationsList = reservationService.getLastReservations(5, 0);
 
         // get lasts reservations
-        List<MerchantService> nextScheduledServicesList = merchantServiceService.getLastScheduledServices(5, 0);
+        List<MerchantService> nextScheduledServicesList = merchantServiceService.getLatestScheduledServices(5, 0);
 
         // get last clients
         List<Customer> lastCustomersList = customerService.getLasts(6, 0);

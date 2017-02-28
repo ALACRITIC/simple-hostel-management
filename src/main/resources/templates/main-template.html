@@ -501,6 +501,7 @@
                     <th>Customer</th>
                     <th>Price</th>
                     <th>Paid</th>
+                    <th>Scheduled</th>
                     <th style="width: 40%">Comment</th>
                     <th style="width: 5em"></th>
                 </tr>
@@ -514,6 +515,7 @@
                     <td th:text="${service.getCustomer().getNameString()}">Jean Claude</td>
                     <td th:text="${service.getTotalPrice()}">15</td>
                     <td class="fa" th:classappend="${service.isPaid()} ? 'fa-check' : 'fa-times'" th:text="''">X</td>
+                    <td th:text="${service.isScheduled() ? #dates.format(service.getExecutionDate(), 'dd/MM/yyyy HH:mm') : '-'}">20/12/2017</td>
                     <td th:text="${service.getComment().length() > 200} ? ${#strings.substring(service.getComment(), 0, 200) + '...'} : ${service.getComment()}">
                         Comment
                     </td>
@@ -521,7 +523,7 @@
                         <a th:href="${mappings.get('SERVICES_FORM') + '?id=' + service.getId()}"
                            class="glyphicon glyphicon-edit" data-toggle="tooltip" title="Edit service ..."></a>
                     </td>
-
+                    <!--<td th:text="${service.getPurchaseDate()}">20/12/2017</td>-->
                 </tr>
 
                 <tr th:if="${#lists.isEmpty(servicesList)}">

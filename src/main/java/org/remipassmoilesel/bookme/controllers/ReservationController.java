@@ -58,7 +58,7 @@ public class ReservationController {
             Model model) {
 
         try {
-            List<Reservation> lasts = reservationService.getLastReservations(20, 0);
+            List<Reservation> lasts = reservationService.getLastReservations(limit, offset);
             model.addAttribute("reservationsList", lasts);
         } catch (IOException e) {
             logger.error("Error while retrieving reservations", e);
