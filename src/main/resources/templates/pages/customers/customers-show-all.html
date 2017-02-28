@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
-    <title>Show customers</title>
+    <title>Latest customers</title>
 
     <script th:replace="main-template :: page-headers"></script>
 
@@ -17,13 +17,16 @@
 
         <div class="col-md-12">
 
-            <h1>Customers</h1>
+            <h1>Latest customers</h1>
 
             <div th:replace="main-template :: customers-list(customersList=${customers})"></div>
 
         </div>
 
     </div>
+
+    <!-- Pagination bar -->
+    <div th:replace="main-template :: pagination-bottom-bar"></div>
 
     <!-- Footer -->
     <div th:replace="main-template :: footer"></div>

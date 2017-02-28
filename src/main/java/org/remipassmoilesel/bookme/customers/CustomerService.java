@@ -134,4 +134,22 @@ public class CustomerService extends AbstractDaoService<Customer> {
 
     }
 
+    public List<Customer> getLatest(Long limit, Long offset) throws IOException {
+
+        try {
+
+            QueryBuilder<Customer, String> queryBuilder = dao.queryBuilder();
+            queryBuilder.orderBy(Customer.CREATIONDATE_FIELD_NAME, false);
+            queryBuilder.limit(limit);
+            queryBuilder.offset(offset);
+
+            List<Customer> results = queryBuilder.query();
+            refresh(results);
+
+            return results;
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
+
+    }
 }

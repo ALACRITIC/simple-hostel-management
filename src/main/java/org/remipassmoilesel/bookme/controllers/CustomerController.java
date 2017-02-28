@@ -10,6 +10,7 @@ import org.remipassmoilesel.bookme.reservations.Reservation;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
 import org.remipassmoilesel.bookme.services.MerchantService;
 import org.remipassmoilesel.bookme.services.MerchantServiceService;
+import org.remipassmoilesel.bookme.utils.PaginationUtil;
 import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.remipassmoilesel.bookme.utils.Utils;
 import org.slf4j.Logger;
@@ -46,11 +47,17 @@ public class CustomerController {
     private MerchantServiceService merchantServiceService;
 
     @RequestMapping(value = Mappings.CUSTOMERS_SHOW_LATEST, method = RequestMethod.GET)
-    public String showLastCustomers(Model model) throws Exception {
+    public String showLastCustomers(
+            @RequestParam(value = "limit", required = false, defaultValue = "20") Long limit,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") Long offset,
+            Model model) throws Exception {
 
-        List<Customer> customers = customerService.getAll(30l, 0l);
+        List<Customer> customers = customerService.getLatest(limit, offset);
 
         model.addAttribute("customers", customers);
+
+        PaginationUtil pu = new PaginationUtil(Mappings.CUSTOMERS_SHOW_LATEST, limit, offset);
+        pu.addLinks(model);
 
         Mappings.includeMappings(model);
         return Templates.CUSTOMERS_SHOW;
@@ -80,7 +87,7 @@ public class CustomerController {
 
     @RequestMapping(value = Mappings.CUSTOMERS_JSON_GET_LATEST, method = RequestMethod.GET)
     @ResponseBody
-    public List<Customer> getJsonAll() throws Exception {
+    public List<Customer> getJsonLatest() throws Exception {
         List<Customer> customers = customerService.getAll(30l, 0l);
         return customers;
     }
@@ -189,7 +196,6 @@ public class CustomerController {
             // add reservation if it is a new one
             if (customerForm.getId() == -1) {
                 try {
-
                     customer = customerService.create(
                             customerForm.getFirstname(),
                             customerForm.getLastname(),

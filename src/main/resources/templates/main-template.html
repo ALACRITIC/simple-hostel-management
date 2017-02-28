@@ -327,6 +327,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Phone number</th>
+                    <th>Registration date</th>
                     <th style="width: 10em;"></th>
                 </tr>
                 </thead>
@@ -336,6 +337,8 @@
                     <td th:text="${customer.getFirstname()}">Jean</td>
                     <td th:text="${customer.getLastname()}">Claude</td>
                     <td th:text="${customer.getPhonenumber()}">+000002</td>
+                    <td th:text="${customer.getCreationDate() != null ?
+                            #dates.format(customer.getCreationDate(), 'dd/MM/yyyy HH:mm') : '-'}">12/12/2018 12:00</td>
                     <td style="text-align: right;">
                         <a th:href="${mappings.get('SERVICES_BY_CUSTOMER') + '?id=' + customer.getId()}"
                            data-toggle="tooltip" data-placement="left" title="Show services ..."
