@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
-    <title>Service types</title>
+    <title>Latest billed services</title>
 
     <script th:replace="main-template :: page-headers"></script>
 
@@ -19,9 +19,9 @@
     <div class="row">
         <div class="col-md-12">
 
-            <h1>Service types</h1>
+            <h1>Latest billed services</h1>
 
-            <div th:replace="main-template :: service-types-list (serviceTypesList=${serviceTypesList})"></div>
+            <div th:replace="main-template :: services-list (servicesList=${servicesList})"></div>
 
         </div>
     </div>

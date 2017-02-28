@@ -41,6 +41,7 @@ public class Templates {
 
     public static final String SERVICES_DIR = PAGES_DIR + "services/";
     public static final String SERVICE_TYPES_FORM = SERVICES_DIR + "service-types-form";
+    public static final String SERVICES_SHOW_LATEST = SERVICES_DIR + "services-show-latest";
     public static final String SERVICE_TYPES_SHOW_ALL = SERVICES_DIR + "service-types-show-all";
     public static final String SERVICES_FORM = SERVICES_DIR + "services-form";
     public static final String SERVICES_CALENDAR = SERVICES_DIR + "services-calendar";

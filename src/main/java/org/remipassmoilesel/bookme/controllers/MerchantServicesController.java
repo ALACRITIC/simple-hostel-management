@@ -44,12 +44,23 @@ public class MerchantServicesController {
     private MerchantServiceTypesService merchantServiceTypesService;
 
     @RequestMapping(value = Mappings.SERVICES_SHOW_LATEST, method = RequestMethod.GET)
-    public String showAll(Model model) throws Exception {
+    public String showLatestServices(Model model) throws Exception {
 
-        List<MerchantServiceType> serviceTypesList = merchantServiceTypesService.getAll();
         List<MerchantService> servicesList = merchantServiceService.getAll(30l, 0l);
 
         model.addAttribute("servicesList", servicesList);
+        includeServiceTypes(model);
+
+        Mappings.includeMappings(model);
+        return Templates.SERVICES_SHOW_LATEST;
+    }
+
+    @RequestMapping(value = Mappings.SERVICE_TYPES_SHOW_ALL, method = RequestMethod.GET)
+    public String showAllServiceTypes(Model model) throws Exception {
+
+        List<MerchantServiceType> serviceTypesList = merchantServiceTypesService.getAll();
+
+        model.addAttribute("serviceTypesList", serviceTypesList);
         includeServiceTypes(model);
 
         Mappings.includeMappings(model);

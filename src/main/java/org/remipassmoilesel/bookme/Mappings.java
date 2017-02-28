@@ -72,8 +72,12 @@ public class Mappings {
     public static final String CUSTOMERS_JSON_GET_LATEST = CUSTOMERS_JSON_ROOT + "/latest";
 
     public static final String SERVICES_ROOT = APPLICATION_ROOT + "/services";
-    public static final String SERVICE_TYPES_FORM = SERVICES_ROOT + "/type/form";
-    public static final String SERVICE_TYPES_DELETE = SERVICES_ROOT + "/type/delete";
+    public static final String SERVICE_TYPES_ROOT = SERVICES_ROOT + "/types";
+
+    public static final String SERVICE_TYPES_FORM = SERVICE_TYPES_ROOT + "/form";
+    public static final String SERVICE_TYPES_DELETE = SERVICE_TYPES_ROOT + "/delete";
+    public static final String SERVICE_TYPES_SHOW_ALL = SERVICE_TYPES_ROOT + "/show/all";
+
     public static final String SERVICES_DELETE = SERVICES_ROOT + "/delete";
     public static final String SERVICES_BY_CUSTOMER = SERVICES_ROOT + "/bycustomer";
     public static final String SERVICES_FORM = SERVICES_ROOT + "/form";
