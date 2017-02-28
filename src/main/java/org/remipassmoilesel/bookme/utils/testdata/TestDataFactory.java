@@ -71,7 +71,7 @@ public class TestDataFactory {
 
         ArrayList<Accommodation> accommodations = new ArrayList<>();
         for (int i = 0; i < number; i++) {
-            Accommodation accomm = new Accommodation("A" + i, 2, Utils.randDouble(5, 15),
+            Accommodation accomm = new Accommodation("Room A" + i, 2, Utils.randDouble(5, 15),
                     Utils.generateLoremIpsum(300), Type.ROOM, getRandomColor());
 
             accommodationService.create(accomm);

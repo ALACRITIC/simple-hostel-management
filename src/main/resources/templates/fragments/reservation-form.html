@@ -26,9 +26,8 @@
         <tr>
             <td colspan="3">
                 <input type="text" id="customerFirstname" class="form-control" placeholder="First name"
-                       th:field="*{customerFirstname}"/>
-                <div th:if="${#fields.hasErrors('customerFirstname')}" th:errors="*{customerFirstname}"
-                     class="formError">
+                       th:field="*{customerFirstname}" required="true"/>
+                <div th:if="${#fields.hasErrors('customerFirstname')}" th:text="'Incorrect input'" class="formError">
                     First name error
                 </div>
             </td>
@@ -38,8 +37,8 @@
         <tr>
             <td colspan="3">
                 <input type="text" id="customerLastname" class="form-control" placeholder="Last name"
-                       th:field="*{customerLastname}"/>
-                <div th:if="${#fields.hasErrors('customerLastname')}" th:errors="*{customerLastname}" class="formError">
+                       th:field="*{customerLastname}" required="true"/>
+                <div th:if="${#fields.hasErrors('customerLastname')}" th:text="'Incorrect input'" class="formError">
                     Last name error
                 </div>
             </td>
@@ -50,9 +49,8 @@
         <tr>
             <td colspan="3">
                 <input type="text" id="reservationCustomerPhonenumber" class="form-control" placeholder="Phone number"
-                       th:field="*{customerPhonenumber}"/>
-                <div th:if="${#fields.hasErrors('customerPhonenumber')}" th:errors="*{customerPhonenumber}"
-                     class="formError">
+                       th:field="*{customerPhonenumber}" required="true"/>
+                <div th:if="${#fields.hasErrors('customerPhonenumber')}" th:text="'Incorrect input'" class="formError">
                     Phone number error
                 </div>
                 <div class="formInformation" id="reservationCustomerPhonenumberWarning"></div>
@@ -64,11 +62,11 @@
         <tr>
             <td style="width: 50%">
                 <input type="text" th:field="*{begin}" class="form-control" id="reservationBeginDate"
-                       placeholder="Check-in" readonly="readonly"/>
+                       placeholder="Check-in" readonly="readonly" required="true"/>
             </td>
             <td colspan="2">
                 <input type="text" th:field="*{end}" class="form-control" id="reservationEndDate"
-                       placeholder="Check-out" readonly="readonly"/>
+                       placeholder="Check-out" readonly="readonly" required="true"/>
             </td>
         </tr>
 
@@ -90,8 +88,8 @@
             <td>Places:</td>
             <td colspan="2">
                 <input type="text" class="form-control" placeholder="Number of places" th:field="*{places}"
-                       id="reservationPlaces"/>
-                <div th:if="${#fields.hasErrors('places')}" th:errors="*{places}" class="formError">
+                       id="reservationPlaces" required="true"/>
+                <div th:if="${#fields.hasErrors('places')}"  th:text="'Incorrect input'" class="formError">
                     Places errors
                 </div>
             </td>
@@ -118,8 +116,7 @@
                 </select>
             </td>
             <td style="text-align: right">
-                <a id="checkAvailabilityButton" class="glyphicon glyphicon-refresh"
-                   style="display: inline-block; cursor: pointer"></a>
+                <a id="checkAvailabilityButton" class="glyphicon glyphicon-refresh" style="display: inline-block; cursor: pointer"></a>
             </td>
         </tr>
 
@@ -130,14 +127,14 @@
                 Total price:
             </td>
             <td>
-                <input class="form-control" type="text" id="reservationTotalPriceTxt" th:field="*{totalPrice}"
-                       required="true"/>
-                <div id="reservationTotalPriceLabel"
-                     style="text-align: right; font-style: italic;"></div>
+                <input class="form-control" type="text" id="reservationTotalPriceTxt" th:field="*{totalPrice}" required="true"/>
+                <div id="reservationTotalPriceLabel" style="text-align: right; font-style: italic;"></div>
+                <div th:if="${#fields.hasErrors('places')}"  th:text="'Incorrect input'" class="formError">
+                    Total price error
+                </div>
             </td>
             <td style="text-align: right">
-                <a id="reservationCheckTotalPriceButton"
-                   class="fa fa-calculator" style="display: inline-block; cursor: pointer"></a>
+                <a id="reservationCheckTotalPriceButton" class="fa fa-calculator" style="display: inline-block; cursor: pointer"></a>
             </td>
         </tr>
 
