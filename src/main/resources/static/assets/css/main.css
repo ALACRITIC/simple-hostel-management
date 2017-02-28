@@ -154,6 +154,9 @@ a.fc-day-number {
 .hide-fc-time .fc-time{
     display: none;
 }
+.hide-fc-time .fc-list-item-time{
+    display: none;
+}
 
 .pagination-bottom-bar a{
     text-decoration: none;
