@@ -69,19 +69,19 @@ var CustomerBillForm = {
         $("#exportHtmlSelectAllDates").click(function () {
             $("#exportHtmlCheckboxesArea input[type=checkbox]").prop('checked', true);
         });
-        
+
         // display a first customer if asked in url params
         var firstCustomer = $("input[name=firstCustomerId]");
-        if(firstCustomer.length > 0 && firstCustomer.val()){
-            
+        if (firstCustomer.length > 0 && firstCustomer.val()) {
+
             var id = firstCustomer.val();
             var firstname = firstCustomer.attr("data-firstname");
             var lastname = firstCustomer.attr("data-lastname");
             var phonenumber = firstCustomer.attr("data-phonenumber");
             var label = firstname + " " + lastname + " (" + phonenumber + ")";
-            
+
             clientSearch.val(label);
-            self.searchItems(id);    
+            self.searchItems(id);
         }
     },
 
@@ -167,8 +167,8 @@ var CustomerBillForm = {
             var tr = $("<tr>");
             tr.append('<td><input class="form-check-input" type="checkbox" '
                 + 'name="reservationsToBill" value="' + element.id + '"/></td>');
-            tr.append('<td>' + moment(element.begin).format('DD/MM/YYYY') + '</td>');
-            tr.append('<td>' + moment(element.end).format('DD/MM/YYYY') + '</td>');
+            tr.append('<td>' + moment(element.begin, "DD/MM/YYYY").format('DD/MM/YYYY') + '</td>');
+            tr.append('<td>' + moment(element.end, "DD/MM/YYYY").format('DD/MM/YYYY') + '</td>');
             tr.append('<td>' + element.accommodation.name + '</td>');
             tr.append('<td>' + element.totalPrice + '</td>');
 
@@ -192,6 +192,7 @@ var CustomerBillForm = {
         thead.append("<tr>"
             + "<th></th>"
             + "<th>Purchase date</th>"
+            + "<th>Execution date</th>"
             + "<th>Name</th>"
             + "<th>Price</th>"
             + "</tr>");
@@ -203,7 +204,8 @@ var CustomerBillForm = {
             var tr = $("<tr>");
             tr.append('<td><input class="form-check-input" type="checkbox" '
                 + 'name="servicesToBill" value="' + element.id + '"/></td>');
-            tr.append('<td>' + moment(element.purchaseDate).format('DD/MM/YYYY') + '</td>');
+            tr.append('<td>' + moment(element.purchaseDate, "DD/MM/YYYY").format('DD/MM/YYYY') + '</td>');
+            tr.append('<td>' + (element.executionDate !== null ? moment(element.executionDate, "DD/MM/YYYY").format('DD/MM/YYYY') : "-") + '</td>');
             tr.append('<td>' + element.serviceType.name + '</td>');
             tr.append('<td>' + element.totalPrice + '</td>');
 
