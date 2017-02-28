@@ -1,5 +1,6 @@
 package org.remipassmoilesel.bookme.services;
 
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
@@ -10,6 +11,7 @@ import java.util.Objects;
 public class MerchantServiceTypeForm {
 
     @NotNull
+    @DecimalMin("0.01")
     private double price;
 
     @NotNull
