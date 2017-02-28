@@ -50,4 +50,8 @@ public class PaginationUtil {
         m.addAttribute("previousPageLink", getPreviousLink());
     }
 
+    public void addLinks(Model model) {
+        addNextLink(model);
+        addPreviousLink(model);
+    }
 }

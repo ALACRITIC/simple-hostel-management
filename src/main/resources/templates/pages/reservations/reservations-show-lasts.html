@@ -21,10 +21,11 @@
 
             <div th:replace="main-template :: reservation-list (reservationsList=${reservationsList})"></div>
 
-            <div th:replace="main-template :: button-view-more-reservations"></div>
-
         </div>
     </div>
+
+    <!-- Pagination bar -->
+    <div th:replace="main-template :: pagination-bottom-bar"></div>
 
     <!-- Footer -->
     <div th:replace="main-template :: footer"></div>

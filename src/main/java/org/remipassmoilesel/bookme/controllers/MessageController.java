@@ -58,8 +58,7 @@ public class MessageController {
         model.addAttribute("messagesList", messagesList);
 
         PaginationUtil pu = new PaginationUtil(Mappings.MESSAGES_SHOW_LATEST, limit, offset);
-        pu.addNextLink(model);
-        pu.addPreviousLink(model);
+        pu.addLinks(model);
 
         Mappings.includeMappings(model);
         return Templates.MESSAGES_SHOW_LATEST;

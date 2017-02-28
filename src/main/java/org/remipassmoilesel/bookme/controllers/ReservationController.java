@@ -10,6 +10,7 @@ import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.reservations.Reservation;
 import org.remipassmoilesel.bookme.reservations.ReservationForm;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
+import org.remipassmoilesel.bookme.utils.PaginationUtil;
 import org.remipassmoilesel.bookme.utils.TokenManager;
 import org.remipassmoilesel.bookme.utils.Utils;
 import org.slf4j.Logger;
@@ -51,7 +52,10 @@ public class ReservationController {
      * @return
      */
     @RequestMapping(value = Mappings.RESERVATIONS_SHOW_LATEST, method = RequestMethod.GET)
-    public String showLastsReservation(Model model) {
+    public String showLastsReservation(
+            @RequestParam(value = "limit", required = false, defaultValue = "20") Long limit,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") Long offset,
+            Model model) {
 
         try {
             List<Reservation> lasts = reservationService.getLastReservations(20, 0);
@@ -59,6 +63,9 @@ public class ReservationController {
         } catch (IOException e) {
             logger.error("Error while retrieving reservations", e);
         }
+
+        PaginationUtil pu = new PaginationUtil(Mappings.RESERVATIONS_SHOW_LATEST, limit, offset);
+        pu.addLinks(model);
 
         Mappings.includeMappings(model);
 
@@ -131,8 +138,6 @@ public class ReservationController {
 
     @RequestMapping(value = Mappings.RESERVATIONS_CALENDAR, method = RequestMethod.GET)
     public String showCalendar(Model model) {
-
-        //model.addAttribute("name", name);
 
         Mappings.includeMappings(model);
 
