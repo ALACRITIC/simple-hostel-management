@@ -121,14 +121,20 @@ public class ReservationController {
      * @return
      */
     @RequestMapping(value = Mappings.RESERVATIONS_NEXT_CHECKOUTS, method = RequestMethod.GET)
-    public String showNextCheckouts(Model model) {
+    public String showNextCheckouts(
+            @RequestParam(value = "limit", required = false, defaultValue = "20") Long limit,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") Long offset,
+            Model model) {
 
         try {
-            List<Reservation> nextCheckouts = reservationService.getNextCheckouts(40, 0);
+            List<Reservation> nextCheckouts = reservationService.getNextCheckouts(limit, offset);
             model.addAttribute("checkoutsList", nextCheckouts);
         } catch (IOException e) {
             logger.error("Error while retrieving reservations", e);
         }
+
+        PaginationUtil pu = new PaginationUtil(Mappings.RESERVATIONS_NEXT_CHECKOUTS, limit, offset);
+        pu.addLinks(model);
 
         Mappings.includeMappings(model);
 
