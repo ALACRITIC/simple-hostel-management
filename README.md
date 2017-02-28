@@ -30,3 +30,4 @@ Default user:
 
 ![Screenshot](screenshots/screenshot_5.png)
 
+![Screenshot](screenshots/screenshot_6.png)
