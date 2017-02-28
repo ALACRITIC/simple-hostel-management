@@ -1,5 +1,6 @@
 package org.remipassmoilesel.bookme.accommodations;
 
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,6 +33,7 @@ public class AccommodationForm {
     private String color;
 
     @NotNull
+    @DecimalMin("0.01")
     private double pricePerDay;
 
     @NotNull
@@ -58,6 +60,7 @@ public class AccommodationForm {
         setId(res.getId());
         setType(res.getType());
         setColor(res.getColor());
+        setPricePerDay(res.getPricePerDay());
     }
 
     public long getId() {

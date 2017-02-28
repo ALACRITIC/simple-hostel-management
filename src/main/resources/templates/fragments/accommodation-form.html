@@ -13,8 +13,9 @@
         <!-- Resource name -->
         <tr>
             <td colspan="2">
-                <input type="text" class="form-control" placeholder="Accommodation name" th:field="*{name}"/>
-                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="formError">
+                <input type="text" class="form-control" placeholder="Accommodation name" th:field="*{name}"
+                       required="true"/>
+                <div th:if="${#fields.hasErrors('name')}" th:text="'Invalid input'" class="formError">
                     Name error
                 </div>
             </td>
@@ -24,7 +25,7 @@
         <tr>
             <td colspan="2">
                 <textarea class="form-control" placeholder="Comment" th:field="*{comment}"></textarea>
-                <div th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" class="formError">
+                <div th:if="${#fields.hasErrors('comment')}" th:text="'Invalid input'" class="formError">
                     Comment error
                 </div>
             </td>
@@ -32,19 +33,23 @@
 
         <!-- Resource places -->
         <tr>
-            <td colspan="2">
-                <input type="text" class="form-control" placeholder="Maximum places available" th:field="*{places}"/>
-                <div th:if="${#fields.hasErrors('places')}" th:errors="*{places}" class="formError">
-                    Places error
+            <td>Available beds:</td>
+            <td>
+                <input type="text" class="form-control" placeholder="Available beds" th:field="*{places}"
+                       required="true"/>
+                <div th:if="${#fields.hasErrors('places')}" th:text="'Invalid input'" class="formError">
+                    Beds number error
                 </div>
             </td>
         </tr>
 
         <!-- Price per day -->
         <tr>
-            <td colspan="2">
-                <input type="text" class="form-control" placeholder="Price per day" th:field="*{pricePerDay}"/>
-                <div th:if="${#fields.hasErrors('pricePerDay')}" th:errors="*{pricePerDay}" class="formError">
+            <td>Price per day:</td>
+            <td>
+                <input type="text" class="form-control" placeholder="Price per day" th:field="*{pricePerDay}"
+                       required="true"/>
+                <div th:if="${#fields.hasErrors('pricePerDay')}" th:text="'Invalid input'" class="formError">
                     Price per day error
                 </div>
             </td>
@@ -53,21 +58,16 @@
         <!-- Resource type -->
         <tr>
             <td>
-                Resource type:
+                Accommodation type:
             </td>
             <td>
-                <select class="form-control" th:field="*{type}">
+                <select class="form-control" th:field="*{type}" required="true">
                     <option th:each="type : ${accommodationTypes}"
                             th:value="${type.toString()}"
                             th:text="${type.getReadableName()}">Accommodation name
                     </option>
                 </select>
-            </td>
-        </tr>
-
-        <tr>
-            <td colspan="2">
-                <div th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="formError">
+                <div th:if="${#fields.hasErrors('type')}" th:text="'Invalid input'" class="formError">
                     Type error
                 </div>
             </td>
@@ -84,15 +84,9 @@
                             th:style="${'color: ' + color.toHexadecimal()}"
                             th:value="${color.toRgbString()}"
                             th:text="${color.getName()}">Accommodation color
-
                     </option>
                 </select>
-            </td>
-        </tr>
-
-        <tr>
-            <td colspan="2">
-                <div th:if="${#fields.hasErrors('color')}" th:errors="*{color}" class="formError">
+                <div th:if="${#fields.hasErrors('type')}" th:text="'Invalid input'" class="formError">
                     Color error
                 </div>
             </td>
