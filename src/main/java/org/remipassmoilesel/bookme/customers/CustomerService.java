@@ -47,7 +47,7 @@ public class CustomerService extends AbstractDaoService<Customer> {
     public List<Customer> getLasts(long limit, long offset) throws IOException {
         try {
             QueryBuilder<Customer, String> builder = dao.queryBuilder();
-            builder.orderBy(Customer.CREATIONDATE_FIELD_NAME, true);
+            builder.orderBy(Customer.CREATIONDATE_FIELD_NAME, false);
             builder.limit(limit);
             if (offset > 0) {
                 builder.offset(offset);

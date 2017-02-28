@@ -221,12 +221,12 @@ public class ReservationService extends AbstractDaoService<Reservation> {
         }
     }
 
-    public List<Reservation> getByAccommodationId(Long accommodationId, long limit, long offset) throws IOException {
+    public List<Reservation> getByAccommodationId(Long accommodationId, long limit, long offset, boolean orderAscending) throws IOException {
 
         try {
             QueryBuilder queryBuilder = dao.queryBuilder();
             queryBuilder.where().eq(Reservation.ACCOMMODATION_FIELD_NAME, accommodationId);
-            queryBuilder.orderBy(Reservation.DATEBEGIN_FIELD_NAME, true);
+            queryBuilder.orderBy(Reservation.DATEBEGIN_FIELD_NAME, orderAscending);
             queryBuilder.limit(limit);
             queryBuilder.offset(offset);
 
@@ -239,7 +239,7 @@ public class ReservationService extends AbstractDaoService<Reservation> {
         }
     }
 
-    public List<Reservation> getByCustomerId(Long customerId, Boolean paid, long limit, long offset) throws IOException {
+    public List<Reservation> getByCustomerId(Long customerId, Boolean paid, long limit, long offset, boolean orderAscending) throws IOException {
         try {
             QueryBuilder queryBuilder = dao.queryBuilder();
             Where where = queryBuilder.where();
@@ -257,7 +257,7 @@ public class ReservationService extends AbstractDaoService<Reservation> {
                 where.eq(Reservation.CUSTOMER_FIELD_NAME, customerId);
             }
 
-            queryBuilder.orderBy(Reservation.DATEBEGIN_FIELD_NAME, true);
+            queryBuilder.orderBy(Reservation.DATEBEGIN_FIELD_NAME, orderAscending);
             queryBuilder.limit(limit);
             queryBuilder.offset(offset);
 

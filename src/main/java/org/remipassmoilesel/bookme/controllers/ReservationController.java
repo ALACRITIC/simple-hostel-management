@@ -84,7 +84,7 @@ public class ReservationController {
             @RequestParam(value = "id", required = true) Long accommodationId,
             Model model) throws IOException {
 
-        List<Reservation> reservationsList = reservationService.getByAccommodationId(accommodationId, 30, 0);
+        List<Reservation> reservationsList = reservationService.getByAccommodationId(accommodationId, 30, 0, false);
 
         model.addAttribute("accommodation", accommodationService.getById(accommodationId));
         model.addAttribute("reservationsList", reservationsList);
@@ -104,7 +104,7 @@ public class ReservationController {
             @RequestParam(value = "id", required = true) Long customerId,
             Model model) throws IOException {
 
-        List<Reservation> reservationsList = reservationService.getByCustomerId(customerId, null, 30, 0);
+        List<Reservation> reservationsList = reservationService.getByCustomerId(customerId, null, 30, 0, false);
 
         model.addAttribute("customer", customerService.getById(customerId));
         model.addAttribute("reservationsList", reservationsList);
@@ -425,7 +425,7 @@ public class ReservationController {
             @RequestParam("customerId") Long customerId,
             @RequestParam(value = "paid", defaultValue = "null") Boolean paid) throws Exception {
 
-        return reservationService.getByCustomerId(customerId, paid, 200, 0);
+        return reservationService.getByCustomerId(customerId, paid, 200, 0, false);
 
     }
 

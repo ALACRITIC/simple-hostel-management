@@ -498,6 +498,7 @@
                 <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Date</th>
                     <th>Customer</th>
                     <th>Price</th>
                     <th>Paid</th>
@@ -511,6 +512,9 @@
                 <tr th:each="service: ${servicesList}">
                     <td th:text="${service.getServiceType().getName()}"
                         th:style="${'color:' + service.getServiceType().getHexadecimalColor()}">Pressing
+                    </td>
+                    <td th:text="${#dates.format(service.getPurchaseDate(), 'dd/MM/yyyy HH:mm')}">
+                        05/08/2017 11:58
                     </td>
                     <td th:text="${service.getCustomer().getNameString()}">Jean Claude</td>
                     <td th:text="${service.getTotalPrice()}">15</td>
