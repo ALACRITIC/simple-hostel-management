@@ -3,6 +3,7 @@ package org.remipassmoilesel.bookme.controllers;
 import org.apache.commons.io.IOUtils;
 import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
+import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
 import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.export.ExportService;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -43,6 +45,8 @@ public class AdministrationController {
 
     @RequestMapping(value = Mappings.ADMINISTRATION_ROOT, method = RequestMethod.GET)
     public String showAdminPage(Model model) throws Exception {
+
+        model.addAttribute("langs", SpringConfiguration.AVAILABLE_LANGS);
 
         Mappings.includeMappings(model);
         return Templates.ADMINISTRATION;

@@ -13,6 +13,8 @@ var AdministrationPage = {
         var reservationBeginDate = $("#exportReservationBeginDate");
         var reservationEndDate = $("#exportReservationEndDate");
         var reservationValidButton = $("#exportReservationValidButton");
+        var changeLangButton = $("#changeLangButton");
+        var changeLangSelect = $("#changeLangSelect");
 
         // transform fields in date picker
         reservationBeginDate.datepicker({
@@ -58,6 +60,10 @@ var AdministrationPage = {
 
         serviceValidButton.click(function () {
             self.exportServicesCsv();
+        });
+
+        changeLangButton.click(function () {
+            window.location = UrlTree.getAdminPageUrl() + "?lang=" + changeLangSelect.val();
         });
 
     },

@@ -2,6 +2,19 @@ var UrlTree = {
 
     ///////////////////////////////
 
+    adminPageUrl: null,
+
+    setAdminPageUrl: function (url) {
+        UrlTree.adminPageUrl = url;
+    },
+
+    getAdminPageUrl: function () {
+        UrlTree._checkIfDefined(UrlTree.adminPageUrl, "adminPageUrl");
+        return UrlTree.adminPageUrl;
+    },  
+    
+    ///////////////////////////////
+
     accommodationAvailablesFeedUrl: null,
 
     setAccommodationsAvailableFeedUrl: function (url) {

@@ -30,12 +30,13 @@
                     </td>
 
                     <td>
-                        <select class="form-control">
-                            <option value="0">English</option>
+                        <select class="form-control" id="changeLangSelect">
+                            <option th:each="lng : ${langs}" th:value="${lng.getCode()}"
+                                    th:text="${lng.getName()}"></option>
                         </select>
                     </td>
 
-                    <td style="text-align: right">
+                    <td style="text-align: right" id="changeLangButton">
                         <button type="button" class="btn btn-primary">Change language</button>
                     </td>
                 </tr>
