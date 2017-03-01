@@ -26,7 +26,7 @@
 
         <div class="col-md-12">
 
-            <h2>Next checkouts</h2>
+            <h2 th:text="#{dashboard.nextCheckouts}">Next checkouts</h2>
 
             <div th:replace="main-template :: checkouts-list (reservationsList=${nextCheckoutsList})"></div>
 
@@ -38,7 +38,7 @@
 
         <div class="col-md-12">
 
-            <h2>Next scheduled services</h2>
+            <h2 th:text="#{dashboard.nextScheduledServices}">Next planned services</h2>
 
             <div th:replace="main-template :: scheduled-services-list (servicesList=${nextScheduledServicesList})"></div>
 
@@ -50,7 +50,7 @@
 
         <div class="col-md-12">
 
-            <h2>Last reservations</h2>
+            <h2 th:text="#{dashboard.lastReservations}">Last reservations</h2>
 
             <div th:replace="main-template :: reservation-list (reservationsList=${lastReservationsList})"></div>
 
@@ -62,7 +62,7 @@
 
         <div class="col-md-12">
 
-            <h2>Last customers registered</h2>
+            <h2 th:text="#{dashboard.lastCustomers}">Last customers registered</h2>
 
             <div th:replace="main-template :: customers-list(customersList=${lastCustomersList})"></div>
 
@@ -74,7 +74,7 @@
 
         <div class="col-md-12">
 
-            <h2>Last messages</h2>
+            <h2 th:text="#{dashboard.lastMessages}">Last messages</h2>
 
             <div th:each="message : ${lastMessagesList}">
                 <div th:replace="main-template :: message-small(message=${message})"></div>
