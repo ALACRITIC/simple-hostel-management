@@ -20,9 +20,6 @@
 
             <h1>Accommodation calendar</h1>
 
-            <div th:replace="main-template :: advice-block (adviceMessage=${'Select an accomodation in list
-                below to show which reservations are scheduled.'})"></div>
-
             <table style="margin: 1em; width: 90%; margin-bottom: 3em;">
                 <tr>
                     <td style="width: 30%">Select accomodation:</td>
@@ -34,6 +31,10 @@
                                     th:text="${accommodation.getName()}">Accommodation name
                             </option>
                         </select>
+                    </td>
+                    <td style="width: 4em;">
+                        <div th:replace="main-template :: information-icon (msg=${'Select an accomodation in list
+                            below to show which reservations are scheduled.'})"></div>
                     </td>
                 </tr>
             </table>

@@ -184,6 +184,7 @@ public class MainController {
         model.addAttribute("serviceType", serviceTypesList.get(0));
         model.addAttribute("service", servicesList.get(0));
         model.addAttribute("adviceMessage", "Advice message");
+        model.addAttribute("msg", "Advice message");
 
         Mappings.includeMappings(model);
 

@@ -161,3 +161,8 @@ a.fc-day-number {
 .pagination-bottom-bar a{
     text-decoration: none;
 }
+
+.information-icon{
+    cursor: default;
+    margin: 1em;
+}

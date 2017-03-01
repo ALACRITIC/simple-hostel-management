@@ -198,6 +198,18 @@
     </div>
 
 
+    <div class="row top-buffer">
+        <div class="col-md-12">
+
+            <h2>Information icon</h2>
+
+            <span class="information-icon fa fa-info-circle" th:fragment="information-icon"
+                  data-toggle="tooltip" th:title="${msg}">
+            </span>
+
+        </div>
+    </div>
+
     <!-- Resources -->
 
     <div class="row top-buffer">
@@ -339,7 +351,8 @@
                     <td th:text="${customer.getLastname()}">Claude</td>
                     <td th:text="${customer.getPhonenumber()}">+000002</td>
                     <td th:text="${customer.getCreationDate() != null ?
-                            #dates.format(customer.getCreationDate(), 'dd/MM/yyyy HH:mm') : '-'}">12/12/2018 12:00</td>
+                            #dates.format(customer.getCreationDate(), 'dd/MM/yyyy HH:mm') : '-'}">12/12/2018 12:00
+                    </td>
                     <td style="text-align: right;">
                         <a th:href="${mappings.get('SERVICES_BY_CUSTOMER') + '?id=' + customer.getId()}"
                            data-toggle="tooltip" data-placement="left" title="Show services ..."
@@ -523,7 +536,9 @@
                     <td th:text="${service.getCustomer().getNameString()}">Jean Claude</td>
                     <td th:text="${service.getTotalPrice()}">15</td>
                     <td class="fa" th:classappend="${service.isPaid()} ? 'fa-check' : 'fa-times'" th:text="''">X</td>
-                    <td th:text="${service.isScheduled() ? #dates.format(service.getExecutionDate(), 'dd/MM/yyyy HH:mm') : '-'}">20/12/2017</td>
+                    <td th:text="${service.isScheduled() ? #dates.format(service.getExecutionDate(), 'dd/MM/yyyy HH:mm') : '-'}">
+                        20/12/2017
+                    </td>
                     <td th:text="${service.getComment().length() > 200} ? ${#strings.substring(service.getComment(), 0, 200) + '...'} : ${service.getComment()}">
                         Comment
                     </td>
