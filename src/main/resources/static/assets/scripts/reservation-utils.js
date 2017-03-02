@@ -88,7 +88,7 @@ var ReservationUtils = {
         window.location = UrlTree.getDeleteReservationUrl() + "?id=" + reservationId + "&token=" + token;
     },
 
-    searchForCustomer: function (customerId, paid) {
+    searchForCustomer: function (customerId, paid, orderAscent) {
 
         var defer = $.Deferred();
 
@@ -99,6 +99,9 @@ var ReservationUtils = {
         var data = {customerId: customerId};
         if (typeof paid !== "undefined") {
             data.paid = paid;
+        }
+        if (typeof orderAscent !== "undefined") {
+            data.ascent = orderAscent;
         }
 
         $.ajax({

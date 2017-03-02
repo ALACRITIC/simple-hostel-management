@@ -507,6 +507,11 @@
                     </td>
                 </tr>
 
+                <tr>
+                    <td>Paid:</td>
+                    <td class="fa" th:classappend="${service.isPaid()} ? 'fa-check' : 'fa-times'" th:text="''">X</td>
+                </tr>
+
             </table>
 
             <h2>Service list</h2>

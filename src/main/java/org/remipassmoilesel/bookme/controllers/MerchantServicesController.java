@@ -363,6 +363,7 @@ public class MerchantServicesController {
                             serviceForm.isScheduled(),
                             execDate
                     );
+                    service.setPaid(serviceForm.isPaid());
 
                     merchantServiceService.create(service);
 
@@ -393,6 +394,7 @@ public class MerchantServicesController {
                 service.setComment(serviceForm.getComment());
                 service.setScheduled(serviceForm.isScheduled());
                 service.setExecutionDate(execDate);
+                service.setPaid(serviceForm.isPaid());
 
                 try {
                     // update repository
@@ -513,9 +515,10 @@ public class MerchantServicesController {
     @ResponseBody
     public List<MerchantService> searchServices(
             @RequestParam(value = "customerId", required = true) Long customerId,
-            @RequestParam(value = "paid", required = false) Boolean paid) throws Exception {
+            @RequestParam(value = "paid", required = false) Boolean paid,
+            @RequestParam(value = "ascent", required = false, defaultValue = "false") Boolean orderAscent) throws Exception {
 
-        List<MerchantService> result = merchantServiceService.getByCustomerId(customerId, paid, true);
+        List<MerchantService> result = merchantServiceService.getByCustomerId(customerId, paid, orderAscent);
 
         return result;
 

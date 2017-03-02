@@ -429,9 +429,10 @@ public class ReservationController {
     @ResponseBody
     public List<Reservation> searchReservations(
             @RequestParam("customerId") Long customerId,
-            @RequestParam(value = "paid", defaultValue = "null") Boolean paid) throws Exception {
+            @RequestParam(value = "paid", defaultValue = "null", required = false) Boolean paid,
+            @RequestParam(value = "ascent", defaultValue = "false", required = false) Boolean orderAscending) throws Exception {
 
-        return reservationService.getByCustomerId(customerId, paid, 200, 0, false);
+        return reservationService.getByCustomerId(customerId, paid, 200, 0, orderAscending);
 
     }
 

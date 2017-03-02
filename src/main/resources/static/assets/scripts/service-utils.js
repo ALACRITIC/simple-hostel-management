@@ -52,17 +52,20 @@ var ServiceUtils = {
         });
     },
 
-    searchForCustomer: function (customerId, paid) {
-        
+    searchForCustomer: function (customerId, paid, orderAscent) {
+
         var defer = $.Deferred();
 
         if (!customerId) {
             throw "Customer id is null";
         }
-        
+
         var data = {customerId: customerId};
         if (typeof paid !== "undefined") {
             data.paid = paid;
+        }
+        if (typeof orderAscent !== "undefined") {
+            data.ascent = orderAscent;
         }
 
         $.ajax({

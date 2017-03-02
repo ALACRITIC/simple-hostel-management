@@ -105,7 +105,7 @@ var CustomerBillForm = {
         customerOldServicesResult.empty();
 
         // search for non-billed reservations
-        ReservationUtils.searchForCustomer(customerId, false)
+        ReservationUtils.searchForCustomer(customerId, false, false)
             .then(function (response) {
                 self.displayReservationResults(response, customerReservationsResult);
             })
@@ -115,7 +115,7 @@ var CustomerBillForm = {
             });
 
         // search for billed reservations
-        ReservationUtils.searchForCustomer(customerId, true)
+        ReservationUtils.searchForCustomer(customerId, true, false)
             .then(function (response) {
                 self.displayReservationResults(response, customerOldReservationsResult);
             })
@@ -125,7 +125,7 @@ var CustomerBillForm = {
             });
 
         // search for services
-        ServiceUtils.searchForCustomer(customerId, false)
+        ServiceUtils.searchForCustomer(customerId, false, false)
             .then(function (response) {
                 self.displayServicesResults(response, customerServicesResult);
             })
@@ -135,7 +135,7 @@ var CustomerBillForm = {
             });
 
         // search for services
-        ServiceUtils.searchForCustomer(customerId, true)
+        ServiceUtils.searchForCustomer(customerId, true, false)
             .then(function (response) {
                 self.displayServicesResults(response, customerOldServicesResult);
             })
@@ -204,8 +204,8 @@ var CustomerBillForm = {
             var tr = $("<tr>");
             tr.append('<td><input class="form-check-input" type="checkbox" '
                 + 'name="servicesToBill" value="' + element.id + '"/></td>');
-            tr.append('<td>' + moment(element.purchaseDate, "DD/MM/YYYY").format('DD/MM/YYYY') + '</td>');
-            tr.append('<td>' + (element.executionDate !== null ? moment(element.executionDate, "DD/MM/YYYY").format('DD/MM/YYYY') : "-") + '</td>');
+            tr.append('<td>' + element.purchaseDate + '</td>');
+            tr.append('<td>' + (element.executionDate !== null ? element.executionDate : "-") + '</td>');
             tr.append('<td>' + element.serviceType.name + '</td>');
             tr.append('<td>' + element.totalPrice + '</td>');
 
