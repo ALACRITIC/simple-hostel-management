@@ -74,13 +74,13 @@
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Main menu</span>
+                <span class="sr-only" th:text="#{menu.main-menu}">Main menu</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" th:href="${mappings.get('APPLICATION_ROOT')}" style="width: 20%" data-tool="true"
-               data-toggle="tooltip" title="Main menu">
+               data-toggle="tooltip" th:title="#{menu.main-menu}">
                 <img style="vertical-align:middle; height: 120%; margin-left: 1em;" src="/assets/img/logo.svg"/>
             </a>
         </div>
@@ -90,20 +90,28 @@
             <ul class="nav navbar-nav">
 
                 <li><a th:href="${mappings.get('DASHBOARD')}">
-                    <span class="fa fa-tachometer"></span>&nbsp;&nbsp;Dashboard</a></li>
-
+                    <span class="fa fa-tachometer"></span>
+                    <span th:text="#{dashboard.title}"></span></a></li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">
-                        <span class="fa fa-plus"></span>&nbsp;&nbsp;New <span class="caret"></span></a>
+                        <span class="fa fa-plus"></span>
+                        <span th:text="#{menu.new}">New</span>
+                        <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="${mappings.get('RESERVATIONS_FORM')}">New reservation</a></li>
-                        <li><a th:href="${mappings.get('SERVICES_FORM')}">Bill a service</a></li>
-                        <li><a th:href="${mappings.get('MESSAGES_FORM')}">New message</a></li>
+                        <li><a th:href="${mappings.get('RESERVATIONS_FORM')}" th:text="#{menu.new-reservation}">New
+                            reservation</a></li>
+                        <li><a th:href="${mappings.get('SERVICES_FORM')}" th:text="#{menu.bill-service}">Bill a
+                            service</a></li>
+                        <li><a th:href="${mappings.get('MESSAGES_FORM')}" th:text="#{menu.new-message}">New message</a>
+                        </li>
                         <li role="separator" class="divider"></li>
-                        <li><a th:href="${mappings.get('ACCOMMODATIONS_FORM')}">New accommodation</a></li>
-                        <li><a th:href="${mappings.get('SERVICE_TYPES_FORM')}">New service type</a></li>
+                        <li><a th:href="${mappings.get('ACCOMMODATIONS_FORM')}" th:text="#{menu.new-accommodation}">New
+                            accommodation</a></li>
+                        <li><a th:href="${mappings.get('SERVICE_TYPES_FORM')}" th:text="#{menu.new-service-type}">New
+                            service type</a></li>
                     </ul>
                 </li>
 
