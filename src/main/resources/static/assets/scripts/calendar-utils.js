@@ -1,5 +1,7 @@
 var CalendarUtils = {
 
+    currentTimezone: moment.tz.guess(),
+
     createReservationCalendar: function (selector) {
 
         var self = CalendarUtils;
@@ -61,20 +63,32 @@ var CalendarUtils = {
     },
 
     /**
+     * Format a raw date and return a momentjs object in browser timezone
+     * @param rawDate
+     * @returns {*}
+     */
+    formatDate: function (rawDate) {
+        var self = CalendarUtils;
+        return moment.tz(rawDate, "DD/MM/YYYY HH:mm", "GMT").tz(self.currentTimezone);
+    },
+
+    /**
      * Transform distant events to full calendar events format
      * @param arrayOfEvents
      */
     reservationsToFullcalendarEvents: function (arrayOfEvents) {
+
+        var self = CalendarUtils;
 
         var events = [];
         $.each(arrayOfEvents, function (index, element) {
 
             var firstname = element.customer.firstname;
             var lastname = element.customer.lastname;
-            var startDate = element.begin;
+            var startDate = self.formatDate(element.begin);
             var color = element.accommodation ? "rgb(" + element.accommodation.color + ")" : "#444444";
             var accommodationName = element.accommodation ? element.accommodation.name : "";
-            var endDate = element.end;
+            var endDate = self.formatDate(element.end);
 
             events.push({
                 title: firstname + " " + lastname + " (" + accommodationName + ")",
@@ -151,12 +165,14 @@ var CalendarUtils = {
 
     servicesToFullcalendarEvents: function (arrayOfEvents) {
 
+        var self = CalendarUtils;
+
         var events = [];
         $.each(arrayOfEvents, function (index, element) {
 
             var firstname = element.customer.firstname;
             var lastname = element.customer.lastname;
-            var execDate = element.executionDate;
+            var execDate = self.formatDate(element.executionDate);
             var color = element.serviceType ? "rgb(" + element.serviceType.color + ")" : "#444444";
 
             events.push({
