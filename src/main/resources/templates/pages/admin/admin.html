@@ -31,8 +31,9 @@
 
                     <td>
                         <select class="form-control" id="changeLangSelect">
-                            <option th:each="lng : ${langs}" th:value="${lng.getCode()}"
-                                    th:text="${lng.getName()}"></option>
+                            <option th:each="lng : ${locales}" th:value="${lng.getCode()}"
+                                    th:text="${lng.getName()}"
+                                    th:selected="${#strings.equals(lng.getCode(), currentLocale)}">Français</option>
                         </select>
                     </td>
 

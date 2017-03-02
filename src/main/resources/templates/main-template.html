@@ -158,16 +158,24 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">
-                        <span class="fa fa-users"></span>&nbsp;&nbsp;Customers <span class="caret"></span></a>
+                        <span class="fa fa-users"></span>
+                        <span th:text="#{menu.customers}">Customers</span>
+                        <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="${mappings.get('CUSTOMERS_SEARCH')}">Search</a></li>
-                        <li><a th:href="${mappings.get('CUSTOMERS_BILL_FORM')}">Bill a customer</a></li>
-                        <li><a th:href="${mappings.get('CUSTOMERS_SHOW_LATEST')}">View latest</a></li>
+                        <li><a th:href="${mappings.get('CUSTOMERS_SEARCH')}"
+                               th:text="#{menu.customers-search}">Search</a></li>
+                        <li><a th:href="${mappings.get('CUSTOMERS_BILL_FORM')}"
+                               th:text="#{menu.customers-bill-form}">Bill a customer</a></li>
+                        <li><a th:href="${mappings.get('CUSTOMERS_SHOW_LATEST')}"
+                               th:text="#{menu.customers-show-latest}">View latest</a></li>
                     </ul>
                 </li>
 
                 <li><a th:href="${mappings.get('ADMINISTRATION_ROOT')}">
-                    <span class="fa fa-cog"></span>&nbsp;&nbsp;Administration</a></li>
+                    <span class="fa fa-cog"></span>
+                    <span th:text="#{menu.administration}">Administration</span>
+                    </a></li>
             </ul>
 
             <form class="form-inline" th:action="${mappings.get('LOGOUT_URL')}" method="post">

@@ -44,7 +44,7 @@ public class SpringConfiguration extends WebMvcConfigurerAdapter {
 
     public static final Path TEMP_DIRECTORY = Paths.get("./tmp");
 
-    public static final List<Lang> AVAILABLE_LANGS = Arrays.asList(
+    public static final List<Lang> AVAILABLE_LOCALES = Arrays.asList(
         new Lang("en", "English"),
         new Lang("es", "Spanish")
     );

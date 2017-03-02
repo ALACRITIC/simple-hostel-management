@@ -4,13 +4,14 @@ import org.apache.commons.io.IOUtils;
 import org.remipassmoilesel.bookme.Mappings;
 import org.remipassmoilesel.bookme.Templates;
 import org.remipassmoilesel.bookme.configuration.SpringConfiguration;
-import org.remipassmoilesel.bookme.customers.Customer;
 import org.remipassmoilesel.bookme.customers.CustomerService;
 import org.remipassmoilesel.bookme.export.ExportService;
 import org.remipassmoilesel.bookme.reservations.ReservationService;
 import org.remipassmoilesel.bookme.services.MerchantServiceService;
 import org.remipassmoilesel.bookme.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -44,9 +44,10 @@ public class AdministrationController {
     private MerchantServiceService merchantServiceService;
 
     @RequestMapping(value = Mappings.ADMINISTRATION_ROOT, method = RequestMethod.GET)
-    public String showAdminPage(Model model) throws Exception {
+    public String showAdminPage(Model model, ReloadableResourceBundleMessageSource messageSource) throws Exception {
 
-        model.addAttribute("langs", SpringConfiguration.AVAILABLE_LANGS);
+        model.addAttribute("locales", SpringConfiguration.AVAILABLE_LOCALES);
+        model.addAttribute("currentLocale", LocaleContextHolder.getLocale());
 
         Mappings.includeMappings(model);
         return Templates.ADMINISTRATION;
