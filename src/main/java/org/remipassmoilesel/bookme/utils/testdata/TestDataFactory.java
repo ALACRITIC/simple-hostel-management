@@ -152,6 +152,9 @@ public class TestDataFactory {
                     null
             );
 
+            // some non scheduled are paid
+            serv.setPaid(i % 2 == 0);
+
             merchantServiceService.create(serv);
             bills.add(serv);
         }

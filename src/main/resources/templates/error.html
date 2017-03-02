@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Accommodation calendar</title>
+
+    <script th:replace="main-template :: page-headers"></script>
+
+    <script th:replace="fragments/calendar-headers"></script>
+
+</head>
+<body>
+
+<!-- Navigation bar -->
+<div th:replace="main-template :: navbar"></div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <h1>Accommodation calendar</h1>
+
+            <table style="margin: 1em; width: 90%; margin-bottom: 3em;">
+                <tr>
+                    <td style="width: 30%">Select accomodation:</td>
+                    <td>
+                        <select class="form-control" id="calendarAccommodationSelect">
+                            <option value="-1" th:text="'All'"></option>
+                            <option th:each="accommodation : ${accommodationsList}"
+                                    th:value="${accommodation.getId()}"
+                                    th:text="${accommodation.getName()}">Accommodation name
+                            </option>
+                        </select>
+                    </td>
+                    <td style="width: 4em;">
+                        <div th:replace="main-template :: information-icon (msg=${'Select an accomodation in list
+                            below to show which reservations are scheduled.'})"></div>
+                    </td>
+                </tr>
+            </table>
+
+            <div id='accommodationsCalendar' style="margin: auto"></div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+
+            CalendarUtils.createAccommodationCalendar("#accommodationsCalendar", "#calendarAccommodationSelect");
+
+            // refresh calendar on change
+            $("#calendarAccommodationSelect").change(function () {
+                $("#accommodationsCalendar").fullCalendar('refetchEvents');
+            });
+
+        });
+    </script>
+
+    <!-- Footer -->
+    <div th:replace="main-template :: footer"></div>
+
+    <!--<div th:replace="fragments/show-debug :: debug"></div>-->
+
+</div>
+
+</body>
+</html>

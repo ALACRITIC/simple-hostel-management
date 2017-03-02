@@ -25,13 +25,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
-import static org.hamcrest.Matchers.isEmptyString;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Created by remipassmoilesel on 22/02/17.
@@ -122,6 +123,35 @@ public class MerchantServiceControllerTest {
         assertTrue(merchantServiceService.getById(services.get(0).getId()) == null);
         assertTrue(merchantServiceTypesService.getById(serviceTypes.get(0).getId()) != null);
         assertTrue(merchantServiceTypesService.getById(serviceTypes.get(0).getId()).isDeleted() == true);
+    }
+
+    @Test
+    public void testSearch() throws Exception {
+
+        // test service search
+        List<Customer> oneCustomer = (List<Customer>) Arrays.asList(customers.get(1));
+        TestDataFactory.createServices(20, oneCustomer, serviceTypes,
+                new DateTime(), merchantServiceService);
+
+        mockMvc.perform(get(Mappings.SERVICES_JSON_SEARCH)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("customerId", String.valueOf(customers.get(1).getId()))
+                .param("paid", String.valueOf(false)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.*", hasSize(greaterThan(1))))
+                .andExpect(jsonPath("$.[?(@.paid === true)]", hasSize(0)))
+                .andExpect(jsonPath("$.[?(@.paid === false)]", hasSize(greaterThan(0))));
+
+        mockMvc.perform(get(Mappings.SERVICES_JSON_SEARCH)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("customerId", String.valueOf(customers.get(1).getId()))
+                .param("paid", String.valueOf(true)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.*", hasSize(greaterThan(1))))
+                .andExpect(jsonPath("$.[?(@.paid === false)]", hasSize(0)))
+                .andExpect(jsonPath("$.[?(@.paid === true)]", hasSize(greaterThan(0))));
 
     }
 
