@@ -10,6 +10,8 @@ var CustomerBillForm = {
 
         var self = CustomerBillForm;
 
+        self.currentTimezone = moment.tz.guess();
+
         var validButton = $("#exportHtmlValidButton");
         var clientSearch = $("#exportHtmlClientSeachTextField");
         var customerId = $("#exportHtmlCustomerId");
@@ -148,6 +150,8 @@ var CustomerBillForm = {
 
     displayReservationResults: function (results, target) {
 
+        var self = CustomerBillForm;
+
         var table = $("<table class='table table-striped'>");
 
         var thead = $("<thead>");
@@ -167,8 +171,8 @@ var CustomerBillForm = {
             var tr = $("<tr>");
             tr.append('<td><input class="form-check-input" type="checkbox" '
                 + 'name="reservationsToBill" value="' + element.id + '"/></td>');
-            tr.append('<td>' + moment(element.begin, "DD/MM/YYYY").format('DD/MM/YYYY') + '</td>');
-            tr.append('<td>' + moment(element.end, "DD/MM/YYYY").format('DD/MM/YYYY') + '</td>');
+            tr.append('<td>' + self.formatDate(element.begin, "DD/MM/YYYY") + '</td>');
+            tr.append('<td>' + self.formatDate(element.end, "DD/MM/YYYY") + '</td>');
             tr.append('<td>' + element.accommodation.name + '</td>');
             tr.append('<td>' + element.totalPrice + '</td>');
 
@@ -185,6 +189,7 @@ var CustomerBillForm = {
 
     displayServicesResults: function (results, target) {
 
+        var self = CustomerBillForm;
         var table = $("<table class='table table-striped'>");
 
         var thead = $("<thead>");
@@ -198,14 +203,15 @@ var CustomerBillForm = {
             + "</tr>");
         table.append(thead);
 
+
         var tbody = $('<tbody>');
         $.each(results, function (index, element) {
 
             var tr = $("<tr>");
             tr.append('<td><input class="form-check-input" type="checkbox" '
                 + 'name="servicesToBill" value="' + element.id + '"/></td>');
-            tr.append('<td>' + element.purchaseDate + '</td>');
-            tr.append('<td>' + (element.executionDate !== null ? element.executionDate : "-") + '</td>');
+            tr.append('<td>' + self.formatDate(element.purchaseDate) + '</td>');
+            tr.append('<td>' + (element.executionDate !== null ? self.formatDate(element.executionDate) : "-") + '</td>');
             tr.append('<td>' + element.serviceType.name + '</td>');
             tr.append('<td>' + element.totalPrice + '</td>');
 
@@ -218,6 +224,16 @@ var CustomerBillForm = {
 
         table.append(tbody);
         target.append(table);
+    },
+
+    formatDate: function (rawDate, outputFormat) {
+
+        if(!outputFormat){
+            outputFormat = "DD/MM/YYYY HH:mm";
+        }
+
+        var self = CustomerBillForm;
+        return moment.tz(rawDate, "DD/MM/YYYY HH:mm", "GMT").tz(self.currentTimezone).format(outputFormat);
     },
 
     exportBillHtml: function () {

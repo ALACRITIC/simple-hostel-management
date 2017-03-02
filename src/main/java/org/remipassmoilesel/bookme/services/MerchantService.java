@@ -37,14 +37,16 @@ public class MerchantService {
     @DatabaseField(columnName = COMMENT_FIELD_NAME, dataType = DataType.LONG_STRING)
     private String comment;
 
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    // /!\ GMT time
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     @DatabaseField(columnName = PURCHASE_DATE_FIELD_NAME)
     private Date purchaseDate;
 
     @DatabaseField(columnName = IS_SCHEDULED_FIELD_NAME)
     private boolean scheduled;
 
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    // /!\ GMT time
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     @DatabaseField(columnName = EXECUTION_DATE_FIELD_NAME)
     private Date executionDate;
 
