@@ -129,7 +129,7 @@
             <td>
                 <input class="form-control" type="text" id="reservationTotalPriceTxt" th:field="*{totalPrice}" required="true"/>
                 <div id="reservationTotalPriceLabel" style="text-align: right; font-style: italic;"></div>
-                <div th:if="${#fields.hasErrors('places')}"  th:text="'Incorrect input'" class="formError">
+                <div th:if="${#fields.hasErrors('totalPrice')}"  th:text="'Incorrect input'" class="formError">
                     Total price error
                 </div>
             </td>
@@ -190,6 +190,9 @@
 
     <script src="/assets/scripts/reservation-form.js"></script>
 
+    <!--<div th:replace="fragments/show-debug :: debug"></div>-->
+
 </form>
+
 </body>
 </html>
