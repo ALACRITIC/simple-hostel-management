@@ -14,7 +14,7 @@
 
  -->
 
-<div style="width: 100%" th:fragment="debug">
+<div class="cols-offset-1 cols-md-10" style="width: 100%" th:fragment="debug">
 
     <table>
 
@@ -32,6 +32,9 @@
         -->
 
         <tr>
+            <td style="background: black; color: white;"><h1>#vars</h1></td>
+        </tr>
+        <tr>
             <td style="background: black; color: white;">#vars</td>
         </tr>
         <tr th:each="var : ${#vars}">
@@ -42,6 +45,9 @@
             <td>&nbsp;</td>
         </tr>
 
+        <tr>
+            <td style="background: black; color: white;"><h1>#ctx</h1></td>
+        </tr>
         <tr>
             <td style="background: black; color: white;">#ctx</td>
         </tr>
