@@ -25,9 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertTrue;
@@ -206,4 +204,36 @@ public class ReservationControllerTest {
 
         assertTrue(reservationService.getById(reservation.getId()).isPaid() == true);
     }
+
+
+    @Test
+    public void testSearch() throws Exception {
+
+        // test service search
+        List<Customer> oneCustomer = (List<Customer>) Arrays.asList(customers.get(1));
+        TestDataFactory.createReservations(20, accommodations, oneCustomer,
+                new DateTime(), reservationService);
+
+        mockMvc.perform(get(Mappings.RESERVATIONS_JSON_SEARCH)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("customerId", String.valueOf(customers.get(1).getId()))
+                .param("paid", String.valueOf(false)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.*", hasSize(greaterThan(1))))
+                .andExpect(jsonPath("$.[?(@.paid === true)]", hasSize(0)))
+                .andExpect(jsonPath("$.[?(@.paid === false)]", hasSize(greaterThan(0))));
+
+        mockMvc.perform(get(Mappings.RESERVATIONS_JSON_SEARCH)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("customerId", String.valueOf(customers.get(1).getId()))
+                .param("paid", String.valueOf(true)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.*", hasSize(greaterThan(1))))
+                .andExpect(jsonPath("$.[?(@.paid === false)]", hasSize(0)))
+                .andExpect(jsonPath("$.[?(@.paid === true)]", hasSize(greaterThan(0))));
+
+    }
+
 }

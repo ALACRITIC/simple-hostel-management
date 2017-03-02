@@ -111,6 +111,9 @@ public class TestDataFactory {
                     startDate.plusDays(i + Utils.randInt(3, 6)).toDate());
             reservation.computeStandardTotalPrice();
 
+            // some reservations are paid
+            reservation.setPaid(i % 2 == 0);
+
             reservationService.create(reservation);
             reservations.add(reservation);
         }
